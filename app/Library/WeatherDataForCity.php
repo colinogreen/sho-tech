@@ -4,16 +4,16 @@ namespace app\Library;
 
 Final class WeatherDataForCity
 {
-    private $day_highest_temp = [];
-    private $day_lowest_temp = [];
-    private $day_chance_rain = [];
-    private $day_wind_speed = [];
-    private $day_of_week = [];
-    private $day_weather_code = [];
+    private $dayHighestTemp = [];
+    private $dayLowestTemp = [];
+    private $dayChanceRain = [];
+    private $dayWindSpeed = [];
+    private $dayOfWeek = [];
+    private $dayWeatherCode = [];
     
-    private $dailyForecastDisplay = [];
+    //private $dailyForecastDisplay = [];
     
-    private $last_update = "N/A";
+    private $lastUpdate = "N/A";
     
     public function __construct()
     {
@@ -64,24 +64,24 @@ Final class WeatherDataForCity
     {
         if(!empty($last_update))
         {
-            $this->last_update = $last_update;
+            $this->lastUpdate = $last_update;
         }
         
     }
 
     public function getDailyForecastLastUpdate():?string
     {
-        return date("H:i - d-m-Y", strtotime($this->last_update));
+        return date("H:i - d-m-Y", strtotime($this->lastUpdate));
     } 
     
     private function setDaySignificantWeatherCode(string $code)
     {
-        $this->day_weather_code[] = $this->getDayWeatherLabel()[$code];
+        $this->dayWeatherCode[] = $this->getDayWeatherLabel()[$code];
     }
     
     public function getDaySignificantWeatherCode($code)
     {
-        return $this->day_weather_code[$code];
+        return $this->dayWeatherCode[$code];
     }
     private function setDailyForecastParameters(array $timeseries):void
     {
@@ -103,48 +103,48 @@ Final class WeatherDataForCity
     
     private function setDayOfWeek(string $date):void
     {
-        $this->day_of_week[] = date("D", strtotime($date));
+        $this->dayOfWeek[] = date("D", strtotime($date));
     }
     
     public function getDayOfWeek($day):?string
     {
-        return $this->day_of_week[$day];
+        return $this->dayOfWeek[$day];
     }    
     private function setDayHighestTemp(string $data):void
     {
-        $this->day_highest_temp[] = $data;
+        $this->dayHighestTemp[] = $data;
     }
     
     public function getDayHighestTemp($day):?string
     {
-        return $this->day_highest_temp[$day];
+        return $this->dayHighestTemp[$day];
     }
     
     private function setDayLowestTemp(string $data):void
     {
-        $this->day_lowest_temp[] = $data;
+        $this->dayLowestTemp[] = $data;
     }
     
     public function getDayLowestTemp($day):?string
     {
-        return $this->day_lowest_temp[$day];
+        return $this->dayLowestTemp[$day];
     }
     private function setDayChanceOfRain(string $data):void
     {
-        $this->day_chance_rain[] = $data;
+        $this->dayChanceRain[] = $data;
     }
     
     public function getDayChanceOfRain($day):?string
     {
-        return $this->day_chance_rain[$day];
+        return $this->dayChanceRain[$day];
     }    
     private function setDayWindSpeed(string $data):void
     {
-        $this->day_wind_speed[] = $data;
+        $this->dayWindSpeed[] = $data;
     }
     
     public function getDayWindSpeed($day):?string
     {
-        return $this->day_wind_speed[$day];
+        return $this->dayWindSpeed[$day];
     }  
 }
