@@ -1,0 +1,9 @@
+<IfModule mod_rewrite.c>
+# IMPORTANT - JUNE 2021: This .htaccess file redirects to the public/ subfolder as if this goes on cpanel public_html,...
+# ... the public folder cannot be configured!
+RewriteEngine On
+RewriteBase /
+
+RewriteRule ^(.*)$ public/$1 [L]
+# Direct all requests to /public folder
+</IfModule>

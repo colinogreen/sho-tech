@@ -25,8 +25,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        //$schedule->command('command:getweatherdata')->hourly(); // based on scheduled cronjob similar to: * * * * * cd <laravel-path> && php artisan schedule:run >> /dev/null 2>&1
-        $schedule->command('command:getweatherdata')->everyFiveMinutes(); // based on scheduled cronjob similar to: * * * * * cd <laravel-path> && php artisan schedule:run >> /dev/null 2>&1
+        $schedule->command('command:getweatherdata')->hourly(); // based on scheduled cronjob similar to: * * * * * cd <laravel-path> && php artisan schedule:run >> /dev/null 2>&1
+        //$schedule->command('command:getweatherdata')->everyFiveMinutes(); // based on scheduled cronjob similar to: * * * * * cd <laravel-path> && php artisan schedule:run >> /dev/null 2>&1
         //$schedule->command('writetolog')->everyMinute();
     }
 
