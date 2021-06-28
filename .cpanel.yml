@@ -4,7 +4,7 @@ deployment:
     #- export DEPLOYPATH=/home/technohe/public_cms/
     - current_path=`pwd` # set current path to variable
     - echo $pwd
-    - if [ $current_path == "/home/technohe/repositories/public_sho" ]; then export DEPLOYPATH=/home/technohe/public_sho/;
+    - if [ $current_path == "/home/technohe/repositories/public_sho" ]; then export DEPLOYPATH=/home/technohe/public_sho/; fi;
 #    - if [ $current_path == "/home/technohe/repositories/public_cms_2021" ]; then export DEPLOYPATH=/home/technohe/public_cms_2021/; fi;
 #    - /bin/cp -R /home/technohe/repositories/public_cms_2021/* $DEPLOYPATH
     - /bin/cp -r app $DEPLOYPATH
@@ -14,6 +14,5 @@ deployment:
     - /bin/cp -r routes $DEPLOYPATH
     - /bin/cp -r public $DEPLOYPATH
     - /bin/cp -r .htaccess $DEPLOYPATH
-     fi;
 #    - /bin/cp -R package.json $DEPLOYPATH
 
