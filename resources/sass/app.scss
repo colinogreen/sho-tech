@@ -1,0 +1,48 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+//@import "~font-awesome/scss/font-awesome.scss";
+// Font-Awesome
+@import '~@fortawesome/fontawesome-free/css/fontawesome.css';
+@import '~@fortawesome/fontawesome-free/css/regular.css';
+@import '~@fortawesome/fontawesome-free/css/solid.css';
+@import '~@fortawesome/fontawesome-free/css/brands.css';
+//@import "~font-awesome/scss/font-awesome"
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+.temp-high
+{
+    span{
+        color:red;
+    }
+}
+
+.temp-low
+{
+    span{
+        color:blue;
+    }
+}
+
+.weather_table{
+    .row > div:nth-child(-n+4){
+        border-right: 1px solid #ccc
+    }
+    div > div > span{
+        margin-bottom: 10px;
+        display: inline-block;
+    }
+    div > div > h4{
+        margin-bottom: 0;
+    }
+    .fas{
+        font-size: 1.2em;
+    }
+    
+    .fa-wind{
+        font-size: 1.1em 
+    }
+}
