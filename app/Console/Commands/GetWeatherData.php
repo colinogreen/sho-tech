@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
-use App\Http\Controllers\WeatherFivedayForecast;
 
 class GetWeatherData extends Command
 {
@@ -27,40 +26,19 @@ class GetWeatherData extends Command
      *
      * @return void
      */
-    public function __construct()
-    {
-        parent::__construct();
-    }
+//    public function __construct()
+//    {
+//        parent::__construct();
+//    }
     private function getAPICredentials()
     {
         return parse_ini_file(dirname(__FILE__, 5)."/connect/met_office_api.ini");        
     }   
     
-    private function queryAPIAndGetData()
-    {
-        $api_cred = $this->getAPICredentials();
-        $response = Http::withHeaders([
-        'X-IBM-Client-Id' => $api_cred['X-IBM-Client-Id'],
-        'X-IBM-Client-Secret' => $api_cred['X-IBM-Client-Secret']
-        ])->get('https://api-metoffice.apiconnect.ibmcloud.com/metoffice/production/v0/forecasts/point/daily', [
-            'latitude' => '56.460925484470174', // Dundee latitude
-            'longitude' => '-2.9706113751332133',  // Dundee longitude
-        ]);
-        if(!empty(json_decode($response)))
-        {
-            //echo "Got data!:\n$response\n";
-            file_put_contents($this->getDataFilePath(), $response);
-           
-            return true;
-        }
-        
-        return false;
-    }
-    
-    public function checkDataFileExists()
-    {
-        return file_exists($this->getDataFilePath());
-    }
+//    public function checkDataFileExists()
+//    {
+//        return file_exists($this->getDataFilePath());
+//    }
     
     private function getDataFolderPath()
     {

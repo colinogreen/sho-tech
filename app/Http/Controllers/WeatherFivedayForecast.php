@@ -12,12 +12,13 @@ class WeatherFivedayForecast extends Controller
  public function index()
     {
         $cityWeather = new WeatherDataForCity();
-        if($this->setWeatherData())
-        {
-            \Log::debug("Had to set cached weather data file for the first time.");
-        }
-        $cityWeather->setData();
-
+        $cityWeather->queryAPIOrGetData();
+//        if($this->setWeatherData())
+//        {
+//            \Log::debug("Had to set cached weather data file for the first time.");
+//        }
+//        $cityWeather->setData();
+//
         return view("weather_index", ["last_update"=> $cityWeather->getDailyForecastLastUpdate(),"weather_data"=>$this->getWeatherTable($cityWeather)]);
 
     }

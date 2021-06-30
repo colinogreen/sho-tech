@@ -1,7 +1,9 @@
 <?php
 
 namespace app\Library;
-
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Cache;
+//use App\Http\Controllers\WeatherFivedayForecast;
 Final class WeatherDataForCity
 {
     private $dayHighestTemp = [];
@@ -15,18 +17,78 @@ Final class WeatherDataForCity
     
     private $lastUpdate = "N/A";
     
+    private $data_name = "api_weather_data";
+    
     public function __construct()
     {
 
     }
-    public function setData():void
+    
+    
+    private function setData($api_data):void
     {
-        $api_data = $this->getCachedData();
-        $this->setDailyForecastParameters($api_data->features[0]->properties->timeSeries);
-        if(isset($api_data->features[0]->properties->modelRunDate))
+        //$api_data = $this->getCachedData();
+        $data = json_decode($api_data);
+        $this->setDailyForecastParameters($data->features[0]->properties->timeSeries);
+        if(isset($data->features[0]->properties->modelRunDate))
         {
-            $this->setDailyForecastLastUpdate($api_data->features[0]->properties->modelRunDate);
+            $this->setDailyForecastLastUpdate($data->features[0]->properties->modelRunDate);
         }        
+    }
+    private function getAPICredentials()
+    {
+        return parse_ini_file(dirname(__FILE__, 4)."/connect/met_office_api.ini");        
+    }   
+    
+    public function queryAPIOrGetData()
+    {
+        if($this->getDataFromCache() ||$this->getDataFromApi())
+        {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    private function getDataFromCache()
+    {
+        if (Cache::has($this->data_name)) {
+
+            $this->setData(Cache::get($this->data_name));
+            if(env('APP_DEBUG'))
+            {
+               print("Data is cached!"); 
+            }
+            
+            return true;
+
+        } 
+        return false;
+    }
+    private function getDataFromApi()
+    {
+        $api_cred = $this->getAPICredentials();
+        $response = Http::acceptJson()->withHeaders([
+        'X-IBM-Client-Id' => $api_cred['X-IBM-Client-Id'],
+        'X-IBM-Client-Secret' => $api_cred['X-IBM-Client-Secret']
+        ])->get('https://api-metoffice.apiconnect.ibmcloud.com/metoffice/production/v0/forecasts/point/daily', [
+            'latitude' => '56.460925484470174', // Dundee latitude
+            'longitude' => '-2.9706113751332133',  // Dundee longitude
+        ]);
+        
+        if(!empty($response->json()))
+        {
+            $api_data = json_encode($response->json());
+
+            $this->setData($api_data);
+            
+            Cache::put($this->data_name, $api_data, 3600); //3600 = 1 hour
+
+            return true;
+        }
+
+        return false;
+
     }
     private function dataFilePath():string
     {
