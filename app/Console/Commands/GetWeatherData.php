@@ -4,9 +4,12 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Cache;
+use App\Http\Controllers\WeatherFivedayForecast;
 
 class GetWeatherData extends Command
 {
+    private $data_name = "api_weather_data";
     /**
      * The name and signature of the console command.
      *
@@ -21,40 +24,73 @@ class GetWeatherData extends Command
      */
     protected $description = 'Command description';
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-//    public function __construct()
-//    {
-//        parent::__construct();
-//    }
     private function getAPICredentials()
     {
         return parse_ini_file(dirname(__FILE__, 5)."/connect/met_office_api.ini");        
     }   
-    
-//    public function checkDataFileExists()
-//    {
-//        return file_exists($this->getDataFilePath());
-//    }
-    
-    private function getDataFolderPath()
+   
+    public function queryAPIOrGetData()
     {
-        $data_folder = app_path()."/Data";
-        if(!file_exists($data_folder))
+        if($this->setDataInCache() ||$this->getDataFromApi(false))
         {
-            mkdir($data_folder, 775);
+            return true;
         }
         
-        return $data_folder;
+        return false;
     }
     
-    private function getDataFilePath()
+    public function getDataFromCache():?string
     {
-        return $this->getDataFolderPath()."/forecast_latest.txt";
+        if (Cache::has($this->data_name)) 
+        {
+            WeatherFivedayForecast::logMessage("Data was retrieved from cache!");
+            
+
+        }
+        else
+        {
+            //WeatherFivedayForecast::logMessage("* Error *: Could not retrieve data from the cache!");
+            $this->getDataFromApi(true);           
+        }
+        //exit ("<p>Debug</p><pre>".print_r(json_decode(Cache::get($this->data_name)), true)."</pre>");
+        return Cache::get($this->data_name);      
     }
+    private function setDataInCache()
+    {
+        if (Cache::has($this->data_name)) {
+            return true;
+
+        } 
+        return false;
+    }
+    private function getDataFromApi(bool $cache_empty)
+    {
+        
+        $api_cred = $this->getAPICredentials();
+        $response = Http::acceptJson()->withHeaders([
+        'X-IBM-Client-Id' => $api_cred['X-IBM-Client-Id'],
+        'X-IBM-Client-Secret' => $api_cred['X-IBM-Client-Secret']
+        ])->get('https://api-metoffice.apiconnect.ibmcloud.com/metoffice/production/v0/forecasts/point/daily', [
+            'latitude' => '56.460925484470174', // Dundee latitude
+            'longitude' => '-2.9706113751332133',  // Dundee longitude
+        ]);
+        
+        if(!empty($response->json()))
+        {
+            $api_data = json_encode($response->json());
+
+            //$this->setData($api_data);
+            
+            Cache::put($this->data_name, $api_data, 7200); //3600 = 1 hour
+            $msg = ($cache_empty)? "Note: Data was retrieved from the API as the data cache was empty at this time.": "Data was retrieved following a successful API query!";
+            WeatherFivedayForecast::logMessage($msg);
+            return true;
+        }
+
+        return false;
+
+    }    
+    
 
     /**
      * Execute the console command.
@@ -63,9 +99,11 @@ class GetWeatherData extends Command
      */
     public function handle()
     {
-        //\Log::debug("** Attempting to get weather data update.***\n");
-        $this->queryAPIAndGetData();
-
+        
+        $res = $this->queryAPIOrGetData();
+        $msg = ($res)?"* Processed automated weather data update attempt.": "* NOTICE: The automated weather data update attempt failed.";
+        WeatherFivedayForecast::logMessage($msg);
+        //\Log::debug("*Processed automated weather data update attempt.");
         return 0;
     }
 }

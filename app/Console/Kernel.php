@@ -24,10 +24,19 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
-        //$schedule->command('command:getweatherdata')->hourly(); // based on scheduled cronjob similar to: * * * * * cd <laravel-path> && php artisan schedule:run >> /dev/null 2>&1
-        //$schedule->command('command:getweatherdata')->everyFiveMinutes(); // based on scheduled cronjob similar to: * * * * * cd <laravel-path> && php artisan schedule:run >> /dev/null 2>&1
-        //$schedule->command('writetolog')->everyMinute();
+        if(!env('APP_DEBUG'))
+        {
+            // Every x hours on live installation.
+            $schedule->command('command:getweatherdata')->everyTwoHours();
+        }
+        else
+        {
+            // When in debug/dev mode.
+            $past_the_hour = [58, 59, 0, 1, 3]; // Array of minutes past the hour to run the command/task
+            $int = $past_the_hour[rand(0,(count($past_the_hour)-1))]; // pick a minute past the hour from the available array at random
+            $schedule->command('command:getweatherdata')->hourlyAt($int); // based on scheduled cronjob similar to: * * * * * cd <laravel-path> && php artisan schedule:run >> /dev/null 2>&1            
+        }
+
     }
 
     /**

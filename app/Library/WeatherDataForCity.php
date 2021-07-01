@@ -1,9 +1,7 @@
 <?php
 
 namespace app\Library;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Cache;
-//use App\Http\Controllers\WeatherFivedayForecast;
+
 Final class WeatherDataForCity
 {
     private $dayHighestTemp = [];
@@ -17,11 +15,11 @@ Final class WeatherDataForCity
     
     private $lastUpdate = "N/A";
     
-    private $data_name = "api_weather_data";
+    //private $data_name = "api_weather_data";
     
-    public function __construct()
+    public function __construct($data)
     {
-
+        $this->setData($data);
     }
     
     
@@ -35,65 +33,7 @@ Final class WeatherDataForCity
             $this->setDailyForecastLastUpdate($data->features[0]->properties->modelRunDate);
         }        
     }
-    private function getAPICredentials()
-    {
-        return parse_ini_file(dirname(__FILE__, 4)."/connect/met_office_api.ini");        
-    }   
-    
-    public function queryAPIOrGetData()
-    {
-        if($this->getDataFromCache() ||$this->getDataFromApi())
-        {
-            return true;
-        }
-        
-        return false;
-    }
-    
-    private function getDataFromCache()
-    {
-        if (Cache::has($this->data_name)) {
 
-            $this->setData(Cache::get($this->data_name));
-            if(env('APP_DEBUG'))
-            {
-               print("Data is cached!"); 
-            }
-            
-            return true;
-
-        } 
-        return false;
-    }
-    private function getDataFromApi()
-    {
-        $api_cred = $this->getAPICredentials();
-        $response = Http::acceptJson()->withHeaders([
-        'X-IBM-Client-Id' => $api_cred['X-IBM-Client-Id'],
-        'X-IBM-Client-Secret' => $api_cred['X-IBM-Client-Secret']
-        ])->get('https://api-metoffice.apiconnect.ibmcloud.com/metoffice/production/v0/forecasts/point/daily', [
-            'latitude' => '56.460925484470174', // Dundee latitude
-            'longitude' => '-2.9706113751332133',  // Dundee longitude
-        ]);
-        
-        if(!empty($response->json()))
-        {
-            $api_data = json_encode($response->json());
-
-            $this->setData($api_data);
-            
-            Cache::put($this->data_name, $api_data, 3600); //3600 = 1 hour
-
-            return true;
-        }
-
-        return false;
-
-    }
-    private function dataFilePath():string
-    {
-        return app_path()."/Data/forecast_latest.txt";
-    }
     /**
      * Array order appears to match the numbers in the 'Weather types' table at:
      * https://www.metoffice.gov.uk/services/data/datapoint/code-definitions
@@ -156,10 +96,24 @@ Final class WeatherDataForCity
                 $this->setDayHighestTemp(round($timeseries[$i]->dayUpperBoundMaxTemp));
                 $this->setDayLowestTemp(round($timeseries[$i]->nightLowerBoundMinTemp));
                 $this->setDayChanceOfRain(round($timeseries[$i]->dayProbabilityOfPrecipitation));
-                $this->setDayWindSpeed(round($timeseries[$i]->midday10MWindSpeed));                
+               
+                $this->setDayWindSpeed(round($this->convertWindSpeed10msToMph($timeseries[$i]->midday10MWindSpeed)));                
             }
 
         }
+    }
+    /**
+     * 
+     * @param string $windspeed
+     * @return type
+     */
+    private function convertWindSpeed10msToMph(string $windspeed)
+    {       
+        $metres_per_mile = 1609.344;
+        $sec_per_hour = (60*60); // 3600
+        $met_per_sec_in_mph = $metres_per_mile / $sec_per_hour; // 0.44704
+
+        return ($windspeed / $met_per_sec_in_mph);
     }
 
     
