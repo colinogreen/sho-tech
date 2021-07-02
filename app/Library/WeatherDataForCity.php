@@ -11,6 +11,8 @@ Final class WeatherDataForCity
     private $dayOfWeek = [];
     private $dayWeatherCode = [];
     
+    private $lastApiUpdate;
+    
     //private $dailyForecastDisplay = [];
     
     private $lastUpdate = "N/A";
@@ -28,10 +30,25 @@ Final class WeatherDataForCity
         //$api_data = $this->getCachedData();
         $data = json_decode($api_data);
         $this->setDailyForecastParameters($data->features[0]->properties->timeSeries);
+        $this->setLastApiUpdate($data);
         if(isset($data->features[0]->properties->modelRunDate))
         {
             $this->setDailyForecastLastUpdate($data->features[0]->properties->modelRunDate);
         }        
+    }
+    
+    public function setLastApiUpdate(object $data):void
+    {
+        if(isset($data->api_query->last_update))
+        {
+            $this->lastApiUpdate = $data->api_query->last_update;
+        }
+
+    }
+    
+    public function getLastApiUpdate():?string
+    {
+        return $this->lastApiUpdate;
     }
 
     /**

@@ -43,13 +43,12 @@ class GetWeatherData extends Command
     {
         if (Cache::has($this->data_name)) 
         {
-            WeatherFivedayForecast::logMessage("Data was retrieved from cache!");
-            
+            WeatherFivedayForecast::logMessage("Data was retrieved from cache!"); 
 
         }
         else
         {
-            //WeatherFivedayForecast::logMessage("* Error *: Could not retrieve data from the cache!");
+            // Get data from the API if the cache has expired before the next task API  (service interruption, etc.)
             $this->getDataFromApi(true);           
         }
         //exit ("<p>Debug</p><pre>".print_r(json_decode(Cache::get($this->data_name)), true)."</pre>");
@@ -77,7 +76,12 @@ class GetWeatherData extends Command
         
         if(!empty($response->json()))
         {
-            $api_data = json_encode($response->json());
+            $response_data = $response->json();
+           
+            $response_data['api_query_details'] = [];
+            $response_data['api_query']['last_update'] = date("Y-m-d H:i:s");
+            //exit ("<p>Debug \$response_data</p><pre>".print_r($response_data, true)."</pre>");
+            $api_data = json_encode($response_data);
 
             //$this->setData($api_data);
             

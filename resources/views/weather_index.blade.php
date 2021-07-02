@@ -13,7 +13,7 @@
 
 
  <div class="container">
-     <div clas="" style="border:2px solid #ccc; border-radius: 8px">
+     <div class="" style="border:2px solid #ccc; border-radius: 8px">
      <div class="row">
          <div class="col-12 offset-md-8 col-md-4">
              <h5 style=""><i class="fas fa-clock"></i>Last Update:{{$cityWeather->getDailyForecastLastUpdate()}}</h5>
@@ -48,8 +48,14 @@
                <div class="col-2"><i class="{{$wind}}"></i> &#160;{{$cityWeather->getDayWindSpeed(5)}} mph</div> 
     </div>   
     </div>
+
      </div>
- 
+          @php
+         if($cityWeather->getLastApiUpdate())
+         {
+            print("<p style=\"font-size:0.8em; font-style:italic\">Last api update: ".$cityWeather->getLastApiUpdate()."</p>");
+         }
+         @endphp
  </div>
 
 </div>
