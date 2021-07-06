@@ -15,6 +15,20 @@
     </head>   
     <body>
       @yield("page_content")  
-      <link href="{{ asset('css/app.js') }}" rel="stylesheet">
+      <script src="{{ asset('js/app.js') }}"></script>
+      
+  <?php // <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script> ?>
+  <?php // <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script> ?>
+ <?php // <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script> ?>
+    <script type="text/babel">
+
+      class Hello extends React.Component {
+        render() {
+          return <h1>Hello World!</h1>;
+        }
+      };
+
+      ReactDOM.render(<Hello />, document.getElementById('mydiv'))
+    </script>
     </body>
 </html>

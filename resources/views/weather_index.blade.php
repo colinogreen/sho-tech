@@ -9,6 +9,9 @@
 
 @section("page_content")
 <div class="container">
+
+        <div id="div_weather_data"></div>
+
  <h3>Five Day Forecast</h3>  
 
 
