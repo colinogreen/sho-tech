@@ -26,10 +26,21 @@ class WeatherFivedayForecast extends Controller
     public function data()
     {
         $getWeatherData = new GetWeatherData();
-        //$cityWeather = new WeatherDataForCity($getWeatherData->getDataFromCache());
+        $cityWeather = new WeatherDataForCity($getWeatherData->getDataFromCache());
         //exit("<pre>". print_r(json_decode($getWeatherData->getDataFromCache()), true)."</pre>");
         //exit("<pre>". print_r($getWeatherData->getDataFromCache(), true)."</pre>");
-        return $getWeatherData->getDataFromCache();
+        $data = new \stdClass;
+        $data->api_query = new \stdClass;
+        $data->api_query->last_update = $cityWeather->getLastApiUpdate();
+        for($i = 1; $i<6;$i++)
+        {
+            $data->api_query->$i = new \stdClass;
+            $data->api_query->$i->day_of_the_week = $cityWeather->getDayOfWeek($i);
+            $data->api_query->$i->day_weather_code = $cityWeather->getDaySignificantWeatherCode($i);
+        }
+        //exit("Data:<pre>". print_r($data, true)."</pre>");
+        return json_encode($data);
+        //return $getWeatherData->getDataFromCache();
     }
     /**
      * Log a message in laravel.log if .env APP_DEBUG=true.

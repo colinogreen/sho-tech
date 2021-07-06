@@ -51,24 +51,14 @@ export default class BTCPrice extends React.Component {
     return (
       <div>
 
-        <h1>
-
+        <h2>
         React.js Query
+        </h2>
 
-        </h1>
-
-
-        <h2>Last update: {this.state.data.api_query.last_update}</h2>
-
-
-
+        <h3>Last update: {this.state.data.api_query.last_update}</h3>
         <hr/>
 
-        <button
-
-          onClick={this.fetch.bind(this)}
-
-        >
+        <button onClick={this.fetch.bind(this)}>
 
           Fetch Latest
         </button>
