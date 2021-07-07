@@ -97,7 +97,7 @@ export default class BTCPrice extends React.Component {
                    <div className="col-2"><i className={templ}></i> &#160;<span>{day5.day_lowest_temp} &deg;</span></div> 
         </div> 
         
-    </div> 
+    </div> {/* end class weather_table */}
 
      </div>
 
