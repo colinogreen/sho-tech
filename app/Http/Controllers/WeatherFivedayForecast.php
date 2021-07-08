@@ -12,10 +12,11 @@ class WeatherFivedayForecast extends Controller
     
     public function index()
     {
-        $getWeatherData = new GetWeatherData();
-        $cityWeather = new WeatherDataForCity($getWeatherData->getDataFromCache());
+        //$getWeatherData = new GetWeatherData();
+        //$cityWeather = new WeatherDataForCity($getWeatherData->getDataFromCache());
 
-        return view("weather_index", ["cityWeather"=> $cityWeather]); // Send the class and it's data to the view for processing
+        //return view("weather_index", ["cityWeather"=> $cityWeather]); // Send the class and it's data to the view for processing
+        return view("weather_index", []); // Send the class and it's data to the view for processing
 
     }
     

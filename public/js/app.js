@@ -1945,7 +1945,7 @@ var BTCPrice = /*#__PURE__*/function (_React$Component) {
       var day4 = this.state.data.api_query.day[4];
       var day5 = this.state.data.api_query.day[5];
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h2", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h3", {
           children: "React.js Query"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           className: "",
@@ -2171,6 +2171,11 @@ var BTCPrice = /*#__PURE__*/function (_React$Component) {
       });
     }
   }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.fetch();
+    }
+  }, {
     key: "fetch",
     value: function fetch() {
       var context = this;
@@ -2193,14 +2198,7 @@ var BTCPrice = /*#__PURE__*/function (_React$Component) {
 
 
 function tick() {
-  var element =
-  /*#__PURE__*/
-
-  /*<div>
-    <h1>Hello, world!</h1>
-    <h2>It is {new Date().toLocaleTimeString()}.</h2>
-  </div>*/
-  (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("p", {
+  var element = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("p", {
     style: {
       fontStyle: 'italic',
       fontColor: '#ccc'
@@ -2221,7 +2219,8 @@ if (document.getElementById('div_clock') !== null) {
 
 
 if (document.getElementById('div_weather_data') !== null) {
-  (0,react_dom__WEBPACK_IMPORTED_MODULE_1__.render)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(BTCPrice, {}), document.getElementById('div_weather_data'));
+  (0,react_dom__WEBPACK_IMPORTED_MODULE_1__.render)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(BTCPrice, {}), document.getElementById('div_weather_data')); //fetch(<BTCPrice />,document.getElementById('div_weather_data'));
+  //new BTCPrice.fetch();  
 }
 
 /***/ }),

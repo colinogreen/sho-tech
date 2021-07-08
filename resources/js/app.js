@@ -132,6 +132,9 @@ export default class BTCPrice extends React.Component {
     );
 
   }
+componentDidMount(){
+	this.fetch();
+}
   fetch() {
     var context = this;
 
@@ -181,5 +184,7 @@ function tick() {
  //const rate = btc_price.state.data.bpi.USD.rate;
  if(document.getElementById('div_weather_data')!== null)
  {
-    render(<BTCPrice />,document.getElementById('div_weather_data'));     
+    render(<BTCPrice />,document.getElementById('div_weather_data'));
+    //fetch(<BTCPrice />,document.getElementById('div_weather_data'));
+	//new BTCPrice.fetch();  
  }

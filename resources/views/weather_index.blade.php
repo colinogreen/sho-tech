@@ -9,14 +9,17 @@
 
 @section("page_content")
 <div class="container">
-
+ <h3>Five Day Forecast</h3> 
         <div id="div_clock"></div>
         <div id="div_weather_data"></div>
+ 
 
- <h3>Five Day Forecast</h3>  
+</div>
+@endsection
 
-
- <div class="container">
+<?php 
+/*
+ * <div class="container">
      <div class="" style="border:2px solid #ccc; border-radius: 8px">
      <div class="row">
          <div class="col-12 offset-md-8 col-md-4">
@@ -61,6 +64,6 @@
          }
          @endphp
  </div>
+ */
 
-</div>
-@endsection
+?>
