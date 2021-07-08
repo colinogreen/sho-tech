@@ -1881,10 +1881,11 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); //React =
 
 
 
- //ReactDOM = require('react-dom');
+ //const ReactD = require('react-dom');
 
 
-window.React = react__WEBPACK_IMPORTED_MODULE_0__; //import ReactDOM from 'react-dom'
+window.React = react__WEBPACK_IMPORTED_MODULE_0__;
+window.ReactDOM = react_dom__WEBPACK_IMPORTED_MODULE_1__; //import ReactDOM from 'react-dom'
 //Babel = require("babel-standalone");
 
 /**
@@ -1927,16 +1928,12 @@ var BTCPrice = /*#__PURE__*/function (_React$Component) {
   _createClass(BTCPrice, [{
     key: "render",
     value: function render() {
-      console.log(this.state.data);
-
-      var txt = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
-        children: "Extra text tester"
-      }); //      var wdata = "";
+      console.log(this.state.data); //var txt = (<p>Extra text tester</p>);
+      //      var wdata = "";
       //      for(var i=1; i<6;i++)
       //      {
       //          wdata += (    );
       //      }
-
 
       var precip = "fas fa-tint";
       var temph = "fas fa-temperature-high";
@@ -1948,7 +1945,9 @@ var BTCPrice = /*#__PURE__*/function (_React$Component) {
       var day4 = this.state.data.api_query.day[4];
       var day5 = this.state.data.api_query.day[5];
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-        children: [txt, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h2", {
+          children: "React.js Query"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           className: "",
           style: {
             border: '2px solid #ccc',
@@ -1962,7 +1961,7 @@ var BTCPrice = /*#__PURE__*/function (_React$Component) {
                 style: {},
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
                   className: "fas fa-clock"
-                }), " Last Update:"]
+                }), " Last Update: ", this.state.data.api_query.last_forecast_update]
               })
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
@@ -2081,18 +2080,90 @@ var BTCPrice = /*#__PURE__*/function (_React$Component) {
                   children: [day5.day_lowest_temp, " \xB0"]
                 })]
               })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "row",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                className: "offset-1 col-2",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                  className: precip
+                }), " \xA0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+                  children: [day1.day_chance_rain, " %"]
+                })]
+              }), "  ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                className: "col-2",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                  className: precip
+                }), " \xA0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+                  children: [day2.day_chance_rain, " %"]
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                className: "col-2",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                  className: precip
+                }), " \xA0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+                  children: [day3.day_chance_rain, " %"]
+                })]
+              }), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                className: "col-2",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                  className: precip
+                }), " \xA0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+                  children: [day4.day_chance_rain, " %"]
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                className: "col-2",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                  className: precip
+                }), " \xA0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+                  children: [day5.day_chance_rain, " %"]
+                })]
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "row",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                className: "offset-1 col-2",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                  className: wind
+                }), " \xA0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+                  children: [day1.day_wind_mph, " mph"]
+                })]
+              }), "  ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                className: "col-2",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                  className: wind
+                }), " \xA0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+                  children: [day2.day_wind_mph, " mph"]
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                className: "col-2",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                  className: wind
+                }), " \xA0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+                  children: [day3.day_wind_mph, " mph"]
+                })]
+              }), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                className: "col-2",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                  className: wind
+                }), " \xA0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+                  children: [day4.day_wind_mph, " mph"]
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                className: "col-2",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                  className: wind
+                }), " \xA0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+                  children: [day5.day_wind_mph, " mph"]
+                })]
+              })]
             })]
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h2", {
-          children: "React.js Query"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h3", {
-          children: ["Last API update: ", this.state.data.api_query.last_update]
+          }), " "]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("p", {
-          children: ["Day zero test: ", this.state.data.api_query.day[0].day_of_the_week]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("p", {
-          children: ["Day one test: ", this.state.data.api_query.day[1].day_of_the_week]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("p", {
-          children: ["Day five test: ", this.state.data.api_query.day[5].day_of_the_week]
+          style: {
+            fontSize: '0.8em',
+            fontStyle: 'italic'
+          },
+          children: ["Last API update: ", this.state.data.api_query.last_api_update]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
           onClick: this.fetch.bind(this),
           children: "Fetch Latest"
@@ -2117,11 +2188,36 @@ var BTCPrice = /*#__PURE__*/function (_React$Component) {
   }]);
 
   return BTCPrice;
-}(react__WEBPACK_IMPORTED_MODULE_0__.Component); //const BTCPrice = new BTCPrice();
+}(react__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+
+
+function tick() {
+  var element =
+  /*#__PURE__*/
+
+  /*<div>
+    <h1>Hello, world!</h1>
+    <h2>It is {new Date().toLocaleTimeString()}.</h2>
+  </div>*/
+  (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("p", {
+    style: {
+      fontStyle: 'italic',
+      fontColor: '#ccc'
+    },
+    children: ["It is ", new Date().toLocaleTimeString(), "."]
+  });
+
+  react_dom__WEBPACK_IMPORTED_MODULE_1__.render(element, document.getElementById('div_clock'));
+}
+
+if (document.getElementById('div_clock') !== null) {
+  //tick();
+  setInterval(tick, 1000);
+} //setInterval(tick, 1000);
+//const BTCPrice = new BTCPrice();
 //var btc_price = new BTCPrice();
 //const rate = btc_price.state.data.bpi.USD.rate;
-
-
 
 
 if (document.getElementById('div_weather_data') !== null) {

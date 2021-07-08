@@ -31,7 +31,8 @@ class WeatherFivedayForecast extends Controller
         //exit("<pre>". print_r($getWeatherData->getDataFromCache(), true)."</pre>");
         $data = new \stdClass;
         $data->api_query = new \stdClass;
-        $data->api_query->last_update = $cityWeather->getLastApiUpdate();
+        $data->api_query->last_api_update = $cityWeather->getLastApiUpdate();
+        $data->api_query->last_forecast_update = $cityWeather->getDailyForecastLastUpdate();
         $data->api_query->day = [];
         for($i = 0; $i<6;$i++)
         {

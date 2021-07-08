@@ -10,9 +10,12 @@ require('./bootstrap');
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-//ReactDOM = require('react-dom');
+
+
+//const ReactD = require('react-dom');
 import { render } from 'react-dom'
 window.React = React;
+window.ReactDOM = ReactDOM;
 //import ReactDOM from 'react-dom'
 //Babel = require("babel-standalone");
 
@@ -51,12 +54,13 @@ export default class BTCPrice extends React.Component {
   }
   render() {
       console.log(this.state.data);
-      var txt = (<p>Extra text tester</p>);
+      //var txt = (<p>Extra text tester</p>);
 //      var wdata = "";
 //      for(var i=1; i<6;i++)
 //      {
 //          wdata += (    );
 //      }
+
     const precip = "fas fa-tint";
     const temph = "fas fa-temperature-high";
     const templ = "fas fa-temperature-low";
@@ -67,14 +71,19 @@ export default class BTCPrice extends React.Component {
     const day3 = this.state.data.api_query.day[3];
     const day4 = this.state.data.api_query.day[4];
     const day5 = this.state.data.api_query.day[5];
+    
     return (
              
       <div>
-          {txt}  
+          
+        <h3>
+        React.js Query
+        </h3>
+
      <div className="" style={{border:'2px solid #ccc', borderRadius: '8px'}}>
      <div className="row">
          <div className="col-12 offset-md-8 col-md-4">
-             <h5 style={{}}><i className="fas fa-clock"></i> Last Update:</h5>
+             <h5 style={{}}><i className="fas fa-clock"></i> Last Update: {this.state.data.api_query.last_forecast_update}</h5>
          </div>
      </div>
     <div className="weather_table">
@@ -96,19 +105,21 @@ export default class BTCPrice extends React.Component {
                <div className="col-2"><i className={templ}></i> &#160;<span>{day3.day_lowest_temp} &deg;</span></div> <div className="col-2"><i className={templ}></i> &#160;<span>{day4.day_lowest_temp} &deg;</span></div> 
                    <div className="col-2"><i className={templ}></i> &#160;<span>{day5.day_lowest_temp} &deg;</span></div> 
         </div> 
-        
-    </div> 
+     <div className="row">
+           <div className="offset-1 col-2"><i className={precip}></i> &#160;<span>{day1.day_chance_rain} %</span></div>  <div className="col-2"><i className={precip}></i> &#160;<span>{day2.day_chance_rain} %</span></div> 
+               <div className="col-2"><i className={precip}></i> &#160;<span>{day3.day_chance_rain} %</span></div> <div className="col-2"><i className={precip}></i> &#160;<span>{day4.day_chance_rain} %</span></div> 
+                   <div className="col-2"><i className={precip}></i> &#160;<span>{day5.day_chance_rain} %</span></div> 
+        </div>   
+      <div className="row">
+           <div className="offset-1 col-2"><i className={wind}></i> &#160;<span>{day1.day_wind_mph} mph</span></div>  <div className="col-2"><i className={wind}></i> &#160;<span>{day2.day_wind_mph} mph</span></div> 
+               <div className="col-2"><i className={wind}></i> &#160;<span>{day3.day_wind_mph} mph</span></div> <div className="col-2"><i className={wind}></i> &#160;<span>{day4.day_wind_mph} mph</span></div> 
+                   <div className="col-2"><i className={wind}></i> &#160;<span>{day5.day_wind_mph} mph</span></div> 
+        </div>  
+    </div> {/* End weather table*/}
 
      </div>
+     <p style={{fontSize:'0.8em', fontStyle:'italic'}}>Last API update: {this.state.data.api_query.last_api_update}</p>
 
-        <h2>
-        React.js Query
-        </h2>
-
-        <h3>Last API update: {this.state.data.api_query.last_update}</h3>
-        <p>Day zero test: {this.state.data.api_query.day[0].day_of_the_week}</p>
-        <p>Day one test: {this.state.data.api_query.day[1].day_of_the_week}</p>
-        <p>Day five test: {this.state.data.api_query.day[5].day_of_the_week}</p>
         <hr/>
 
         <button onClick={this.fetch.bind(this)}>
@@ -146,6 +157,25 @@ export default class BTCPrice extends React.Component {
 
 
 } 
+
+
+
+function tick() {
+  const element = (
+
+    <p style={{fontStyle:'italic', fontColor:'#ccc'}}>It is {new Date().toLocaleTimeString()}.</p>
+  );
+  ReactDOM.render(element, document.getElementById('div_clock'));
+  }
+ if(document.getElementById('div_clock')!== null)
+ {
+    //tick();
+    setInterval(tick, 1000);
+ }
+
+//setInterval(tick, 1000);
+
+
 //const BTCPrice = new BTCPrice();
 //var btc_price = new BTCPrice();
  //const rate = btc_price.state.data.bpi.USD.rate;
