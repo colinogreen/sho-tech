@@ -77,7 +77,7 @@ export default class BTCPrice extends React.Component {
       <div>
           
         <h3>
-        React.js Query
+        Weather forecast for [city]
         </h3>
 
      <div className="" style={{border:'2px solid #ccc', borderRadius: '8px'}}>
@@ -122,7 +122,7 @@ export default class BTCPrice extends React.Component {
 
         <hr/>
 
-        <button onClick={this.fetch.bind(this)}>
+        <button className="form-control" onClick={this.fetch.bind(this)}>
 
           Fetch Latest
         </button>

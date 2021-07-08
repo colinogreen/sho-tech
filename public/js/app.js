@@ -1946,7 +1946,7 @@ var BTCPrice = /*#__PURE__*/function (_React$Component) {
       var day5 = this.state.data.api_query.day[5];
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h3", {
-          children: "React.js Query"
+          children: "Weather forecast for [city]"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           className: "",
           style: {
@@ -2165,6 +2165,7 @@ var BTCPrice = /*#__PURE__*/function (_React$Component) {
           },
           children: ["Last API update: ", this.state.data.api_query.last_api_update]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+          className: "form-control",
           onClick: this.fetch.bind(this),
           children: "Fetch Latest"
         })]
