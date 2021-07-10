@@ -36,8 +36,9 @@ class Kernel extends ConsoleKernel
 //             $int = $past_the_hour[rand(0,(count($past_the_hour)-1))]; // pick a minute past the hour from the available array at random
 //             $schedule->command('command:getweatherdata')->hourlyAt($int); // based on scheduled cronjob similar to: * * * * * cd <laravel-path> && php artisan schedule:run >> /dev/null 2>&1            
 //         }
-        //$schedule->command('command:getweatherdata')->everyTwoHours();
-        $schedule->command('command:getweatherdata')->everyFiveMinutes();
+
+        $schedule->command('command:getweatherdata')->everyTwoHours();
+        //$schedule->command('command:getweatherdata')->everyFiveMinutes();
 
     }
 
