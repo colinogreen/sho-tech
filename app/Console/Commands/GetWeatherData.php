@@ -49,6 +49,7 @@ class GetWeatherData extends Command
         else
         {
             // Get data from the API if the cache has expired before the next task API  (service interruption, etc.)
+            \Log::debug(__CLASS__. "::".__FUNCTION__." - Attempt to get the data from the API endpoint!");
             $this->getDataFromApi(true);           
         }
         //exit ("<p>Debug</p><pre>".print_r(json_decode(Cache::get($this->data_name)), true)."</pre>");
@@ -56,7 +57,9 @@ class GetWeatherData extends Command
     }
     private function setDataInCache()
     {
-        if (Cache::has($this->data_name)) {
+        if (Cache::has($this->data_name)) 
+        {
+            \Log::debug(__CLASS__. "::".__FUNCTION__." - Cache has the weather data!");
             return true;
 
         } 

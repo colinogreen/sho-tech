@@ -122,7 +122,7 @@ export default class BTCPrice extends React.Component {
 
         <hr/>
 
-        <button className="form-control" onClick={this.fetch.bind(this)}>
+        <button className="form-control" onClick={this.fetch.bind(this)}> {/* Check for new data and display it on button press */}
 
           Fetch Latest
         </button>
@@ -133,7 +133,7 @@ export default class BTCPrice extends React.Component {
 
   }
 componentDidMount(){
-	this.fetch();
+	this.fetch();// Get the data on the first load of the page.
 }
   fetch() {
     var context = this;

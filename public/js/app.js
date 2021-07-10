@@ -2164,17 +2164,17 @@ var BTCPrice = /*#__PURE__*/function (_React$Component) {
             fontStyle: 'italic'
           },
           children: ["Last API update: ", this.state.data.api_query.last_api_update]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
           className: "form-control",
           onClick: this.fetch.bind(this),
-          children: "Fetch Latest"
+          children: [" ", "Fetch Latest"]
         })]
       });
     }
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.fetch();
+      this.fetch(); // Get the data on the first load of the page.
     }
   }, {
     key: "fetch",
