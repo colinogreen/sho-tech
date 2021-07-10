@@ -31,11 +31,13 @@ class GetWeatherData extends Command
    
     public function queryAPIOrGetData()
     {
-        if($this->setDataInCache() ||$this->getDataFromApi(false))
+        //if($this->checkDataIsInCache() ||$this->getDataFromApi(false))
+        if($this->checkDataIsInCache())
         {
+            $this->getDataFromCache();
             return true;
         }
-        
+        $this->getDataFromApi(true);
         return false;
     }
     
@@ -45,18 +47,19 @@ class GetWeatherData extends Command
         {
             \Log::debug(__CLASS__. "::".__FUNCTION__." - Attempt to get the data from the cache!");
             WeatherFivedayForecast::logMessage("Data was retrieved from cache!"); 
+            return Cache::get($this->data_name); 
 
         }
-        else
-        {
+//         else
+//         {
             // Get data from the API if the cache has expired before the next task API  (service interruption, etc.)
-            \Log::debug(__CLASS__. "::".__FUNCTION__." - Attempt to get the data from the API endpoint!");
-            $this->getDataFromApi(true);           
-        }
+        \Log::debug(__CLASS__. "::".__FUNCTION__." - Attempt to get the data from the API endpoint!");
+        $this->getDataFromApi(true);           
+//         }
         //exit ("<p>Debug</p><pre>".print_r(json_decode(Cache::get($this->data_name)), true)."</pre>");
         return Cache::get($this->data_name);      
     }
-    private function setDataInCache()
+    private function checkDataIsInCache()
     {
         if (Cache::has($this->data_name)) 
         {
@@ -91,7 +94,8 @@ class GetWeatherData extends Command
             
             Cache::put($this->data_name, $api_data, 7200); //3600 = 1 hour
             $msg = ($cache_empty)? "Note: Data was retrieved from the API as the data cache was empty at this time.": "Data was retrieved following a successful API query!";
-            WeatherFivedayForecast::logMessage($msg);
+            \Log::debug(__CLASS__. "::".__FUNCTION__.$msg);
+            //WeatherFivedayForecast::logMessage($msg);
             return true;
         }
 

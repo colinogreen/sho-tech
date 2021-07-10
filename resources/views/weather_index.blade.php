@@ -12,13 +12,33 @@
  <h3>Five Day Forecast</h3> 
         <div id="div_clock"></div>
         <div id="div_weather_data"></div>
+        <div id="div_test"></div>
  
 
 </div>
 @endsection
 
+
 <?php 
 /*
+ * <script type="text/babel">
+class ShoppingList extends React.Component {
+  render() {
+    return (
+      <div className="shopping-list">
+        <h1>Shopping List for {this.props.name}</h1>
+        <ul>
+          <li>Instagram</li>
+          <li>WhatsApp</li>
+          <li>Oculus</li>
+        </ul>
+      </div>
+    );
+  }
+}
+ReactDOM.render(<ShoppingList />, document.getElementById('div_test'));
+</script>
+
  * <div class="container">
      <div class="" style="border:2px solid #ccc; border-radius: 8px">
      <div class="row">

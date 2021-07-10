@@ -9,7 +9,7 @@ require('./bootstrap');
 //React = require('react');
 import React from 'react'
 import ReactDOM from 'react-dom'
-
+import Babel from 'babel-standalone';
 
 
 //const ReactD = require('react-dom');
