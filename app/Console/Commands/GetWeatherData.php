@@ -110,7 +110,8 @@ class GetWeatherData extends Command
         
         $res = $this->queryAPIOrGetData();
         $msg = ($res)?"* Processed automated weather data update attempt.": "* NOTICE: The automated weather data update attempt failed.";
-        WeatherFivedayForecast::logMessage($msg);
+        \Log::debug(__CLASS__."::".__FUNCTION__." - ". $msg);
+        //WeatherFivedayForecast::logMessage($msg);
         //\Log::debug("*Processed automated weather data update attempt.");
         return 0;
     }
