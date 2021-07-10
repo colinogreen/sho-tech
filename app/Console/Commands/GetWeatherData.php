@@ -43,6 +43,7 @@ class GetWeatherData extends Command
     {
         if (Cache::has($this->data_name)) 
         {
+            \Log::debug(__CLASS__. "::".__FUNCTION__." - Attempt to get the data from the cache!");
             WeatherFivedayForecast::logMessage("Data was retrieved from cache!"); 
 
         }
