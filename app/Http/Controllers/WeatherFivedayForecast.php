@@ -12,6 +12,7 @@ class WeatherFivedayForecast extends Controller
     
     public function index()
     {
+        //print("Debug: env('APP_DEBUG'): ". env('APP_DEBUG'));
         //$getWeatherData = new GetWeatherData();
         //$cityWeather = new WeatherDataForCity($getWeatherData->getDataFromCache());
 
