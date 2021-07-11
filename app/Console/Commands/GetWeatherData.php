@@ -37,8 +37,8 @@ class GetWeatherData extends Command
             $this->getDataFromCache();
             return true;
         }
-        $this->getDataFromApi(true);
-        return false;
+        return $this->getDataFromApi(true);
+        //return false;
     }
     
     public function getDataFromCache():?string
