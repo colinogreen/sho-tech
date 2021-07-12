@@ -1902,18 +1902,18 @@ __webpack_require__(/*! ./components/Example */ "./resources/js/components/Examp
 
 
 
-var DataRow = /*#__PURE__*/function (_React$Component) {
-  _inherits(DataRow, _React$Component);
+var DataRowTop = /*#__PURE__*/function (_React$Component) {
+  _inherits(DataRowTop, _React$Component);
 
-  var _super = _createSuper(DataRow);
+  var _super = _createSuper(DataRowTop);
 
-  function DataRow(props) {
-    _classCallCheck(this, DataRow);
+  function DataRowTop(props) {
+    _classCallCheck(this, DataRowTop);
 
     return _super.call(this, props);
   }
 
-  _createClass(DataRow, [{
+  _createClass(DataRowTop, [{
     key: "render",
     value: function render() {
       {
@@ -1961,20 +1961,82 @@ var DataRow = /*#__PURE__*/function (_React$Component) {
     }
   }]);
 
-  return DataRow;
+  return DataRowTop;
 }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
 
-var WeatherData = /*#__PURE__*/function (_React$Component2) {
-  _inherits(WeatherData, _React$Component2);
+var DataRowGeneral = /*#__PURE__*/function (_React$Component2) {
+  _inherits(DataRowGeneral, _React$Component2);
 
-  var _super2 = _createSuper(WeatherData);
+  var _super2 = _createSuper(DataRowGeneral);
+
+  function DataRowGeneral(props) {
+    _classCallCheck(this, DataRowGeneral);
+
+    return _super2.call(this, props);
+  }
+
+  _createClass(DataRowGeneral, [{
+    key: "render",
+    value: function render() {
+      {
+        /* dow= day of week | dwc = day weather code */
+      }
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        className: "row " + this.props.rowclass,
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "offset-1 col-2",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
+            className: this.props.itemclass
+          }), " \xA0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
+            children: [this.props.day1_item, "  ", this.props.item_desc]
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "col-2",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
+            className: this.props.itemclass
+          }), " \xA0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
+            children: [this.props.day2_item, " ", this.props.item_desc]
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "col-2",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
+            className: this.props.itemclass
+          }), " \xA0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
+            children: [this.props.day3_item, " ", this.props.item_desc]
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "col-2",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
+            className: this.props.itemclass
+          }), " \xA0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
+            children: [this.props.day4_item, " ", this.props.item_desc]
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "col-2",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
+            className: this.props.itemclass
+          }), " \xA0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
+            children: [this.props.day5_item, " ", this.props.item_desc]
+          })]
+        })]
+      });
+    }
+  }]);
+
+  return DataRowGeneral;
+}(react__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+var WeatherData = /*#__PURE__*/function (_React$Component3) {
+  _inherits(WeatherData, _React$Component3);
+
+  var _super3 = _createSuper(WeatherData);
 
   function WeatherData(props) {
     var _this;
 
     _classCallCheck(this, WeatherData);
 
-    _this = _super2.call(this, props);
+    _this = _super3.call(this, props);
     _this.state = {
       data: {
         api_query: {
@@ -2028,7 +2090,7 @@ var WeatherData = /*#__PURE__*/function (_React$Component2) {
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
             className: "weather_table",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(DataRow, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(DataRowTop, {
               dow1: day1.day_of_week,
               dow2: day2.day_of_week,
               dow3: day3.day_of_week,
@@ -2039,158 +2101,41 @@ var WeatherData = /*#__PURE__*/function (_React$Component2) {
               dwc3: day3.day_weather_code,
               dwc4: day4.day_weather_code,
               dwc5: day5.day_weather_code
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-              className: "row temp-high",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                className: "offset-1 col-2",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                  className: temph
-                }), " \xA0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
-                  children: [day1.day_highest_temp, " \xB0"]
-                })]
-              }), "  ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                className: "col-2",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                  className: temph
-                }), " \xA0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
-                  children: [day2.day_highest_temp, " \xB0"]
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                className: "col-2",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                  className: temph
-                }), " \xA0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
-                  children: [day3.day_highest_temp, " \xB0"]
-                })]
-              }), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                className: "col-2",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                  className: temph
-                }), " \xA0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
-                  children: [day4.day_highest_temp, " \xB0"]
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                className: "col-2",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                  className: temph
-                }), " \xA0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
-                  children: [day5.day_highest_temp, " \xB0"]
-                })]
-              })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-              className: "row temp-low",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                className: "offset-1 col-2",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                  className: templ
-                }), " \xA0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
-                  children: [day1.day_lowest_temp, " \xB0"]
-                })]
-              }), "  ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                className: "col-2",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                  className: templ
-                }), " \xA0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
-                  children: [day2.day_lowest_temp, " \xB0"]
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                className: "col-2",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                  className: templ
-                }), " \xA0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
-                  children: [day3.day_lowest_temp, " \xB0"]
-                })]
-              }), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                className: "col-2",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                  className: templ
-                }), " \xA0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
-                  children: [day4.day_lowest_temp, " \xB0"]
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                className: "col-2",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                  className: templ
-                }), " \xA0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
-                  children: [day5.day_lowest_temp, " \xB0"]
-                })]
-              })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-              className: "row",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                className: "offset-1 col-2",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                  className: precip
-                }), " \xA0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
-                  children: [day1.day_chance_rain, " %"]
-                })]
-              }), "  ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                className: "col-2",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                  className: precip
-                }), " \xA0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
-                  children: [day2.day_chance_rain, " %"]
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                className: "col-2",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                  className: precip
-                }), " \xA0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
-                  children: [day3.day_chance_rain, " %"]
-                })]
-              }), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                className: "col-2",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                  className: precip
-                }), " \xA0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
-                  children: [day4.day_chance_rain, " %"]
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                className: "col-2",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                  className: precip
-                }), " \xA0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
-                  children: [day5.day_chance_rain, " %"]
-                })]
-              })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-              className: "row",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                className: "offset-1 col-2",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                  className: wind
-                }), " \xA0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
-                  children: [day1.day_wind_mph, " mph"]
-                })]
-              }), "  ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                className: "col-2",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                  className: wind
-                }), " \xA0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
-                  children: [day2.day_wind_mph, " mph"]
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                className: "col-2",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                  className: wind
-                }), " \xA0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
-                  children: [day3.day_wind_mph, " mph"]
-                })]
-              }), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                className: "col-2",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                  className: wind
-                }), " \xA0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
-                  children: [day4.day_wind_mph, " mph"]
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                className: "col-2",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                  className: wind
-                }), " \xA0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
-                  children: [day5.day_wind_mph, " mph"]
-                })]
-              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(DataRowGeneral, {
+              rowclass: "temp-high",
+              itemclass: temph,
+              item_desc: "\xB0",
+              day1_item: day1.day_highest_temp,
+              day2_item: day2.day_highest_temp,
+              day3_item: day3.day_highest_temp,
+              day4_item: day4.day_highest_temp,
+              day5_item: day5.day_highest_temp
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(DataRowGeneral, {
+              rowclass: "temp-high",
+              itemclass: templ,
+              item_desc: "\xB0",
+              day1_item: day1.day_lowest_temp,
+              day2_item: day2.day_lowest_temp,
+              day3_item: day3.day_lowest_temp,
+              day4_item: day4.day_lowest_temp,
+              day5_item: day5.day_lowest_temp
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(DataRowGeneral, {
+              rowclass: "",
+              itemclass: precip,
+              item_desc: "%",
+              day1_item: day1.day_chance_rain,
+              day2_item: day2.day_chance_rain,
+              day3_item: day3.day_chance_rain,
+              day4_item: day4.day_chance_rain,
+              day5_item: day5.day_chance_rain
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(DataRowGeneral, {
+              itemclass: wind,
+              item_desc: "mph",
+              day1_item: day1.day_wind_mph,
+              day2_item: day2.day_wind_mph,
+              day3_item: day3.day_wind_mph,
+              day4_item: day4.day_wind_mph,
+              day5_item: day5.day_wind_mph
             })]
           }), " "]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("p", {
@@ -2265,6 +2210,11 @@ if (document.getElementById('div_weather_data') !== null) {
            <div className="col-2"><h4>{this.state.data.api_query.day[5].day_of_the_week}</h4>
                <span>{this.state.data.api_query.day[5].day_weather_code}</span></div> 
     </div>
+      <div className="row">
+           <div className="offset-1 col-2"><i className={wind}></i> &#160;<span>{day1.day_wind_mph} mph</span></div>  <div className="col-2"><i className={wind}></i> &#160;<span>{day2.day_wind_mph} mph</span></div> 
+               <div className="col-2"><i className={wind}></i> &#160;<span>{day3.day_wind_mph} mph</span></div> <div className="col-2"><i className={wind}></i> &#160;<span>{day4.day_wind_mph} mph</span></div> 
+                   <div className="col-2"><i className={wind}></i> &#160;<span>{day5.day_wind_mph} mph</span></div> 
+        </div>  
 */
 
 /***/ }),
