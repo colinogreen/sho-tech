@@ -2052,13 +2052,7 @@ var WeatherData = /*#__PURE__*/function (_React$Component3) {
   _createClass(WeatherData, [{
     key: "render",
     value: function render() {
-      console.log(this.state.data); //var txt = (<p>Extra text tester</p>);
-      //      var wdata = "";
-      //      for(var i=1; i<6;i++)
-      //      {
-      //          wdata += (    );
-      //      }
-
+      //console.log(this.state.data);
       var precip = "fas fa-tint";
       var temph = "fas fa-temperature-high";
       var templ = "fas fa-temperature-low";
