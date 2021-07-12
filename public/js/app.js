@@ -1842,9 +1842,6 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ BTCPrice)
-/* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var babel_standalone__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! babel-standalone */ "./node_modules/babel-standalone/babel.js");
@@ -1900,22 +1897,84 @@ window.ReactDOM = react_dom__WEBPACK_IMPORTED_MODULE_1__; //import ReactDOM from
 __webpack_require__(/*! ./components/Example */ "./resources/js/components/Example.js");
 
  //const element = <h1>Hello, {name}</h1>;
+//export default class BTCPrice extends React.Component {
 
 
 
 
-var BTCPrice = /*#__PURE__*/function (_React$Component) {
-  _inherits(BTCPrice, _React$Component);
+var DataRow = /*#__PURE__*/function (_React$Component) {
+  _inherits(DataRow, _React$Component);
 
-  var _super = _createSuper(BTCPrice);
+  var _super = _createSuper(DataRow);
 
-  //class BTCPrice extends React.Component {
-  function BTCPrice(props) {
+  function DataRow(props) {
+    _classCallCheck(this, DataRow);
+
+    return _super.call(this, props);
+  }
+
+  _createClass(DataRow, [{
+    key: "render",
+    value: function render() {
+      {
+        /* dow= day of week | dwc = day weather code */
+      }
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        className: "row",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "offset-1 col-2",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h4", {
+            children: this.props.dow1
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+            children: this.props.dwc1
+          })]
+        }), "  ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "col-2",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h4", {
+            children: this.props.dow2
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+            children: this.props.dwc2
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "col-2",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h4", {
+            children: this.props.dow3
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+            children: this.props.dwc3
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "col-2",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h4", {
+            children: this.props.dow4
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+            children: this.props.dwc4
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "col-2",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h4", {
+            children: this.props.dow5
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+            children: this.props.dwc5
+          })]
+        })]
+      });
+    }
+  }]);
+
+  return DataRow;
+}(react__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+var WeatherData = /*#__PURE__*/function (_React$Component2) {
+  _inherits(WeatherData, _React$Component2);
+
+  var _super2 = _createSuper(WeatherData);
+
+  function WeatherData(props) {
     var _this;
 
-    _classCallCheck(this, BTCPrice);
+    _classCallCheck(this, WeatherData);
 
-    _this = _super.call(this, props);
+    _this = _super2.call(this, props);
     _this.state = {
       data: {
         api_query: {
@@ -1928,7 +1987,7 @@ var BTCPrice = /*#__PURE__*/function (_React$Component) {
     return _this;
   }
 
-  _createClass(BTCPrice, [{
+  _createClass(WeatherData, [{
     key: "render",
     value: function render() {
       console.log(this.state.data); //var txt = (<p>Extra text tester</p>);
@@ -1969,44 +2028,17 @@ var BTCPrice = /*#__PURE__*/function (_React$Component) {
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
             className: "weather_table",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-              className: "row",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                className: "offset-1 col-2",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h4", {
-                  children: this.state.data.api_query.day[1].day_of_the_week
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-                  children: this.state.data.api_query.day[1].day_weather_code
-                })]
-              }), "  ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                className: "col-2",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h4", {
-                  children: this.state.data.api_query.day[2].day_of_the_week
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-                  children: this.state.data.api_query.day[2].day_weather_code
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                className: "col-2",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h4", {
-                  children: this.state.data.api_query.day[3].day_of_the_week
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-                  children: this.state.data.api_query.day[3].day_weather_code
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                className: "col-2",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h4", {
-                  children: this.state.data.api_query.day[4].day_of_the_week
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-                  children: this.state.data.api_query.day[4].day_weather_code
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                className: "col-2",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h4", {
-                  children: this.state.data.api_query.day[5].day_of_the_week
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-                  children: this.state.data.api_query.day[5].day_weather_code
-                })]
-              })]
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(DataRow, {
+              dow1: day1.day_of_week,
+              dow2: day2.day_of_week,
+              dow3: day3.day_of_week,
+              dow4: day4.day_of_week,
+              dow5: day5.day_of_week,
+              dwc1: day1.day_weather_code,
+              dwc2: day2.day_weather_code,
+              dwc3: day3.day_weather_code,
+              dwc4: day4.day_weather_code,
+              dwc5: day5.day_weather_code
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
               className: "row temp-high",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
@@ -2196,10 +2228,8 @@ var BTCPrice = /*#__PURE__*/function (_React$Component) {
     }
   }]);
 
-  return BTCPrice;
+  return WeatherData;
 }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
-
-
 
 function tick() {
   var element = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("p", {
@@ -2223,9 +2253,19 @@ if (document.getElementById('div_clock') !== null) {
 
 
 if (document.getElementById('div_weather_data') !== null) {
-  (0,react_dom__WEBPACK_IMPORTED_MODULE_1__.render)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(BTCPrice, {}), document.getElementById('div_weather_data')); //fetch(<BTCPrice />,document.getElementById('div_weather_data'));
+  (0,react_dom__WEBPACK_IMPORTED_MODULE_1__.render)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(WeatherData, {}), document.getElementById('div_weather_data')); //fetch(<BTCPrice />,document.getElementById('div_weather_data'));
   //new BTCPrice.fetch();  
 }
+/*
+    <div className="row">
+       <div className="offset-1 col-2"><h4>{this.state.data.api_query.day[1].day_of_the_week}</h4><span>{this.state.data.api_query.day[1].day_weather_code}</span></div>  <div className="col-2">
+           <h4>{this.state.data.api_query.day[2].day_of_the_week}</h4><span>{this.state.data.api_query.day[2].day_weather_code}</span></div> 
+           <div className="col-2"><h4>{this.state.data.api_query.day[3].day_of_the_week}</h4><span>{this.state.data.api_query.day[3].day_weather_code}</span></div> 
+           <div className="col-2"><h4>{this.state.data.api_query.day[4].day_of_the_week}</h4><span>{this.state.data.api_query.day[4].day_weather_code}</span></div> 
+           <div className="col-2"><h4>{this.state.data.api_query.day[5].day_of_the_week}</h4>
+               <span>{this.state.data.api_query.day[5].day_weather_code}</span></div> 
+    </div>
+*/
 
 /***/ }),
 

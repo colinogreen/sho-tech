@@ -30,8 +30,28 @@ require('./components/Example');
 import $ from 'jquery';
 
 //const element = <h1>Hello, {name}</h1>;
-export default class BTCPrice extends React.Component {
-//class BTCPrice extends React.Component {
+//export default class BTCPrice extends React.Component {
+	
+class DataRow extends React.Component {
+	
+	constructor(props){
+		super(props);
+
+	}
+	render()
+	{
+		{/* dow= day of week | dwc = day weather code */}
+    return (<div className="row">
+       <div className="offset-1 col-2"><h4>{this.props.dow1}</h4><span>{this.props.dwc1}</span></div>  <div className="col-2">
+           <h4>{this.props.dow2}</h4><span>{this.props.dwc2}</span></div> 
+           <div className="col-2"><h4>{this.props.dow3}</h4><span>{this.props.dwc3}</span></div> 
+           <div className="col-2"><h4>{this.props.dow4}</h4><span>{this.props.dwc4}</span></div> 
+           <div className="col-2"><h4>{this.props.dow5}</h4>
+               <span>{this.props.dwc5}</span></div> 
+    </div>	);	
+	}
+}
+class WeatherData extends React.Component {
 
   constructor(props) {
 
@@ -60,7 +80,7 @@ export default class BTCPrice extends React.Component {
 //      {
 //          wdata += (    );
 //      }
-
+	
     const precip = "fas fa-tint";
     const temph = "fas fa-temperature-high";
     const templ = "fas fa-temperature-low";
@@ -87,14 +107,10 @@ export default class BTCPrice extends React.Component {
          </div>
      </div>
     <div className="weather_table">
-    <div className="row">
-       <div className="offset-1 col-2"><h4>{this.state.data.api_query.day[1].day_of_the_week}</h4><span>{this.state.data.api_query.day[1].day_weather_code}</span></div>  <div className="col-2">
-           <h4>{this.state.data.api_query.day[2].day_of_the_week}</h4><span>{this.state.data.api_query.day[2].day_weather_code}</span></div> 
-           <div className="col-2"><h4>{this.state.data.api_query.day[3].day_of_the_week}</h4><span>{this.state.data.api_query.day[3].day_weather_code}</span></div> 
-           <div className="col-2"><h4>{this.state.data.api_query.day[4].day_of_the_week}</h4><span>{this.state.data.api_query.day[4].day_weather_code}</span></div> 
-           <div className="col-2"><h4>{this.state.data.api_query.day[5].day_of_the_week}</h4>
-               <span>{this.state.data.api_query.day[5].day_weather_code}</span></div> 
-    </div>
+
+	<DataRow dow1={day1.day_of_week} dow2={day2.day_of_week} dow3={day3.day_of_week} dow4={day4.day_of_week }dow5={day5.day_of_week}
+	 dwc1={day1.day_weather_code} dwc2={day2.day_weather_code} dwc3={day3.day_weather_code} dwc4={day4.day_weather_code} dwc5={day5.day_weather_code} />
+	
     <div className="row temp-high">
            <div className="offset-1 col-2"><i className={temph}></i> &#160;<span>{day1.day_highest_temp} &deg;</span></div>  <div className="col-2"><i className={temph}></i> &#160;<span>{day2.day_highest_temp} &deg;</span></div> 
                <div className="col-2"><i className={temph}></i> &#160;<span>{day3.day_highest_temp} &deg;</span></div> <div className="col-2"><i className={temph}></i> &#160;<span>{day4.day_highest_temp} &deg;</span></div> 
@@ -184,7 +200,17 @@ function tick() {
  //const rate = btc_price.state.data.bpi.USD.rate;
  if(document.getElementById('div_weather_data')!== null)
  {
-    render(<BTCPrice />,document.getElementById('div_weather_data'));
+    render(<WeatherData />,document.getElementById('div_weather_data'));
     //fetch(<BTCPrice />,document.getElementById('div_weather_data'));
 	//new BTCPrice.fetch();  
  }
+/*
+    <div className="row">
+       <div className="offset-1 col-2"><h4>{this.state.data.api_query.day[1].day_of_the_week}</h4><span>{this.state.data.api_query.day[1].day_weather_code}</span></div>  <div className="col-2">
+           <h4>{this.state.data.api_query.day[2].day_of_the_week}</h4><span>{this.state.data.api_query.day[2].day_weather_code}</span></div> 
+           <div className="col-2"><h4>{this.state.data.api_query.day[3].day_of_the_week}</h4><span>{this.state.data.api_query.day[3].day_weather_code}</span></div> 
+           <div className="col-2"><h4>{this.state.data.api_query.day[4].day_of_the_week}</h4><span>{this.state.data.api_query.day[4].day_weather_code}</span></div> 
+           <div className="col-2"><h4>{this.state.data.api_query.day[5].day_of_the_week}</h4>
+               <span>{this.state.data.api_query.day[5].day_weather_code}</span></div> 
+    </div>
+*/

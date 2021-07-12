@@ -39,7 +39,7 @@ class WeatherFivedayForecast extends Controller
         for($i = 0; $i<6;$i++)
         {
             $data->api_query->day[$i] = new \stdClass;
-            $data->api_query->day[$i]->day_of_the_week = $cityWeather->getDayOfWeek($i);
+            $data->api_query->day[$i]->day_of_week = $cityWeather->getDayOfWeek($i);
             $data->api_query->day[$i]->day_weather_code = $cityWeather->getDaySignificantWeatherCode($i);
             $data->api_query->day[$i]->day_highest_temp = $cityWeather->getDayHighestTemp($i);
             $data->api_query->day[$i]->day_lowest_temp = $cityWeather->getDayLowestTemp($i);
