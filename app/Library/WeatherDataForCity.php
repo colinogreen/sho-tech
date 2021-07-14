@@ -11,6 +11,7 @@ Final class WeatherDataForCity
     private $dayOfWeek = [];
     private $dayWeatherCode = [];
     
+    private $location = "unknown location";
     private $lastApiUpdate;
     
     //private $dailyForecastDisplay = [];
@@ -34,10 +35,33 @@ Final class WeatherDataForCity
         if(isset($data->features[0]->properties->modelRunDate))
         {
             $this->setDailyForecastLastUpdate($data->features[0]->properties->modelRunDate);
-        }        
+        }
+        if(isset($data->features[0]->properties->location->name))
+        {
+            $this->setLocation($data->features[0]->properties->location->name);
+        }  
     }
-    
-    public function setLastApiUpdate(object $data):void
+    /**
+     * 
+     * @param string $location
+     */
+    private function setLocation(string $location):void
+    {
+        $this->location = $location;
+    }
+    /**
+     * 
+     * @return string
+     */
+    public function getLocation():string
+    {
+        return $this->location;
+    }
+    /**
+     * 
+     * @param object $data
+     */ 
+    private function setLastApiUpdate(object $data):void
     {
         if(isset($data->api_query->last_update))
         {
@@ -45,7 +69,10 @@ Final class WeatherDataForCity
         }
 
     }
-    
+    /**
+     * 
+     * @return string|NULL
+     */
     public function getLastApiUpdate():?string
     {
         return $this->lastApiUpdate;

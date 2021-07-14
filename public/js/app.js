@@ -1876,8 +1876,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
  * includes React and other helpers. It's a great starting point while
  * building robust, powerful web applications using React + Laravel.
  */
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); //React = require('react');
-
+__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 
@@ -1885,9 +1884,7 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); //React =
 
 
 window.React = react__WEBPACK_IMPORTED_MODULE_0__;
-window.ReactDOM = react_dom__WEBPACK_IMPORTED_MODULE_1__; //import ReactDOM from 'react-dom'
-//Babel = require("babel-standalone");
-
+window.ReactDOM = react_dom__WEBPACK_IMPORTED_MODULE_1__;
 /**
  * Next, we will create a fresh React component instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -1896,8 +1893,6 @@ window.ReactDOM = react_dom__WEBPACK_IMPORTED_MODULE_1__; //import ReactDOM from
 
 __webpack_require__(/*! ./components/Example */ "./resources/js/components/Example.js");
 
- //const element = <h1>Hello, {name}</h1>;
-//export default class BTCPrice extends React.Component {
 
 
 
@@ -2041,7 +2036,6 @@ var WeatherData = /*#__PURE__*/function (_React$Component3) {
       data: {
         api_query: {
           "last_update": "",
-          //"day": [0,1,2,3,4,5,6],
           "day": [{}, {}, {}, {}, {}, {}]
         }
       }
@@ -2057,14 +2051,15 @@ var WeatherData = /*#__PURE__*/function (_React$Component3) {
       var temph = "fas fa-temperature-high";
       var templ = "fas fa-temperature-low";
       var wind = "fas fa-wind";
+      var location = this.state.data.api_query.location;
       var day1 = this.state.data.api_query.day[1];
       var day2 = this.state.data.api_query.day[2];
       var day3 = this.state.data.api_query.day[3];
       var day4 = this.state.data.api_query.day[4];
       var day5 = this.state.data.api_query.day[5];
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h3", {
-          children: "Weather forecast for [city]"
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h3", {
+          children: ["Weather forecast for ", location]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
           className: "",
           style: {
@@ -2185,31 +2180,11 @@ function tick() {
 if (document.getElementById('div_clock') !== null) {
   //tick();
   setInterval(tick, 1000);
-} //setInterval(tick, 1000);
-//const BTCPrice = new BTCPrice();
-//var btc_price = new BTCPrice();
-//const rate = btc_price.state.data.bpi.USD.rate;
-
+}
 
 if (document.getElementById('div_weather_data') !== null) {
-  (0,react_dom__WEBPACK_IMPORTED_MODULE_1__.render)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(WeatherData, {}), document.getElementById('div_weather_data')); //fetch(<BTCPrice />,document.getElementById('div_weather_data'));
-  //new BTCPrice.fetch();  
+  (0,react_dom__WEBPACK_IMPORTED_MODULE_1__.render)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(WeatherData, {}), document.getElementById('div_weather_data'));
 }
-/*
-    <div className="row">
-       <div className="offset-1 col-2"><h4>{this.state.data.api_query.day[1].day_of_the_week}</h4><span>{this.state.data.api_query.day[1].day_weather_code}</span></div>  <div className="col-2">
-           <h4>{this.state.data.api_query.day[2].day_of_the_week}</h4><span>{this.state.data.api_query.day[2].day_weather_code}</span></div> 
-           <div className="col-2"><h4>{this.state.data.api_query.day[3].day_of_the_week}</h4><span>{this.state.data.api_query.day[3].day_weather_code}</span></div> 
-           <div className="col-2"><h4>{this.state.data.api_query.day[4].day_of_the_week}</h4><span>{this.state.data.api_query.day[4].day_weather_code}</span></div> 
-           <div className="col-2"><h4>{this.state.data.api_query.day[5].day_of_the_week}</h4>
-               <span>{this.state.data.api_query.day[5].day_weather_code}</span></div> 
-    </div>
-      <div className="row">
-           <div className="offset-1 col-2"><i className={wind}></i> &#160;<span>{day1.day_wind_mph} mph</span></div>  <div className="col-2"><i className={wind}></i> &#160;<span>{day2.day_wind_mph} mph</span></div> 
-               <div className="col-2"><i className={wind}></i> &#160;<span>{day3.day_wind_mph} mph</span></div> <div className="col-2"><i className={wind}></i> &#160;<span>{day4.day_wind_mph} mph</span></div> 
-                   <div className="col-2"><i className={wind}></i> &#160;<span>{day5.day_wind_mph} mph</span></div> 
-        </div>  
-*/
 
 /***/ }),
 

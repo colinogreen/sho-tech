@@ -76,14 +76,19 @@ class GetWeatherData extends Command
         $response = Http::acceptJson()->withHeaders([
         'X-IBM-Client-Id' => $api_cred['X-IBM-Client-Id'],
         'X-IBM-Client-Secret' => $api_cred['X-IBM-Client-Secret']
-        ])->get('https://api-metoffice.apiconnect.ibmcloud.com/metoffice/production/v0/forecasts/point/daily', [
-            'latitude' => '56.460925484470174', // Dundee latitude
-            'longitude' => '-2.9706113751332133',  // Dundee longitude
+        ])->get("https://api-metoffice.apiconnect.ibmcloud.com/metoffice/production/v0/forecasts/point/daily", [
+            'includeLocationName' => 'true', // Dundee latitude
+            'excludeParameterMetadata' => 'true', // Dundee latitude
+            'latitude' => '56.46913', // Dundee latitude
+            'longitude' => '-2.97489',  // Dundee longitude
         ]);
-        
+        // https://latitudelongitude.org
+        // Dundee: 56.46913, -2.97489
+        // Manchester: 53.48095, -2.23743
         if(!empty($response->json()))
         {
             $response_data = $response->json();
+            //exit("<pre>". print_r($response_data, true)."</pre>");
            
             $response_data['api_query_details'] = [];
             $response_data['api_query']['last_update'] = date("Y-m-d H:i:s");

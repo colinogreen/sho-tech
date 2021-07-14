@@ -6,7 +6,6 @@
 
 require('./bootstrap');
 
-//React = require('react');
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Babel from 'babel-standalone';
@@ -16,8 +15,6 @@ import Babel from 'babel-standalone';
 import { render } from 'react-dom'
 window.React = React;
 window.ReactDOM = ReactDOM;
-//import ReactDOM from 'react-dom'
-//Babel = require("babel-standalone");
 
 /**
  * Next, we will create a fresh React component instance and attach it to
@@ -28,9 +25,6 @@ window.ReactDOM = ReactDOM;
 require('./components/Example');
 
 import $ from 'jquery';
-
-//const element = <h1>Hello, {name}</h1>;
-//export default class BTCPrice extends React.Component {
 	
 class DataRowTop extends React.Component {
 	
@@ -92,7 +86,6 @@ class WeatherData extends React.Component {
       data: {
           api_query:{
               "last_update": "",
-              //"day": [0,1,2,3,4,5,6],
               "day": [{},{},{},{},{},{}],
           }
 
@@ -109,6 +102,7 @@ class WeatherData extends React.Component {
     const templ = "fas fa-temperature-low";
     const wind = "fas fa-wind";
     
+    const location = this.state.data.api_query.location;
     const day1 = this.state.data.api_query.day[1];
     const day2 = this.state.data.api_query.day[2];
     const day3 = this.state.data.api_query.day[3];
@@ -120,7 +114,7 @@ class WeatherData extends React.Component {
       <div>
           
         <h3>
-        Weather forecast for [city]
+        Weather forecast for {location}
         </h3>
 
      <div className="" style={{border:'2px solid #ccc', borderRadius: '8px'}}>
@@ -164,9 +158,10 @@ class WeatherData extends React.Component {
     );
 
   }
-componentDidMount(){
+  componentDidMount()
+  {
 	this.fetch();// Get the data on the first load of the page.
-}
+  }
   fetch() {
     var context = this;
 
@@ -208,30 +203,9 @@ function tick() {
     setInterval(tick, 1000);
  }
 
-//setInterval(tick, 1000);
 
-
-//const BTCPrice = new BTCPrice();
-//var btc_price = new BTCPrice();
- //const rate = btc_price.state.data.bpi.USD.rate;
  if(document.getElementById('div_weather_data')!== null)
  {
     render(<WeatherData />,document.getElementById('div_weather_data'));
-    //fetch(<BTCPrice />,document.getElementById('div_weather_data'));
-	//new BTCPrice.fetch();  
+
  }
-/*
-    <div className="row">
-       <div className="offset-1 col-2"><h4>{this.state.data.api_query.day[1].day_of_the_week}</h4><span>{this.state.data.api_query.day[1].day_weather_code}</span></div>  <div className="col-2">
-           <h4>{this.state.data.api_query.day[2].day_of_the_week}</h4><span>{this.state.data.api_query.day[2].day_weather_code}</span></div> 
-           <div className="col-2"><h4>{this.state.data.api_query.day[3].day_of_the_week}</h4><span>{this.state.data.api_query.day[3].day_weather_code}</span></div> 
-           <div className="col-2"><h4>{this.state.data.api_query.day[4].day_of_the_week}</h4><span>{this.state.data.api_query.day[4].day_weather_code}</span></div> 
-           <div className="col-2"><h4>{this.state.data.api_query.day[5].day_of_the_week}</h4>
-               <span>{this.state.data.api_query.day[5].day_weather_code}</span></div> 
-    </div>
-      <div className="row">
-           <div className="offset-1 col-2"><i className={wind}></i> &#160;<span>{day1.day_wind_mph} mph</span></div>  <div className="col-2"><i className={wind}></i> &#160;<span>{day2.day_wind_mph} mph</span></div> 
-               <div className="col-2"><i className={wind}></i> &#160;<span>{day3.day_wind_mph} mph</span></div> <div className="col-2"><i className={wind}></i> &#160;<span>{day4.day_wind_mph} mph</span></div> 
-                   <div className="col-2"><i className={wind}></i> &#160;<span>{day5.day_wind_mph} mph</span></div> 
-        </div>  
-*/

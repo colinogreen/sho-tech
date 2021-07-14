@@ -35,10 +35,13 @@ class WeatherFivedayForecast extends Controller
         $data->api_query = new \stdClass;
         $data->api_query->last_api_update = $cityWeather->getLastApiUpdate();
         $data->api_query->last_forecast_update = $cityWeather->getDailyForecastLastUpdate();
+        $data->api_query->location = $cityWeather->getLocation();
+        //$data->api_query->location = "Feeblesticks";
         $data->api_query->day = [];
         for($i = 0; $i<6;$i++)
         {
             $data->api_query->day[$i] = new \stdClass;
+
             $data->api_query->day[$i]->day_of_week = $cityWeather->getDayOfWeek($i);
             $data->api_query->day[$i]->day_weather_code = $cityWeather->getDaySignificantWeatherCode($i);
             $data->api_query->day[$i]->day_highest_temp = $cityWeather->getDayHighestTemp($i);
