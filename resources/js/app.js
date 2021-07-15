@@ -25,8 +25,8 @@ window.ReactDOM = ReactDOM;
 require('./components/Example');
 
 import $ from 'jquery';
-	
-class DataRowTop extends React.Component {
+
+class TodayWeatherRows extends React.Component {
 	
 	constructor(props){
 		super(props);
@@ -34,19 +34,66 @@ class DataRowTop extends React.Component {
 	}
 	render()
 	{
+		//console.log("Top temp: " + this.props.top_temp);
+	const dynamic_data = (this.props.extra_data_name !== undefined && this.props.extra_data !== undefined )
+	? this.props.extra_data_name + ": " + this.props.extra_data
+	: "";
+    return (
+	<div className="today_weather_row">
+		<div className="row">
+      	 <div className="col-12"><h4>Today</h4></div>
+    	</div>	
+		<div className="row">
+      	 <div className="col-2">High: {this.props.top_temp}  &deg;</div>
+      	 <div className="col-2">Min: {this.props.min_temp} &deg;</div>
+      	 <div id="today_weather_row_extra" className="col-2">{dynamic_data} </div>
+    	</div>
+	</div>
+		);	
+	}
+}
+function weatherIcon()
+{
+	
+}	
+class MultiWeatherRowTop extends React.Component {
+	
+	constructor(props){
+		super(props);
+
+	}
+	
+	getWeatherIcon(dwc)
+	{
+		return  (dwc !== undefined && dwc.includes("fas")
+		?(<i className={dwc }></i>)
+		:(dwc !== undefined)? dwc: "");
+	}
+	render()
+	{
 		{/* dow= day of week | dwc = day weather code */}
-    return (<div className="row">
-       <div className="offset-1 col-2"><h4>{this.props.dow1}</h4><span>{this.props.dwc1}</span></div>  <div className="col-2">
-           <h4>{this.props.dow2}</h4><span>{this.props.dwc2}</span></div> 
-           <div className="col-2"><h4>{this.props.dow3}</h4><span>{this.props.dwc3}</span></div> 
-           <div className="col-2"><h4>{this.props.dow4}</h4><span>{this.props.dwc4}</span></div> 
+		//console.log("dwc1 status: " + this.props.dwc1);
+		//const dwc1 = (this.props.dwc1 !== undefined && this.props.dwc1.includes("fas")?(<i className={this.props.dwc1 }></i>): "");
+		const dwc1 = this.getWeatherIcon(this.props.dwc1);
+		const dwc2 = this.getWeatherIcon(this.props.dwc2);
+		const dwc3 = this.getWeatherIcon(this.props.dwc3);
+		const dwc4 = this.getWeatherIcon(this.props.dwc4);
+		const dwc5 = this.getWeatherIcon(this.props.dwc5);
+
+		//console.log("dw status: " + dw);
+		//console.log("dwc1 includes: " + this.props.dwc1.toString().includes("fas"));
+    return (<div className="row weather_row_top">
+       <div className="offset-1 col-2"><h4>{this.props.dow1}</h4><span>{dwc1}</span></div>  <div className="col-2">
+           <h4>{this.props.dow2}</h4><span>{dwc2}</span></div> 
+           <div className="col-2"><h4>{this.props.dow3}</h4><span>{dwc3}</span></div> 
+           <div className="col-2"><h4>{this.props.dow4}</h4><span>{dwc4}</span></div> 
            <div className="col-2"><h4>{this.props.dow5}</h4>
-               <span>{this.props.dwc5}</span></div> 
+               <span>{dwc5}</span></div> 
     </div>	);	
 	}
 }
 
-class DataRowGeneral extends React.Component {
+class MultiWeatherRowGeneral extends React.Component {
 	
 	constructor(props){
 		super(props);
@@ -80,7 +127,7 @@ class WeatherData extends React.Component {
 
     super(props);
 
-
+	var extra_data_name; var extra_data;
     this.state = {
 
       data: {
@@ -108,7 +155,37 @@ class WeatherData extends React.Component {
     const day3 = this.state.data.api_query.day[3];
     const day4 = this.state.data.api_query.day[4];
     const day5 = this.state.data.api_query.day[5];
-    
+
+	//var extra_data_name = "placehold"; var extra_data;
+	var count = 0;
+	setInterval(function(){
+		var sec = new Date().getSeconds();
+		/*
+		if(count < 30 && sec % 3 === 0)
+		{
+			console.log("Current seconds % 3 = 0: " + sec);
+			count ++;
+		}
+		
+		*/
+		if(sec % 3 === 0 && sec % 6 === 0 && day1.max_uv_index !== undefined)
+		{
+			this.extra_data_name = "Max UV Index";
+			this.extra_data = day1.max_uv_index;
+			
+		}
+		else if(sec % 3 === 0 && day1.max_feels_like_temp !== undefined)
+		{
+			this.extra_data_name = "Temp feels like";
+			this.extra_data = day1.max_feels_like_temp + " &deg;";			
+		}
+		if(document.getElementById("today_weather_row_extra")!== null)
+		{
+			document.getElementById('today_weather_row_extra').innerHTML = this.extra_data_name + ": "+ this.extra_data;
+		}
+		
+	}, 1000);    
+	//console.log('MultiWeatherRowGeneral.render() ');
     return (
              
       <div>
@@ -125,19 +202,21 @@ class WeatherData extends React.Component {
      </div>
     <div className="weather_table">
 
-	<DataRowTop dow1={day1.day_of_week} dow2={day2.day_of_week} dow3={day3.day_of_week} dow4={day4.day_of_week }dow5={day5.day_of_week}
+	<TodayWeatherRows top_temp={day1.day_highest_temp} min_temp={day1.day_lowest_temp} />
+	
+	<MultiWeatherRowTop dow1={day1.day_of_week} dow2={day2.day_of_week} dow3={day3.day_of_week} dow4={day4.day_of_week }dow5={day5.day_of_week}
 	 dwc1={day1.day_weather_code} dwc2={day2.day_weather_code} dwc3={day3.day_weather_code} dwc4={day4.day_weather_code} dwc5={day5.day_weather_code} />
 	
-	<DataRowGeneral rowclass="temp-high" itemclass={temph} item_desc="&deg;" day1_item={day1.day_highest_temp} day2_item={day2.day_highest_temp} 
+	<MultiWeatherRowGeneral rowclass="temp_high" itemclass={temph} item_desc="&deg;" day1_item={day1.day_highest_temp} day2_item={day2.day_highest_temp} 
 	day3_item={day3.day_highest_temp} day4_item={day4.day_highest_temp} day5_item={day5.day_highest_temp} />
 
-	<DataRowGeneral rowclass="temp-high" itemclass={templ} item_desc="&deg;" day1_item={day1.day_lowest_temp} day2_item={day2.day_lowest_temp} 
+	<MultiWeatherRowGeneral rowclass="temp_low" itemclass={templ} item_desc="&deg;" day1_item={day1.day_lowest_temp} day2_item={day2.day_lowest_temp} 
 	day3_item={day3.day_lowest_temp} day4_item={day4.day_lowest_temp} day5_item={day5.day_lowest_temp} />
 
-	<DataRowGeneral rowclass="" itemclass={precip} item_desc="%" day1_item={day1.day_chance_rain} day2_item={day2.day_chance_rain} 
+	<MultiWeatherRowGeneral rowclass="" itemclass={precip} item_desc="%" day1_item={day1.day_chance_rain} day2_item={day2.day_chance_rain} 
 	day3_item={day3.day_chance_rain} day4_item={day4.day_chance_rain} day5_item={day5.day_chance_rain} />
 	
-	<DataRowGeneral itemclass={wind} item_desc="mph" day1_item={day1.day_wind_mph} day2_item={day2.day_wind_mph} 
+	<MultiWeatherRowGeneral itemclass={wind} item_desc="mph" day1_item={day1.day_wind_mph} day2_item={day2.day_wind_mph} 
 	day3_item={day3.day_wind_mph} day4_item={day4.day_wind_mph} day5_item={day5.day_wind_mph} />
  
 
@@ -189,7 +268,6 @@ class WeatherData extends React.Component {
 } 
 
 
-
 function tick() {
   const element = (
 
@@ -209,3 +287,4 @@ function tick() {
     render(<WeatherData />,document.getElementById('div_weather_data'));
 
  }
+

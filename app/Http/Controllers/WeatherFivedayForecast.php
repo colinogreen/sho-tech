@@ -48,6 +48,8 @@ class WeatherFivedayForecast extends Controller
             $data->api_query->day[$i]->day_lowest_temp = $cityWeather->getDayLowestTemp($i);
             $data->api_query->day[$i]->day_chance_rain = $cityWeather->getDayChanceOfRain($i);
             $data->api_query->day[$i]->day_wind_mph = $cityWeather->getDayWindSpeed($i);
+            $data->api_query->day[$i]->max_uv_index = $cityWeather->getDayMaxUvIndex($i);
+            $data->api_query->day[$i]->max_feels_like_temp = $cityWeather->getDayMaxFeelsLikeTemp($i);
         }
         //exit("Data:<pre>". print_r($data, true)."</pre>");
         return json_encode($data);

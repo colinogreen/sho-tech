@@ -9,3 +9,27 @@
 @import '~@fortawesome/fontawesome-free/css/brands.css';
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+.weather_table{
+	
+	color: #595959;
+	i{
+		font-size: 1.3em;
+		color: #808080;		
+	}
+	
+	.weather_row_top{
+		
+		font-size: 2em;
+	}
+	
+	.temp_high > div > i{
+		color:red;
+		font-weight: 600
+	}
+	.temp_low > div > i{
+		color:darkblue;
+		font-weight: 600
+	}		
+
+}

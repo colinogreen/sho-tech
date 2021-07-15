@@ -11,6 +11,9 @@ Final class WeatherDataForCity
     private $dayOfWeek = [];
     private $dayWeatherCode = [];
     
+    private $maxUvIndex = [];
+    private $dayMaxFeelsLikeTemp = [];
+    
     private $location = "unknown location";
     private $lastApiUpdate;
     
@@ -85,10 +88,14 @@ Final class WeatherDataForCity
      */
     private function getDayWeatherLabel():array
     {
-        return ["Clear night","Sunny day","Partly cloudy (night)","Partly cloudy (day)","Not used","Mist","Fog","Cloudy","Overcast",
-            "Light rain shower (night)","Light rain shower (day)","Drizzle","Light rain","Heavy rain shower (night)","Heavy rain shower (day)",
-            "Heavy rain","Sleet shower (night)","Sleet shower (day)","Sleet","Hail shower (night)","Hail shower (day)","Hail","Light snow shower (night)",
-            "Light snow shower (day)","Light snow","Heavy snow shower (night)","Heavy snow shower (day)","Heavy snow","Thunder shower (night)","Thunder shower (day)","Thunder"];
+        return ["fas fa-moon","fas fa-sun","fas fa-cloud-moon","fas fa-cloud-sun","Not used","Mist","Fog","fas fa-cloud","Overcast",
+            "Light rain shower (night)","Light rain shower (day)","Drizzle","Light rain","fas fa-cloud-moon-rain","fas fa-cloud-sun-rain",
+            "fas fa-cloud-rain","Sleet shower (night)","Sleet shower (day)","Sleet","Hail shower (night)","Hail shower (day)","Hail","fas fa-snow",
+            "fas fa-snow","fas fa-snow","fas fa-snow","fas fa-snow","fas fa-snow","Thunder shower (night)","fas fa-bolt"];
+//         return ["Clear night","Sunny day","Partly cloudy (night)","Partly cloudy (day)","Not used","Mist","Fog","Cloudy","Overcast",
+//             "Light rain shower (night)","Light rain shower (day)","Drizzle","Light rain","Heavy rain shower (night)","Heavy rain shower (day)",
+//             "Heavy rain","Sleet shower (night)","Sleet shower (day)","Sleet","Hail shower (night)","Hail shower (day)","Hail","Light snow shower (night)",
+//             "Light snow shower (day)","Light snow","Heavy snow shower (night)","Heavy snow shower (day)","Heavy snow","Thunder shower (night)","Thunder shower (day)","Thunder"];
     }
     
     public function setCachedData(string $result)
@@ -129,6 +136,26 @@ Final class WeatherDataForCity
     {
         return $this->dayWeatherCode[$code];
     }
+    
+    private function setDayMaxUvIndex(string $maxUvIndex)
+    {
+        $this->maxUvIndex[] = $maxUvIndex;
+    }
+    
+    public function getDayMaxUvIndex($day)
+    {
+        return $this->maxUvIndex[$day];
+    }
+    
+    private function setDayMaxFeelsLikeTemp(string $dayMaxFeelsLikeTemp)
+    {
+        $this->dayMaxFeelsLikeTemp[] = $dayMaxFeelsLikeTemp;
+    }
+    
+    public function getDayMaxFeelsLikeTemp(string $dayMaxFeelsLikeTemp)
+    {
+        return $this->dayMaxFeelsLikeTemp[$dayMaxFeelsLikeTemp];
+    }
     private function setDailyForecastParameters(array $timeseries):void
     {
         for($i = 0; $i < 6; $i++)
@@ -140,6 +167,9 @@ Final class WeatherDataForCity
                 $this->setDayHighestTemp(round($timeseries[$i]->dayUpperBoundMaxTemp));
                 $this->setDayLowestTemp(round($timeseries[$i]->nightLowerBoundMinTemp));
                 $this->setDayChanceOfRain(round($timeseries[$i]->dayProbabilityOfPrecipitation));
+                
+                $this->setDayMaxUvIndex(round($timeseries[$i]->maxUvIndex)); // Added 2021-07-14
+                $this->setDayMaxFeelsLikeTemp(round($timeseries[$i]->dayMaxFeelsLikeTemp)); // Added 2021-07-14
                
                 $this->setDayWindSpeed(round($this->convertWindSpeed10msToMph($timeseries[$i]->midday10MWindSpeed)));                
             }
