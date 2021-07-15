@@ -1917,24 +1917,36 @@ var TodayWeatherRows = /*#__PURE__*/function (_React$Component) {
         className: "today_weather_row",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
           className: "row",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-            className: "col-12",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h4", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            className: "offset-4 col-4",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h3", {
               children: "Today"
-            })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
+              className: this.props.weather_icon
+            })]
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
           className: "row",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-            className: "col-2",
-            children: ["High: ", this.props.top_temp, "  \xB0"]
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            className: "col-4",
+            children: " "
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-            className: "col-2",
-            children: ["Min: ", this.props.min_temp, " \xB0"]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-            id: "today_weather_row_extra",
-            className: "col-2",
-            children: [dynamic_data, " "]
+            className: "col-4",
+            children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
+              className: "fas fa-temperature-high"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
+              children: [" ", this.props.top_temp, "  \xB0"]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
+              className: "fas fa-temperature-low"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
+              children: [" ", this.props.min_temp, " \xB0"]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+              id: "today-weather-row-extra",
+              className: "dynamic_display",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+                children: dynamic_data
+              }), " "]
+            })]
           })]
         })]
       });
@@ -2145,8 +2157,8 @@ var WeatherData = /*#__PURE__*/function (_React$Component4) {
           this.extra_data = day1.max_feels_like_temp + " &deg;";
         }
 
-        if (document.getElementById("today_weather_row_extra") !== null) {
-          document.getElementById('today_weather_row_extra').innerHTML = this.extra_data_name + ": " + this.extra_data;
+        if (document.getElementById("today-weather-row-extra") !== null) {
+          document.getElementById('today-weather-row-extra').innerHTML = this.extra_data_name + ": " + this.extra_data;
         }
       }, 1000); //console.log('MultiWeatherRowGeneral.render() ');
 
@@ -2173,6 +2185,7 @@ var WeatherData = /*#__PURE__*/function (_React$Component4) {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
             className: "weather_table",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(TodayWeatherRows, {
+              weather_icon: day1.day_weather_code,
               top_temp: day1.day_highest_temp,
               min_temp: day1.day_lowest_temp
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(MultiWeatherRowTop, {
@@ -2278,8 +2291,8 @@ if (document.getElementById('div_clock') !== null) {
   setInterval(tick, 1000);
 }
 
-if (document.getElementById('div_weather_data') !== null) {
-  (0,react_dom__WEBPACK_IMPORTED_MODULE_1__.render)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(WeatherData, {}), document.getElementById('div_weather_data'));
+if (document.getElementById('div-weather-data') !== null) {
+  (0,react_dom__WEBPACK_IMPORTED_MODULE_1__.render)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(WeatherData, {}), document.getElementById('div-weather-data'));
 }
 
 /***/ }),

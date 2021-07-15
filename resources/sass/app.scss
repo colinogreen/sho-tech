@@ -10,26 +10,47 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
-.weather_table{
+.div_weather_data{
 	
-	color: #595959;
-	i{
-		font-size: 1.3em;
-		color: #808080;		
-	}
-	
-	.weather_row_top{
-		
-		font-size: 2em;
-	}
-	
-	.temp_high > div > i{
-		color:red;
-		font-weight: 600
-	}
-	.temp_low > div > i{
-		color:darkblue;
-		font-weight: 600
-	}		
 
+	
+	.weather_table{
+		
+		
+		i{
+			font-size: 1.3em;
+			color: #808080;		
+		}
+		.fa-sun{
+			color:#b3b300
+			
+		}
+		
+		.fa-cloud-sun{
+			color: #666600;
+		}		
+		.weather_row_top{
+			
+			font-size: 2em;
+		}
+		
+		.temp_high > div > i{
+			color:red;
+			font-weight: 600
+		}
+		.temp_low > div > i{
+			color:darkblue;
+			font-weight: 600
+		}		
+	
+		.today_weather_row{
+			i, span {
+				font-size: 3em
+			}
+			#today-weather-row-extra{
+				font-size:2em
+			}
+		}
+	}
 }
+

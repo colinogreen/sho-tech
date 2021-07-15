@@ -41,12 +41,14 @@ class TodayWeatherRows extends React.Component {
     return (
 	<div className="today_weather_row">
 		<div className="row">
-      	 <div className="col-12"><h4>Today</h4></div>
+      	 <div className="offset-4 col-4"><h3>Today</h3><i className={this.props.weather_icon}></i></div>
     	</div>	
 		<div className="row">
-      	 <div className="col-2">High: {this.props.top_temp}  &deg;</div>
-      	 <div className="col-2">Min: {this.props.min_temp} &deg;</div>
-      	 <div id="today_weather_row_extra" className="col-2">{dynamic_data} </div>
+      	 <div className="col-4"> </div>
+      	 <div className="col-4"> <i className="fas fa-temperature-high"></i><span> {this.props.top_temp}  &deg;</span><i className="fas fa-temperature-low"></i><span> {this.props.min_temp} &deg;</span>
+		<div id="today-weather-row-extra" className="dynamic_display"><span>{dynamic_data}</span> </div>
+		</div>
+      	 
     	</div>
 	</div>
 		);	
@@ -179,9 +181,9 @@ class WeatherData extends React.Component {
 			this.extra_data_name = "Temp feels like";
 			this.extra_data = day1.max_feels_like_temp + " &deg;";			
 		}
-		if(document.getElementById("today_weather_row_extra")!== null)
+		if(document.getElementById("today-weather-row-extra")!== null)
 		{
-			document.getElementById('today_weather_row_extra').innerHTML = this.extra_data_name + ": "+ this.extra_data;
+			document.getElementById('today-weather-row-extra').innerHTML = this.extra_data_name + ": "+ this.extra_data;
 		}
 		
 	}, 1000);    
@@ -202,7 +204,7 @@ class WeatherData extends React.Component {
      </div>
     <div className="weather_table">
 
-	<TodayWeatherRows top_temp={day1.day_highest_temp} min_temp={day1.day_lowest_temp} />
+	<TodayWeatherRows weather_icon={day1.day_weather_code} top_temp={day1.day_highest_temp} min_temp={day1.day_lowest_temp} />
 	
 	<MultiWeatherRowTop dow1={day1.day_of_week} dow2={day2.day_of_week} dow3={day3.day_of_week} dow4={day4.day_of_week }dow5={day5.day_of_week}
 	 dwc1={day1.day_weather_code} dwc2={day2.day_weather_code} dwc3={day3.day_weather_code} dwc4={day4.day_weather_code} dwc5={day5.day_weather_code} />
@@ -282,9 +284,9 @@ function tick() {
  }
 
 
- if(document.getElementById('div_weather_data')!== null)
+ if(document.getElementById('div-weather-data')!== null)
  {
-    render(<WeatherData />,document.getElementById('div_weather_data'));
+    render(<WeatherData />,document.getElementById('div-weather-data'));
 
  }
 

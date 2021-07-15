@@ -14626,21 +14626,30 @@ h3 {
     border-color: #dee2e6;
   }
 }
-.weather_table {
-  color: #595959;
-}
-.weather_table i {
+.div_weather_data .weather_table i {
   font-size: 1.3em;
   color: #808080;
 }
-.weather_table .weather_row_top {
+.div_weather_data .weather_table .fa-sun {
+  color: #b3b300;
+}
+.div_weather_data .weather_table .fa-cloud-sun {
+  color: #666600;
+}
+.div_weather_data .weather_table .weather_row_top {
   font-size: 2em;
 }
-.weather_table .temp_high > div > i {
+.div_weather_data .weather_table .temp_high > div > i {
   color: red;
   font-weight: 600;
 }
-.weather_table .temp_low > div > i {
+.div_weather_data .weather_table .temp_low > div > i {
   color: darkblue;
   font-weight: 600;
+}
+.div_weather_data .weather_table .today_weather_row i, .div_weather_data .weather_table .today_weather_row span {
+  font-size: 3em;
+}
+.div_weather_data .weather_table .today_weather_row #today-weather-row-extra {
+  font-size: 2em;
 }
