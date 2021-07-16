@@ -9,7 +9,8 @@ Final class WeatherDataForCity
     private $dayChanceRain = [];
     private $dayWindSpeed = [];
     private $dayOfWeek = [];
-    private $dayWeatherCode = [];
+    private $dayWeatherDesc = [];
+    private $dayWeatherIcon = [];
     
     private $maxUvIndex = [];
     private $dayMaxFeelsLikeTemp = [];
@@ -86,18 +87,23 @@ Final class WeatherDataForCity
      * https://www.metoffice.gov.uk/services/data/datapoint/code-definitions
      * @return array
      */
-    private function getDayWeatherLabel():array
+    private function getDayWeatherIcon():array
     {
         return ["fas fa-moon","fas fa-sun","fas fa-cloud-moon","fas fa-cloud-sun","Not used","Mist","Fog","fas fa-cloud","Overcast",
             "Light rain shower (night)","Light rain shower (day)","Drizzle","Light rain","fas fa-cloud-moon-rain","fas fa-cloud-sun-rain",
             "fas fa-cloud-rain","Sleet shower (night)","Sleet shower (day)","Sleet","Hail shower (night)","Hail shower (day)","Hail","fas fa-snow",
             "fas fa-snow","fas fa-snow","fas fa-snow","fas fa-snow","fas fa-snow","Thunder shower (night)","fas fa-bolt"];
-//         return ["Clear night","Sunny day","Partly cloudy (night)","Partly cloudy (day)","Not used","Mist","Fog","Cloudy","Overcast",
-//             "Light rain shower (night)","Light rain shower (day)","Drizzle","Light rain","Heavy rain shower (night)","Heavy rain shower (day)",
-//             "Heavy rain","Sleet shower (night)","Sleet shower (day)","Sleet","Hail shower (night)","Hail shower (day)","Hail","Light snow shower (night)",
-//             "Light snow shower (day)","Light snow","Heavy snow shower (night)","Heavy snow shower (day)","Heavy snow","Thunder shower (night)","Thunder shower (day)","Thunder"];
+
     }
     
+    private function getDayWeatherLabel():array
+    {
+
+                return ["Clear night","Sunny day","Partly cloudy (night)","Partly cloudy (day)","Not used","Mist","Fog","Cloudy","Overcast",
+                    "Light rain shower (night)","Light rain shower (day)","Drizzle","Light rain","Heavy rain shower (night)","Heavy rain shower (day)",
+                    "Heavy rain","Sleet shower (night)","Sleet shower (day)","Sleet","Hail shower (night)","Hail shower (day)","Hail","Light snow shower (night)",
+                    "Light snow shower (day)","Light snow","Heavy snow shower (night)","Heavy snow shower (day)","Heavy snow","Thunder shower (night)","Thunder shower (day)","Thunder"];
+    }
     public function setCachedData(string $result)
     {
         return file_put_contents($this->dataFilePath(), $result);
@@ -127,14 +133,22 @@ Final class WeatherDataForCity
         return date("H:i - d-m-Y", strtotime($this->lastUpdate));
     } 
     
-    private function setDaySignificantWeatherCode(string $code)
+    private function setDaySignificantWeatherDesc(string $code)
     {
-        $this->dayWeatherCode[] = $this->getDayWeatherLabel()[$code];
+        $this->dayWeatherDesc[] = $this->getDayWeatherLabel()[$code];
+    }
+    private function setDaySignificantWeatherIcon(string $icon)
+    {
+        $this->dayWeatherIcon[] = $this->getDayWeatherIcon()[$icon];
+    }
+    public function getDaySignificantWeatherDesc($code)
+    {
+        return $this->dayWeatherDesc[$code];
     }
     
-    public function getDaySignificantWeatherCode($code)
+    public function getDaySignificantWeatherIcon($code)
     {
-        return $this->dayWeatherCode[$code];
+        return $this->dayWeatherIcon[$code];
     }
     
     private function setDayMaxUvIndex(string $maxUvIndex)
@@ -163,7 +177,8 @@ Final class WeatherDataForCity
             if(isset($timeseries[$i]))
             {
                 $this->setDayOfWeek($timeseries[$i]->time);
-                $this->setDaySignificantWeatherCode($timeseries[$i]->daySignificantWeatherCode);
+                $this->setDaySignificantWeatherDesc($timeseries[$i]->daySignificantWeatherCode);
+                $this->setDaySignificantWeatherIcon($timeseries[$i]->daySignificantWeatherCode);
                 $this->setDayHighestTemp(round($timeseries[$i]->dayUpperBoundMaxTemp));
                 $this->setDayLowestTemp(round($timeseries[$i]->nightLowerBoundMinTemp));
                 $this->setDayChanceOfRain(round($timeseries[$i]->dayProbabilityOfPrecipitation));

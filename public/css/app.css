@@ -14647,8 +14647,16 @@ h3 {
   color: darkblue;
   font-weight: 600;
 }
-.div_weather_data .weather_table .today_weather_row i, .div_weather_data .weather_table .today_weather_row span {
-  font-size: 3em;
+.div_weather_data .weather_table .today_weather_row {
+  border-top: 2px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  margin: 10px 0 10px;
+}
+.div_weather_data .weather_table .today_weather_row i {
+  font-size: 4em;
+}
+.div_weather_data .weather_table .today_weather_row span {
+  font-size: 2em;
 }
 .div_weather_data .weather_table .today_weather_row #today-weather-row-extra {
   font-size: 2em;

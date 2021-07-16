@@ -34,20 +34,23 @@ class TodayWeatherRows extends React.Component {
 	}
 	render()
 	{
-		//console.log("Top temp: " + this.props.top_temp);
+		//console.log("Top temp: " + this.props.top_temp); <div className="offset-3 col"><h3>Today</h3> &#160;<i className="fas fa-temperature-high"></i></div>
 	const dynamic_data = (this.props.extra_data_name !== undefined && this.props.extra_data !== undefined )
 	? this.props.extra_data_name + ": " + this.props.extra_data
 	: "";
     return (
 	<div className="today_weather_row">
+
 		<div className="row">
-      	 <div className="offset-4 col-4"><h3>Today</h3><i className={this.props.weather_icon}></i></div>
-    	</div>	
+      	 
+		<div className="col-1"><i className={this.props.weather_icon}></i></div><div className="col">  <h3>Today</h3> <span>{this.props.top_temp}  &deg;C</span>
+		<br />{this.props.weather_desc} <br /><span>{this.props.min_temp} &deg;C </span></div>
+    	</div>		
 		<div className="row">
-      	 <div className="col-4"> </div>
-      	 <div className="col-4"> <i className="fas fa-temperature-high"></i><span> {this.props.top_temp}  &deg;</span><i className="fas fa-temperature-low"></i><span> {this.props.min_temp} &deg;</span>
-		<div id="today-weather-row-extra" className="dynamic_display"><span>{dynamic_data}</span> </div>
-		</div>
+
+
+		<div id="today-weather-row-extra" className="offset-3 col dynamic_display"><span>{dynamic_data}</span> </div>
+
       	 
     	</div>
 	</div>
@@ -81,16 +84,20 @@ class MultiWeatherRowTop extends React.Component {
 		const dwc3 = this.getWeatherIcon(this.props.dwc3);
 		const dwc4 = this.getWeatherIcon(this.props.dwc4);
 		const dwc5 = this.getWeatherIcon(this.props.dwc5);
-
+		const dwi1 = this.getWeatherIcon(this.props.dwi1);
+		const dwi2 = this.getWeatherIcon(this.props.dwi2);
+		const dwi3 = this.getWeatherIcon(this.props.dwi3);
+		const dwi4 = this.getWeatherIcon(this.props.dwi4);
+		const dwi5 = this.getWeatherIcon(this.props.dwi5);
 		//console.log("dw status: " + dw);
 		//console.log("dwc1 includes: " + this.props.dwc1.toString().includes("fas"));
     return (<div className="row weather_row_top">
-       <div className="offset-1 col-2"><h4>{this.props.dow1}</h4><span>{dwc1}</span></div>  <div className="col-2">
-           <h4>{this.props.dow2}</h4><span>{dwc2}</span></div> 
-           <div className="col-2"><h4>{this.props.dow3}</h4><span>{dwc3}</span></div> 
-           <div className="col-2"><h4>{this.props.dow4}</h4><span>{dwc4}</span></div> 
+       <div className="offset-1 col-2"><h4>{this.props.dow1}</h4><span>{dwi1}</span></div>  <div className="col-2">
+           <h4>{this.props.dow2}</h4><span>{dwi2}</span></div> 
+           <div className="col-2"><h4>{this.props.dow3}</h4><span>{dwi3}</span></div> 
+           <div className="col-2"><h4>{this.props.dow4}</h4><span>{dwi4}</span></div> 
            <div className="col-2"><h4>{this.props.dow5}</h4>
-               <span>{dwc5}</span></div> 
+               <span>{dwi5}</span></div> 
     </div>	);	
 	}
 }
@@ -188,6 +195,7 @@ class WeatherData extends React.Component {
 		
 	}, 1000);    
 	//console.log('MultiWeatherRowGeneral.render() ');
+	// Removed style from top div | border:'2px solid #ccc', borderRadius: '8px'
     return (
              
       <div>
@@ -196,7 +204,7 @@ class WeatherData extends React.Component {
         Weather forecast for {location}
         </h3>
 
-     <div className="" style={{border:'2px solid #ccc', borderRadius: '8px'}}>
+     <div className="" style={{}}>
      <div className="row">
          <div className="col-12 offset-md-8 col-md-4">
              <h5 style={{}}><i className="fas fa-clock"></i> Last Update: {this.state.data.api_query.last_forecast_update}</h5>
@@ -204,10 +212,11 @@ class WeatherData extends React.Component {
      </div>
     <div className="weather_table">
 
-	<TodayWeatherRows weather_icon={day1.day_weather_code} top_temp={day1.day_highest_temp} min_temp={day1.day_lowest_temp} />
+	<TodayWeatherRows weather_icon={day1.day_weather_icon} weather_desc={day1.day_weather_desc}top_temp={day1.day_highest_temp} min_temp={day1.day_lowest_temp} />
 	
 	<MultiWeatherRowTop dow1={day1.day_of_week} dow2={day2.day_of_week} dow3={day3.day_of_week} dow4={day4.day_of_week }dow5={day5.day_of_week}
-	 dwc1={day1.day_weather_code} dwc2={day2.day_weather_code} dwc3={day3.day_weather_code} dwc4={day4.day_weather_code} dwc5={day5.day_weather_code} />
+	  dwc1={day1.day_weather_desc} dwc2={day2.day_weather_desc} dwc3={day3.day_weather_desc} dwc4={day4.day_weather_desc} dwc5={day5.day_weather_desc} 
+	dwi1={day1.day_weather_icon} dwi2={day2.day_weather_icon} dwi3={day3.day_weather_icon} dwi4={day4.day_weather_icon} dwi5={day5.day_weather_icon}/>
 	
 	<MultiWeatherRowGeneral rowclass="temp_high" itemclass={temph} item_desc="&deg;" day1_item={day1.day_highest_temp} day2_item={day2.day_highest_temp} 
 	day3_item={day3.day_highest_temp} day4_item={day4.day_highest_temp} day5_item={day5.day_highest_temp} />
