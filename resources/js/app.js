@@ -42,14 +42,28 @@ class TodayWeatherRows extends React.Component {
 	<div className="today_weather_row">
 
 		<div className="row">
-      	 
-		<div className="col-1"><i className={this.props.weather_icon}></i></div><div className="col">  <h3>Today</h3> <span>{this.props.top_temp}  &deg;C</span>
-		<br />{this.props.weather_desc} <br /><span>{this.props.min_temp} &deg;C </span></div>
+		<div className="col-sm-auto main_icon">
+		<i className={this.props.weather_icon}></i>
+		<p class="text-sm-center">{this.props.weather_desc}</p>
+		</div>     	 
+		<div className="col">  
+
+			
+			<div>
+			<h3>Today</h3>
+			<i className="fas fa-temperature-high"></i> <span>{this.props.top_temp}  &deg;C</span>
+			 <br /><i className="fas fa-temperature-low"></i><span>{this.props.min_temp} &deg;C </span>
+			</div>
+			
+			<div id="today-weather-row-extra" className="dynamic_display"><span>{dynamic_data}</span> </div>
+
+				
+		</div>
     	</div>		
 		<div className="row">
 
 
-		<div id="today-weather-row-extra" className="offset-3 col dynamic_display"><span>{dynamic_data}</span> </div>
+		
 
       	 
     	</div>
@@ -92,12 +106,12 @@ class MultiWeatherRowTop extends React.Component {
 		//console.log("dw status: " + dw);
 		//console.log("dwc1 includes: " + this.props.dwc1.toString().includes("fas"));
     return (<div className="row weather_row_top">
-       <div className="offset-1 col-2"><h4>{this.props.dow1}</h4><span>{dwi1}</span></div>  <div className="col-2">
-           <h4>{this.props.dow2}</h4><span>{dwi2}</span></div> 
-           <div className="col-2"><h4>{this.props.dow3}</h4><span>{dwi3}</span></div> 
-           <div className="col-2"><h4>{this.props.dow4}</h4><span>{dwi4}</span></div> 
+       <div className="col-2"><h4>{this.props.dow1}</h4><span>{dwi1}</span><br />{dwc1}</div>  <div className="col-2">
+           <h4>{this.props.dow2}</h4><span>{dwi2}</span><br />{dwc2}</div> 
+           <div className="col-2"><h4>{this.props.dow3}</h4><span>{dwi3}</span><br />{dwc3}</div> 
+           <div className="col-2"><h4>{this.props.dow4}</h4><span>{dwi4}</span><br />{dwc4}</div> 
            <div className="col-2"><h4>{this.props.dow5}</h4>
-               <span>{dwi5}</span></div> 
+               <span>{dwi5}</span><br />{dwc5}</div> 
     </div>	);	
 	}
 }
@@ -113,7 +127,7 @@ class MultiWeatherRowGeneral extends React.Component {
 		{/* dow= day of week | dwc = day weather code */}
     return (    
 	<div className={"row " + this.props.rowclass}>
-           <div className="offset-1 col-2"><i className={this.props.itemclass}></i> &#160;<span>{this.props.day1_item}  {this.props.item_desc}</span></div>  
+           <div className="col-2"><i className={this.props.itemclass}></i> &#160;<span>{this.props.day1_item}  {this.props.item_desc}</span></div>  
 	<div className="col-2">
 	<i className={this.props.itemclass}></i> &#160;<span>{this.props.day2_item} {this.props.item_desc}</span>
 	</div> 

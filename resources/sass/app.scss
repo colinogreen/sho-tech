@@ -12,7 +12,15 @@
 
 .div_weather_data{
 	
+		
+	.fa-temperature-high {
+		color:red !important;
 
+	}
+	.fa-temperature-low{
+		color:darkblue !important;
+
+	}	
 	
 	.weather_table{
 		
@@ -31,31 +39,27 @@
 		}		
 		.weather_row_top{
 			
-			font-size: 2em;
+			i{
+				font-size: 2em;
+			}
+			
 		}
-		
-		.temp_high > div > i{
-			color:red;
-			font-weight: 600
-		}
-		.temp_low > div > i{
-			color:darkblue;
-			font-weight: 600
-		}		
+	
 	
 		.today_weather_row{
-			
+		padding: 10px 0;	
 		border-top: 2px solid #ccc;
 		border-bottom: 1px solid #ccc;
 		margin:10px 0 10px;
-			i {
-				font-size: 4em
+			.main_icon > i {
+				font-size: 7em
 			}
-			span {
+
+			span, i {
 				font-size: 2em
 			}
 			#today-weather-row-extra{
-				font-size:2em
+				font-size:1.2em
 			}
 		}
 	}
