@@ -1913,14 +1913,14 @@ var TodayWeatherRows = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       //console.log("Top temp: " + this.props.top_temp); <div className="offset-3 col"><h3>Today</h3> &#160;<i className="fas fa-temperature-high"></i></div>
       var dynamic_data = this.props.extra_data_name !== undefined && this.props.extra_data !== undefined ? this.props.extra_data_name + ": " + this.props.extra_data : "";
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
         className: "today_weather_row",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-          className: "row align-items-center",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "row align-items-center justify-content-sm-start justify-content-center",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-            className: "col-sm-auto order-sm-first main_icon",
+            className: "col-5 col-sm-auto order-sm-first main_icon",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h3", {
-              "class": "d-block d-sm-none",
+              className: "d-block d-sm-none",
               children: "Today"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
               className: this.props.weather_icon
@@ -1928,10 +1928,12 @@ var TodayWeatherRows = /*#__PURE__*/function (_React$Component) {
               className: "text-sm-center",
               children: this.props.weather_desc
             })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            className: "w-100 d-block d-sm-none"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-            className: "col-sm-auto",
+            className: "col-5 col-sm-auto",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h3", {
-              "class": "d-none d-sm-block",
+              className: "d-none d-sm-block",
               children: "Today"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
               className: "fas fa-temperature-high"
@@ -1949,9 +1951,7 @@ var TodayWeatherRows = /*#__PURE__*/function (_React$Component) {
               }), " "]
             })]
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-          className: "row"
-        })]
+        })
       });
     }
   }]);

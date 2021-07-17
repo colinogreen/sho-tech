@@ -41,15 +41,16 @@ class TodayWeatherRows extends React.Component {
     return (
 	<div className="today_weather_row">
 
-		<div className="row align-items-center">
-		<div className="col-sm-auto order-sm-first main_icon">
+		<div className="row align-items-center justify-content-sm-start justify-content-center">
+		<div className="col-5 col-sm-auto order-sm-first main_icon">
 		<h3 className="d-block d-sm-none">Today</h3>
 		<i className={this.props.weather_icon}></i>
 		<p className="text-sm-center">{this.props.weather_desc}</p>
-		</div>     	  
-		<div className="col-sm-auto">  
+		</div>  
+		<div className="w-100 d-block d-sm-none"></div>   	  
+		<div className="col-5 col-sm-auto">  
 
-			<h3 class="d-none d-sm-block">Today</h3>
+			<h3 className="d-none d-sm-block">Today</h3>
 			<i className="fas fa-temperature-high"></i> <span>{this.props.top_temp}  &deg;C</span>
 			 <br /><i className="fas fa-temperature-low"></i><span>{this.props.min_temp} &deg;C </span>
 
@@ -58,13 +59,7 @@ class TodayWeatherRows extends React.Component {
 				
 		</div>
     	</div>		
-		<div className="row">
 
-
-		
-
-      	 
-    	</div>
 	</div>
 		);	
 	}
