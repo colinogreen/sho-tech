@@ -43,7 +43,7 @@ class TodayWeatherRows extends React.Component {
 
 		<div className="row align-items-center">
 		<div className="col-sm-auto order-sm-first main_icon">
-		<h3 class="d-block d-sm-none">Today</h3>
+		<h3 className="d-block d-sm-none">Today</h3>
 		<i className={this.props.weather_icon}></i>
 		<p className="text-sm-center">{this.props.weather_desc}</p>
 		</div>     	  
