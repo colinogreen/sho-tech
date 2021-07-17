@@ -9,7 +9,12 @@ use App\Console\Commands\GetWeatherData;
 
 class WeatherFivedayForecast extends Controller
 {
+    private $cityLatitudeAndLongitude = [];
     
+    public function __construct()
+    {
+        $this->setCityLatitudeAndLongitude();
+    }
     public function index()
     {
         //print("Debug: env('APP_DEBUG'): ". env('APP_DEBUG'));
@@ -21,15 +26,65 @@ class WeatherFivedayForecast extends Controller
 
     }
     
+    public function indexWithCity($city)
+    {
+        return view("weather_index", ["city" => $city]); // Send the class and it's data to the view for processing       
+    }
+    /*
+     *             'latitude' => '56.46913', // Dundee latitude
+            'longitude' => '-2.97489',  // Dundee longitude
+     */
+    
+    private function setCityLatitudeAndLongitude()
+    {
+        $this->cityLatitudeAndLongitude = [
+            
+            "dundee"=>[
+                "name" => "dundee", 
+                "latitude"=>"56.46913", 
+                "longitude"=>"-2.97489"],
+            
+            "liverpool"=>[
+                "name" => "liverpool",
+                "latitude"=>"53.41058",
+                "longitude"=>"-2.97794"],
+            
+            "london"=>[
+                "name" => "london",
+                "latitude"=>"51.50853",
+                "longitude"=>"-0.12574"],
+            //53.41058, -2.97794 Liverpool ropewalks?
+            // 51.50853, -0.12574 - London
+        ];
+    }
+    private function getCityLatitudeAndLongitude($city):object
+    {
+        $std = new \stdClass();
+        $std->name = $city;
+        //\Log::debug("Trying to get city data for $city: ".print_r($this->cityLatitudeAndLongtitude[$city], true)); exit("End");
+        $std->latitude = $this->cityLatitudeAndLongitude[$city]['latitude'];
+        $std->longitude = $this->cityLatitudeAndLongitude[$city]['longitude'];
+        
+        return $std;
+    }
     /**
      * Just get json data for React.js, etc.
      * @return WeatherDataForCity
      */
-    public function data()
+    
+    public function dataWithoutCityParameter()
     {
+        return $this->data("dundee");
+        //return $this->data("liverpool");
+    }
+    public function data(string $city)
+    {
+        $stdClass = $this->getCityLatitudeAndLongitude($city);
+        //\Log::debug("Trying to get city data for $city: ".print_r($stdClass, true)); exit("End");
         $getWeatherData = new GetWeatherData();
+        $getWeatherData->setCityDetails($stdClass);
         $cityWeather = new WeatherDataForCity($getWeatherData->getDataFromCache());
-        //exit("<pre>". print_r(json_decode($getWeatherData->getDataFromCache()), true)."</pre>");
+        //exit("<pre>". __CLASS__. "::".__FUNCTION__." - ".print_r($cityWeather->getLastApiUpdate(), true)."</pre>");
         //exit("<pre>". print_r($getWeatherData->getDataFromCache(), true)."</pre>");
         $data = new \stdClass;
         $data->api_query = new \stdClass;

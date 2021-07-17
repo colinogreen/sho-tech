@@ -2270,8 +2270,19 @@ var WeatherData = /*#__PURE__*/function (_React$Component4) {
     key: "fetch",
     value: function fetch() {
       var context = this;
+      var url_string = window.location.pathname.split("/city/")[1];
+      var url_data = "/forecast_data";
+
+      if (url_string !== undefined) {
+        url_data += "/" + url_string;
+      } //var url_string = window.location.pathname.split("/city/")[0];
+      //console.log("url string: " + url_string);
+      //url_string = window.location.pathname.split()[0];
+      //console.log("url string: " + url_string);
+
+
       jquery__WEBPACK_IMPORTED_MODULE_3___default().ajax({
-        url: '/forecast_data',
+        url: url_data,
         method: 'GET',
         dataType: 'json',
         success: function success(response) {

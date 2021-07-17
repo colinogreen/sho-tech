@@ -9,7 +9,9 @@ use App\Http\Controllers\WeatherFivedayForecast;
 
 class GetWeatherData extends Command
 {
-    private $data_name = "api_weather_data";
+    private $cachedDataName = "api_weather_data";
+    private $latitude;
+    private $longitude;
     /**
      * The name and signature of the console command.
      *
@@ -23,6 +25,61 @@ class GetWeatherData extends Command
      * @var string
      */
     protected $description = 'Command description';
+    
+    
+    public function setCityDetails(?object $cityLatitudeAndLongitude)
+    {
+        if(!is_null($cityLatitudeAndLongitude))
+        {
+            $this->setCachedDataName($cityLatitudeAndLongitude->name);
+            $this->setLatitude($cityLatitudeAndLongitude->latitude);
+            $this->setLongitude($cityLatitudeAndLongitude->longitude);
+        }
+        
+        
+    }
+    
+    private function setCachedDataName(string $dataName):void
+    {
+        $this->cachedDataName = "api_weather_data_". $dataName;
+//         if($this->cachedDataName === "api_weather_data" & !empty($dataName))
+//         {
+//             $this->cachedDataName .= "_". $dataName;
+//         }
+//         else if(!empty($dataName) && $this->cachedDataName !== "api_weather_data_".$dataName)
+//         {
+//             $this->cachedDataName .= "api_weather_data_". $dataName;
+//         }
+//         else if($this->cachedDataName !== "api_weather_data")
+//         {
+//             $this->cachedDataName = "api_weather_data"; // reset to usual string
+//         }
+        // if here, do nothing.
+    }
+       
+    private function getCachedDataName():string
+    {
+        return $this->cachedDataName;
+    }
+    
+    private function setLatitude(string $latitude):void
+    {
+        $this->latitude = $latitude;
+    }
+    
+    public function getLatitude():?string
+    {
+        return $this->latitude;
+    }
+    private function setLongitude(string $longitude):void
+    {
+        $this->longitude = $longitude;
+    }
+    
+    public function getLongitude():?string
+    {
+        return $this->longitude;
+    }
 
     private function getAPICredentials()
     {
@@ -43,27 +100,27 @@ class GetWeatherData extends Command
     
     public function getDataFromCache():?string
     {
-        if (Cache::has($this->data_name)) 
+        if (Cache::has($this->getCachedDataName())) 
         {
             \Log::debug(__CLASS__. "::".__FUNCTION__." - Attempt to get the data from the cache!");
-            WeatherFivedayForecast::logMessage("Data was retrieved from cache!"); 
-            return Cache::get($this->data_name); 
+            //WeatherFivedayForecast::logMessage("Data (". $this->getCachedDataName().") was retrieved from cache!: ".print_r(Cache::get($this->getCachedDataName(), true))); 
+            return Cache::get($this->getCachedDataName()); 
 
         }
 //         else
 //         {
             // Get data from the API if the cache has expired before the next task API  (service interruption, etc.)
-        \Log::debug(__CLASS__. "::".__FUNCTION__." - Attempt to get the data from the API endpoint!");
+        \Log::debug(__CLASS__. "::".__FUNCTION__." - Attempt to get the data (".$this->getCachedDataName(). ") from the API endpoint!");
         $this->getDataFromApi(true);           
 //         }
         //exit ("<p>Debug</p><pre>".print_r(json_decode(Cache::get($this->data_name)), true)."</pre>");
-        return Cache::get($this->data_name);      
+        return Cache::get($this->getCachedDataName());      
     }
     private function checkDataIsInCache()
     {
-        if (Cache::has($this->data_name)) 
+        if (Cache::has($this->getCachedDataName())) 
         {
-            \Log::debug(__CLASS__. "::".__FUNCTION__." - Cache has the weather data!");
+            \Log::debug(__CLASS__. "::".__FUNCTION__." - Cache (".$this->getCachedDataName(). ") has the weather data!");
             return true;
 
         } 
@@ -77,11 +134,15 @@ class GetWeatherData extends Command
         'X-IBM-Client-Id' => $api_cred['X-IBM-Client-Id'],
         'X-IBM-Client-Secret' => $api_cred['X-IBM-Client-Secret']
         ])->get("https://api-metoffice.apiconnect.ibmcloud.com/metoffice/production/v0/forecasts/point/daily", [
-            'includeLocationName' => 'true', // Dundee latitude
-            'excludeParameterMetadata' => 'true', // Dundee latitude
-            'latitude' => '56.46913', // Dundee latitude
-            'longitude' => '-2.97489',  // Dundee longitude
+            'includeLocationName' => 'true',
+            'excludeParameterMetadata' => 'true', 
+            //'latitude' => '56.46913', // Dundee latitude
+            'latitude' => $this->getLatitude(), // Dundee latitude
+            //'longitude' => '-2.97489',  // Dundee longitude
+            'longitude' => $this->getLongitude(),  // Dundee longitude
         ]);
+        \Log::debug(__CLASS__. "::".__FUNCTION__." | Latitude: " . $this->getLatitude());
+        \Log::debug(__CLASS__. "::".__FUNCTION__." | Longitude: " . $this->getLongitude());
         // https://latitudelongitude.org
         // Dundee: 56.46913, -2.97489
         // Manchester: 53.48095, -2.23743
@@ -92,12 +153,12 @@ class GetWeatherData extends Command
            
             $response_data['api_query_details'] = [];
             $response_data['api_query']['last_update'] = date("Y-m-d H:i:s");
-            //exit ("<p>Debug \$response_data</p><pre>".print_r($response_data, true)."</pre>");
+            //exit ("<p>".__CLASS__. "::".__FUNCTION__." Enter into cache (".$this->getCachedDataName().") - Debug \$response_data</p><pre>".print_r($response_data, true)."</pre>");
             $api_data = json_encode($response_data);
 
             //$this->setData($api_data);
             
-            Cache::put($this->data_name, $api_data, 7200); //3600 = 1 hour
+            Cache::put($this->getCachedDataName(), $api_data, 7200); //3600 = 1 hour
             $msg = ($cache_empty)? "Note: Data was retrieved from the API as the data cache was empty at this time.": "Data was retrieved following a successful API query!";
             \Log::debug(__CLASS__. "::".__FUNCTION__.$msg);
             //WeatherFivedayForecast::logMessage($msg);

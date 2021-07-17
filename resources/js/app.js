@@ -262,9 +262,20 @@ class WeatherData extends React.Component {
   fetch() {
     var context = this;
 
+	var url_string = window.location.pathname.split("/city/")[1];
+	var url_data= "/forecast_data";
+	if(url_string !== undefined)
+	{
+		url_data += "/" + url_string;
+	}
+	//var url_string = window.location.pathname.split("/city/")[0];
+	//console.log("url string: " + url_string);
+	
+	//url_string = window.location.pathname.split()[0];
+	//console.log("url string: " + url_string);
     $.ajax({
 
-      url: '/forecast_data',
+      url: url_data,
       method: 'GET',
       dataType: 'json',
 
