@@ -11,11 +11,11 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/app.css') }}?v=1" rel="stylesheet">
     </head>   
     <body>
       @yield("page_content")  
-      <script src="{{ asset('js/app.js') }}"></script>
+      <script src="{{ asset('js/app.js') }}?v=1"></script>
       
   <?php // <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script> ?>
   <?php // <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script> ?>

@@ -10,6 +10,7 @@ use App\Console\Commands\GetWeatherData;
 class WeatherFivedayForecast extends Controller
 {
     private $cityLatitudeAndLongitude = [];
+    private $city_links =[];
     
     public function __construct()
     {
@@ -22,11 +23,18 @@ class WeatherFivedayForecast extends Controller
         //$cityWeather = new WeatherDataForCity($getWeatherData->getDataFromCache());
 
         //return view("weather_index", ["cityWeather"=> $cityWeather]); // Send the class and it's data to the view for processing
-        return view("weather_index", []); // Send the class and it's data to the view for processing
+        $weather_links = $this->getWeatherForecastCities();
+        return view("showcase_index", ["weather_links"=>$weather_links]); // Send the class and it's data to the view for processing
 
     }
     
-    public function indexWithCity($city)
+    public function myGreeting(string $city)
+    {
+        //return "Hello Greeting $param!";
+        return view("weather_index", ["city" => $city]);
+    }
+    
+    public function indexWeatherWithCity($city)
     {
         return view("weather_index", ["city" => $city]); // Send the class and it's data to the view for processing       
     }
@@ -57,6 +65,25 @@ class WeatherFivedayForecast extends Controller
             // 51.50853, -0.12574 - London
         ];
     }
+    
+    public function getWeatherForecastCities():array
+    {
+        $cities = array_keys($this->getCityLatitudeAndLongitudeArray());
+        array_walk($cities, [$this,'createWeatherLinks']);
+        return $this->city_links;
+        //$city_links = [];
+        
+    }
+    
+    private function createWeatherLinks($city)
+    {
+        $this->city_links[] = '<p><a href="/weather/'. $city . '">' . ucfirst($city). '</a></p>';
+        
+    }
+    private function getCityLatitudeAndLongitudeArray():array
+    {
+        return $this->cityLatitudeAndLongitude;
+    }
     private function getCityLatitudeAndLongitude($city):object
     {
         $std = new \stdClass();
@@ -79,7 +106,7 @@ class WeatherFivedayForecast extends Controller
     }
     public function data(string $city)
     {
-        $stdClass = $this->getCityLatitudeAndLongitude($city);
+        $stdClass = $this->getCityLatitudeAndLongitude(strtolower($city));
         //\Log::debug("Trying to get city data for $city: ".print_r($stdClass, true)); exit("End");
         $getWeatherData = new GetWeatherData();
         $getWeatherData->setCityDetails($stdClass);

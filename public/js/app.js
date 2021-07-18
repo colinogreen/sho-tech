@@ -2270,7 +2270,7 @@ var WeatherData = /*#__PURE__*/function (_React$Component4) {
     key: "fetch",
     value: function fetch() {
       var context = this;
-      var url_string = window.location.pathname.split("/city/")[1];
+      var url_string = window.location.pathname.split("/weather/")[1];
       var url_data = "/forecast_data";
 
       if (url_string !== undefined) {

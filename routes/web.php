@@ -18,6 +18,13 @@ use Illuminate\Support\Facades\Route;
 //});
 
 Route::get('/', [WeatherFivedayForecast::class, 'index']);
-Route::get('city/{city}', [WeatherFivedayForecast::class, 'indexWithCity']);
+
+Route::get('/greeting', function () {
+    return 'Hello World';
+});
+
+//Route::get('/{city}', [WeatherFivedayForecast::class, 'myGreeting']);
+Route::get('weather/{city}', [WeatherFivedayForecast::class, 'indexWeatherWithCity']);
+
 Route::get('forecast_data', [WeatherFivedayForecast::class, 'dataWithoutCityParameter']);
 Route::get('forecast_data/{city}', [WeatherFivedayForecast::class, 'data']);

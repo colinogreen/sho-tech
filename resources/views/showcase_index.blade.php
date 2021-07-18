@@ -9,24 +9,20 @@
 
 @section("page_content")
 <div class="container">
- <h3>Five Day Forecast</h3> 
-        <div id="div_clock"></div>
-        <div id="div-weather-data" class="div_weather_data"></div>
-        <div id="div_test"></div>
+@php
+
+ foreach($weather_links as $link)
+ {
+@endphp
+ {!! $link !!}
+@php 
+ }
+ 
+  //print("<pre>".print_r($weather_links, true)."</pre>");
+ @endphp
  
 
 </div>
- <script>
-	var url_string = window.location.pathname.split("/city/")[0];
-	console.log("url string in blade: " + url_string);
-	
-	url_string = window.location.pathname.split("/city/")[1];
-	console.log("url string in blade: " + url_string);
-	console.log("SPLIT:");
-	console.log(window.location.pathname.split("/city/"));
-	console.log(window.location.pathname.split("/"));
-	console.log(window.location.pathname.split("/", 2));
-</script>
 @endsection
 
 
