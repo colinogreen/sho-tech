@@ -84,8 +84,35 @@ class GetWeatherData extends Command
     private function getAPICredentials()
     {
         return parse_ini_file(dirname(__FILE__, 5)."/connect/met_office_api.ini");        
-    }   
-   
+    }
+    /**
+     * Refresh cache on scheduled interval initiated by call from App\Console\Commands\GetWeatherData.php ...
+     * ... to App\Console\Kernel.php
+     * @return boolean
+     */
+    public function queryAPIOrGetDataMultiple()
+    {
+        //if($this->checkDataIsInCache() ||$this->getDataFromApi(false))
+        $cities = array_keys((new WeatherFivedayForecast())->getCityLatitudeAndLongitudeArray());
+        
+        foreach($cities as $city)
+        {
+            $this->setCachedDataName($city);
+            \Log::debug(__CLASS__. "::".__FUNCTION__." - Attempt to update cache (".$this->getCachedDataName(). ") via the API endpoint!");
+            
+            if(!$this->queryAPIOrGetData())
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+    
+    /**
+     * Individual city page version of queryAPIOrGetDataMultiple() method
+     * @return boolean
+     */
     public function queryAPIOrGetData()
     {
         //if($this->checkDataIsInCache() ||$this->getDataFromApi(false))
@@ -158,7 +185,7 @@ class GetWeatherData extends Command
 
             //$this->setData($api_data);
             
-            Cache::put($this->getCachedDataName(), $api_data, 7200); //3600 = 1 hour
+            Cache::put($this->getCachedDataName(), $api_data, 21600); //3600 = 1 hour | 21600 = 6 hours
             $msg = ($cache_empty)? "Note: Data was retrieved from the API as the data cache was empty at this time.": "Data was retrieved following a successful API query!";
             \Log::debug(__CLASS__. "::".__FUNCTION__.$msg);
             //WeatherFivedayForecast::logMessage($msg);
@@ -178,7 +205,7 @@ class GetWeatherData extends Command
     public function handle()
     {
         
-        $res = $this->queryAPIOrGetData();
+        $res = $this->queryAPIOrGetDataMultiple();
         $msg = ($res)?"* Processed automated weather data update attempt.": "* NOTICE: The automated weather data update attempt failed.";
         \Log::debug(__CLASS__."::".__FUNCTION__." - ". $msg);
         //WeatherFivedayForecast::logMessage($msg);

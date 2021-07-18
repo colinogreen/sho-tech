@@ -27,7 +27,7 @@ class Kernel extends ConsoleKernel
         if(!env('APP_DEBUG'))
         {
             // Every x hours on live installation.
-            $schedule->command('command:getweatherdata')->everyTwoHours();
+            $schedule->command('command:getweatherdata')->everySixHours();
         }
         else
         {

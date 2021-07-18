@@ -9,25 +9,27 @@
 
 @section("page_content")
 <div class="container">
-@php
 
- foreach($weather_links as $link)
- {
-@endphp
- {!! $link !!}
-@php 
- }
- 
-  //print("<pre>".print_r($weather_links, true)."</pre>");
- @endphp
- 
+    <ul class="list-unstyled">
 
-</div>
-@endsection
+    @php
+    
+     foreach($weather_links as $link)
+     {
+    @endphp
+     <li class="">{!! $link !!}</li>
+    @php 
+     }
+    @endphp
+     </ul>
+    
+    </div>
+    @endsection
 
 
 <?php 
-/*
+/* 
+  //print("<pre>".print_r($weather_links, true)."</pre>");
  * <script>
 	var url_string = window.location.pathname.split("/city/")[0];
 	console.log("url string in blade: " + url_string);

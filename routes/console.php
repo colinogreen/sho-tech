@@ -2,7 +2,8 @@
 
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
-
+//use App\Http\Controllers\WeatherFivedayForecast;
+use App\Console\Commands\GetWeatherData;
 /*
 |--------------------------------------------------------------------------
 | Console Routes
@@ -17,3 +18,8 @@ use Illuminate\Support\Facades\Artisan;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
+
+Artisan::command('cachingtest', function () {
+    (new GetWeatherData())->queryAPIOrGetDataMultiple();
+})->purpose('Test the filling of the cache for api weather data processing');
+

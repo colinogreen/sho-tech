@@ -16,7 +16,13 @@
  
 
 </div>
- <script>
+
+@endsection
+
+
+<?php 
+/*
+ *  <script>
 	var url_string = window.location.pathname.split("/city/")[0];
 	console.log("url string in blade: " + url_string);
 	
@@ -27,11 +33,6 @@
 	console.log(window.location.pathname.split("/"));
 	console.log(window.location.pathname.split("/", 2));
 </script>
-@endsection
-
-
-<?php 
-/*
  * <script>
 	var url_string = window.location.pathname.split("/city/")[0];
 	console.log("url string in blade: " + url_string);

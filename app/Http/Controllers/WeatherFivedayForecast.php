@@ -46,11 +46,26 @@ class WeatherFivedayForecast extends Controller
     private function setCityLatitudeAndLongitude()
     {
         $this->cityLatitudeAndLongitude = [
+ 
+            "belfast"=>[
+                "name" => "belfast",
+                "latitude"=>"54.58333",
+                "longitude"=>"-5.93333"],
+            
+            "cardiff"=>[
+                "name" => "cardiff",
+                "latitude"=>"51.48",
+                "longitude"=>"-3.18"],
             
             "dundee"=>[
                 "name" => "dundee", 
                 "latitude"=>"56.46913", 
                 "longitude"=>"-2.97489"],
+            
+            "glasgow"=>[
+                "name" => "glasgow",
+                "latitude"=>"55.86515",
+                "longitude"=>"-4.25763"],
             
             "liverpool"=>[
                 "name" => "liverpool",
@@ -61,8 +76,28 @@ class WeatherFivedayForecast extends Controller
                 "name" => "london",
                 "latitude"=>"51.50853",
                 "longitude"=>"-0.12574"],
-            //53.41058, -2.97794 Liverpool ropewalks?
-            // 51.50853, -0.12574 - London
+            
+            "southampton"=>[
+                "name" => "southampton",
+                "latitude"=>"50.90395",
+                "longitude"=>"-1.40428"],
+            
+            "york"=>[
+                "name" => "york",
+                "latitude"=>"53.95763",
+                "longitude"=>"-1.08271"],
+            
+            // Belfast - 54.58333, -5.93333
+            // Birmingham - 52.48142, -1.89983
+            // Cardiff - 51.48, -3.18
+            // Glasgow - 55.86515, -4.25763
+            // Liverpool ropewalks? - 53.41058, -2.97794 
+            // London - 51.50853, -0.12574
+            // Manchester - 53.48095, -2.23743
+            // Newcastle - 54.97328, -1.61396
+            // Norwich - 52.62783, 1.29834
+            // Southampton - 50.90395, -1.40428
+            // York - 53.95763, -1.08271
         ];
     }
     
@@ -80,7 +115,7 @@ class WeatherFivedayForecast extends Controller
         $this->city_links[] = '<p><a href="/weather/'. $city . '">' . ucfirst($city). '</a></p>';
         
     }
-    private function getCityLatitudeAndLongitudeArray():array
+    public function getCityLatitudeAndLongitudeArray():array
     {
         return $this->cityLatitudeAndLongitude;
     }
