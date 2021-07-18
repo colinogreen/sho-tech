@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 //    return view('welcome');
 //});
 
-Route::get('/', [WeatherFivedayForecast::class, 'index']);
+Route::get('/', [WeatherFivedayForecast::class, 'index'])->name("index_home");
 
 Route::get('/greeting', function () {
     return 'Hello World';

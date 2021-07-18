@@ -10,19 +10,27 @@
 @section("page_content")
 <div class="container">
 
-    <ul class="list-unstyled">
+<div class="card bg-light mb-3" style="max-width: 24rem;">
+  <div class="card-header">Showcase</div>
+  <div class="card-body">
+    <h5 class="card-title">UK Five Day Weather</h5>
+    <p class="card-text">View weather data for the following UK Cities</p>
+    <ul class="list-group">
 
     @php
     
      foreach($weather_links as $link)
      {
     @endphp
-     <li class="">{!! $link !!}</li>
+     <li class="list-group-item">{!! $link !!}</li>
     @php 
      }
     @endphp
      </ul>
+  </div>
+
     
+    </div>
     </div>
     @endsection
 

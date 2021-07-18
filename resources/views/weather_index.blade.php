@@ -8,6 +8,9 @@
 @extends ("template.weathertemplate")
 
 @section("page_content")
+
+@extends("template.nav_card")
+@section("nav_card_content")
 <div class="container">
  <h3>Five Day Forecast</h3> 
         <div id="div_clock"></div>
@@ -16,6 +19,7 @@
  
 
 </div>
+@endsection
 
 @endsection
 
