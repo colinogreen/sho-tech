@@ -8,7 +8,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-        <link href="{{ asset('css/app.css') }}?v=1" rel="stylesheet">
+        <link href="{{ asset('css/app.css') }}?v=2" rel="stylesheet">
     </head>   
     <body>
     

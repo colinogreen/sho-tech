@@ -10,6 +10,10 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+.card .div_weather_data{
+	word-wrap: normal; // override bootstrap .card default of 'break-word'
+}
+
 .div_weather_data{
 	
 		

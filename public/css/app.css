@@ -14626,6 +14626,10 @@ h3 {
     border-color: #dee2e6;
   }
 }
+.card .div_weather_data {
+  word-wrap: normal;
+}
+
 .div_weather_data .fa-temperature-high {
   color: red !important;
 }
