@@ -7,8 +7,8 @@
 $title = "Weather Data";
 @endphp
 @extends ("template.showcase_template")
-@section("title")
- Weather Data
+@section("page_title")
+ Weather Data for {{ ucfirst($city) }}
 @endsection
 @section("page_content")
 <div class="container">

@@ -8,7 +8,7 @@ use App\Console\Commands\GetWeatherData;
 
 //use Illuminate\Http\Request;
 
-class WeatherFivedayForecast extends Controller
+class _del_WeatherFivedayForecast extends Controller
 {
     private $cityLatitudeAndLongitude = [];
     private $city_links =[];

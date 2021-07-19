@@ -90,7 +90,7 @@ Final class WeatherDataForCity
     private function getDayWeatherIcon():array
     {
         return ["fas fa-moon","fas fa-sun","fas fa-cloud-moon","fas fa-cloud-sun","Not used","Mist","Fog","fas fa-cloud","Overcast",
-            "Light rain shower (night)","Light rain shower (day)","Drizzle","Light rain","fas fa-cloud-moon-rain","fas fa-cloud-sun-rain",
+            "fas fa-cloud-rain","fas fa-cloud-rain","Drizzle","Light rain","fas fa-cloud-moon-rain","fas fa-cloud-sun-rain",
             "fas fa-cloud-rain","Sleet shower (night)","Sleet shower (day)","Sleet","Hail shower (night)","Hail shower (day)","Hail","fas fa-snow",
             "fas fa-snow","fas fa-snow","fas fa-snow","fas fa-snow","fas fa-snow","Thunder shower (night)","fas fa-bolt"];
 

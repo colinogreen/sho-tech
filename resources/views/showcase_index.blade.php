@@ -28,9 +28,9 @@
     active
     @endsection 
 <div class="card bg-light mb-3" style="max-width: 24rem;">
-  <div class="card-header">Showcase</div>
+  <div class="card-header">UK Five Day Weather</div>
   <div class="card-body">
-    <h5 class="card-title">UK Five Day Weather</h5>
+
     <p class="card-text">View weather data for the following UK Cities</p>
     <ul class="list-group">
 
