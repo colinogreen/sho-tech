@@ -4,9 +4,12 @@
         $temph = "fas fa-temperature-high";
         $templ = "fas fa-temperature-low";
         $wind = "fas fa-wind";
+$title = "Weather Data";
 @endphp
 @extends ("template.showcase_template")
-
+@section("title")
+ Weather Data
+@endsection
 @section("page_content")
 <div class="container">
  <h3>Five Day Forecast</h3> 

@@ -10,6 +10,14 @@
 @section("page_content")
 <div class="container">
 
+@if(isset($indexcontent) && $indexcontent === "general")
+@section('page_title')
+Welcome visitor.
+@endsection
+<p>This is Colin's Showcase pages</p>
+@endif
+
+@if(isset($weather_links))  
 <div class="card bg-light mb-3" style="max-width: 24rem;">
   <div class="card-header">Showcase</div>
   <div class="card-body">
@@ -17,22 +25,18 @@
     <p class="card-text">View weather data for the following UK Cities</p>
     <ul class="list-group">
 
-    @php
-    
-     foreach($weather_links as $link)
-     {
-    @endphp
+  
+     @foreach($weather_links as $link)
      <li class="list-group-item">{!! $link !!}</li>
-    @php 
-     }
-    @endphp
+	@endforeach
      </ul>
   </div>
 
     
     </div>
     </div>
-    @endsection
+@endif
+@endsection
 
 
 <?php 

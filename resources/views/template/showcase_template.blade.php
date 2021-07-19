@@ -11,7 +11,29 @@
         <link href="{{ asset('css/app.css') }}?v=1" rel="stylesheet">
     </head>   
     <body>
-      @yield("page_content")  
+    
+<div class="card">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" href="{{ route('showcaseindex') }}">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('weatherindex') }}">Weather Data</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Disabled</a>
+      </li>
+    </ul>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">@yield('page_title', 'Default Title')</h5>
+    @yield("page_content") 
+    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+       
       <script src="{{ asset('js/app.js') }}?v=1"></script>
 
     <script type="text/babel">

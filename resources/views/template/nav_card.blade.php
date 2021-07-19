@@ -1,3 +1,5 @@
+
+@extends('template.weathertemplate')
 <div class="card">
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">

@@ -1,5 +1,6 @@
 <?php
-use App\Http\Controllers\WeatherFivedayForecast;
+use App\Library\WeatherForecast;
+use App\Http\Controllers\Showcase;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,14 +18,17 @@ use Illuminate\Support\Facades\Route;
 //    return view('welcome');
 //});
 
-Route::get('/', [WeatherFivedayForecast::class, 'index'])->name("index_home");
+Route::get('/', [Showcase::class, 'index'])->name("showcaseindex");
 
 Route::get('/greeting', function () {
     return 'Hello World';
 });
 
 //Route::get('/{city}', [WeatherFivedayForecast::class, 'myGreeting']);
-Route::get('weather/{city}', [WeatherFivedayForecast::class, 'indexWeatherWithCity']);
+    Route::get('weather/{city}', [Showcase::class, 'indexWeatherWithCity']); // indexWeatherWithCity dataWithoutCityParameter data
+    Route::get('weather', [Showcase::class, 'indexWeather'])->name("weatherindex");
 
-Route::get('forecast_data', [WeatherFivedayForecast::class, 'dataWithoutCityParameter']);
-Route::get('forecast_data/{city}', [WeatherFivedayForecast::class, 'data']);
+    Route::get('forecast_data', [Showcase::class, 'dataWithoutCityParameter']); // 
+    //Route::get('forecast_data', [WeatherForecast::class, 'dataWithoutCityParameter']);
+    Route::get('forecast_data/{city}', [Showcase::class, 'data']);
+    //Route::get('forecast_data/{city}', [WeatherForecast::class, 'data']);

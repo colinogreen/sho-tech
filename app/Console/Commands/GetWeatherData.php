@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
-use App\Http\Controllers\WeatherFivedayForecast;
+use App\Library\WeatherForecast;
 
 class GetWeatherData extends Command
 {
@@ -93,7 +93,7 @@ class GetWeatherData extends Command
     public function queryAPIOrGetDataMultiple()
     {
         //if($this->checkDataIsInCache() ||$this->getDataFromApi(false))
-        $weatherFivedayForecast = new WeatherFivedayForecast();
+        $weatherFivedayForecast = new WeatherForecast();
         $cities = array_keys($weatherFivedayForecast->getCityLatitudeAndLongitudeArray());
         //exit(__CLASS__. "::".__FUNCTION__." - Retrieved \$cities array: (".print_r($cities, true). ") !");
         
