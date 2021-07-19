@@ -11,13 +11,22 @@
 <div class="container">
 
 @if(isset($indexcontent) && $indexcontent === "general")
-@section('page_title')
-Welcome visitor.
-@endsection
+    @section('page_title')
+    Welcome visitor.
+    @endsection
+    @section('home_link_active')
+    active
+    @endsection 
 <p>This is Colin's Showcase pages</p>
 @endif
 
-@if(isset($weather_links))  
+@if(isset($weather_links)) 
+    @section('page_title')
+    Weather Data - Selected UK Cities
+    @endsection
+    @section('weather_link_active')
+    active
+    @endsection 
 <div class="card bg-light mb-3" style="max-width: 24rem;">
   <div class="card-header">Showcase</div>
   <div class="card-body">

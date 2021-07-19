@@ -43,18 +43,13 @@ class Showcase extends Controller
 
         return $this->weatherForecast;
     }
-//     public function indexWeather()
-//     {
-//         $weather_links = $this->getWeatherForecast()->getWeatherForecastCities();
-//         return view("showcase_index", ["weather_links"=>$weather_links]); // Send the class and it's data to the view for processing
-//     }
-    //   data
-    public function data(string $city)
+
+    public function weatherData(string $city)
     {
         return $this->getWeatherForecast()->data($city);
     }
     
-    public function dataWithoutCityParameter()
+    public function weatherDataWithoutCityParameter()
     {
         return $this->getWeatherForecast()->dataWithoutCityParameter();
     }

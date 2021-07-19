@@ -16,10 +16,10 @@
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
-        <a class="nav-link active" href="{{ route('showcaseindex') }}">Home</a>
+        <a class="nav-link @yield('home_link_active')" href="{{ route('showcaseindex') }}">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('weatherindex') }}">Weather Data</a>
+        <a class="nav-link @yield('weather_link_active')" href="{{ route('weatherindex') }}">Weather Data</a>
       </li>
       <li class="nav-item">
         <a class="nav-link disabled" href="#">Disabled</a>
