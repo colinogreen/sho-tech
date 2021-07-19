@@ -93,12 +93,15 @@ class GetWeatherData extends Command
     public function queryAPIOrGetDataMultiple()
     {
         //if($this->checkDataIsInCache() ||$this->getDataFromApi(false))
-        $cities = array_keys((new WeatherFivedayForecast())->getCityLatitudeAndLongitudeArray());
+        $weatherFivedayForecast = new WeatherFivedayForecast();
+        $cities = array_keys($weatherFivedayForecast->getCityLatitudeAndLongitudeArray());
+        //exit(__CLASS__. "::".__FUNCTION__." - Retrieved \$cities array: (".print_r($cities, true). ") !");
         
         foreach($cities as $city)
         {
-            $this->setCachedDataName($city);
-            \Log::debug(__CLASS__. "::".__FUNCTION__." - Attempt to update cache (".$this->getCachedDataName(). ") via the API endpoint!");
+            $stdClassLatAndLong = $weatherFivedayForecast->getCityLatitudeAndLongitude($city);
+            $this->setCityDetails($stdClassLatAndLong);
+            //\Log::debug(__CLASS__. "::".__FUNCTION__." - Attempt to update cache (".$this->getCachedDataName(). ") via the API endpoint!");
             
             if(!$this->queryAPIOrGetData())
             {
@@ -131,6 +134,7 @@ class GetWeatherData extends Command
         {
             \Log::debug(__CLASS__. "::".__FUNCTION__." - Attempt to get the data from the cache!");
             //WeatherFivedayForecast::logMessage("Data (". $this->getCachedDataName().") was retrieved from cache!: ".print_r(Cache::get($this->getCachedDataName(), true))); 
+            //print(print_r("Cache has " . $this->getCachedDataName() . ":\n ".print_r(Cache::get($this->getCachedDataName(), true))));
             return Cache::get($this->getCachedDataName()); 
 
         }

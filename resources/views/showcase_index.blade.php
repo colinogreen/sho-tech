@@ -5,7 +5,7 @@
         $templ = "fas fa-temperature-low";
         $wind = "fas fa-wind";
 @endphp
-@extends ("template.weathertemplate")
+@extends ("template.showcase_template")
 
 @section("page_content")
 <div class="container">

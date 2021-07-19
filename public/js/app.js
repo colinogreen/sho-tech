@@ -2275,11 +2275,12 @@ var WeatherData = /*#__PURE__*/function (_React$Component4) {
 
       if (url_string !== undefined) {
         url_data += "/" + url_string;
-      } //var url_string = window.location.pathname.split("/city/")[0];
+      }
+
+      console.log("url to query = " + url_data); //var url_string = window.location.pathname.split("/city/")[0];
       //console.log("url string: " + url_string);
       //url_string = window.location.pathname.split()[0];
       //console.log("url string: " + url_string);
-
 
       jquery__WEBPACK_IMPORTED_MODULE_3___default().ajax({
         url: url_data,

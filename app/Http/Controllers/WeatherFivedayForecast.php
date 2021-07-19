@@ -119,7 +119,7 @@ class WeatherFivedayForecast extends Controller
     {
         return $this->cityLatitudeAndLongitude;
     }
-    private function getCityLatitudeAndLongitude($city):object
+    public function getCityLatitudeAndLongitude($city):object
     {
         $std = new \stdClass();
         $std->name = $city;
@@ -143,11 +143,15 @@ class WeatherFivedayForecast extends Controller
     {
         $stdClass = $this->getCityLatitudeAndLongitude(strtolower($city));
         //\Log::debug("Trying to get city data for $city: ".print_r($stdClass, true)); exit("End");
+        //exit(__CLASS__. "::".__FUNCTION__." - DEBUG Trying to get city data for $city: ".print_r($stdClass, true));
         $getWeatherData = new GetWeatherData();
         $getWeatherData->setCityDetails($stdClass);
+        //exit( __CLASS__. "::".__FUNCTION__." - Data from cache: <pre> - ".print_r($getWeatherData->getDataFromCache(), true)."</pre>");
+        //exit(__CLASS__. "::".__FUNCTION__. ":". __LINE__." - DEBUG Trying to get city data for $city: ".print_r($stdClass, true));
         $cityWeather = new WeatherDataForCity($getWeatherData->getDataFromCache());
         //exit("<pre>". __CLASS__. "::".__FUNCTION__." - ".print_r($cityWeather->getLastApiUpdate(), true)."</pre>");
         //exit("<pre>". print_r($getWeatherData->getDataFromCache(), true)."</pre>");
+        
         $data = new \stdClass;
         $data->api_query = new \stdClass;
         $data->api_query->last_api_update = $cityWeather->getLastApiUpdate();
@@ -169,7 +173,7 @@ class WeatherFivedayForecast extends Controller
             $data->api_query->day[$i]->max_uv_index = $cityWeather->getDayMaxUvIndex($i);
             $data->api_query->day[$i]->max_feels_like_temp = $cityWeather->getDayMaxFeelsLikeTemp($i);
         }
-        //exit("Data:<pre>". print_r($data, true)."</pre>");
+        //exit( __CLASS__. "::".__FUNCTION__." - Data:<pre>". print_r($data, true)."</pre>");
         return json_encode($data);
         //return $getWeatherData->getDataFromCache();
     }

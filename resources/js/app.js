@@ -268,6 +268,7 @@ class WeatherData extends React.Component {
 	{
 		url_data += "/" + url_string;
 	}
+	console.log("url to query = " + url_data)
 	//var url_string = window.location.pathname.split("/city/")[0];
 	//console.log("url string: " + url_string);
 	
