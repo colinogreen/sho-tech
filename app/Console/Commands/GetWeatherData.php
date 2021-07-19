@@ -134,7 +134,7 @@ class GetWeatherData extends Command
         {
             \Log::debug(__CLASS__. "::".__FUNCTION__." - Attempt to get the data from the cache!");
             //WeatherFivedayForecast::logMessage("Data (". $this->getCachedDataName().") was retrieved from cache!: ".print_r(Cache::get($this->getCachedDataName(), true))); 
-            //print(print_r("Cache has " . $this->getCachedDataName() . ":\n ".print_r(Cache::get($this->getCachedDataName(), true))));
+            //exit("Cache has " . $this->getCachedDataName() . ":".print_r(Cache::get($this->getCachedDataName())."", true));
             return Cache::get($this->getCachedDataName()); 
 
         }

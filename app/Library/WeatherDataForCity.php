@@ -179,8 +179,10 @@ Final class WeatherDataForCity
                 $this->setDayOfWeek($timeseries[$i]->time);
                 $this->setDaySignificantWeatherDesc($timeseries[$i]->daySignificantWeatherCode);
                 $this->setDaySignificantWeatherIcon($timeseries[$i]->daySignificantWeatherCode);
-                $this->setDayHighestTemp(round($timeseries[$i]->dayUpperBoundMaxTemp));
-                $this->setDayLowestTemp(round($timeseries[$i]->nightLowerBoundMinTemp));
+                $this->setDayHighestTemp(round($timeseries[$i]->dayMaxScreenTemperature));
+                //$this->setDayHighestTemp(round($timeseries[$i]->dayUpperBoundMaxTemp));
+                $this->setDayLowestTemp(round($timeseries[$i]->nightMinScreenTemperature));
+                //$this->setDayLowestTemp(round($timeseries[$i]->nightLowerBoundMinTemp));
                 $this->setDayChanceOfRain(round($timeseries[$i]->dayProbabilityOfPrecipitation));
                 
                 $this->setDayMaxUvIndex(round($timeseries[$i]->maxUvIndex)); // Added 2021-07-14
