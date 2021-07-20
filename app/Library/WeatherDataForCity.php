@@ -37,34 +37,55 @@ Final class WeatherDataForCity
         //$api_data = $this->getCachedData();
         $data = json_decode($api_data);
         //exit(__CLASS__. "::".__FUNCTION__. " - Error: ". print_r($data->_embedded->errors, true));
-        
+        $errors = [];
+        // Display error message(s) if the _embedded errors json value was set in the json data retrieved from the api
         if(isset($data->_embedded->errors) && count($data->_embedded->errors)>0)
         {
-            $errors = [];
+            
             foreach($data->_embedded->errors as $err)
             {
                 $errors[] = $err->message;
             }
             
-            $this->setErrorMessage(implode("<br />", $errors));
+            //$this->setErrorMessage(implode("<br />", $errors));
         }
-//         if(isset($data->message))
-//         {
-//             $this->errorMessage = __CLASS__. "::".__FUNCTION__."My error debug"; // $data->message;
-//         }
-        
-        if(isset($data->features))
+
+        // if no errors, the features json branch will be set hopefully with correct data.
+        else if(isset($data->features))
         {
-            $this->setDailyForecastParameters($data->features[0]->properties->timeSeries);
+            //$feature_errors = 0;
+            if(isset($data->features[0]) && isset($data->features[0]->properties->timeSeries))
+            {
+                $this->setDailyForecastParameters($data->features[0]->properties->timeSeries);
+            }
+            else
+            {
+                $errors[] = "Could not set Timeseries weather data.";
+            }
+            
             $this->setLastApiUpdate($data);
-            if(isset($data->features[0]->properties->modelRunDate))
+            if(isset($data->features[0]) && isset($data->features[0]->properties->modelRunDate))
             {
                 $this->setDailyForecastLastUpdate($data->features[0]->properties->modelRunDate);
             }
-            if(isset($data->features[0]->properties->location->name))
+            else
+            {
+                $errors[] = "Could not set Last update data.";
+            }
+            
+            if(isset($data->features[0]) && isset($data->features[0]->properties->location->name))
             {
                 $this->setLocation($data->features[0]->properties->location->name);
-            }  
+            } 
+            else
+            {
+                $errors[] = "Could not set location name. data";
+            }
+        }
+        // ... or ensure that a default error message is sent to the screen.
+        if(count($errors)> 0)
+        {            
+            $this->setErrorMessage(implode("<br />", $errors));
         }
 
     }

@@ -1912,7 +1912,10 @@ var TodayWeatherRows = /*#__PURE__*/function (_React$Component) {
     key: "render",
     value: function render() {
       //console.log("Top temp: " + this.props.top_temp); <div className="offset-3 col"><h3>Today</h3> &#160;<i className="fas fa-temperature-high"></i></div>
-      var dynamic_data = this.props.extra_data_name !== undefined && this.props.extra_data !== undefined ? this.props.extra_data_name + ": " + this.props.extra_data : "";
+      //const loadmsg =  (<span style={{fontStyle:'italic'}}>loading ...</span>);
+      var loadmsg = "loading ...";
+      var dynamic_data = this.props.extra_data_name !== undefined && this.props.extra_data !== undefined ? this.props.extra_data_name + ": " + this.props.extra_data : loadmsg; //span style={{fontStyle:'italic'}}
+
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
         className: "today_weather_row",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
@@ -1947,6 +1950,7 @@ var TodayWeatherRows = /*#__PURE__*/function (_React$Component) {
               id: "today-weather-row-extra",
               className: "dynamic_display",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+                id: "today-weather-row-extra-span",
                 children: dynamic_data
               }), " "]
             })]
@@ -2117,8 +2121,9 @@ var WeatherData = /*#__PURE__*/function (_React$Component4) {
     _classCallCheck(this, WeatherData);
 
     _this = _super4.call(this, props);
-    var extra_data_name;
-    var extra_data;
+    var loadmsg = "loading data ...";
+    _this.extra_data_name = loadmsg;
+    _this.extra_data = loadmsg;
     _this.state = {
       data: {
         api_query: {
@@ -2134,17 +2139,14 @@ var WeatherData = /*#__PURE__*/function (_React$Component4) {
   _createClass(WeatherData, [{
     key: "render",
     value: function render() {
-      //console.log(this.state.data);
-      //var return_html;
       if (this.state.data.api_query.message !== undefined && this.state.data.api_query.message !== null && this.state.data.api_query.message !== "") {
-        // Return the error and display nothing else...
-        console.log("this.state.data.api_query.message contains:");
-        console.log(this.state.data.api_query.message); //console.log(this.state.data.api_query.message.length);
-
+        // * Return the error and display nothing else...
+        //console.log("this.state.data.api_query.message contains:");
+        //console.log(this.state.data.api_query.message);
+        //console.log(this.state.data.api_query.message.length);
         var innerHtml = {
           __html: this.state.data.api_query.message
-        }; //return <p dangerouslySetInnerHtml={innerHtml}></p>
-
+        };
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
           className: "row",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
@@ -2158,7 +2160,8 @@ var WeatherData = /*#__PURE__*/function (_React$Component4) {
             })]
           })
         });
-      }
+      } // ... * Or continue to create weather data display
+
 
       var precip = "fas fa-tint";
       var temph = "fas fa-temperature-high";
@@ -2191,8 +2194,8 @@ var WeatherData = /*#__PURE__*/function (_React$Component4) {
           this.extra_data = day1.max_feels_like_temp + " &deg;";
         }
 
-        if (document.getElementById("today-weather-row-extra") !== null) {
-          document.getElementById('today-weather-row-extra').innerHTML = this.extra_data_name + ": " + this.extra_data;
+        if (document.getElementById("today-weather-row-extra-span") !== null && this.extra_data_name !== undefined && this.extra_data !== undefined) {
+          document.getElementById('today-weather-row-extra-span').innerHTML = this.extra_data_name + ": " + this.extra_data;
         }
       }, 1000); //console.log('MultiWeatherRowGeneral.render() ');
       // Removed style from top div | border:'2px solid #ccc', borderRadius: '8px'
@@ -2286,7 +2289,8 @@ var WeatherData = /*#__PURE__*/function (_React$Component4) {
           },
           children: ["Last data update: ", this.state.data.api_query.last_api_update]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
-          className: "form-control",
+          id: "btn-fetch-latest",
+          className: "form-control btn_fetch_latest",
           onClick: this.fetch.bind(this),
           children: [" ", "Fetch Latest"]
         })]
@@ -2306,12 +2310,12 @@ var WeatherData = /*#__PURE__*/function (_React$Component4) {
 
       if (url_string !== undefined) {
         url_data += "/" + url_string;
-      }
-
-      console.log("url to query = " + url_data); //var url_string = window.location.pathname.split("/city/")[0];
+      } //console.log("url to query = " + url_data)
+      //var url_string = window.location.pathname.split("/city/")[0];
       //console.log("url string: " + url_string);
       //url_string = window.location.pathname.split()[0];
       //console.log("url string: " + url_string);
+
 
       jquery__WEBPACK_IMPORTED_MODULE_3___default().ajax({
         url: url_data,
@@ -2327,7 +2331,8 @@ var WeatherData = /*#__PURE__*/function (_React$Component4) {
   }]);
 
   return WeatherData;
-}(react__WEBPACK_IMPORTED_MODULE_0__.Component);
+}(react__WEBPACK_IMPORTED_MODULE_0__.Component); //** Basic Javascript/JQuery (mainly) */
+
 
 function tick() {
   var element = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("p", {
@@ -2342,12 +2347,24 @@ function tick() {
 }
 
 if (document.getElementById('div_clock') !== null) {
-  //tick();
   setInterval(tick, 1000);
 }
 
 if (document.getElementById('div-weather-data') !== null) {
   (0,react_dom__WEBPACK_IMPORTED_MODULE_1__.render)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(WeatherData, {}), document.getElementById('div-weather-data'));
+}
+
+if (document.getElementById("btn-fetch-latest") !== null) {
+  // When the Fetch update button is pressed, make it look like something is being attempted, 
+  // as it won't usually retrieve an update due to Laravel/php data caching length.
+  var btnfetchlatest = document.getElementById("btn-fetch-latest");
+  btnfetchlatest.addEventListener("click", function () {
+    var origHTML = btnfetchlatest.innerHTML;
+    btnfetchlatest.innerHTML = '<i class="fas fa-cog fa-spin"></i> Checking ...';
+    setTimeout(function () {
+      btnfetchlatest.innerHTML = origHTML;
+    }, 750);
+  });
 }
 
 /***/ }),

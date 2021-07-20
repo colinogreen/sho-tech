@@ -17,7 +17,8 @@
     @section('home_link_active')
     active
     @endsection 
-<p>This is Colin's Showcase pages</p>
+<p>This is Colin's Showcase pages.</p>
+<p>Click on any links you can see on the top tab to view existing apps.</p>
 @endif
 
 @if(isset($weather_links)) 

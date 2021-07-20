@@ -35,9 +35,12 @@ class TodayWeatherRows extends React.Component {
 	render()
 	{
 		//console.log("Top temp: " + this.props.top_temp); <div className="offset-3 col"><h3>Today</h3> &#160;<i className="fas fa-temperature-high"></i></div>
+		//const loadmsg =  (<span style={{fontStyle:'italic'}}>loading ...</span>);
+		const loadmsg =  "loading ...";
 	const dynamic_data = (this.props.extra_data_name !== undefined && this.props.extra_data !== undefined )
 	? this.props.extra_data_name + ": " + this.props.extra_data
-	: "";
+	: loadmsg; //span style={{fontStyle:'italic'}}
+	
     return (
 	<div className="today_weather_row">
 
@@ -55,7 +58,7 @@ class TodayWeatherRows extends React.Component {
 			 <br /><i className="fas fa-temperature-low"></i><span>{this.props.min_temp} &deg;C </span>
 
 			
-			<div id="today-weather-row-extra" className="dynamic_display"><span>{dynamic_data}</span> </div>
+			<div id="today-weather-row-extra" className="dynamic_display"><span id="today-weather-row-extra-span" >{dynamic_data}</span> </div>
 				
 		</div>
     	</div>		
@@ -142,8 +145,10 @@ class WeatherData extends React.Component {
   constructor(props) {
 
     super(props);
-
-	var extra_data_name; var extra_data;
+	const loadmsg = "loading data ..."; 
+	this.extra_data_name = loadmsg; 
+	this.extra_data = loadmsg;
+	
     this.state = {
 
       data: {
@@ -159,13 +164,12 @@ class WeatherData extends React.Component {
 
   }
   render() {
-      //console.log(this.state.data);
- 	//var return_html;
+
 	if(this.state.data.api_query.message !== undefined && this.state.data.api_query.message !== null && this.state.data.api_query.message !== "")
 	{
 		// * Return the error and display nothing else...
-		console.log("this.state.data.api_query.message contains:");
-		console.log(this.state.data.api_query.message);
+		//console.log("this.state.data.api_query.message contains:");
+		//console.log(this.state.data.api_query.message);
 		//console.log(this.state.data.api_query.message.length);
 		  const innerHtml = { __html: this.state.data.api_query.message }
 
@@ -216,9 +220,9 @@ class WeatherData extends React.Component {
 			this.extra_data_name = "Temp feels like";
 			this.extra_data = day1.max_feels_like_temp + " &deg;";			
 		}
-		if(document.getElementById("today-weather-row-extra")!== null)
+		if(document.getElementById("today-weather-row-extra-span")!== null && this.extra_data_name !== undefined && this.extra_data !== undefined)
 		{
-			document.getElementById('today-weather-row-extra').innerHTML = this.extra_data_name + ": "+ this.extra_data;
+			document.getElementById('today-weather-row-extra-span').innerHTML = this.extra_data_name + ": "+ this.extra_data;
 		}
 		
 	}, 1000);    
@@ -266,8 +270,7 @@ class WeatherData extends React.Component {
 
         <hr/>
 
-        <button className="form-control" onClick={this.fetch.bind(this)}> {/* Check for new data and display it on button press */}
-
+        <button id="btn-fetch-latest" className="form-control btn_fetch_latest" onClick={this.fetch.bind(this)}> {/* Check for new data and display it on button press */}
           Fetch Latest
         </button>
       </div>
@@ -289,7 +292,7 @@ class WeatherData extends React.Component {
 	{
 		url_data += "/" + url_string;
 	}
-	console.log("url to query = " + url_data)
+	//console.log("url to query = " + url_data)
 	//var url_string = window.location.pathname.split("/city/")[0];
 	//console.log("url string: " + url_string);
 	
@@ -318,17 +321,18 @@ class WeatherData extends React.Component {
 
 } 
 
+//** Basic Javascript/JQuery (mainly) */
 
 function tick() {
   const element = (
 
     <p style={{fontStyle:'italic', fontColor:'#ccc'}}>It is {new Date().toLocaleTimeString()}.</p>
   );
-  ReactDOM.render(element, document.getElementById('div_clock'));
+  	ReactDOM.render(element, document.getElementById('div_clock'));
   }
+
  if(document.getElementById('div_clock')!== null)
  {
-    //tick();
     setInterval(tick, 1000);
  }
 
@@ -339,3 +343,18 @@ function tick() {
 
  }
 
+
+if(document.getElementById("btn-fetch-latest")!== null)
+{
+	// When the Fetch update button is pressed, make it look like something is being attempted, 
+	// as it won't usually retrieve an update due to Laravel/php data caching length.
+	const btnfetchlatest = document.getElementById("btn-fetch-latest");
+	btnfetchlatest.addEventListener("click",function(){
+		const origHTML = btnfetchlatest.innerHTML;
+		btnfetchlatest.innerHTML = '<i class="fas fa-cog fa-spin"></i> Checking ...';
+		setTimeout(function()
+		{
+			btnfetchlatest.innerHTML = origHTML;
+		}, 750);
+	})
+}

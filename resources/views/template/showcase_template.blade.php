@@ -8,7 +8,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-        <link href="{{ asset('css/app.css') }}?v=2" rel="stylesheet">
+        <link href="{{ asset('css/app.css') }}?v=2.1" rel="stylesheet">
     </head>   
     <body>
     
@@ -21,20 +21,19 @@
       <li class="nav-item">
         <a class="nav-link @yield('weather_link_active')" href="{{ route('weatherindex') }}">Weather Data</a>
       </li>
-      <li class="nav-item">
+     <?php /*  <li class="nav-item">
         <a class="nav-link disabled" href="#">Disabled</a>
-      </li>
+      </li> */?>
     </ul>
   </div>
   <div class="card-body">
     <h5 class="card-title">@yield('page_title', 'Default Title')</h5>
     @yield("page_content") 
-    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
+
   </div>
 </div>
        
-      <script src="{{ asset('js/app.js') }}?v=2"></script>
+      <script src="{{ asset('js/app.js') }}?v=2.11"></script>
 
     <script type="text/babel">
 /*
@@ -50,3 +49,9 @@
 
     </body>
 </html>
+<?php 
+/*
+ *     <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+ */
+?>
