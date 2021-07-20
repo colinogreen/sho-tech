@@ -1975,7 +1975,7 @@ var MultiWeatherRowTop = /*#__PURE__*/function (_React$Component2) {
   _createClass(MultiWeatherRowTop, [{
     key: "getWeatherIcon",
     value: function getWeatherIcon(dwc) {
-      return dwc !== undefined && dwc.includes("fas") ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
+      return dwc !== undefined && (dwc.includes("fas") || dwc.includes("far")) ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
         className: dwc
       }) : dwc !== undefined ? dwc : "";
     }
@@ -2123,7 +2123,8 @@ var WeatherData = /*#__PURE__*/function (_React$Component4) {
       data: {
         api_query: {
           "last_update": "",
-          "day": [{}, {}, {}, {}, {}, {}]
+          "day": [{}, {}, {}, {}, {}, {}],
+          "message": ""
         }
       }
     };
@@ -2134,6 +2135,31 @@ var WeatherData = /*#__PURE__*/function (_React$Component4) {
     key: "render",
     value: function render() {
       //console.log(this.state.data);
+      //var return_html;
+      if (this.state.data.api_query.message !== undefined && this.state.data.api_query.message !== null && this.state.data.api_query.message !== "") {
+        // Return the error and display nothing else...
+        console.log("this.state.data.api_query.message contains:");
+        console.log(this.state.data.api_query.message); //console.log(this.state.data.api_query.message.length);
+
+        var innerHtml = {
+          __html: this.state.data.api_query.message
+        }; //return <p dangerouslySetInnerHtml={innerHtml}></p>
+
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          className: "row",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            className: "col-12 offset-md-2 col-md-8",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h3", {
+              children: "Error retrieving data"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+              dangerouslySetInnerHTML: innerHtml
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+              children: "Please try again later."
+            })]
+          })
+        });
+      }
+
       var precip = "fas fa-tint";
       var temph = "fas fa-temperature-high";
       var templ = "fas fa-temperature-low";
@@ -2181,11 +2207,16 @@ var WeatherData = /*#__PURE__*/function (_React$Component4) {
             className: "row",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
               className: "col-12 offset-md-8 col-md-4",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h5", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("p", {
                 style: {},
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
                   className: "fas fa-clock"
-                }), " Last Update: ", this.state.data.api_query.last_forecast_update]
+                }), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
+                  style: {
+                    fontStyle: 'italic'
+                  },
+                  children: ["Met Office update: ", this.state.data.api_query.last_forecast_update]
+                })]
               })
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
@@ -2253,7 +2284,7 @@ var WeatherData = /*#__PURE__*/function (_React$Component4) {
             fontSize: '0.8em',
             fontStyle: 'italic'
           },
-          children: ["Last API update: ", this.state.data.api_query.last_api_update]
+          children: ["Last data update: ", this.state.data.api_query.last_api_update]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
           className: "form-control",
           onClick: this.fetch.bind(this),

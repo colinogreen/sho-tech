@@ -1,3 +1,7 @@
+RewriteCond %{HTTP_HOST} ^sho.technohelp\.uk [NC]
+RewriteCond %{SERVER_PORT} 80
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI}/$1 [R,L]
+
 <IfModule mod_rewrite.c>
 # IMPORTANT - JUNE 2021: This .htaccess file redirects to the public/ subfolder as if this goes on cpanel public_html,...
 # ... the public folder cannot be configured!

@@ -60,7 +60,7 @@ class GetWeatherData extends Command
         $this->cachedDataName = "api_weather_data_". $dataName;
     }
        
-    private function getCachedDataName():string
+    public function getCachedDataName():string
     {
         return $this->cachedDataName;
     }
@@ -139,7 +139,7 @@ class GetWeatherData extends Command
             //WeatherFivedayForecast::logMessage("Data (". $this->getCachedDataName().") was retrieved from cache!: ".print_r(Cache::get($this->getCachedDataName(), true))); 
             //exit("Cache has " . $this->getCachedDataName() . ":".print_r(Cache::get($this->getCachedDataName())."", true));
             //exit(print_r(json_decode(Cache::get($this->getCachedDataName())), true));
-            $this->okDataInCache();
+            $this->expectedDataInCache();
             return Cache::get($this->getCachedDataName()); 
 
         }
@@ -157,7 +157,7 @@ class GetWeatherData extends Command
     * @todo reduce the amount of times this can be done to save Met office data allowance per day.
     * @return boolean
     */ 
-    private function okDataInCache()
+    private function expectedDataInCache()
     {
         $checkdata = json_decode(Cache::get($this->getCachedDataName()));
         
@@ -197,8 +197,8 @@ class GetWeatherData extends Command
             //'longitude' => '-2.97489',  // Dundee longitude
             'longitude' => $this->getLongitude(),  // Dundee longitude
         ]);
-        \Log::debug(__CLASS__. "::".__FUNCTION__." | Latitude: " . $this->getLatitude());
-        \Log::debug(__CLASS__. "::".__FUNCTION__." | Longitude: " . $this->getLongitude());
+        //\Log::debug(__CLASS__. "::".__FUNCTION__." | Latitude: " . $this->getLatitude());
+       // \Log::debug(__CLASS__. "::".__FUNCTION__." | Longitude: " . $this->getLongitude());
         // https://latitudelongitude.org
         // Dundee: 56.46913, -2.97489
         // Manchester: 53.48095, -2.23743

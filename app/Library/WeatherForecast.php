@@ -5,6 +5,7 @@ namespace app\Library;
 use App\Library\WeatherDataForCity;
 
 use App\Console\Commands\GetWeatherData;
+use Illuminate\Support\Facades\Cache;
 
 class WeatherForecast{
     
@@ -46,7 +47,12 @@ class WeatherForecast{
                 "name" => "belfast",
                 "latitude"=>"54.58333",
                 "longitude"=>"-5.93333"],
-            
+
+            "birmingham"=>[
+                "name" => "birmingham",
+                "latitude"=>"52.48142",
+                "longitude"=>"-1.89983"],
+
             "cardiff"=>[
                 "name" => "cardiff",
                 "latitude"=>"51.48",
@@ -98,7 +104,7 @@ class WeatherForecast{
                 "longitude"=>"-1.08271"],
             
             // Belfast - 54.58333, -5.93333
-            // Birmingham - 52.48142, -1.89983
+            // birmingham - 52.48142, -1.89983
             // Cardiff - 51.48, -3.18
             // Glasgow - 55.86515, -4.25763
             // Liverpool ropewalks? - 53.41058, -2.97794
@@ -167,8 +173,19 @@ class WeatherForecast{
         $data->api_query->last_api_update = $cityWeather->getLastApiUpdate();
         $data->api_query->last_forecast_update = $cityWeather->getDailyForecastLastUpdate();
         $data->api_query->location = $cityWeather->getLocation();
+        $data->api_query->message = $cityWeather->getErrorMessage();
         //$data->api_query->location = "Feeblesticks";
         $data->api_query->day = [];
+        
+        if(!empty($data->api_query->message))
+        {
+            $key = $getWeatherData->getCachedDataName();
+            $value = Cache::get($getWeatherData->getCachedDataName());
+            Cache::put($key,$value, now()->addMinutes(3)); // Refresh the existing cached item for another attempt in three minutes. Avoids multiple API calls.
+            return json_encode($data); // Go no further.
+        }
+        
+        //exit(__CLASS__. "::".__FUNCTION__. " - Error: ".$data->api_query->message);
         for($i = 0; $i<6;$i++)
         {
             $data->api_query->day[$i] = new \stdClass;

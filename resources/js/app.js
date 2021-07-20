@@ -77,7 +77,7 @@ class MultiWeatherRowTop extends React.Component {
 	
 	getWeatherIcon(dwc)
 	{
-		return  (dwc !== undefined && dwc.includes("fas")
+		return  (dwc !== undefined && (dwc.includes("fas")||dwc.includes("far"))
 		?(<i className={dwc }></i>)
 		:(dwc !== undefined)? dwc: "");
 	}
@@ -150,6 +150,7 @@ class WeatherData extends React.Component {
           api_query:{
               "last_update": "",
               "day": [{},{},{},{},{},{}],
+			"message":""
           }
 
       }
@@ -159,7 +160,27 @@ class WeatherData extends React.Component {
   }
   render() {
       //console.log(this.state.data);
+ 	//var return_html;
+	if(this.state.data.api_query.message !== undefined && this.state.data.api_query.message !== null && this.state.data.api_query.message !== "")
+	{
+		// * Return the error and display nothing else...
+		console.log("this.state.data.api_query.message contains:");
+		console.log(this.state.data.api_query.message);
+		//console.log(this.state.data.api_query.message.length);
+		  const innerHtml = { __html: this.state.data.api_query.message }
 
+		return (
+		     <div className="row">
+         <div className="col-12 offset-md-2 col-md-8">
+			<h3>Error retrieving data</h3>
+			<p dangerouslySetInnerHTML={innerHtml}></p>
+			<p >Please try again later.</p>
+		</div>
+		</div>
+			
+		);
+	}
+	// ... * Or continue to create weather data display
     const precip = "fas fa-tint";
     const temph = "fas fa-temperature-high";
     const templ = "fas fa-temperature-low";
@@ -214,7 +235,7 @@ class WeatherData extends React.Component {
      <div className="" style={{}}>
      <div className="row">
          <div className="col-12 offset-md-8 col-md-4">
-             <h5 style={{}}><i className="fas fa-clock"></i> Last Update: {this.state.data.api_query.last_forecast_update}</h5>
+             <p style={{}}><i className="fas fa-clock"></i> <span style={{fontStyle:'italic'}}>Met Office update: {this.state.data.api_query.last_forecast_update}</span></p>
          </div>
      </div>
     <div className="weather_table">
@@ -241,7 +262,7 @@ class WeatherData extends React.Component {
     </div> {/* End weather table*/}
 
      </div>
-     <p style={{fontSize:'0.8em', fontStyle:'italic'}}>Last API update: {this.state.data.api_query.last_api_update}</p>
+     <p style={{fontSize:'0.8em', fontStyle:'italic'}}>Last data update: {this.state.data.api_query.last_api_update}</p>
 
         <hr/>
 

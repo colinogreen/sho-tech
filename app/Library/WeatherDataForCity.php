@@ -22,6 +22,8 @@ Final class WeatherDataForCity
     
     private $lastUpdate = "N/A";
     
+    private $errorMessage;
+    
     //private $data_name = "api_weather_data";
     
     public function __construct($data)
@@ -34,16 +36,48 @@ Final class WeatherDataForCity
     {
         //$api_data = $this->getCachedData();
         $data = json_decode($api_data);
-        $this->setDailyForecastParameters($data->features[0]->properties->timeSeries);
-        $this->setLastApiUpdate($data);
-        if(isset($data->features[0]->properties->modelRunDate))
+        //exit(__CLASS__. "::".__FUNCTION__. " - Error: ". print_r($data->_embedded->errors, true));
+        
+        if(isset($data->_embedded->errors) && count($data->_embedded->errors)>0)
         {
-            $this->setDailyForecastLastUpdate($data->features[0]->properties->modelRunDate);
+            $errors = [];
+            foreach($data->_embedded->errors as $err)
+            {
+                $errors[] = $err->message;
+            }
+            
+            $this->setErrorMessage(implode("<br />", $errors));
         }
-        if(isset($data->features[0]->properties->location->name))
+//         if(isset($data->message))
+//         {
+//             $this->errorMessage = __CLASS__. "::".__FUNCTION__."My error debug"; // $data->message;
+//         }
+        
+        if(isset($data->features))
         {
-            $this->setLocation($data->features[0]->properties->location->name);
-        }  
+            $this->setDailyForecastParameters($data->features[0]->properties->timeSeries);
+            $this->setLastApiUpdate($data);
+            if(isset($data->features[0]->properties->modelRunDate))
+            {
+                $this->setDailyForecastLastUpdate($data->features[0]->properties->modelRunDate);
+            }
+            if(isset($data->features[0]->properties->location->name))
+            {
+                $this->setLocation($data->features[0]->properties->location->name);
+            }  
+        }
+
+    }
+    
+    
+    public function setErrorMessage(string $message):void
+    {
+        $this->errorMessage = $message;
+    }
+    
+    public function getErrorMessage()
+    {
+        return $this->errorMessage;
     }
     /**
      * 
@@ -89,10 +123,10 @@ Final class WeatherDataForCity
      */
     private function getDayWeatherIcon():array
     {
-        return ["fas fa-moon","fas fa-sun","fas fa-cloud-moon","fas fa-cloud-sun","Not used","Mist","Fog","fas fa-cloud","Overcast",
-            "fas fa-cloud-rain","fas fa-cloud-rain","Drizzle","Light rain","fas fa-cloud-moon-rain","fas fa-cloud-sun-rain",
-            "fas fa-cloud-rain","Sleet shower (night)","Sleet shower (day)","Sleet","Hail shower (night)","Hail shower (day)","Hail","fas fa-snow",
-            "fas fa-snow","fas fa-snow","fas fa-snow","fas fa-snow","fas fa-snow","Thunder shower (night)","fas fa-bolt"];
+        return ["fas fa-moon","far fa-sun","fas fa-cloud-moon","fas fa-cloud-sun","Not used","fas fa-smog","fas fa-smog","fas fa-cloud","fas fa-cloud",
+            "fas fa-cloud-rain","fas fa-cloud-rain","fas fa-cloud","fas fa-cloud-rain","fas fa-cloud-moon-rain","fas fa-cloud-sun-rain",
+            "fas fa-cloud-rain","Sleet shower (night)","Sleet shower (day)","Sleet","Hail shower (night)","Hail shower (day)","Hail","far fa-snow",
+            "fas fa-snow","fas fa-snow","fas fa-snow","fas fa-snow","fas fa-snow","fas fa-bolt","fas fa-bolt"];
 
     }
     
