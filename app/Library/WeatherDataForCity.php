@@ -4,13 +4,16 @@ namespace app\Library;
 
 Final class WeatherDataForCity
 {
+    private $dayDate = [];
     private $dayHighestTemp = [];
     private $dayLowestTemp = [];
     private $dayChanceRain = [];
     private $dayWindSpeed = [];
     private $dayOfWeek = [];
     private $dayWeatherDesc = [];
+    private $nightWeatherDesc = [];
     private $dayWeatherIcon = [];
+    private $nightWeatherIcon = [];
     
     private $maxUvIndex = [];
     private $dayMaxFeelsLikeTemp = [];
@@ -187,7 +190,16 @@ Final class WeatherDataForCity
     {
         return date("H:i - d-m-Y", strtotime($this->lastUpdate));
     } 
+
+    private function setDayDate(string $date)
+    {
+        $this->dayDate[] = $date;
+    }
     
+    public function getDayDate($date)
+    {
+        return $this->dayDate[$date];
+    }
     private function setDaySignificantWeatherDesc(string $code)
     {
         $this->dayWeatherDesc[] = $this->getDayWeatherLabel()[$code];
@@ -205,7 +217,24 @@ Final class WeatherDataForCity
     {
         return $this->dayWeatherIcon[$code];
     }
+
+    private function setNightSignificantWeatherDesc(string $code)
+    {
+        $this->nightWeatherDesc[] = $this->getDayWeatherLabel()[$code];
+    }
+    private function setNightSignificantWeatherIcon(string $icon)
+    {
+        $this->nightWeatherIcon[] = $this->getDayWeatherLabel()[$icon];
+    }
+    public function getNightSignificantWeatherDesc($code)
+    {
+        return $this->nightWeatherDesc[$code];
+    }
     
+    public function getNightSignificantWeatherIcon($code)
+    {
+        return $this->nightWeatherIcon[$code];
+    }
     private function setDayMaxUvIndex(string $maxUvIndex)
     {
         $this->maxUvIndex[] = $maxUvIndex;
@@ -232,8 +261,11 @@ Final class WeatherDataForCity
             if(isset($timeseries[$i]))
             {
                 $this->setDayOfWeek($timeseries[$i]->time);
+                $this->setDayDate($timeseries[$i]->time);
                 $this->setDaySignificantWeatherDesc($timeseries[$i]->daySignificantWeatherCode);
+                $this->setNightSignificantWeatherDesc($timeseries[$i]->nightSignificantWeatherCode);
                 $this->setDaySignificantWeatherIcon($timeseries[$i]->daySignificantWeatherCode);
+                $this->setNightSignificantWeatherIcon($timeseries[$i]->nightSignificantWeatherCode);
                 $this->setDayHighestTemp(round($timeseries[$i]->dayMaxScreenTemperature));
                 //$this->setDayHighestTemp(round($timeseries[$i]->dayUpperBoundMaxTemp));
                 $this->setDayLowestTemp(round($timeseries[$i]->nightMinScreenTemperature));

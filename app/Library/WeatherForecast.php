@@ -191,6 +191,7 @@ class WeatherForecast{
             $data->api_query->day[$i] = new \stdClass;
             
             $data->api_query->day[$i]->day_of_week = $cityWeather->getDayOfWeek($i);
+            
             $data->api_query->day[$i]->day_weather_desc = $cityWeather->getDaySignificantWeatherDesc($i);
             $data->api_query->day[$i]->day_weather_icon = $cityWeather->getDaySignificantWeatherIcon($i);
             $data->api_query->day[$i]->day_highest_temp = $cityWeather->getDayHighestTemp($i);

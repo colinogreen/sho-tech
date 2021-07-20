@@ -201,14 +201,7 @@ class WeatherData extends React.Component {
 	var count = 0;
 	setInterval(function(){
 		var sec = new Date().getSeconds();
-		/*
-		if(count < 30 && sec % 3 === 0)
-		{
-			console.log("Current seconds % 3 = 0: " + sec);
-			count ++;
-		}
-		
-		*/
+
 		if(sec % 3 === 0 && sec % 6 === 0 && day1.max_uv_index !== undefined)
 		{
 			this.extra_data_name = "Max UV Index";
@@ -226,7 +219,7 @@ class WeatherData extends React.Component {
 		}
 		
 	}, 1000);    
-	//console.log('MultiWeatherRowGeneral.render() ');
+
 	// Removed style from top div | border:'2px solid #ccc', borderRadius: '8px'
     return (
              
@@ -292,12 +285,7 @@ class WeatherData extends React.Component {
 	{
 		url_data += "/" + url_string;
 	}
-	//console.log("url to query = " + url_data)
-	//var url_string = window.location.pathname.split("/city/")[0];
-	//console.log("url string: " + url_string);
-	
-	//url_string = window.location.pathname.split()[0];
-	//console.log("url string: " + url_string);
+
     $.ajax({
 
       url: url_data,
@@ -321,8 +309,6 @@ class WeatherData extends React.Component {
 
 } 
 
-//** Basic Javascript/JQuery (mainly) */
-
 function tick() {
   const element = (
 
@@ -331,22 +317,24 @@ function tick() {
   	ReactDOM.render(element, document.getElementById('div_clock'));
   }
 
- if(document.getElementById('div_clock')!== null)
- {
+//** Basic Javascript/JQuery (mainly) with calls to React.js classes/functions */
+
+if(document.getElementById('div_clock')!== null)
+{
     setInterval(tick, 1000);
- }
+}
 
 
- if(document.getElementById('div-weather-data')!== null)
- {
-    render(<WeatherData />,document.getElementById('div-weather-data'));
+if(document.getElementById('div-weather-data')!== null)
+{
+   render(<WeatherData />,document.getElementById('div-weather-data'));
 
- }
+}
 
 
 if(document.getElementById("btn-fetch-latest")!== null)
 {
-	// When the Fetch update button is pressed, make it look like something is being attempted, 
+	// When the Weather data Fetch update button is pressed, make it look like something is being attempted, 
 	// as it won't usually retrieve an update due to Laravel/php data caching length.
 	const btnfetchlatest = document.getElementById("btn-fetch-latest");
 	btnfetchlatest.addEventListener("click",function(){
