@@ -22,7 +22,7 @@
 
 @if(isset($weather_links)) 
     @section('page_title')
-    Weather Data - Selected UK Cities
+    Weather Data - Selected UK Towns and Cities
     @endsection
     @section('weather_link_active')
     active
@@ -31,7 +31,7 @@
   <div class="card-header">UK Five Day Weather</div>
   <div class="card-body">
 
-    <p class="card-text">View weather data for the following UK Cities</p>
+    <p class="card-text">View weather data for the following UK places:</p>
     <ul class="list-group">
 
   

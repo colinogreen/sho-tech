@@ -24,7 +24,23 @@ class GetWeatherData extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Command description';    
+    
+    /**
+     * Execute the console command.
+     *
+     * @return int
+     */
+    public function handle()
+    {
+        
+        $res = $this->queryAPIOrGetDataMultiple();
+        $msg = ($res)?"* Processed automated weather data update attempt.": "* NOTICE: The automated weather data update attempt failed.";
+        \Log::debug(__CLASS__."::".__FUNCTION__." - ". $msg);
+        //WeatherFivedayForecast::logMessage($msg);
+        //\Log::debug("*Processed automated weather data update attempt.");
+        return 0;
+    }
     
     
     public function setCityDetails(?object $cityLatitudeAndLongitude)
@@ -42,19 +58,6 @@ class GetWeatherData extends Command
     private function setCachedDataName(string $dataName):void
     {
         $this->cachedDataName = "api_weather_data_". $dataName;
-//         if($this->cachedDataName === "api_weather_data" & !empty($dataName))
-//         {
-//             $this->cachedDataName .= "_". $dataName;
-//         }
-//         else if(!empty($dataName) && $this->cachedDataName !== "api_weather_data_".$dataName)
-//         {
-//             $this->cachedDataName .= "api_weather_data_". $dataName;
-//         }
-//         else if($this->cachedDataName !== "api_weather_data")
-//         {
-//             $this->cachedDataName = "api_weather_data"; // reset to usual string
-//         }
-        // if here, do nothing.
     }
        
     private function getCachedDataName():string
@@ -135,6 +138,8 @@ class GetWeatherData extends Command
             \Log::debug(__CLASS__. "::".__FUNCTION__." - Attempt to get the data from the cache!");
             //WeatherFivedayForecast::logMessage("Data (". $this->getCachedDataName().") was retrieved from cache!: ".print_r(Cache::get($this->getCachedDataName(), true))); 
             //exit("Cache has " . $this->getCachedDataName() . ":".print_r(Cache::get($this->getCachedDataName())."", true));
+            //exit(print_r(json_decode(Cache::get($this->getCachedDataName())), true));
+            $this->okDataInCache();
             return Cache::get($this->getCachedDataName()); 
 
         }
@@ -146,6 +151,26 @@ class GetWeatherData extends Command
 //         }
         //exit ("<p>Debug</p><pre>".print_r(json_decode(Cache::get($this->data_name)), true)."</pre>");
         return Cache::get($this->getCachedDataName());      
+    }
+   /**
+    * Check the data in the cache. If not ok, delete it and try again
+    * @todo reduce the amount of times this can be done to save Met office data allowance per day.
+    * @return boolean
+    */ 
+    private function okDataInCache()
+    {
+        $checkdata = json_decode(Cache::get($this->getCachedDataName()));
+        
+        if(isset($checkdata->message))
+        {
+            Cache::forget($this->getCachedDataName());
+            \Log::debug("Error retrieving cached data for ".$this->getCachedDataName()."\n".  $checkdata->message);
+            return false;
+        }
+        
+        return true;
+        
+        // Cache::forget($this->getCachedDataName());
     }
     private function checkDataIsInCache()
     {
@@ -199,21 +224,5 @@ class GetWeatherData extends Command
         return false;
 
     }    
-    
 
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     */
-    public function handle()
-    {
-        
-        $res = $this->queryAPIOrGetDataMultiple();
-        $msg = ($res)?"* Processed automated weather data update attempt.": "* NOTICE: The automated weather data update attempt failed.";
-        \Log::debug(__CLASS__."::".__FUNCTION__." - ". $msg);
-        //WeatherFivedayForecast::logMessage($msg);
-        //\Log::debug("*Processed automated weather data update attempt.");
-        return 0;
-    }
 }

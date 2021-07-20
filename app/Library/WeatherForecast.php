@@ -72,6 +72,21 @@ class WeatherForecast{
                 "latitude"=>"51.50853",
                 "longitude"=>"-0.12574"],
             
+            "manchester"=>[
+                "name" => "manchester",
+                "latitude"=>"53.48095",
+                "longitude"=>"-2.23743"],
+            
+            "norwich"=>[
+                "name" => "norwich",
+                "latitude"=>"52.62783",
+                "longitude"=>"1.29834"],
+            
+            "newcastle"=>[
+                "name" => "newcastle",
+                "latitude"=>"54.97328",
+                "longitude"=>"-1.61396"],
+            
             "southampton"=>[
                 "name" => "southampton",
                 "latitude"=>"50.90395",
@@ -89,8 +104,8 @@ class WeatherForecast{
             // Liverpool ropewalks? - 53.41058, -2.97794
             // London - 51.50853, -0.12574
             // Manchester - 53.48095, -2.23743
-            // Newcastle - 54.97328, -1.61396
-            // Norwich - 52.62783, 1.29834
+            // newcastle - 54.97328, -1.61396
+            // norwich - 52.62783, 1.29834
             // Southampton - 50.90395, -1.40428
             // York - 53.95763, -1.08271
         ];
