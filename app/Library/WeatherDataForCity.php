@@ -224,7 +224,7 @@ Final class WeatherDataForCity
     }
     private function setNightSignificantWeatherIcon(string $icon)
     {
-        $this->nightWeatherIcon[] = $this->getDayWeatherLabel()[$icon];
+        $this->nightWeatherIcon[] = $this->getDayWeatherIcon()[$icon];
     }
     public function getNightSignificantWeatherDesc($code)
     {
