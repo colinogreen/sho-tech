@@ -11,7 +11,7 @@ $title = "Weather Data";
 @section("page_content")
 
     <h4 class="card-title">UK Five Day Weather - {{ ucfirst($city) }}</h4>
-    <h5 class="card-subtitle mb-2 text-muted">View weather data for the following UK places</h5>
+    <h5 class="card-subtitle mb-2 text-muted">View weather data for the following UK area</h5>
     <div id="div-weather-data" class="div_weather_data"></div>
         <div id="div_test"></div>
 
