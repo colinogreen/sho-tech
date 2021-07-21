@@ -16,17 +16,6 @@ class WeatherForecast{
     {
         $this->setCityLatitudeAndLongitude();
     }
-//     public function index()
-//     {
-//         //print("Debug: env('APP_DEBUG'): ". env('APP_DEBUG'));
-//         //$getWeatherData = new GetWeatherData();
-//         //$cityWeather = new WeatherDataForCity($getWeatherData->getDataFromCache());
-        
-//         //return view("weather_index", ["cityWeather"=> $cityWeather]); // Send the class and it's data to the view for processing
-//         $weather_links = $this->getWeatherForecastCities();
-//         return view("showcase_index", ["weather_links"=>$weather_links]); // Send the class and it's data to the view for processing
-        
-//     }
     
     public function myGreeting(string $city)
     {
@@ -128,7 +117,7 @@ class WeatherForecast{
     
     private function createWeatherLinks($city)
     {
-        $this->city_links[] = '<p><a href="/weather/'. $city . '">' . ucfirst($city). '</a></p>';
+        $this->city_links[] = '<p><a href="/weather/'. $city . '" class="card-link">' . ucfirst($city). '</a></p>';
         
     }
     public function getCityLatitudeAndLongitudeArray():array

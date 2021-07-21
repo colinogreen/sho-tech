@@ -149,7 +149,7 @@ Final class WeatherDataForCity
     {
         return ["fas fa-moon","far fa-sun","fas fa-cloud-moon","fas fa-cloud-sun","Not used","fas fa-smog","fas fa-smog","fas fa-cloud","fas fa-cloud", //9
             "fas fa-cloud-moon-rain","fas fa-cloud-sun-rain","fas fa-cloud","fas fa-cloud-rain","fas fa-cloud-showers-heavy","fas fa-cloud-showers-heavy", //15
-            "fas fa-cloud-rain","Sleet shower (night)","Sleet shower (day)","Sleet","Hail shower (night)","Hail shower (day)","Hail","far fa-snow", //23
+            "fas fa-cloud-showers-heavy","Sleet shower (night)","Sleet shower (day)","Sleet","Hail shower (night)","Hail shower (day)","Hail","far fa-snow", //23
             "fas fa-snow","fas fa-snow","fas fa-snow","fas fa-snow","fas fa-snow","fas fa-bolt","fas fa-bolt", "fas fa-bolt"];
 
     }
@@ -183,7 +183,6 @@ Final class WeatherDataForCity
         {
             $this->lastUpdate = $last_update;
         }
-        
     }
 
     public function getDailyForecastLastUpdate():?string

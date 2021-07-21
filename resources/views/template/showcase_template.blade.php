@@ -8,10 +8,10 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-        <link href="{{ asset('css/app.css') }}?v=2.1" rel="stylesheet">
+        <link href="{{ asset('css/app.css') }}?v=2.11" rel="stylesheet">
     </head>   
     <body>
-    
+ 
 <div class="card">
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
@@ -27,13 +27,14 @@
     </ul>
   </div>
   <div class="card-body">
-    <h5 class="card-title">@yield('page_title', 'Default Title')</h5>
+       <div class="container">  
+    <h5 class="card-title">@yield('page_title', '')</h5>
     @yield("page_content") 
-
+     </div>  
   </div>
 </div>
-       
-      <script src="{{ asset('js/app.js') }}?v=2.11"></script>
+     
+      <script src="{{ asset('js/app.js') }}?v=2.12"></script>
 
     <script type="text/babel">
 /*

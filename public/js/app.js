@@ -2177,14 +2177,6 @@ var WeatherData = /*#__PURE__*/function (_React$Component4) {
       var count = 0;
       setInterval(function () {
         var sec = new Date().getSeconds();
-        /*
-        if(count < 30 && sec % 3 === 0)
-        {
-        	console.log("Current seconds % 3 = 0: " + sec);
-        	count ++;
-        }
-        
-        */
 
         if (sec % 3 === 0 && sec % 6 === 0 && day1.max_uv_index !== undefined) {
           this.extra_data_name = "Max UV Index";
@@ -2197,11 +2189,10 @@ var WeatherData = /*#__PURE__*/function (_React$Component4) {
         if (document.getElementById("today-weather-row-extra-span") !== null && this.extra_data_name !== undefined && this.extra_data !== undefined) {
           document.getElementById('today-weather-row-extra-span').innerHTML = this.extra_data_name + ": " + this.extra_data;
         }
-      }, 1000); //console.log('MultiWeatherRowGeneral.render() ');
-      // Removed style from top div | border:'2px solid #ccc', borderRadius: '8px'
+      }, 1000); // Removed style from top div | border:'2px solid #ccc', borderRadius: '8px'
 
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h3", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h6", {
           children: ["Weather forecast for ", location]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
           className: "",
@@ -2215,6 +2206,7 @@ var WeatherData = /*#__PURE__*/function (_React$Component4) {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
                   className: "fas fa-clock"
                 }), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
+                  className: "text-muted",
                   style: {
                     fontStyle: 'italic'
                   },
@@ -2281,18 +2273,18 @@ var WeatherData = /*#__PURE__*/function (_React$Component4) {
               day4_item: day4.day_wind_mph,
               day5_item: day5.day_wind_mph
             })]
-          }), " "]
+          })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("p", {
           style: {
             fontSize: '0.8em',
             fontStyle: 'italic'
           },
           children: ["Last data update: ", this.state.data.api_query.last_api_update]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
           id: "btn-fetch-latest",
           className: "form-control btn_fetch_latest",
           onClick: this.fetch.bind(this),
-          children: [" ", "Fetch Latest"]
+          children: "Fetch Latest"
         })]
       });
     }
@@ -2310,12 +2302,7 @@ var WeatherData = /*#__PURE__*/function (_React$Component4) {
 
       if (url_string !== undefined) {
         url_data += "/" + url_string;
-      } //console.log("url to query = " + url_data)
-      //var url_string = window.location.pathname.split("/city/")[0];
-      //console.log("url string: " + url_string);
-      //url_string = window.location.pathname.split()[0];
-      //console.log("url string: " + url_string);
-
+      }
 
       jquery__WEBPACK_IMPORTED_MODULE_3___default().ajax({
         url: url_data,
@@ -2331,8 +2318,7 @@ var WeatherData = /*#__PURE__*/function (_React$Component4) {
   }]);
 
   return WeatherData;
-}(react__WEBPACK_IMPORTED_MODULE_0__.Component); //** Basic Javascript/JQuery (mainly) */
-
+}(react__WEBPACK_IMPORTED_MODULE_0__.Component);
 
 function tick() {
   var element = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("p", {
@@ -2344,7 +2330,8 @@ function tick() {
   });
 
   react_dom__WEBPACK_IMPORTED_MODULE_1__.render(element, document.getElementById('div_clock'));
-}
+} //** Basic Javascript/JQuery (mainly) with calls to React.js classes/functions */
+
 
 if (document.getElementById('div_clock') !== null) {
   setInterval(tick, 1000);
@@ -2355,7 +2342,7 @@ if (document.getElementById('div-weather-data') !== null) {
 }
 
 if (document.getElementById("btn-fetch-latest") !== null) {
-  // When the Fetch update button is pressed, make it look like something is being attempted, 
+  // When the Weather data Fetch update button is pressed, make it look like something is being attempted, 
   // as it won't usually retrieve an update due to Laravel/php data caching length.
   var btnfetchlatest = document.getElementById("btn-fetch-latest");
   btnfetchlatest.addEventListener("click", function () {

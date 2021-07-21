@@ -23,7 +23,7 @@ class Showcase extends Controller
     
     public function indexWeatherWithCity($city)
     {
-        return view("weather_index", ["city" => $city]); // Send the class and it's data to the view for processing
+        return view("weather_city", ["city" => $city]); // Send the class and it's data to the view for processing
     }
     public function indexWeather()
     {

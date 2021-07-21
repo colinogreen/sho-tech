@@ -14630,6 +14630,9 @@ h3 {
   word-wrap: normal;
 }
 
+.div_weather_data .btn_fetch_latest {
+  border: 1px solid #3490dc;
+}
 .div_weather_data .fa-temperature-high {
   color: red !important;
 }
@@ -14640,7 +14643,7 @@ h3 {
   font-size: 1.3em;
   color: #808080;
 }
-.div_weather_data .weather_table .fa-sun {
+.div_weather_data .weather_table .fa-sun, .div_weather_data .weather_table .fa-bolt {
   color: #b3b300;
 }
 .div_weather_data .weather_table .fa-cloud-sun {
@@ -14651,13 +14654,13 @@ h3 {
 }
 .div_weather_data .weather_table .today_weather_row {
   padding: 10px 0;
-  border-top: 2px solid #ccc;
-  border-bottom: 1px solid #ccc;
+  /*border-top: 2px solid #ccc; */
+  border-bottom: 1px solid #3490dc;
   margin: 10px 0 10px;
   /*
-  			span, i {
-  				font-size: 2em
-  			}*/
+      span, i {
+              font-size: 2em
+      }*/
 }
 .div_weather_data .weather_table .today_weather_row .main_icon > i {
   font-size: 7em;

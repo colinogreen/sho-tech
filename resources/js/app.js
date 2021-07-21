@@ -225,14 +225,14 @@ class WeatherData extends React.Component {
              
       <div>
           
-        <h3>
+        <h6>
         Weather forecast for {location}
-        </h3>
+        </h6>
 
      <div className="" style={{}}>
      <div className="row">
          <div className="col-12 offset-md-8 col-md-4">
-             <p style={{}}><i className="fas fa-clock"></i> <span style={{fontStyle:'italic'}}>Met Office update: {this.state.data.api_query.last_forecast_update}</span></p>
+             <p style={{}}><i className="fas fa-clock"></i> <span className="text-muted" style={{fontStyle:'italic'}}>Met Office update: {this.state.data.api_query.last_forecast_update}</span></p>
          </div>
      </div>
     <div className="weather_table">
@@ -256,14 +256,13 @@ class WeatherData extends React.Component {
 	day3_item={day3.day_wind_mph} day4_item={day4.day_wind_mph} day5_item={day5.day_wind_mph} />
  
 
-    </div> {/* End weather table*/}
+    </div> 
 
      </div>
      <p style={{fontSize:'0.8em', fontStyle:'italic'}}>Last data update: {this.state.data.api_query.last_api_update}</p>
 
-        <hr/>
 
-        <button id="btn-fetch-latest" className="form-control btn_fetch_latest" onClick={this.fetch.bind(this)}> {/* Check for new data and display it on button press */}
+        <button id="btn-fetch-latest" className="form-control btn_fetch_latest" onClick={this.fetch.bind(this)}> 
           Fetch Latest
         </button>
       </div>

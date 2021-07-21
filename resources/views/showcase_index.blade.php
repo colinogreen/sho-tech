@@ -22,25 +22,24 @@
 @endif
 
 @if(isset($weather_links)) 
-    @section('page_title')
-    Weather Data - Selected UK Towns and Cities
-    @endsection
+
     @section('weather_link_active')
     active
     @endsection 
-<div class="card bg-light mb-3" style="max-width: 24rem;">
-  <div class="card-header">UK Five Day Weather</div>
+    
+<div class="card" style="">
   <div class="card-body">
+    <h5 class="card-title">UK Five Day Weather</h5>
+    <h6 class="card-subtitle mb-2 text-muted">View weather data for the following UK places</h6>
 
-    <p class="card-text">View weather data for the following UK places:</p>
-    <ul class="list-group">
-
-  
-     @foreach($weather_links as $link)
-     <li class="list-group-item">{!! $link !!}</li>
+         @foreach($weather_links as $link)
+     {!! $link !!}
 	@endforeach
-     </ul>
+    </ul>
+
   </div>
+</div>
+
 
     
     </div>
