@@ -147,20 +147,20 @@ Final class WeatherDataForCity
      */
     private function getDayWeatherIcon():array
     {
-        return ["fas fa-moon","far fa-sun","fas fa-cloud-moon","fas fa-cloud-sun","Not used","fas fa-smog","fas fa-smog","fas fa-cloud","fas fa-cloud",
-            "fas fa-cloud-rain","fas fa-cloud-rain","fas fa-cloud","fas fa-cloud-rain","fas fa-cloud-moon-rain","fas fa-cloud-sun-rain",
-            "fas fa-cloud-rain","Sleet shower (night)","Sleet shower (day)","Sleet","Hail shower (night)","Hail shower (day)","Hail","far fa-snow",
-            "fas fa-snow","fas fa-snow","fas fa-snow","fas fa-snow","fas fa-snow","fas fa-bolt","fas fa-bolt"];
+        return ["fas fa-moon","far fa-sun","fas fa-cloud-moon","fas fa-cloud-sun","Not used","fas fa-smog","fas fa-smog","fas fa-cloud","fas fa-cloud", //9
+            "fas fa-cloud-moon-rain","fas fa-cloud-sun-rain","fas fa-cloud","fas fa-cloud-rain","fas fa-cloud-showers-heavy","fas fa-cloud-showers-heavy", //15
+            "fas fa-cloud-rain","Sleet shower (night)","Sleet shower (day)","Sleet","Hail shower (night)","Hail shower (day)","Hail","far fa-snow", //23
+            "fas fa-snow","fas fa-snow","fas fa-snow","fas fa-snow","fas fa-snow","fas fa-bolt","fas fa-bolt", "fas fa-bolt"];
 
     }
     
     private function getDayWeatherLabel():array
     {
 
-                return ["Clear night","Sunny day","Partly cloudy (night)","Partly cloudy (day)","Not used","Mist","Fog","Cloudy","Overcast",
-                    "Light rain shower (night)","Light rain shower (day)","Drizzle","Light rain","Heavy rain shower (night)","Heavy rain shower (day)",
-                    "Heavy rain","Sleet shower (night)","Sleet shower (day)","Sleet","Hail shower (night)","Hail shower (day)","Hail","Light snow shower (night)",
-                    "Light snow shower (day)","Light snow","Heavy snow shower (night)","Heavy snow shower (day)","Heavy snow","Thunder shower (night)","Thunder shower (day)","Thunder"];
+        return ["Clear night","Sunny day","Partly cloudy (night)","Partly cloudy (day)","Not used","Mist","Fog","Cloudy","Overcast", //9
+            "Light rain shower (night)","Light rain shower (day)","Drizzle","Light rain","Heavy rain shower (night)","Heavy rain shower (day)",//15
+            "Heavy rain","Sleet shower (night)","Sleet shower (day)","Sleet","Hail shower (night)","Hail shower (day)","Hail","Light snow shower (night)", //23
+            "Light snow shower (day)","Light snow","Heavy snow shower (night)","Heavy snow shower (day)","Heavy snow","Thunder shower (night)","Thunder shower (day)","Thunder"]; //31
     }
     public function setCachedData(string $result)
     {
@@ -196,9 +196,15 @@ Final class WeatherDataForCity
         $this->dayDate[] = $date;
     }
     
-    public function getDayDate($date)
+    public function getDayDate($date):?string
     {
-        return $this->dayDate[$date];
+        if(isset($this->dayDate[$date]))
+        {
+            return $this->dayDate[$date];
+        }
+        
+        return null;
+        
     }
     private function setDaySignificantWeatherDesc(string $code)
     {

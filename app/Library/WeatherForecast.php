@@ -190,11 +190,13 @@ class WeatherForecast{
         {
             $data->api_query->day[$i] = new \stdClass;
             
-            $utcdaytime = strtotime($cityWeather->getDayDate($i));
-
-            $data->api_query->day[$i]->day_of_week = $cityWeather->getDayOfWeek($i);
-            if($i === 1 && strtotime("now")> strtotime($utcdaytime . "- 7 hours"))
+            $utcnextdaytimeminus7hours = !is_null($cityWeather->getDayDate(($i +1)))?strtotime($cityWeather->getDayDate($i +1)."- 7 hours"): "";
+            
+            // See if current day is within seven hours of the Met Office next day start time. If so, show night time weather symbol.
+            if($i === 1 && strtotime("now")> $utcnextdaytimeminus7hours)
             {
+                //\Log::debug( __CLASS__. "::".__FUNCTION__." - Data: \$utcdaytime: $utcnextdaytimeminus7hours - " .$cityWeather->getDayDate($i + 1));
+                //\Log::debug( __CLASS__. "::".__FUNCTION__." - Data: \strtotime(\"now\"): " .strtotime("now") . " -" .date("Y-m-d H:i:s", strtotime("now")));
                 $data->api_query->day[$i]->day_weather_desc = $cityWeather->getNightSignificantWeatherDesc($i);
                 $data->api_query->day[$i]->day_weather_icon = $cityWeather->getNightSignificantWeatherIcon($i);
 
@@ -205,6 +207,7 @@ class WeatherForecast{
                 $data->api_query->day[$i]->day_weather_icon = $cityWeather->getDaySignificantWeatherIcon($i);
             }
             
+            $data->api_query->day[$i]->day_of_week = $cityWeather->getDayOfWeek($i);
             $data->api_query->day[$i]->day_highest_temp = $cityWeather->getDayHighestTemp($i);
             $data->api_query->day[$i]->day_lowest_temp = $cityWeather->getDayLowestTemp($i);
             $data->api_query->day[$i]->day_chance_rain = $cityWeather->getDayChanceOfRain($i);
