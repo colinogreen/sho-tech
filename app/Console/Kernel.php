@@ -29,7 +29,7 @@ class Kernel extends ConsoleKernel
             // Every x hours on live installation.
             //$schedule->command('command:getweatherdata')->everySixHours();
             //$schedule->command('command:getweatherdata')->everyTwoHours();
-            $schedule->command('command:getweatherdata')->cron('1 0,6,12,18 * * *');
+            $schedule->command('command:getweatherdata')->cron('0 0,6,12,18 * * *');
             //$schedule->command('command:getweatherdata')->hourly();
         }
         else
