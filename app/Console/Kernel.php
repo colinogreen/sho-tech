@@ -4,6 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use App\Console\Commands\GetWeatherData;
 
 class Kernel extends ConsoleKernel
 {
@@ -35,6 +36,8 @@ class Kernel extends ConsoleKernel
         else
         {
             // When in debug/dev mode.
+            //\Log::debug("Cache length hours: ".GetWeatherData::getCacheLengthHours());
+            //\Log::debug("Cache length seconds: ".GetWeatherData::getCacheLengthSeconds());
             $past_the_hour = [58, 59, 0, 1, 3]; // Array of minutes past the hour to run the command/task
             $int = $past_the_hour[rand(0,(count($past_the_hour)-1))]; // pick a minute past the hour from the available array at random
             $schedule->command('command:getweatherdata')->hourlyAt($int); // based on scheduled cronjob similar to: * * * * * cd <laravel-path> && php artisan schedule:run >> /dev/null 2>&1            

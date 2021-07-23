@@ -12,6 +12,10 @@ class GetWeatherData extends Command
     private $cachedDataName = "api_weather_data";
     private $latitude;
     private $longitude;
+    
+    private static $cacheLengthHours = 6;
+    
+    private $clearCacheDataFirst = false;
     /**
      * The name and signature of the console command.
      *
@@ -33,13 +37,43 @@ class GetWeatherData extends Command
      */
     public function handle()
     {
-        
+        if(!env('APP_DEBUG'))
+        {
+            $this->clearCacheDataFirst(); // Called by scheduled task, so clear cached city data first as cache timeout may not be reached for whatever reason
+        }
         $res = $this->queryAPIOrGetDataMultiple();
         $msg = ($res)?"* Processed automated weather data update attempt.": "* NOTICE: The automated weather data update attempt failed.";
         \Log::debug(__CLASS__."::".__FUNCTION__." - ". $msg);
         //WeatherFivedayForecast::logMessage($msg);
         //\Log::debug("*Processed automated weather data update attempt.");
         return 0;
+    }
+    
+    public static function getCacheLengthHours()
+    {
+        return self::$cacheLengthHours;
+    }
+    
+    /**
+     * 
+     * @return int
+     */
+    private static function getCacheLengthSeconds():int
+    {
+        return (self::getCacheLengthHours() * 60 * 60);
+    }   
+    
+    private function clearCacheDataFirst()
+    {
+        return $this->clearCacheDataFirst = true;
+    }
+    
+    private function clearCacheDataIfNecessary()
+    {
+        if($this->clearCacheDataFirst())
+        {
+            Cache::forget($this->getCachedDataName());
+        }
     }
     
     
@@ -104,6 +138,8 @@ class GetWeatherData extends Command
         {
             $stdClassLatAndLong = $weatherFivedayForecast->getCityLatitudeAndLongitude($city);
             $this->setCityDetails($stdClassLatAndLong);
+            $this->clearCacheDataIfNecessary(); // Usually true if handle() method is invoked by scheduled command.
+            //
             //\Log::debug(__CLASS__. "::".__FUNCTION__." - Attempt to update cache (".$this->getCachedDataName(). ") via the API endpoint!");
             
             if(!$this->queryAPIOrGetData())
@@ -135,20 +171,16 @@ class GetWeatherData extends Command
     {
         if (Cache::has($this->getCachedDataName())) 
         {
-            \Log::debug(__CLASS__. "::".__FUNCTION__." - Attempt to get the data from the cache!");
-            //WeatherFivedayForecast::logMessage("Data (". $this->getCachedDataName().") was retrieved from cache!: ".print_r(Cache::get($this->getCachedDataName(), true))); 
-            //exit("Cache has " . $this->getCachedDataName() . ":".print_r(Cache::get($this->getCachedDataName())."", true));
-            //exit(print_r(json_decode(Cache::get($this->getCachedDataName())), true));
+            //\Log::debug(__CLASS__. "::".__FUNCTION__." - Cache length seconds: ".GetWeatherData::getCacheLengthSeconds());
             $this->expectedDataInCache();
+            //\Log::debug(__CLASS__. "::".__FUNCTION__." - Attempted to get the data from the cache!");
             return Cache::get($this->getCachedDataName()); 
 
         }
-//         else
-//         {
-            // Get data from the API if the cache has expired before the next task API  (service interruption, etc.)
-        \Log::debug(__CLASS__. "::".__FUNCTION__." - Attempt to get the data (".$this->getCachedDataName(). ") from the API endpoint!");
+
+        //\Log::debug(__CLASS__. "::".__FUNCTION__." - Attempted to get the data (".$this->getCachedDataName(). ") from the API endpoint!");
         $this->getDataFromApi(true);           
-//         }
+
         //exit ("<p>Debug</p><pre>".print_r(json_decode(Cache::get($this->data_name)), true)."</pre>");
         return Cache::get($this->getCachedDataName());      
     }
@@ -169,8 +201,7 @@ class GetWeatherData extends Command
         }
         
         return true;
-        
-        // Cache::forget($this->getCachedDataName());
+
     }
     private function checkDataIsInCache()
     {
@@ -200,8 +231,7 @@ class GetWeatherData extends Command
         //\Log::debug(__CLASS__. "::".__FUNCTION__." | Latitude: " . $this->getLatitude());
        // \Log::debug(__CLASS__. "::".__FUNCTION__." | Longitude: " . $this->getLongitude());
         // https://latitudelongitude.org
-        // Dundee: 56.46913, -2.97489
-        // Manchester: 53.48095, -2.23743
+
         if(!empty($response->json()))
         {
             $response_data = $response->json();
@@ -212,12 +242,11 @@ class GetWeatherData extends Command
             //exit ("<p>".__CLASS__. "::".__FUNCTION__." Enter into cache (".$this->getCachedDataName().") - Debug \$response_data</p><pre>".print_r($response_data, true)."</pre>");
             $api_data = json_encode($response_data);
 
-            //$this->setData($api_data);
             
-            Cache::put($this->getCachedDataName(), $api_data, 21600); //3600 = 1 hour | 21600 = 6 hours
+            Cache::put($this->getCachedDataName(), $api_data, self::getCacheLengthSeconds()); //3600 = 1 hour | 21600 = 6 hours
             $msg = ($cache_empty)? "Note: Data was retrieved from the API as the data cache was empty at this time.": "Data was retrieved following a successful API query!";
-            \Log::debug(__CLASS__. "::".__FUNCTION__.$msg);
-            //WeatherFivedayForecast::logMessage($msg);
+            //\Log::debug(__CLASS__. "::".__FUNCTION__.$msg);
+
             return true;
         }
 
