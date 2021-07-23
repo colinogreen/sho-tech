@@ -29,6 +29,10 @@
   <div class="card-body">
        <div class="container">  
     <h5 class="card-title">@yield('page_title', '')</h5>
+    @if(env('APP_DEBUG'))
+    
+        <p style="font-weight:bold; font-style:italic; color:orangered">Warning: App debug is on!</p>
+    @endif
     @yield("page_content") 
      </div>  
   </div>
