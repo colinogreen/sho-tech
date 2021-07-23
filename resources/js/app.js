@@ -231,13 +231,13 @@ class WeatherData extends React.Component {
 
 
      <div className="row weather_data_today align-items-center justify-content-sm-start justify-content-center">
-        <div className="col-auto col-sm-12 weather_location_desc order-last order-sm-first">
+        <div className="col-12 weather_location_desc order-last order-sm-first">
           
         <h6>
         Weather forecast for {location}
         </h6>
          </div>
-         <div className="col-auto col-sm-12 order-last order-sm-first">
+         <div className="col-12 order-last order-sm-first">
              <p style={{}}><i className="fas fa-clock"></i> <span className="text-muted" style={{fontStyle:'italic'}}>Met Office update: {this.state.data.api_query.last_forecast_update}</span></p>
          </div>
         <TodayWeatherRows weather_icon={day1.day_weather_icon} weather_desc={day1.day_weather_desc}top_temp={day1.day_highest_temp} min_temp={day1.day_lowest_temp} />

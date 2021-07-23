@@ -2198,12 +2198,12 @@ var WeatherData = /*#__PURE__*/function (_React$Component4) {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
           className: "row weather_data_today align-items-center justify-content-sm-start justify-content-center",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-            className: "col-auto col-sm-12 weather_location_desc order-last order-sm-first",
+            className: "col-12 weather_location_desc order-last order-sm-first",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h6", {
               children: ["Weather forecast for ", location]
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-            className: "col-auto col-sm-12 order-last order-sm-first",
+            className: "col-12 order-last order-sm-first",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("p", {
               style: {},
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
