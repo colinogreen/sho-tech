@@ -42,28 +42,31 @@ class TodayWeatherRows extends React.Component {
 	: loadmsg; //span style={{fontStyle:'italic'}}
 	
     return (
-	<div className="today_weather_row">
+	
 
-		<div className="row align-items-center justify-content-sm-start justify-content-center">
-		<div className="col-5 col-sm-auto order-sm-first main_icon">
+        <div className="col-auto">
+            <div className="row" >      
+		<div className="col-12 col-sm-auto order-sm-first main_icon">
 		<h3 className="d-block d-sm-none">Today</h3>
 		<i className={this.props.weather_icon}></i>
 		<p className="text-sm-center">{this.props.weather_desc}</p>
 		</div>  
 		<div className="w-100 d-block d-sm-none"></div>   	  
-		<div className="col-5 col-sm-auto">  
+		<div className="col-12 col-sm-auto">  
 
 			<h3 className="d-none d-sm-block">Today</h3>
 			<i className="fas fa-temperature-high"></i> <span>{this.props.top_temp}  &deg;C</span>
 			 <br /><i className="fas fa-temperature-low"></i><span>{this.props.min_temp} &deg;C </span>
 
-			
-			<div id="today-weather-row-extra" className="dynamic_display"><span id="today-weather-row-extra-span" >{dynamic_data}</span> </div>
 				
 		</div>
+            </div>
+            <div className="row">
+                <div id="today-weather-row-extra" className="col-auto dynamic_display"><span id="today-weather-row-extra-span" >{dynamic_data}</span> </div>
+            </div>
     	</div>		
 
-	</div>
+	
 		);	
 	}
 }
@@ -224,20 +227,24 @@ class WeatherData extends React.Component {
     return (
              
       <div>
+
+
+
+     <div className="row weather_data_today align-items-center justify-content-sm-start justify-content-center">
+        <div className="col-auto col-sm-12 weather_location_desc order-last order-sm-first">
           
         <h6>
         Weather forecast for {location}
         </h6>
-
-     <div className="" style={{}}>
-     <div className="row">
-         <div className="col-12 offset-md-8 col-md-4">
+         </div>
+         <div className="col-auto col-sm-12 order-last order-sm-first">
              <p style={{}}><i className="fas fa-clock"></i> <span className="text-muted" style={{fontStyle:'italic'}}>Met Office update: {this.state.data.api_query.last_forecast_update}</span></p>
          </div>
+        <TodayWeatherRows weather_icon={day1.day_weather_icon} weather_desc={day1.day_weather_desc}top_temp={day1.day_highest_temp} min_temp={day1.day_lowest_temp} />
      </div>
-    <div className="weather_table">
+    <div className="weather_data_five_day">
 
-	<TodayWeatherRows weather_icon={day1.day_weather_icon} weather_desc={day1.day_weather_desc}top_temp={day1.day_highest_temp} min_temp={day1.day_lowest_temp} />
+
 	
 	<MultiWeatherRowTop dow1={day1.day_of_week} dow2={day2.day_of_week} dow3={day3.day_of_week} dow4={day4.day_of_week }dow5={day5.day_of_week}
 	  dwc1={day1.day_weather_desc} dwc2={day2.day_weather_desc} dwc3={day3.day_weather_desc} dwc4={day4.day_weather_desc} dwc5={day5.day_weather_desc} 
@@ -258,7 +265,6 @@ class WeatherData extends React.Component {
 
     </div> 
 
-     </div>
      <p style={{fontSize:'0.8em', fontStyle:'italic'}}>Last data update: {this.state.data.api_query.last_api_update}</p>
 
 

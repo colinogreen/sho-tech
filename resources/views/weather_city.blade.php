@@ -10,9 +10,7 @@ $title = "Weather Data";
 
 @section("page_content")
 
-    <h4 class="card-title">UK Five Day Weather - {{ ucfirst($city) }}</h4>
-    <h5 class="card-subtitle mb-2 text-muted">View weather data for the following UK area</h5>
-    <div id="div-weather-data" class="div_weather_data"></div>
+    <div id="div-weather-data" class="weather_data"></div>
         <div id="div_test"></div>
 
 
@@ -21,7 +19,11 @@ $title = "Weather Data";
 
 
 <?php 
-/*<div id="div_clock"></div>
+/*
+ * 
+    <h4 class="card-title">UK Five Day Weather - {{ ucfirst($city) }}</h4>
+    <h5 class="card-subtitle mb-2 text-muted">View weather data for the following UK area</h5>
+ * <div id="div_clock"></div>
  *  <script>
 	var url_string = window.location.pathname.split("/city/")[0];
 	console.log("url string in blade: " + url_string);

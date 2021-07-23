@@ -14,13 +14,33 @@
 	word-wrap: normal; // override bootstrap .card default of 'break-word'
 }
 
-.div_weather_data{
+.weather_data{
 	
     .btn_fetch_latest
     {
         border: 1px solid #3490dc
     }
-    
+
+
+    i{
+            font-size: 1.3em;
+            color: #808080;		
+    }
+    .fa-sun, .fa-bolt{
+            color:#b3b300
+
+    }
+
+    .fa-cloud-sun{
+            color: #666600;
+    }		
+    .weather_row_top{
+
+            i{
+                    font-size: 2em;
+            }
+
+    }    
     
 		
     .fa-temperature-high {
@@ -32,50 +52,32 @@
 
     }	
 
-    .weather_table
+    .weather_data_today{
+    padding: 10px 0;	
+    /*border-top: 2px solid #ccc; */
+    border-bottom: 1px solid #3490dc;
+    margin:10px 0 10px;
+    .main_icon > i {
+            font-size: 7em
+    }
+     }
+/*
+    span, i {
+            font-size: 2em
+    }*/
+    #today-weather-row-extra{
+            font-size:1.2em
+    }
+    #today-weather-row-extra-span{
+            font-size:1.1em
+    }
+    
+    .weather_data_five_day
     {
 
+        word-wrap: normal;
 
-        i{
-                font-size: 1.3em;
-                color: #808080;		
-        }
-        .fa-sun, .fa-bolt{
-                color:#b3b300
-
-        }
-
-        .fa-cloud-sun{
-                color: #666600;
-        }		
-        .weather_row_top{
-
-                i{
-                        font-size: 2em;
-                }
-
-        }
-
-
-        .today_weather_row{
-            padding: 10px 0;	
-            /*border-top: 2px solid #ccc; */
-            border-bottom: 1px solid #3490dc;
-            margin:10px 0 10px;
-            .main_icon > i {
-                    font-size: 7em
-            }
-        /*
-            span, i {
-                    font-size: 2em
-            }*/
-            #today-weather-row-extra{
-                    font-size:1.2em
-            }
-            #today-weather-row-extra-span{
-                    font-size:1.1em
-            }
-        }
     }
+   
 }
 
