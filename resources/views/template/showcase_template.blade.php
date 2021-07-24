@@ -8,7 +8,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-        <link href="{{ asset('css/app.css') }}?v=2.13" rel="stylesheet">
+        <link href="{{ asset('css/app.css') }}?v=2.14" rel="stylesheet">
     </head>   
     <body>
  
@@ -38,7 +38,7 @@
   </div>
 </div>
      
-      <script src="{{ asset('js/app.js') }}?v=2.14"></script>
+      <script src="{{ asset('js/app.js') }}?v=2.15"></script>
 
     <script type="text/babel">
 /*
