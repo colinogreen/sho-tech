@@ -33,7 +33,8 @@
     <h6 class="card-subtitle mb-2 text-muted">View weather data for the following UK places</h6>
 
          @foreach($weather_links as $wl)
-         <p class="weather_data" style="">{!! $wl['link'] !!} &#160;{!! isset($wl['data'])? '<i class="'.$wl['data']->day_weather_icon.'"></i>' :"" !!}</p>
+         <p class="weather_data" style="">{!! $wl['link'] !!} &#160;{!! isset($wl['data'])? '<i class="'.$wl['data']->day_weather_icon.'"></i>' :"" !!}
+         {!! isset($wl['data'])? $wl['data']->day_period_temp."&deg;c" :"" !!}</p>
 	@endforeach
 
 
