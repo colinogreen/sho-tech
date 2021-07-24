@@ -109,15 +109,30 @@ class WeatherForecast{
     public function getWeatherForecastCities():array
     {
         $cities = array_keys($this->getCityLatitudeAndLongitudeArray());
-        array_walk($cities, [$this,'createWeatherLinks']);
+        $CitySummary = new \stdClass();
+        array_walk($cities, [$this,'createWeatherLinks' ],$CitySummary);
+        
         return $this->city_links;
         //$city_links = [];
         
     }
     
-    private function createWeatherLinks($city)
+    private function createWeatherLinks($city, $CitySummary)
     {
-        $this->city_links[] = '<p><a href="/weather/'. $city . '" class="card-link">' . ucfirst($city). '</a></p>';
+        $this->city_links[]['link'] = '<a href="/weather/'. $city . '" class="card-link" >' . ucfirst($city). '</a>';
+        //$current_key = (int)(count($this->city_links)-1);
+        //$this->city_links[$current_key][] = array("test") ;
+        $data = json_decode($this->data($city));
+        if(isset($data->api_query->day[1]))
+        {
+            $this->city_links[(count($this->city_links)-1)]['data'] = $data->api_query->day[1];
+        }
+        else
+        {
+            $this->city_links[(count($this->city_links)-1)]['data'] =[];
+        }
+        
+        return $this->city_links;
         
     }
     public function getCityLatitudeAndLongitudeArray():array
@@ -184,12 +199,14 @@ class WeatherForecast{
                 //\Log::debug( __CLASS__. "::".__FUNCTION__." - Data: \strtotime(\"now\"): " .strtotime("now") . " -" .date("Y-m-d H:i:s", strtotime("now")));
                 $data->api_query->day[$i]->day_weather_desc = $cityWeather->getNightSignificantWeatherDesc($i);
                 $data->api_query->day[$i]->day_weather_icon = $cityWeather->getNightSignificantWeatherIcon($i);
+                $data->api_query->day[$i]->day_period_temp = $cityWeather->getDayLowestTemp($i);
 
             }
             else 
             {
                 $data->api_query->day[$i]->day_weather_desc = $cityWeather->getDaySignificantWeatherDesc($i);
                 $data->api_query->day[$i]->day_weather_icon = $cityWeather->getDaySignificantWeatherIcon($i);
+                $data->api_query->day[$i]->day_period_temp = $cityWeather->getDayHighestTemp($i);
             }
             
             $data->api_query->day[$i]->day_of_week = $cityWeather->getDayOfWeek($i);

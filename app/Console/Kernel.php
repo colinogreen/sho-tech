@@ -43,7 +43,6 @@ class Kernel extends ConsoleKernel
             $schedule->command('command:getweatherdata')->hourlyAt($int); // based on scheduled cronjob similar to: * * * * * cd <laravel-path> && php artisan schedule:run >> /dev/null 2>&1            
         }
 
-        //$schedule->command('command:getweatherdata')->everyTwoHours();
         //$schedule->command('command:getweatherdata')->everyFiveMinutes();
 
     }

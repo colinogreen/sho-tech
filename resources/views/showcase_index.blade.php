@@ -27,15 +27,15 @@
     active
     @endsection 
     
-<div class="card" style="">
-  <div class="card-body">
+<div class="row" style="">
+  <div class="col-12 col-sm-offset-2 col-sm-8">
     <h5 class="card-title">UK Five Day Weather</h5>
     <h6 class="card-subtitle mb-2 text-muted">View weather data for the following UK places</h6>
 
-         @foreach($weather_links as $link)
-     {!! $link !!}
+         @foreach($weather_links as $wl)
+         <p class="weather_data" style="">{!! $wl['link'] !!} &#160;{!! isset($wl['data'])? '<i class="'.$wl['data']->day_weather_icon.'"></i>' :"" !!}</p>
 	@endforeach
-    </ul>
+
 
   </div>
 </div>
@@ -43,7 +43,7 @@
 
     
     </div>
-    </div>
+    
 @endif
 @endsection
 
