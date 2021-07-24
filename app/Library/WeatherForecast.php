@@ -151,12 +151,9 @@ class WeatherForecast{
         //exit(__CLASS__. "::".__FUNCTION__." - DEBUG Trying to get city data for $city: ".print_r($stdClass, true));
         $getWeatherData = new GetWeatherData();
         $getWeatherData->setCityDetails($stdClass);
-        //exit( __CLASS__. "::".__FUNCTION__." - Data from cache: <pre> - ".print_r($getWeatherData->getDataFromCache(), true)."</pre>");
-        //exit(__CLASS__. "::".__FUNCTION__. ":". __LINE__." - DEBUG Trying to get city data for $city: ".print_r($stdClass, true));
+
         $cityWeather = new WeatherDataForCity($getWeatherData->getDataFromCache());
-        //exit("<pre>". __CLASS__. "::".__FUNCTION__." - ".print_r($cityWeather->getLastApiUpdate(), true)."</pre>");
-        //exit("<pre>". print_r($getWeatherData->getDataFromCache(), true)."</pre>");
-        
+
         $data = new \stdClass;
         $data->api_query = new \stdClass;
         $data->api_query->last_api_update = $cityWeather->getLastApiUpdate();
@@ -173,9 +170,8 @@ class WeatherForecast{
             Cache::put($key,$value, now()->addMinutes(3)); // Refresh the existing cached item for another attempt in three minutes. Avoids multiple API calls.
             return json_encode($data); // Go no further.
         }
-        
-        //exit(__CLASS__. "::".__FUNCTION__. " - Error: ".$data->api_query->message);
-        for($i = 0; $i<6;$i++)
+
+        for($i = 0; $i<7;$i++)
         {
             $data->api_query->day[$i] = new \stdClass;
             
@@ -206,6 +202,5 @@ class WeatherForecast{
         }
         //exit( __CLASS__. "::".__FUNCTION__." - Data:<pre>". print_r($data, true)."</pre>");
         return json_encode($data);
-        //return $getWeatherData->getDataFromCache();
     }
 }

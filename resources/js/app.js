@@ -126,18 +126,18 @@ class MultiWeatherRowGeneral extends React.Component {
 		{/* dow= day of week | dwc = day weather code */}
     return (    
 	<div className={"row " + this.props.rowclass}>
-           <div className="col-2"><i className={this.props.itemclass}></i> &#160;<span>{this.props.day1_item}  {this.props.item_desc}</span></div>  
+           <div className="col-2"><i className={this.props.itemclass}></i> &#160;<span>{this.props.day1_item}{this.props.item_desc}</span></div>  
 	<div className="col-2">
-	<i className={this.props.itemclass}></i> &#160;<span>{this.props.day2_item} {this.props.item_desc}</span>
+	<i className={this.props.itemclass}></i> &#160;<span>{this.props.day2_item}{this.props.item_desc}</span>
 	</div> 
    <div className="col-2">
-	<i className={this.props.itemclass}></i> &#160;<span>{this.props.day3_item} {this.props.item_desc}</span>
+	<i className={this.props.itemclass}></i> &#160;<span>{this.props.day3_item}{this.props.item_desc}</span>
 	</div> 
 	<div className="col-2">
-	<i className={this.props.itemclass}></i> &#160;<span>{this.props.day4_item} {this.props.item_desc}</span>
+	<i className={this.props.itemclass}></i> &#160;<span>{this.props.day4_item}{this.props.item_desc}</span>
 	</div> 
    	<div className="col-2">
-		<i className={this.props.itemclass}></i> &#160;<span>{this.props.day5_item} {this.props.item_desc}</span>
+		<i className={this.props.itemclass}></i> &#160;<span>{this.props.day5_item}{this.props.item_desc}</span>
 		</div>
 	</div>);	
 	}

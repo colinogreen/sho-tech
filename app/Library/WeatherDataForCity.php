@@ -261,9 +261,17 @@ Final class WeatherDataForCity
     }
     private function setDailyForecastParameters(array $timeseries):void
     {
-        for($i = 0; $i < 6; $i++)
+        for($i = 0; $i < 8; $i++)
         {
-            if(isset($timeseries[$i]))
+
+            if(isset($timeseries[$i]) && strtotime($timeseries[$i]->time) < strtotime("now -2 days"))
+            {
+                // It takes a while, seemingly for Met office data to update after midnight due to UTC time;...
+                // ... so if the first day forecast in the array (usually previous day) becomes two days old at midnight, ...
+                // ... discard that entry, so that the next/current day forecast shows up at midnight, as expected.
+                continue;
+            }
+            else if(isset($timeseries[$i]))
             {
                 $this->setDayOfWeek($timeseries[$i]->time);
                 $this->setDayDate($timeseries[$i]->time);
@@ -285,6 +293,7 @@ Final class WeatherDataForCity
 
         }
     }
+
     /**
      * 
      * @param string $windspeed

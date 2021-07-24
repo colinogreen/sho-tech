@@ -14678,3 +14678,11 @@ h3 {
 .weather_data .weather_data_five_day {
   word-wrap: normal;
 }
+.weather_data .weather_location_desc {
+  /*margin-top:10px */
+}
+@media (max-width: 767.98px) {
+  .weather_data .weather_location_desc {
+    margin-top: 10px;
+  }
+}
