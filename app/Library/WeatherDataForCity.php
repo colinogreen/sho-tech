@@ -264,7 +264,7 @@ Final class WeatherDataForCity
         for($i = 0; $i < 8; $i++)
         {
 
-            if(isset($timeseries[$i]) && strtotime($timeseries[$i]->time) < strtotime("now -2 days"))
+            if(isset($timeseries[$i]) && strtotime($timeseries[$i]->time) < strtotime("now -2 days 1 hour 1 second"))
             {
                 // It takes a while, seemingly for Met office data to update after midnight due to UTC time;...
                 // ... so if the first day forecast in the array (usually previous day) becomes two days old at midnight, ...
