@@ -40,6 +40,9 @@ class TodayWeatherRows extends React.Component {
 	const dynamic_data = (this.props.extra_data_name !== undefined && this.props.extra_data !== undefined )
 	? this.props.extra_data_name + ": " + this.props.extra_data
 	: loadmsg; //span style={{fontStyle:'italic'}}
+        
+        const day_period_temp_icon = this.props.top_temp === this.props.day_period_temp ? "fas fa-temperature-high": "fas fa-temperature-low";
+        // <br /><i className="fas fa-temperature-low"></i><span>{this.props.min_temp} &deg;C </span>
 	
     return (
 	
@@ -55,8 +58,8 @@ class TodayWeatherRows extends React.Component {
 		<div className="col-12 col-sm-auto">  
 
 			<h3 className="d-none d-sm-block">{this.props.day_period}</h3>
-			<i className="fas fa-temperature-high"></i> <span>{this.props.top_temp}  &deg;C</span>
-			 <br /><i className="fas fa-temperature-low"></i><span>{this.props.min_temp} &deg;C </span>
+			<span class="today_tonight_temp"><i className={day_period_temp_icon}></i> {this.props.top_temp}  &deg;C</span>
+			 
 
 				
 		</div>
@@ -240,7 +243,8 @@ class WeatherData extends React.Component {
          <div className="col-12 order-last order-sm-first">
              <p style={{}}><i className="fas fa-clock"></i> <span className="text-muted" style={{fontStyle:'italic'}}>Met Office update: {this.state.data.api_query.last_forecast_update}</span></p>
          </div>
-        <TodayWeatherRows weather_icon={day1.day_weather_icon} weather_desc={day1.day_weather_desc}top_temp={day1.day_highest_temp} min_temp={day1.day_lowest_temp} day_period={day1.day_period}/>
+        <TodayWeatherRows weather_icon={day1.day_weather_icon} weather_desc={day1.day_weather_desc}top_temp={day1.day_highest_temp} min_temp={day1.day_lowest_temp} 
+        day_period={day1.day_period} day_period_temp={day1.day_period_temp}/>
      </div>
     <div className="weather_data_five_day">
 

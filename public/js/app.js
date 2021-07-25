@@ -1916,6 +1916,8 @@ var TodayWeatherRows = /*#__PURE__*/function (_React$Component) {
       var loadmsg = "loading ...";
       var dynamic_data = this.props.extra_data_name !== undefined && this.props.extra_data !== undefined ? this.props.extra_data_name + ": " + this.props.extra_data : loadmsg; //span style={{fontStyle:'italic'}}
 
+      var day_period_temp_icon = this.props.top_temp === this.props.day_period_temp ? "fas fa-temperature-high" : "fas fa-temperature-low"; // <br /><i className="fas fa-temperature-low"></i><span>{this.props.min_temp} &deg;C </span>
+
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
         className: "col-auto",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
@@ -1938,14 +1940,11 @@ var TodayWeatherRows = /*#__PURE__*/function (_React$Component) {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h3", {
               className: "d-none d-sm-block",
               children: this.props.day_period
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-              className: "fas fa-temperature-high"
-            }), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
-              children: [this.props.top_temp, "  \xB0C"]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-              className: "fas fa-temperature-low"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
-              children: [this.props.min_temp, " \xB0C "]
+              "class": "today_tonight_temp",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
+                className: day_period_temp_icon
+              }), " ", this.props.top_temp, "  \xB0C"]
             })]
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
@@ -2221,7 +2220,8 @@ var WeatherData = /*#__PURE__*/function (_React$Component4) {
             weather_desc: day1.day_weather_desc,
             top_temp: day1.day_highest_temp,
             min_temp: day1.day_lowest_temp,
-            day_period: day1.day_period
+            day_period: day1.day_period,
+            day_period_temp: day1.day_period_temp
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
           className: "weather_data_five_day",
