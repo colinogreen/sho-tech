@@ -200,6 +200,8 @@ class WeatherForecast{
                 $data->api_query->day[$i]->day_weather_desc = $cityWeather->getNightSignificantWeatherDesc($i);
                 $data->api_query->day[$i]->day_weather_icon = $cityWeather->getNightSignificantWeatherIcon($i);
                 $data->api_query->day[$i]->day_period_temp = $cityWeather->getDayLowestTemp($i);
+                //$data->api_query->day[$i]->day_period = "Tonight (".$cityWeather->getDayOfWeek($i).")";
+                $data->api_query->day[$i]->day_period = "Tonight";
 
             }
             else 
@@ -207,6 +209,8 @@ class WeatherForecast{
                 $data->api_query->day[$i]->day_weather_desc = $cityWeather->getDaySignificantWeatherDesc($i);
                 $data->api_query->day[$i]->day_weather_icon = $cityWeather->getDaySignificantWeatherIcon($i);
                 $data->api_query->day[$i]->day_period_temp = $cityWeather->getDayHighestTemp($i);
+                //$data->api_query->day[$i]->day_period = "Today (".$cityWeather->getDayOfWeek($i).")";
+                $data->api_query->day[$i]->day_period = "Today";
             }
             
             $data->api_query->day[$i]->day_of_week = $cityWeather->getDayOfWeek($i);

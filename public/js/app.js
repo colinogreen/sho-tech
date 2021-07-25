@@ -1937,7 +1937,7 @@ var TodayWeatherRows = /*#__PURE__*/function (_React$Component) {
             className: "col-12 col-sm-auto",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h3", {
               className: "d-none d-sm-block",
-              children: "Today"
+              children: this.props.day_period
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
               className: "fas fa-temperature-high"
             }), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
@@ -2220,7 +2220,8 @@ var WeatherData = /*#__PURE__*/function (_React$Component4) {
             weather_icon: day1.day_weather_icon,
             weather_desc: day1.day_weather_desc,
             top_temp: day1.day_highest_temp,
-            min_temp: day1.day_lowest_temp
+            min_temp: day1.day_lowest_temp,
+            day_period: day1.day_period
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
           className: "weather_data_five_day",

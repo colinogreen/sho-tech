@@ -54,7 +54,7 @@ class TodayWeatherRows extends React.Component {
 		<div className="w-100 d-block d-sm-none"></div>   	  
 		<div className="col-12 col-sm-auto">  
 
-			<h3 className="d-none d-sm-block">Today</h3>
+			<h3 className="d-none d-sm-block">{this.props.day_period}</h3>
 			<i className="fas fa-temperature-high"></i> <span>{this.props.top_temp}  &deg;C</span>
 			 <br /><i className="fas fa-temperature-low"></i><span>{this.props.min_temp} &deg;C </span>
 
@@ -240,7 +240,7 @@ class WeatherData extends React.Component {
          <div className="col-12 order-last order-sm-first">
              <p style={{}}><i className="fas fa-clock"></i> <span className="text-muted" style={{fontStyle:'italic'}}>Met Office update: {this.state.data.api_query.last_forecast_update}</span></p>
          </div>
-        <TodayWeatherRows weather_icon={day1.day_weather_icon} weather_desc={day1.day_weather_desc}top_temp={day1.day_highest_temp} min_temp={day1.day_lowest_temp} />
+        <TodayWeatherRows weather_icon={day1.day_weather_icon} weather_desc={day1.day_weather_desc}top_temp={day1.day_highest_temp} min_temp={day1.day_lowest_temp} day_period={day1.day_period}/>
      </div>
     <div className="weather_data_five_day">
 
