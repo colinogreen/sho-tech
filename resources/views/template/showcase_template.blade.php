@@ -38,7 +38,7 @@
   </div>
 </div>
      
-      <script src="{{ asset('js/app.js') }}?v=2.15"></script>
+      <script src="{{ asset('js/app.js') }}?v=2.16"></script>
 
     <script type="text/babel">
 /*
