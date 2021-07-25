@@ -1944,7 +1944,7 @@ var TodayWeatherRows = /*#__PURE__*/function (_React$Component) {
               "class": "today_tonight_temp",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
                 className: day_period_temp_icon
-              }), " ", this.props.day_period_temp, "  \xB0C"]
+              }), " ", this.props.day_period_temp, "\xB0C"]
             })]
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {

@@ -58,7 +58,7 @@ class TodayWeatherRows extends React.Component {
 		<div className="col-12 col-sm-auto">  
 
 			<h3 className="d-none d-sm-block">{this.props.day_period}</h3>
-			<span class="today_tonight_temp"><i className={day_period_temp_icon}></i> {this.props.day_period_temp}  &deg;C</span>
+			<span class="today_tonight_temp"><i className={day_period_temp_icon}></i> {this.props.day_period_temp}&deg;C</span>
 			 
 
 				
