@@ -27,6 +27,7 @@ Route::get('/greeting', function () {
 //Route::get('/{city}', [WeatherFivedayForecast::class, 'myGreeting']);
 Route::get('/weather/{city}', [Showcase::class, 'indexWeatherWithCity']);
 Route::get('/weather', [Showcase::class, 'indexWeather'])->name("weatherindex");
+Route::get('cstats', [Showcase::class, 'cvStatsUK'])->name("cvd_stats");
 
 Route::get('/forecast_data', [Showcase::class, 'weatherDataWithoutCityParameter']); // 
 //Route::get('forecast_data', [WeatherForecast::class, 'dataWithoutCityParameter']);
