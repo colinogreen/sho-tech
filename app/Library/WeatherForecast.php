@@ -41,7 +41,12 @@ class WeatherForecast{
                 "name" => "birmingham",
                 "latitude"=>"52.48142",
                 "longitude"=>"-1.89983"],
-
+            
+            "bristol"=>[
+                "name" => "bristol",
+                "latitude"=>"51.45523",
+                "longitude"=>"-2.59665"],
+            
             "cardiff"=>[
                 "name" => "cardiff",
                 "latitude"=>"51.48",
@@ -75,7 +80,12 @@ class WeatherForecast{
             "norwich"=>[
                 "name" => "norwich",
                 "latitude"=>"52.62783",
-                "longitude"=>"1.29834"],
+                "longitude"=>"1.29834"], 
+            
+            "plymouth"=>[
+                "name" => "plymouth",
+                "latitude"=>"50.37153",
+                "longitude"=>"-4.14305"], 
             
             "newcastle"=>[
                 "name" => "newcastle",
@@ -92,23 +102,13 @@ class WeatherForecast{
                 "latitude"=>"53.95763",
                 "longitude"=>"-1.08271"],
             
-            // Belfast - 54.58333, -5.93333
-            // birmingham - 52.48142, -1.89983
-            // Cardiff - 51.48, -3.18
-            // Glasgow - 55.86515, -4.25763
-            // Liverpool ropewalks? - 53.41058, -2.97794
-            // London - 51.50853, -0.12574
-            // Manchester - 53.48095, -2.23743
-            // newcastle - 54.97328, -1.61396
-            // norwich - 52.62783, 1.29834
-            // Southampton - 50.90395, -1.40428
-            // York - 53.95763, -1.08271
         ];
     }
     
     public function getWeatherForecastCities():array
     {
         $cities = array_keys($this->getCityLatitudeAndLongitudeArray());
+        asort($cities); // Sort cities, if necessary.
         $CitySummary = new \stdClass();
         array_walk($cities, [$this,'createWeatherLinks' ],$CitySummary);
         
