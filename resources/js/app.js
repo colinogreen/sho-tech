@@ -58,7 +58,7 @@ class TodayWeatherRows extends React.Component {
 		<div className="col-12 col-sm-auto">  
 
 			<h3 className="d-none d-sm-block">{this.props.day_period}</h3>
-			<span class="today_tonight_temp"><i className={day_period_temp_icon}></i> {this.props.day_period_temp}&deg;C</span>
+			<span className="today_tonight_temp"><i className={day_period_temp_icon}></i> {this.props.day_period_temp}&deg;C</span>
 			 
 
 				
@@ -214,10 +214,10 @@ class WeatherData extends React.Component {
 			this.extra_data = day1.max_uv_index;
 			
 		}
-		else if(sec % 3 === 0 && day1.max_feels_like_temp !== undefined)
+		else if(sec % 3 === 0 && day1.feels_like_temp !== undefined)
 		{
 			this.extra_data_name = "Temp feels like";
-			this.extra_data = day1.max_feels_like_temp + " &deg;";			
+			this.extra_data = day1.feels_like_temp + " &deg;";			
 		}
 		if(document.getElementById("today-weather-row-extra-span")!== null && this.extra_data_name !== undefined && this.extra_data !== undefined)
 		{

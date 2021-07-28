@@ -202,6 +202,7 @@ class WeatherForecast{
                 $data->api_query->day[$i]->day_period_temp = $cityWeather->getDayLowestTemp($i);
                 //$data->api_query->day[$i]->day_period = "Tonight (".$cityWeather->getDayOfWeek($i).")";
                 $data->api_query->day[$i]->day_period = "Tonight";
+                $data->api_query->day[$i]->feels_like_temp = $cityWeather->getNightMinFeelsLikeTemp($i);
 
             }
             else 
@@ -211,6 +212,7 @@ class WeatherForecast{
                 $data->api_query->day[$i]->day_period_temp = $cityWeather->getDayHighestTemp($i);
                 //$data->api_query->day[$i]->day_period = "Today (".$cityWeather->getDayOfWeek($i).")";
                 $data->api_query->day[$i]->day_period = "Today";
+                $data->api_query->day[$i]->feels_like_temp = $cityWeather->getDayMaxFeelsLikeTemp($i);
             }
             
             $data->api_query->day[$i]->day_of_week = $cityWeather->getDayOfWeek($i);
@@ -220,6 +222,7 @@ class WeatherForecast{
             $data->api_query->day[$i]->day_wind_mph = $cityWeather->getDayWindSpeed($i);
             $data->api_query->day[$i]->max_uv_index = $cityWeather->getDayMaxUvIndex($i);
             $data->api_query->day[$i]->max_feels_like_temp = $cityWeather->getDayMaxFeelsLikeTemp($i);
+            $data->api_query->day[$i]->min_feels_like_temp = $cityWeather->getDayMaxFeelsLikeTemp($i);
         }
         //exit( __CLASS__. "::".__FUNCTION__." - Data:<pre>". print_r($data, true)."</pre>");
         return json_encode($data);

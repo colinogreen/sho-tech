@@ -1941,7 +1941,7 @@ var TodayWeatherRows = /*#__PURE__*/function (_React$Component) {
               className: "d-none d-sm-block",
               children: this.props.day_period
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
-              "class": "today_tonight_temp",
+              className: "today_tonight_temp",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
                 className: day_period_temp_icon
               }), " ", this.props.day_period_temp, "\xB0C"]
@@ -2183,9 +2183,9 @@ var WeatherData = /*#__PURE__*/function (_React$Component4) {
         if (sec % 3 === 0 && sec % 6 === 0 && day1.max_uv_index !== undefined) {
           this.extra_data_name = "Max UV Index";
           this.extra_data = day1.max_uv_index;
-        } else if (sec % 3 === 0 && day1.max_feels_like_temp !== undefined) {
+        } else if (sec % 3 === 0 && day1.feels_like_temp !== undefined) {
           this.extra_data_name = "Temp feels like";
-          this.extra_data = day1.max_feels_like_temp + " &deg;";
+          this.extra_data = day1.feels_like_temp + " &deg;";
         }
 
         if (document.getElementById("today-weather-row-extra-span") !== null && this.extra_data_name !== undefined && this.extra_data !== undefined) {

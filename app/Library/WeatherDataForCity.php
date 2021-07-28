@@ -17,6 +17,7 @@ Final class WeatherDataForCity
     
     private $maxUvIndex = [];
     private $dayMaxFeelsLikeTemp = [];
+    private $nightMinFeelsLikeTemp = [];
     
     private $location = "unknown location";
     private $lastApiUpdate;
@@ -255,10 +256,21 @@ Final class WeatherDataForCity
         $this->dayMaxFeelsLikeTemp[] = $dayMaxFeelsLikeTemp;
     }
     
-    public function getDayMaxFeelsLikeTemp(string $dayMaxFeelsLikeTemp)
+    public function getDayMaxFeelsLikeTemp(string $day)
     {
-        return $this->dayMaxFeelsLikeTemp[$dayMaxFeelsLikeTemp];
+        return $this->dayMaxFeelsLikeTemp[$day];
     }
+    
+    private function setNightMinFeelsLikeTemp(string $nightMinFeelsLikeTemp)
+    {
+        $this->nightMinFeelsLikeTemp[] = $nightMinFeelsLikeTemp;
+    }
+    
+    public function getNightMinFeelsLikeTemp(string $day)
+    {
+        return $this->nightMinFeelsLikeTemp[$day];
+    }
+    
     private function setDailyForecastParameters(array $timeseries):void
     {
         for($i = 0; $i < 8; $i++)
@@ -287,6 +299,7 @@ Final class WeatherDataForCity
                 
                 $this->setDayMaxUvIndex(round($timeseries[$i]->maxUvIndex)); // Added 2021-07-14
                 $this->setDayMaxFeelsLikeTemp(round($timeseries[$i]->dayMaxFeelsLikeTemp)); // Added 2021-07-14
+                $this->setNightMinFeelsLikeTemp(round($timeseries[$i]->nightMinFeelsLikeTemp)); // Added 2021-07-28
                
                 $this->setDayWindSpeed(round($this->convertWindSpeed10msToMph($timeseries[$i]->midday10MWindSpeed)));                
             }
