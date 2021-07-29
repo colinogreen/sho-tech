@@ -29,9 +29,7 @@ class Kernel extends ConsoleKernel
         {
             // Every x hours on live installation.
             $schedule->command('command:getweatherdata')->cron('2 0,6,12,18 * * *');
-            //$schedule->command('command:getweatherdata')->everySixHours();
-            //$schedule->command('command:getweatherdata')->everyTwoHours();
-           
+            //$schedule->command('command:getweatherdata')->everyTwoHours();           
             //$schedule->command('command:getweatherdata')->hourly();
         }
         else
@@ -40,13 +38,10 @@ class Kernel extends ConsoleKernel
             $schedule->command('command:getweatherdata')->cron('2 10,12,14,16,18,20,22, 0 * * *'); 
             // When in debug/dev mode.
             //\Log::debug("Cache length hours: ".GetWeatherData::getCacheLengthHours());
-            //\Log::debug("Cache length seconds: ".GetWeatherData::getCacheLengthSeconds());
             //$past_the_hour = [0, 1, 3]; // Array of minutes past the hour to run the command/task
             //$int = $past_the_hour[rand(0,(count($past_the_hour)-1))]; // pick a minute past the hour from the available array at random
             //$schedule->command('command:getweatherdata')->hourlyAt($int); // based on scheduled cronjob similar to: * * * * * cd <laravel-path> && php artisan schedule:run >> /dev/null 2>&1            
         }
-
-        //$schedule->command('command:getweatherdata')->everyFiveMinutes();
 
     }
 
