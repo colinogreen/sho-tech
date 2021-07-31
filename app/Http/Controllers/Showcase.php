@@ -15,8 +15,12 @@ class Showcase extends Controller
     {
         return view("showcase_index", ["indexcontent"=>"general"]); // Send the class and it's data to the view for processing
     } 
+    public function covidStatsUk()
+    {
+        return view('covid_stats_uk');
+    }
     
-    public function cvStatsUK()
+    public function cvStatsUK(Request $post)
     {
         //exit(str_ireplace("api_token=", "",file_get_contents("/var/www/html/connect/api_token_test.ini")));
         $wwwpath = dirname(__FILE__, 5);
@@ -36,9 +40,10 @@ class Showcase extends Controller
         $response = Http::withHeaders([
             'Authorization' => 'Bearer '.trim($token),
             'Accept' => 'application/json',
-        ])->get($url, []);
+        ])->post($url, $post->toArray());
         
-        print("<pre>". print_r($response->json(), true). "</pre>" ) ;
+        //print("<pre>". print_r($response->json(), true). "</pre>" ) ;
+        return $response;
        
     }
     

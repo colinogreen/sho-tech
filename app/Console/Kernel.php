@@ -35,7 +35,7 @@ class Kernel extends ConsoleKernel
         else
         {
             //* 2 minutes past day time hours every two hours for test version that has computer often in standby mode.
-            $schedule->command('command:getweatherdata')->cron('2 10,12,14,16,18,20,22, 0 * * *'); 
+            $schedule->command('command:getweatherdata')->cron('2 10,12,14,16,18,20,22,0 * * *'); 
             // When in debug/dev mode.
             //\Log::debug("Cache length hours: ".GetWeatherData::getCacheLengthHours());
             //$past_the_hour = [0, 1, 3]; // Array of minutes past the hour to run the command/task
