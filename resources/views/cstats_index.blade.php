@@ -401,11 +401,11 @@ $bodyid = "page-top";
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Cases for <span id="total_cases_for_date_date"></span>
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                                                    <div id="total_cases_for_date" class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="progress progress-sm mr-2">
@@ -431,8 +431,8 @@ $bodyid = "page-top";
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Pending Requests</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                                Total Deaths for  <span id="total_deaths_for_date_date"></span></div>
+                                            <div id="total_deaths_for_date" class="h5 mb-0 font-weight-bold text-gray-800">18</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -780,19 +780,31 @@ document.addEventListener('DOMContentLoaded', function () {
                if(document.getElementById("total_cases_to_date")!== null)
                {         
                     const cases_to_date = result.data[result.data.length -1].cases;
+                    const cases_today = result.data[result.data.length -1].cases_today;
                     const deaths_to_date = result.data[result.data.length -1].expired;
+                    const deaths_today = result.data[result.data.length -1].expired_today;
                     const to_date_date = " (" + result.data[result.data.length -1].date + ")";
                     console.log(cases_to_date);
                     $("#total_cases_to_date").html(cases_to_date);
                     $("#total_cases_to_date_date").html(to_date_date);
                     $("#total_deaths_to_date").html(deaths_to_date);
                     $("#total_deaths_to_date_date").html(to_date_date);
+                    $("#total_cases_for_date_date").html(to_date_date);
+                    $("#total_cases_for_date").html(cases_today);
+                    $("#total_deaths_for_date_date").html(to_date_date);
+                    $("#total_deaths_for_date").html(deaths_today);
                }
                caseslabels = new Array(result.data.length);
+               
                casesdata = new Array(result.data.length);
+               casestodaydata= new Array(result.data.length);
+               
                deathsdata = new Array(result.data.length);
+               deathstodaydata = new Array(result.data.length);
                for(var i=0; i < result.data.length; i++)
                {
+                   casestodaydata[i] = result.data[i].cases_today;
+                   deathstodaydata[i] = result.data[i].cases_today;
                    caseslabels[i] = result.data[i].date;
                    casesdata[i] = result.data[i].cases;
                    deathsdata[i] = result.data[i].expired;
@@ -800,17 +812,26 @@ document.addEventListener('DOMContentLoaded', function () {
                //var caseslabels =  ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
                //var casesdata = [0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 40000];
                
-               covidChartData(caseslabels, casesdata, "covidCasesChart");
-               covidChartData(caseslabels, deathsdata, "covidDeathsChart");
+               covidChartData(caseslabels, casesdata, "covidCasesChart", "Cases");
+               covidChartData(caseslabels, deathsdata, "covidDeathsChart", "Deaths to date", {pointBorderColor:"#ccc"});
         }, "json");
 
 
 
-});
+}); 
+// Check if colors/etc/. parameter supplied to function covidChartData/etc. is an object or not.
+const isObject = (obj) => {
+    return Object.prototype.toString.call(obj) === '[object Object]';
+};
 
-
-function covidChartData(chartlabels, chartdata, chartname)
+function covidChartData(chartlabels, chartdata, chartname, chartlabelname, colors)
 {
+    chartlabelname =(chartlabelname === undefined) ? "Supply chartlabelname": chartlabelname;
+    colors = (isObject(colors))?colors: {pointBorderColor:"rgba(78, 115, 223, 1)"};
+//    if(chartlabelname === undefined)
+//    {
+//        chartlabelname = "Enter label";
+//    }
     //const chartname = "covidCasesChart"; // ** Edit by colin
     if(document.getElementById(chartname)!== null)
     {
@@ -820,13 +841,13 @@ function covidChartData(chartlabels, chartdata, chartname)
           data: {
             labels: chartlabels,
             datasets: [{
-              label: "Case dates",
+              label: chartlabelname,
               lineTension: 0.3,
               backgroundColor: "rgba(78, 115, 223, 0.05)",
               borderColor: "rgba(78, 115, 223, 1)",
               pointRadius: 3,
               pointBackgroundColor: "rgba(78, 115, 223, 1)",
-              pointBorderColor: "rgba(78, 115, 223, 1)",
+              pointBorderColor: colors.pointBorderColor,
               pointHoverRadius: 3,
               pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
               pointHoverBorderColor: "rgba(78, 115, 223, 1)",
