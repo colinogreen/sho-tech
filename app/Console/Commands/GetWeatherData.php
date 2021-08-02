@@ -13,7 +13,7 @@ class GetWeatherData extends Command
     private $latitude;
     private $longitude;
     
-    private static $cacheLengthHours = 6;
+    private static $cacheLengthHours = 3;
     
     private $clearCacheDataFirst = false;
     /**
