@@ -319,7 +319,7 @@ $bodyid = "page-top";
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Alan Turing</span>
                                 <img class="img-profile rounded-circle"
                                     src="img/undraw_profile.svg">
                             </a>
@@ -799,93 +799,93 @@ $bodyid = "page-top";
         </div>
     </div>
     <script>
+//** Move to resources/js script file when completed for npm compilation.
 document.addEventListener('DOMContentLoaded', function () {
-//    
-//    if(document.getElementById("total_cases_to_date")!== null)
-//    {
-//         $("#total_cases_to_date").html("Changed by JQuery");
-//    }
-        function formatTodaysDate() {
-            var d = new Date(),
-                month = '' + (d.getMonth() + 1),
-                day = '' + d.getDate(),
-                year = d.getFullYear();
 
-            if (month.length < 2) 
-                month = '0' + month;
-            if (day.length < 2) 
-                day = '0' + day;
+    function formatTodaysDate() {
+        var d = new Date(),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
 
-            return [year, month, day].join('-');
-        }
+        if (month.length < 2) 
+            month = '0' + month;
+        if (day.length < 2) 
+            day = '0' + day;
 
-        $.post("/cvstats", {"date_from":"2020-02-01", "date_to":formatTodaysDate() , "_token": '{{csrf_token()}}'}, function(result){
-                //console.log("== DEBUG AJAX RESULTS ==");
-                //console.log(result);
-                //console.log(result.data[0].date);
+        return [year, month, day].join('-');
+    }
 
-               if(document.getElementById("total_cases_to_date")!== null)
-               {         
-                    const cases_to_date = result.data[result.data.length -1].cases;
-                    const cases_today = result.data[result.data.length -1].cases_today;
-                    const deaths_to_date = result.data[result.data.length -1].expired;
-                    const deaths_today = result.data[result.data.length -1].expired_today;
-                    const to_date_date = " (" + result.data[result.data.length -1].date + ")";
-                    console.log(cases_to_date);
-                    $("#total_cases_to_date").html(number_format(cases_to_date));
-                    $("#total_cases_to_date_date").html(to_date_date);
-                    $("#total_deaths_to_date").html(number_format(deaths_to_date));
-                    $("#total_deaths_to_date_date").html(to_date_date);
-                    $("#total_cases_for_date_date").html(to_date_date);
-                    $("#total_cases_for_date").html(number_format(cases_today));
-                    $("#total_deaths_for_date_date").html(to_date_date);
-                    $("#total_deaths_for_date").html(number_format(deaths_today));
-               }
-               caseslabels = new Array(result.data.length);
-               casessevendaydatelabels = new Array(7);
-               //deathssevendaydatelabels = new Array(7);
-               
-               casesdata = new Array(result.data.length);
-               casessevendaydata = new Array(7);
-               deathssevendaydata = new Array(7);
-               casestodaydata= new Array(result.data.length);
-               
-               deathsdata = new Array(result.data.length);
-               deathstodaydata = new Array(result.data.length);
-               daycount = 0;
-               for(var i=0; i < result.data.length; i++)
-               {
-                   casestodaydata[i] = result.data[i].cases_today;
-                   if(i >= (result.data.length - 7))
-                   {
-                       casessevendaydatelabels[daycount] = result.data[i].date;
-                       casessevendaydata[daycount] = result.data[i].cases_today;
-                       deathssevendaydata[daycount] = result.data[i].expired_today;
-                       daycount++;
-                   }
-                   
-                   //console.log("** DEBUG 7 DAY | START");console.log(casessevendaydatelabels); console.log(casessevendaydata); console.log(caseslabels); console.log("** DEBUG 7 DAY | END");
-                   deathstodaydata[i] = result.data[i].expired_today;
-                   caseslabels[i] = result.data[i].date;
-                   casesdata[i] = result.data[i].cases;
-                   deathsdata[i] = result.data[i].expired;
-               }
-               
-               //todaydata ={casestoday:casestodaydata};
-               //var caseslabels =  ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-               //var casesdata = [0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 40000];
-               //console.log("deathstodaydata test: " + deathstodaydata[42]);
-               covidChartData(casesDataObj(caseslabels, casesdata, casestodaydata),"covidCasesChart");
-               
-               covidChartData(casesDataObj(casessevendaydatelabels, casessevendaydata, casesdata),"casesSevenDays", "bar");
-               //covidChartData(caseslabels, casesdata, "covidCasesChart", "Cases", null,casestodaydata);
-               
-                covidChartData(deathsDataObj(caseslabels, deathsdata, deathstodaydata),"covidDeathsChart");
-                covidChartData(deathsDataObj(casessevendaydatelabels, deathssevendaydata, deathsdata),"deathsSevenDays", "bar");
-               //covidChartData(caseslabels, deathsdata, "covidDeathsChart", "Deaths to date", {pointBorderColor:"#ccc"},deathstodaydata);
-        }, "json");
+    $.post("/cvstats", {"date_from":"2020-02-01", "date_to":formatTodaysDate() , "_token": '{{csrf_token()}}'}, function(result){
+        //console.log("== DEBUG AJAX RESULTS ==");
+        //console.log(result);
+        //console.log(result.data[0].date);
 
+       if(document.getElementById("total_cases_to_date")!== null)
+       {         
+            const cases_to_date = result.data[result.data.length -1].cases;
+            const cases_today = result.data[result.data.length -1].cases_today;
+            const deaths_to_date = result.data[result.data.length -1].expired;
+            const deaths_today = result.data[result.data.length -1].expired_today;
+            const to_date_date = " (" + result.data[result.data.length -1].date + ")";
+            //console.log(cases_to_date);
 
+            $("#total_cases_to_date").html(number_format(cases_to_date));
+            $("#total_cases_to_date_date").html(to_date_date);
+            $("#total_deaths_to_date").html(number_format(deaths_to_date));
+            $("#total_deaths_to_date_date").html(to_date_date);
+            $("#total_cases_for_date_date").html(to_date_date);
+            $("#total_cases_for_date").html(number_format(cases_today));
+            $("#total_deaths_for_date_date").html(to_date_date);
+            $("#total_deaths_for_date").html(number_format(deaths_today));
+       }
+       caseslabels = new Array(result.data.length);
+       casessevendaydatelabels = new Array(7);
+       //deathssevendaydatelabels = new Array(7);
+
+       casesdata = new Array(result.data.length);
+       casessevendaydata = new Array(7);
+       totalcasessevendaydata = new Array(7);
+       deathssevendaydata = new Array(7);
+       totaldeathssevendaydata = new Array(7);
+       casestodaydata= new Array(result.data.length);
+
+       deathsdata = new Array(result.data.length);
+       deathstodaydata = new Array(result.data.length);
+       daycount = 0;
+       for(var i=0; i < result.data.length; i++)
+       {
+           casestodaydata[i] = result.data[i].cases_today;
+           if(i >= (result.data.length - 7))
+           {
+               casessevendaydatelabels[daycount] = result.data[i].date;
+               totalcasessevendaydata[daycount] = result.data[i].cases
+
+               casessevendaydata[daycount] = result.data[i].cases_today;
+
+               deathssevendaydata[daycount] = result.data[i].expired_today;
+               totaldeathssevendaydata[daycount] = result.data[i].expired;
+               daycount++;
+           }
+
+           //console.log("** DEBUG 7 DAY | START");console.log(casessevendaydatelabels); console.log(casessevendaydata); console.log(caseslabels); console.log("** DEBUG 7 DAY | END");
+           deathstodaydata[i] = result.data[i].expired_today;
+           caseslabels[i] = result.data[i].date;
+           casesdata[i] = result.data[i].cases;
+           deathsdata[i] = result.data[i].expired;
+       }
+
+       covidChartData(casesDataObj(caseslabels, casesdata, casestodaydata),"covidCasesChart");
+
+       covidChartData(casesDataObj(casessevendaydatelabels, casessevendaydata, totalcasessevendaydata, {label: "Cases"}),
+       "casesSevenDays", {type:"bar", extratotal_label: "Total"});
+       //covidChartData(caseslabels, casesdata, "covidCasesChart", "Cases", null,casestodaydata);
+
+        covidChartData(deathsDataObj(caseslabels, deathsdata, deathstodaydata),"covidDeathsChart");
+        covidChartData(deathsDataObj(casessevendaydatelabels, deathssevendaydata, totaldeathssevendaydata, {label: "Deaths"}),
+        "deathsSevenDays",  {type:"bar", extratotal_label: "Total"});
+       //covidChartData(caseslabels, deathsdata, "covidDeathsChart", "Deaths to date", {pointBorderColor:"#ccc"},deathstodaydata);
+    }, "json");
 
 }); 
 // Check if colors/etc/. parameter supplied to function covidChartData/etc. is an object or not.
@@ -893,28 +893,22 @@ const isObject = (obj) => {
     return Object.prototype.toString.call(obj) === '[object Object]';
 };
 
-function casesDataObj(labels_array, data_array, today_data_array)
+function casesDataObj(labels_array, data_array, today_data_array, extra_data)
 {
     var obj = dataObjectDefault();
     obj.labels = labels_array;
-    obj.datasets[0].label = "Total cases";
+    obj.datasets[0].label = isObject(extra_data) && extra_data.label !== undefined ? extra_data.label :"Total cases";
     obj.datasets[0].data = data_array;
     obj.datasets[0].todaydata = today_data_array;
-//    if(isObject(extra_data_object))
-//    {
-//        for(const k in extra_data_object)
-//        {
-//            obj.datasets[0].{k} = extra_data_object{k};
-//        }
-//    }
+
     return obj;
 }
 
-function deathsDataObj(labels_array, data_array, today_data_array)
+function deathsDataObj(labels_array, data_array, today_data_array, extra_data)
 {
     var obj = dataObjectDefault();
     obj.labels = labels_array;
-    obj.datasets[0].label = "Total deaths";
+    obj.datasets[0].label = isObject(extra_data) && extra_data.label !== undefined ? extra_data.label :"Total deaths";
     obj.datasets[0].data = data_array;
     obj.datasets[0].todaydata = today_data_array;   
     obj.datasets[0].pointBorderColor = "#ccc";   
@@ -946,23 +940,16 @@ function dataObjectDefault()
     return obj;
 }
 
-function covidChartData(dataObject, chartname, charttype)
+function covidChartData(dataObject, chartname, extra_data)
 //function covidChartData(chartlabels, chartdata, chartname, chartlabelname, colors, todaydata)
 {
-    //chartlabelname =(chartlabelname === undefined) ? "Supply chartlabelname": chartlabelname;
-    //colors = (isObject(colors))?colors: {pointBorderColor:"rgba(78, 115, 223, 1)"};
-//    if(chartlabelname === undefined)
-//    {
-//        chartlabelname = "Enter label";
-//    }
-    //const chartname = "covidCasesChart"; // ** Edit by colin
-    charttype = (charttype === undefined)? "line":charttype;
+
     if(document.getElementById(chartname)!== null)
     {
-        console.log("Attempting to render: " + chartname);
+        //console.log("Attempting to render: " + chartname);
         var ctx = document.getElementById(chartname);
         var myLineChart = new Chart(ctx, {
-          type: charttype,
+          type: isObject(extra_data) && extra_data.type !== undefined? extra_data.type :"line",
           data: dataObject,
           options: {
             maintainAspectRatio: false,
@@ -1028,10 +1015,11 @@ function covidChartData(dataObject, chartname, charttype)
                 //console.log(chart.datasets[tooltipItem.datasetIndex].todaydata);
                   var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
                   //var todaytotal = "Day total: " + todaydata[tooltipItem.index] || '';
-                  var todaytotal = "Day total: " + chart.datasets[tooltipItem.datasetIndex].todaydata[tooltipItem.index] || '';
+                  extratotal_label = isObject(extra_data) && extra_data.extratotal_label !== undefined? extra_data.extratotal_label: "Day total";
+                  var extratotal = extratotal_label + ": " + number_format(chart.datasets[tooltipItem.datasetIndex].todaydata[tooltipItem.index]) || '';
                   
                   // return array so that cumulative total and day total appear on separate lines.
-                  return [datasetLabel + ': ' + number_format(tooltipItem.yLabel),todaytotal] ;
+                  return [datasetLabel + ': ' + number_format(tooltipItem.yLabel),extratotal] ;
 
                 }
               }
