@@ -479,6 +479,48 @@ $bodyid = "page-top";
                              
                             </div>
                         </div>
+                    <!-- Graph Cases per day Chart -->
+                        <div class="col-xl-4 col-lg-5">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Cases - Last 7 days</h6>
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                            aria-labelledby="dropdownMenuLink">
+                                            <div class="dropdown-header">Dropdown Header:</div>
+                                            <a class="dropdown-item" href="#">Action</a>
+                                            <a class="dropdown-item" href="#">Another action</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">Something else here</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="chart-pie pt-4 pb-2">
+                                    <?php //    <canvas id="myPieChart"></canvas> ?>
+                                        <canvas id="casesSevenDays"></canvas>
+                                    </div>
+                                    <div class="mt-4 text-center small">
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle text-primary"></i> Direct
+                                        </span>
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle text-success"></i> Social
+                                        </span>
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle text-info"></i> Referral
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                        <div class="col-xl-8 col-lg-7">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
@@ -509,13 +551,13 @@ $bodyid = "page-top";
                                 </div>                                
                             </div>
                         </div>
-                        <!-- Pie Chart -->
+                        <!-- Bar Chart -->
                         <div class="col-xl-4 col-lg-5">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Covid Deaths - Last seven days</h6>
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -534,7 +576,7 @@ $bodyid = "page-top";
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     <div class="chart-pie pt-4 pb-2">
-                                        <canvas id="myPieChart"></canvas>
+                                        <canvas id="deathsSevenDays"></canvas>
                                     </div>
                                     <div class="mt-4 text-center small">
                                         <span class="mr-2">
@@ -773,9 +815,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         $.post("/cvstats", {"date_from":"2020-02-01", "date_to":formatTodaysDate() , "_token": '{{csrf_token()}}'}, function(result){
-                console.log("== DEBUG AJAX RESULTS ==");
-                console.log(result);
-                console.log(result.data[0].date);
+                //console.log("== DEBUG AJAX RESULTS ==");
+                //console.log(result);
+                //console.log(result.data[0].date);
 
                if(document.getElementById("total_cases_to_date")!== null)
                {         
@@ -795,15 +837,29 @@ document.addEventListener('DOMContentLoaded', function () {
                     $("#total_deaths_for_date").html(deaths_today);
                }
                caseslabels = new Array(result.data.length);
+               casessevendaydatelabels = new Array(7);
+               //deathssevendaydatelabels = new Array(7);
                
                casesdata = new Array(result.data.length);
+               casessevendaydata = new Array(7);
+               deathssevendaydata = new Array(7);
                casestodaydata= new Array(result.data.length);
                
                deathsdata = new Array(result.data.length);
                deathstodaydata = new Array(result.data.length);
+               daycount = 0;
                for(var i=0; i < result.data.length; i++)
                {
                    casestodaydata[i] = result.data[i].cases_today;
+                   if(i >= (result.data.length - 7))
+                   {
+                       casessevendaydatelabels[daycount] = result.data[i].date;
+                       casessevendaydata[daycount] = result.data[i].cases_today;
+                       deathssevendaydata[daycount] = result.data[i].expired_today;
+                       daycount++;
+                   }
+                   
+                   //console.log("** DEBUG 7 DAY | START");console.log(casessevendaydatelabels); console.log(casessevendaydata); console.log(caseslabels); console.log("** DEBUG 7 DAY | END");
                    deathstodaydata[i] = result.data[i].expired_today;
                    caseslabels[i] = result.data[i].date;
                    casesdata[i] = result.data[i].cases;
@@ -813,9 +869,15 @@ document.addEventListener('DOMContentLoaded', function () {
                //todaydata ={casestoday:casestodaydata};
                //var caseslabels =  ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
                //var casesdata = [0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 40000];
-               console.log("deathstodaydata test: " + deathstodaydata[42]);
-               covidChartData(caseslabels, casesdata, "covidCasesChart", "Cases", null,casestodaydata);
-               covidChartData(caseslabels, deathsdata, "covidDeathsChart", "Deaths to date", {pointBorderColor:"#ccc"},deathstodaydata);
+               //console.log("deathstodaydata test: " + deathstodaydata[42]);
+               covidChartData(casesDataObj(caseslabels, casesdata, casestodaydata),"covidCasesChart");
+               
+               covidChartData(casesDataObj(casessevendaydatelabels, casessevendaydata, casesdata),"casesSevenDays", "bar");
+               //covidChartData(caseslabels, casesdata, "covidCasesChart", "Cases", null,casestodaydata);
+               
+                covidChartData(deathsDataObj(caseslabels, deathsdata, deathstodaydata),"covidDeathsChart");
+                covidChartData(deathsDataObj(casessevendaydatelabels, deathssevendaydata, deathsdata),"deathsSevenDays", "bar");
+               //covidChartData(caseslabels, deathsdata, "covidDeathsChart", "Deaths to date", {pointBorderColor:"#ccc"},deathstodaydata);
         }, "json");
 
 
@@ -826,40 +888,77 @@ const isObject = (obj) => {
     return Object.prototype.toString.call(obj) === '[object Object]';
 };
 
-function covidChartData(chartlabels, chartdata, chartname, chartlabelname, colors, todaydata)
+function casesDataObj(labels_array, data_array, today_data_array)
 {
-    chartlabelname =(chartlabelname === undefined) ? "Supply chartlabelname": chartlabelname;
-    colors = (isObject(colors))?colors: {pointBorderColor:"rgba(78, 115, 223, 1)"};
-//    if(chartlabelname === undefined)
+    var obj = dataObjectDefault();
+    obj.labels = labels_array;
+    obj.datasets[0].label = "Total cases";
+    obj.datasets[0].data = data_array;
+    obj.datasets[0].todaydata = today_data_array;
+//    if(isObject(extra_data_object))
 //    {
-//        chartlabelname = "Enter label";
+//        for(const k in extra_data_object)
+//        {
+//            obj.datasets[0].{k} = extra_data_object{k};
+//        }
 //    }
-    //const chartname = "covidCasesChart"; // ** Edit by colin
-    if(document.getElementById(chartname)!== null)
-    {
-        var ctx = document.getElementById(chartname);
-        var myLineChart = new Chart(ctx, {
-          type: 'line',
-          data: {
-            labels: chartlabels,
+    return obj;
+}
+
+function deathsDataObj(labels_array, data_array, today_data_array)
+{
+    var obj = dataObjectDefault();
+    obj.labels = labels_array;
+    obj.datasets[0].label = "Total deaths";
+    obj.datasets[0].data = data_array;
+    obj.datasets[0].todaydata = today_data_array;   
+    obj.datasets[0].pointBorderColor = "#ccc";   
+    return obj;
+}
+function dataObjectDefault()
+{
+    var obj = {
+            labels: "My labels",
             datasets: [{
-              label: chartlabelname,
+              label: "my label",
               lineTension: 0.3,
               backgroundColor: "rgba(78, 115, 223, 0.05)",
               borderColor: "rgba(78, 115, 223, 1)",
               pointRadius: 3,
               pointBackgroundColor: "rgba(78, 115, 223, 1)",
-              pointBorderColor: colors.pointBorderColor,
+              pointBorderColor: "rgba(78, 115, 223, 1)",
               pointHoverRadius: 3,
               pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
               pointHoverBorderColor: "rgba(78, 115, 223, 1)",
               pointHitRadius: 10,
               pointBorderWidth: 2,
-              data: chartdata,
-              todaydata:todaydata,
+              data: [],
+              todaydata:[],
             }],
 
-          },
+          };
+          
+    return obj;
+}
+
+function covidChartData(dataObject, chartname, charttype)
+//function covidChartData(chartlabels, chartdata, chartname, chartlabelname, colors, todaydata)
+{
+    //chartlabelname =(chartlabelname === undefined) ? "Supply chartlabelname": chartlabelname;
+    //colors = (isObject(colors))?colors: {pointBorderColor:"rgba(78, 115, 223, 1)"};
+//    if(chartlabelname === undefined)
+//    {
+//        chartlabelname = "Enter label";
+//    }
+    //const chartname = "covidCasesChart"; // ** Edit by colin
+    charttype = (charttype === undefined)? "line":charttype;
+    if(document.getElementById(chartname)!== null)
+    {
+        console.log("Attempting to render: " + chartname);
+        var ctx = document.getElementById(chartname);
+        var myLineChart = new Chart(ctx, {
+          type: charttype,
+          data: dataObject,
           options: {
             maintainAspectRatio: false,
             layout: {
@@ -921,8 +1020,10 @@ function covidChartData(chartlabels, chartdata, chartname, chartlabelname, color
               caretPadding: 10,
               callbacks: {
                 label: function(tooltipItem, chart) {
+                //console.log(chart.datasets[tooltipItem.datasetIndex].todaydata);
                   var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-                  var todaytotal = "Day total: " + todaydata[tooltipItem.index] || '';
+                  //var todaytotal = "Day total: " + todaydata[tooltipItem.index] || '';
+                  var todaytotal = "Day total: " + chart.datasets[tooltipItem.datasetIndex].todaydata[tooltipItem.index] || '';
                   
                   // return array so that cumulative total and day total appear on separate lines.
                   return [datasetLabel + ': ' + number_format(tooltipItem.yLabel),todaytotal] ;

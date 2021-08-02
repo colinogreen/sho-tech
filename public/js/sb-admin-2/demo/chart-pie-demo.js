@@ -2,6 +2,9 @@
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
 
+// null eval added by Colin M. Only show if exists
+if(document.getElementById("myPieChart") !== null)
+{
 // Pie Chart Example
 var ctx = document.getElementById("myPieChart");
 var myPieChart = new Chart(ctx, {
@@ -32,4 +35,6 @@ var myPieChart = new Chart(ctx, {
     },
     cutoutPercentage: 80,
   },
-});
+});    
+}
+
