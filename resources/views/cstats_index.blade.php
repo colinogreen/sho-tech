@@ -372,7 +372,7 @@ $bodyid = "page-top";
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Total cases to date<span id="total_cases_to_date_date"></span></div>
-                                            <div id="total_cases_to_date" class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                                            <div id="total_cases_to_date" class="h5 mb-0 font-weight-bold text-gray-800">Please wait ...</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -390,7 +390,7 @@ $bodyid = "page-top";
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                 Total Deaths to date<span id="total_deaths_to_date_date"></span></div>
-                                            <div id="total_deaths_to_date" class="h5 mb-0 font-weight-bold text-gray-800">&#160;</div>
+                                            <div id="total_deaths_to_date" class="h5 mb-0 font-weight-bold text-gray-800">Calculating ... </div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -410,7 +410,7 @@ $bodyid = "page-top";
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
-                                                    <div id="total_cases_for_date" class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                                                    <div id="total_cases_for_date" class="h5 mb-0 mr-3 font-weight-bold text-gray-800">Calculating... </div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="progress progress-sm mr-2">
@@ -437,7 +437,7 @@ $bodyid = "page-top";
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                                 Total Deaths for  <span id="total_deaths_for_date_date"></span></div>
-                                            <div id="total_deaths_for_date" class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                            <div id="total_deaths_for_date" class="h5 mb-0 font-weight-bold text-gray-800">Updating ...</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -832,14 +832,14 @@ document.addEventListener('DOMContentLoaded', function () {
                     const deaths_today = result.data[result.data.length -1].expired_today;
                     const to_date_date = " (" + result.data[result.data.length -1].date + ")";
                     console.log(cases_to_date);
-                    $("#total_cases_to_date").html(cases_to_date);
+                    $("#total_cases_to_date").html(number_format(cases_to_date));
                     $("#total_cases_to_date_date").html(to_date_date);
-                    $("#total_deaths_to_date").html(deaths_to_date);
+                    $("#total_deaths_to_date").html(number_format(deaths_to_date));
                     $("#total_deaths_to_date_date").html(to_date_date);
                     $("#total_cases_for_date_date").html(to_date_date);
-                    $("#total_cases_for_date").html(cases_today);
+                    $("#total_cases_for_date").html(number_format(cases_today));
                     $("#total_deaths_for_date_date").html(to_date_date);
-                    $("#total_deaths_for_date").html(deaths_today);
+                    $("#total_deaths_for_date").html(number_format(deaths_today));
                }
                caseslabels = new Array(result.data.length);
                casessevendaydatelabels = new Array(7);
