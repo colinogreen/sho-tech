@@ -804,16 +804,18 @@ document.addEventListener('DOMContentLoaded', function () {
                for(var i=0; i < result.data.length; i++)
                {
                    casestodaydata[i] = result.data[i].cases_today;
-                   deathstodaydata[i] = result.data[i].cases_today;
+                   deathstodaydata[i] = result.data[i].expired_today;
                    caseslabels[i] = result.data[i].date;
                    casesdata[i] = result.data[i].cases;
                    deathsdata[i] = result.data[i].expired;
                }
+               
+               //todaydata ={casestoday:casestodaydata};
                //var caseslabels =  ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
                //var casesdata = [0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 40000];
-               
-               covidChartData(caseslabels, casesdata, "covidCasesChart", "Cases");
-               covidChartData(caseslabels, deathsdata, "covidDeathsChart", "Deaths to date", {pointBorderColor:"#ccc"});
+               console.log("deathstodaydata test: " + deathstodaydata[42]);
+               covidChartData(caseslabels, casesdata, "covidCasesChart", "Cases", null,casestodaydata);
+               covidChartData(caseslabels, deathsdata, "covidDeathsChart", "Deaths to date", {pointBorderColor:"#ccc"},deathstodaydata);
         }, "json");
 
 
@@ -824,7 +826,7 @@ const isObject = (obj) => {
     return Object.prototype.toString.call(obj) === '[object Object]';
 };
 
-function covidChartData(chartlabels, chartdata, chartname, chartlabelname, colors)
+function covidChartData(chartlabels, chartdata, chartname, chartlabelname, colors, todaydata)
 {
     chartlabelname =(chartlabelname === undefined) ? "Supply chartlabelname": chartlabelname;
     colors = (isObject(colors))?colors: {pointBorderColor:"rgba(78, 115, 223, 1)"};
@@ -854,6 +856,7 @@ function covidChartData(chartlabels, chartdata, chartname, chartlabelname, color
               pointHitRadius: 10,
               pointBorderWidth: 2,
               data: chartdata,
+              todaydata:todaydata,
             }],
 
           },
@@ -919,8 +922,11 @@ function covidChartData(chartlabels, chartdata, chartname, chartlabelname, color
               callbacks: {
                 label: function(tooltipItem, chart) {
                   var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-                  //return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
-                  return datasetLabel + ': ' + number_format(tooltipItem.yLabel);
+                  var todaytotal = "Day total: " + todaydata[tooltipItem.index] || '';
+                  
+                  // return array so that cumulative total and day total appear on separate lines.
+                  return [datasetLabel + ': ' + number_format(tooltipItem.yLabel),todaytotal] ;
+
                 }
               }
             }
