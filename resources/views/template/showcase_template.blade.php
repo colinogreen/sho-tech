@@ -21,6 +21,11 @@
       <li class="nav-item">
         <a class="nav-link @yield('weather_link_active')" href="{{ route('weatherindex') }}">Weather Data</a>
       </li>
+      @if(env('APP_DEBUG'))
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('cstats_index') }}">Covid Stats UK</a>
+      </li>
+      @endif
      <?php /*  <li class="nav-item">
         <a class="nav-link disabled" href="#">Disabled</a>
       </li> */?>
