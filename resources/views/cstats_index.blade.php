@@ -874,94 +874,77 @@ document.addEventListener('DOMContentLoaded', function () {
            casesdata[i] = result.data[i].cases;
            deathsdata[i] = result.data[i].expired;
        }
-        cData = new ChartDataSetup();
-        c7Data = new ChartDataSetup();
-        dData = new ChartDataSetup();
-        d7Data = new ChartDataSetup();
+        cConfig = new ChartConfigSetup();
+        c7Config = new ChartConfigSetup();
+        dConfig = new ChartConfigSetup();
+        d7Config = new ChartConfigSetup();
         
-        cData.label = "Total Cases";
-        casesDataObj(cData,caseslabels, casesdata, casestodaydata);
-        
-        c7Data.label = "Cases";
-        c7Data.type = "bar";
-        casesDataObj(c7Data,casessevendaydatelabels, casessevendaydata, totalcasessevendaydata);
-        
-        extra_settings = {label: "Total Deaths", pointBorderColor:"rgba(230, 138, 0)", pointBackgroundColor:"rgba(230, 138, 0)"};  
-        
-        dData.label = "Total Deaths";
+        const cColor = "rgba(78, 115, 223, 1)";
+        const cColor2 = "rgba(104, 135, 227, 1)";
         const dColor = "rgba(230, 138, 0)";
-        dData.pointBorderColor = dColor;
-        dData.pointBackgroundColor = dColor;
-        deathsDataObj(dData,caseslabels, deathsdata, deathstodaydata);
+        const dColor2 = "rgba(255, 163, 26)";
+        const cBarBackground =  [cColor, cColor2, cColor, cColor2, cColor, cColor2, cColor];
+        const dBarBackground =  [dColor, dColor2, dColor, dColor2, dColor, dColor2, dColor];
         
-        d7Data.label = "Deaths";
-        d7Data.pointBorderColor = dColor;
-        d7Data.pointBackgroundColor = dColor;
-        d7Data.type = "bar";
-        deathsDataObj(d7Data,casessevendaydatelabels, deathssevendaydata, totaldeathssevendaydata);
+        //cConfig.label = "Total Cases";
+        //casesDataObj(cConfig,caseslabels, casesdata, casestodaydata);
+        c_extra_config = {label:"Total Cases", labels:caseslabels, data_array:casesdata, todaydata:casestodaydata};
+        cConfig.dataExtraConfig(c_extra_config); //  labels data_array todaydata
+ 
+        c7_extra_config = {label:"Cases", labels:casessevendaydatelabels, data_array:casessevendaydata, 
+            todaydata:totalcasessevendaydata, backgroundColor:cBarBackground, type: "bar"};
 
-       drawChartData(cData,"covidCasesChart");
-       drawChartData(c7Data,"casesSevenDays");
-       
-       drawChartData(dData,"covidDeathsChart");
-       drawChartData(d7Data,"deathsSevenDays");
+        c7Config.dataExtraConfig(c7_extra_config); //  labels data_array todaydata
+ 
+        d_extra_config = {label: "Total Deaths", labels:caseslabels, data_array:deathsdata, todaydata:deathstodaydata,
+            pointBorderColor:dColor, pointBackgroundColor:dColor};
+        
+        dConfig.dataExtraConfig(d_extra_config);
+
+        d7_extra_config = {label: "Deaths", labels:casessevendaydatelabels, data_array:deathssevendaydata, 
+            todaydata:totaldeathssevendaydata, backgroundColor:dBarBackground, type: "bar"};
+        
+        d7Config.dataExtraConfig(d7_extra_config);
+        
+        drawChartData(cConfig,"covidCasesChart");
+        drawChartData(c7Config,"casesSevenDays");
+        
+        drawChartData(dConfig,"covidDeathsChart");
+        drawChartData(d7Config,"deathsSevenDays");
 
     }, "json");
 
 }); 
-// Check if colors/etc/. parameter supplied to function drawChartData/etc. is an object or not.
-const isObject = (obj) => {
-    return Object.prototype.toString.call(obj) === '[object Object]';
-};
 
-//function casesDataObj(labels_array, data_array, today_data_array, extra_data)
-function casesDataObj(graphData,labels_array, data_array, today_data_array)
-{
+//const isObject = (obj) => {
+//    return Object.prototype.toString.call(obj) === '[object Object]';
+//};
 
-    graphData.labels = labels_array;
-    //graphData.label = "Total cases";
-    graphData.data_array = data_array;
-    graphData.todaydata = today_data_array;
-
-}
-
-//function deathsDataObj(labels_array, data_array, today_data_array, extra_data)
-function deathsDataObj(graphData,labels_array, data_array, today_data_array)
-{  
-    graphData.labels = labels_array;
-    graphData.data_array = data_array;
-    graphData.todaydata = today_data_array;  
-
-}
 
 //* Draw the chart once all parameters have been set for each graph.
-function drawChartData(chartData, chartname, extra_data)
+function drawChartData(chartConfig, chartname, extra_data)
 {
-
     if(document.getElementById(chartname)!== null)
     {
-        //console.log("Attempting to render: " + chartname);
         var ctx = document.getElementById(chartname);
-        //cfg = new ChartConfig(dataObject, extra_data);
-        //console.log(cfg.data());
-        var myLineChart = new Chart(ctx, chartData.data()); 
-        
+        new Chart(ctx, chartConfig.data());         
     }    
 }  
 /**
  * Create the settings for each graph that can be easily edited before the graph is drawn ...
  * ... by calling a new chart class and sending this classes data() method in the process.
+ * This process makes things easier, avoiding drilling down through chart config object levels.
  * @type void
  */
-class ChartDataSetup
+class ChartConfigSetup
 {  
     constructor(extra_data){
 
         this.extraData = extra_data;
        
-        //* Set defaults for the chart
+        //* Set defaults for the main chart visual look and data controls
         this.type = "line";
-        //this.labels = "My labels";
+        this.labels = "My labels";
         this.label = "my label";
         this.lineTension = 0.3;
         this.backgroundColor = "rgba(78, 115, 223, 0.05)";
@@ -975,7 +958,24 @@ class ChartDataSetup
         this.pointHitRadius = 10;
         this.pointBorderWidth = 2;
         this.data_array = [];
-        this.todaydata =[];
+        this.todaydata =[];// Colin's custom entry
+    }
+    
+    isObject(obj)
+    {
+        return Object.prototype.toString.call(obj) === '[object Object]';
+    }
+    
+    dataExtraConfig(extra_settings)
+    {
+
+        if(this.isObject(extra_settings))
+        {
+            for(var k in extra_settings)
+            {
+                this[k] = extra_settings[k];
+            }
+        }
     }
     
     data()
@@ -999,8 +999,8 @@ class ChartDataSetup
               pointHitRadius: this.pointHitRadius,
               pointBorderWidth: this.pointBorderWidth,
               data: this.data_array,
-              todaydata:this.todaydata,
-            }],
+              todaydata:this.todaydata, // Colin's custom entry
+            }]
 
           },
           options: {
@@ -1043,7 +1043,7 @@ class ChartDataSetup
                   borderDash: [2],
                   zeroLineBorderDash: [2]
                 }
-              }],
+              }]
             },
             legend: {
               display: false
@@ -1067,13 +1067,13 @@ class ChartDataSetup
                 //console.log(chart.datasets[tooltipItem.datasetIndex].todaydata);
                   const datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
                   //var todaytotal = "Day total: " + todaydata[tooltipItem.index] || '';
-                  const extratotal_label = isObject(this.extraData) && this.extraData.extratotal_label !== undefined? this.extraData.extratotal_label: "Day total";
+                  const extratotal_label = this.isObject(this.extraData) && this.extraData.extratotal_label !== undefined? this.extraData.extratotal_label: "Day total";
                   const extratotal = extratotal_label + ": " + number_format(chart.datasets[tooltipItem.datasetIndex].todaydata[tooltipItem.index]) || '';
                   
                   // return array so that cumulative total and day total appear on separate lines.
                   return [datasetLabel + ': ' + number_format(tooltipItem.yLabel),extratotal] ;
 
-                }
+                }.bind(this) // important so that this.isObject(obj) can be seen by the callback. 
               }
             }
           }
