@@ -874,10 +874,10 @@ document.addEventListener('DOMContentLoaded', function () {
            casesdata[i] = result.data[i].cases;
            deathsdata[i] = result.data[i].expired;
        }
-        cData = new ChartConfig();
-        c7Data = new ChartConfig();
-        dData = new ChartConfig();
-        d7Data = new ChartConfig();
+        cData = new ChartDataSetup();
+        c7Data = new ChartDataSetup();
+        dData = new ChartDataSetup();
+        d7Data = new ChartDataSetup();
         
         cData.label = "Total Cases";
         casesDataObj(cData,caseslabels, casesdata, casestodaydata);
@@ -900,16 +900,16 @@ document.addEventListener('DOMContentLoaded', function () {
         d7Data.type = "bar";
         deathsDataObj(d7Data,casessevendaydatelabels, deathssevendaydata, totaldeathssevendaydata);
 
-       covidChartData(cData,"covidCasesChart");
-       covidChartData(c7Data,"casesSevenDays");
+       drawChartData(cData,"covidCasesChart");
+       drawChartData(c7Data,"casesSevenDays");
        
-       covidChartData(dData,"covidDeathsChart");
-       covidChartData(d7Data,"deathsSevenDays");
+       drawChartData(dData,"covidDeathsChart");
+       drawChartData(d7Data,"deathsSevenDays");
 
     }, "json");
 
 }); 
-// Check if colors/etc/. parameter supplied to function covidChartData/etc. is an object or not.
+// Check if colors/etc/. parameter supplied to function drawChartData/etc. is an object or not.
 const isObject = (obj) => {
     return Object.prototype.toString.call(obj) === '[object Object]';
 };
@@ -935,7 +935,7 @@ function deathsDataObj(graphData,labels_array, data_array, today_data_array)
 }
 
 //* Draw the chart once all parameters have been set for each graph.
-function covidChartData(cfg, chartname, extra_data)
+function drawChartData(chartData, chartname, extra_data)
 {
 
     if(document.getElementById(chartname)!== null)
@@ -944,12 +944,16 @@ function covidChartData(cfg, chartname, extra_data)
         var ctx = document.getElementById(chartname);
         //cfg = new ChartConfig(dataObject, extra_data);
         //console.log(cfg.data());
-        var myLineChart = new Chart(ctx, cfg.data()); 
+        var myLineChart = new Chart(ctx, chartData.data()); 
         
     }    
 }  
-
-class ChartConfig
+/**
+ * Create the settings for each graph that can be easily edited before the graph is drawn ...
+ * ... by calling a new chart class and sending this classes data() method in the process.
+ * @type void
+ */
+class ChartDataSetup
 {  
     constructor(extra_data){
 
@@ -1076,11 +1080,7 @@ class ChartConfig
         };
     };
 }
-//function chartConfig(dataObject, extra_data)
-//{
-//    return {};
-//}
-    
+
     </script>
 @endsection
 
