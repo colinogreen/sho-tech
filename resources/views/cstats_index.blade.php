@@ -874,17 +874,38 @@ document.addEventListener('DOMContentLoaded', function () {
            casesdata[i] = result.data[i].cases;
            deathsdata[i] = result.data[i].expired;
        }
+        cData = new ChartConfig();
+        c7Data = new ChartConfig();
+        dData = new ChartConfig();
+        d7Data = new ChartConfig();
+        
+        cData.label = "Total Cases";
+        casesDataObj(cData,caseslabels, casesdata, casestodaydata);
+        
+        c7Data.label = "Cases";
+        c7Data.type = "bar";
+        casesDataObj(c7Data,casessevendaydatelabels, casessevendaydata, totalcasessevendaydata);
+        
+        extra_settings = {label: "Total Deaths", pointBorderColor:"rgba(230, 138, 0)", pointBackgroundColor:"rgba(230, 138, 0)"};  
+        
+        dData.label = "Total Deaths";
+        const dColor = "rgba(230, 138, 0)";
+        dData.pointBorderColor = dColor;
+        dData.pointBackgroundColor = dColor;
+        deathsDataObj(dData,caseslabels, deathsdata, deathstodaydata);
+        
+        d7Data.label = "Deaths";
+        d7Data.pointBorderColor = dColor;
+        d7Data.pointBackgroundColor = dColor;
+        d7Data.type = "bar";
+        deathsDataObj(d7Data,casessevendaydatelabels, deathssevendaydata, totaldeathssevendaydata);
 
-       covidChartData(casesDataObj(caseslabels, casesdata, casestodaydata),"covidCasesChart");
+       covidChartData(cData,"covidCasesChart");
+       covidChartData(c7Data,"casesSevenDays");
+       
+       covidChartData(dData,"covidDeathsChart");
+       covidChartData(d7Data,"deathsSevenDays");
 
-       covidChartData(casesDataObj(casessevendaydatelabels, casessevendaydata, totalcasessevendaydata, {label: "Cases"}),
-       "casesSevenDays", {type:"bar", extratotal_label: "Total"});
-       //covidChartData(caseslabels, casesdata, "covidCasesChart", "Cases", null,casestodaydata);
-
-        covidChartData(deathsDataObj(caseslabels, deathsdata, deathstodaydata),"covidDeathsChart");
-        covidChartData(deathsDataObj(casessevendaydatelabels, deathssevendaydata, totaldeathssevendaydata, {label: "Deaths"}),
-        "deathsSevenDays",  {type:"bar", extratotal_label: "Total"});
-       //covidChartData(caseslabels, deathsdata, "covidDeathsChart", "Deaths to date", {pointBorderColor:"#ccc"},deathstodaydata);
     }, "json");
 
 }); 
@@ -893,62 +914,36 @@ const isObject = (obj) => {
     return Object.prototype.toString.call(obj) === '[object Object]';
 };
 
-function casesDataObj(labels_array, data_array, today_data_array, extra_data)
+//function casesDataObj(labels_array, data_array, today_data_array, extra_data)
+function casesDataObj(graphData,labels_array, data_array, today_data_array)
 {
-    var obj = dataObjectDefault();
-    obj.labels = labels_array;
-    obj.datasets[0].label = isObject(extra_data) && extra_data.label !== undefined ? extra_data.label :"Total cases";
-    obj.datasets[0].data = data_array;
-    obj.datasets[0].todaydata = today_data_array;
 
-    return obj;
+    graphData.labels = labels_array;
+    //graphData.label = "Total cases";
+    graphData.data_array = data_array;
+    graphData.todaydata = today_data_array;
+
 }
 
-function deathsDataObj(labels_array, data_array, today_data_array, extra_data)
-{
-    var obj = dataObjectDefault();
-    obj.labels = labels_array;
-    obj.datasets[0].label = isObject(extra_data) && extra_data.label !== undefined ? extra_data.label :"Total deaths";
-    obj.datasets[0].data = data_array;
-    obj.datasets[0].todaydata = today_data_array;   
-    obj.datasets[0].pointBorderColor = "#ccc";   
-    return obj;
-}
-function dataObjectDefault()
-{
-    var obj = {
-            labels: "My labels",
-            datasets: [{
-              label: "my label",
-              lineTension: 0.3,
-              backgroundColor: "rgba(78, 115, 223, 0.05)",
-              borderColor: "rgba(78, 115, 223, 1)",
-              pointRadius: 3,
-              pointBackgroundColor: "rgba(78, 115, 223, 1)",
-              pointBorderColor: "rgba(78, 115, 223, 1)",
-              pointHoverRadius: 3,
-              pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-              pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-              pointHitRadius: 10,
-              pointBorderWidth: 2,
-              data: [],
-              todaydata:[],
-            }],
+//function deathsDataObj(labels_array, data_array, today_data_array, extra_data)
+function deathsDataObj(graphData,labels_array, data_array, today_data_array)
+{  
+    graphData.labels = labels_array;
+    graphData.data_array = data_array;
+    graphData.todaydata = today_data_array;  
 
-          };
-          
-    return obj;
 }
 
-function covidChartData(dataObject, chartname, extra_data)
-//function covidChartData(chartlabels, chartdata, chartname, chartlabelname, colors, todaydata)
+//* Draw the chart once all parameters have been set for each graph.
+function covidChartData(cfg, chartname, extra_data)
 {
 
     if(document.getElementById(chartname)!== null)
     {
         //console.log("Attempting to render: " + chartname);
         var ctx = document.getElementById(chartname);
-        cfg = new ChartConfig(dataObject, extra_data);
+        //cfg = new ChartConfig(dataObject, extra_data);
+        //console.log(cfg.data());
         var myLineChart = new Chart(ctx, cfg.data()); 
         
     }    
@@ -956,17 +951,54 @@ function covidChartData(dataObject, chartname, extra_data)
 
 class ChartConfig
 {  
-    constructor(dataObject, extra_data){
-       //super(props);
-       this.dataObject = dataObject;
-       this.extraData = extra_data;
+    constructor(extra_data){
+
+        this.extraData = extra_data;
+       
+        //* Set defaults for the chart
+        this.type = "line";
+        //this.labels = "My labels";
+        this.label = "my label";
+        this.lineTension = 0.3;
+        this.backgroundColor = "rgba(78, 115, 223, 0.05)";
+        this.borderColor = "rgba(78, 115, 223, 1)";
+        this.pointRadius = 3;
+        this.pointBackgroundColor = "rgba(78, 115, 223, 1)";
+        this.pointBorderColor = "rgba(78, 115, 223, 1)";
+        this.pointHoverRadius = 3;
+        this.pointHoverBackgroundColor = "rgba(78, 115, 223, 1)";
+        this.pointHoverBorderColor = "rgba(78, 115, 223, 1)";
+        this.pointHitRadius = 10;
+        this.pointBorderWidth = 2;
+        this.data_array = [];
+        this.todaydata =[];
     }
     
     data()
     {
         return {
-          type: isObject(this.extraData) && this.extraData.type !== undefined? this.extraData.type :"line",
-          data: this.dataObject,
+          type: this.type,
+          //data: this.dataObject,
+          data: {
+            labels: this.labels,
+            datasets: [{
+              label: this.label,
+              lineTension: this.lineTension,
+              backgroundColor: this.backgroundColor,
+              borderColor: this.borderColor,
+              pointRadius: this.pointRadius,
+              pointBackgroundColor:this.pointBackgroundColor,
+              pointBorderColor: this.pointBorderColor,
+              pointHoverRadius: this.pointHoverRadius,
+              pointHoverBackgroundColor: this.pointHoverBackgroundColor,
+              pointHoverBorderColor: this.pointHoverBorderColor,
+              pointHitRadius: this.pointHitRadius,
+              pointBorderWidth: this.pointBorderWidth,
+              data: this.data_array,
+              todaydata:this.todaydata,
+            }],
+
+          },
           options: {
             maintainAspectRatio: false,
             layout: {
@@ -1042,7 +1074,7 @@ class ChartConfig
             }
           }
         };
-    }
+    };
 }
 //function chartConfig(dataObject, extra_data)
 //{
