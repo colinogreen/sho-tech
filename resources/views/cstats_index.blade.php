@@ -948,9 +948,25 @@ function covidChartData(dataObject, chartname, extra_data)
     {
         //console.log("Attempting to render: " + chartname);
         var ctx = document.getElementById(chartname);
-        var myLineChart = new Chart(ctx, {
-          type: isObject(extra_data) && extra_data.type !== undefined? extra_data.type :"line",
-          data: dataObject,
+        cfg = new ChartConfig(dataObject, extra_data);
+        var myLineChart = new Chart(ctx, cfg.data()); 
+        
+    }    
+}  
+
+class ChartConfig
+{  
+    constructor(dataObject, extra_data){
+       //super(props);
+       this.dataObject = dataObject;
+       this.extraData = extra_data;
+    }
+    
+    data()
+    {
+        return {
+          type: isObject(this.extraData) && this.extraData.type !== undefined? this.extraData.type :"line",
+          data: this.dataObject,
           options: {
             maintainAspectRatio: false,
             layout: {
@@ -1013,10 +1029,10 @@ function covidChartData(dataObject, chartname, extra_data)
               callbacks: {
                 label: function(tooltipItem, chart) {
                 //console.log(chart.datasets[tooltipItem.datasetIndex].todaydata);
-                  var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+                  const datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
                   //var todaytotal = "Day total: " + todaydata[tooltipItem.index] || '';
-                  extratotal_label = isObject(extra_data) && extra_data.extratotal_label !== undefined? extra_data.extratotal_label: "Day total";
-                  var extratotal = extratotal_label + ": " + number_format(chart.datasets[tooltipItem.datasetIndex].todaydata[tooltipItem.index]) || '';
+                  const extratotal_label = isObject(this.extraData) && this.extraData.extratotal_label !== undefined? this.extraData.extratotal_label: "Day total";
+                  const extratotal = extratotal_label + ": " + number_format(chart.datasets[tooltipItem.datasetIndex].todaydata[tooltipItem.index]) || '';
                   
                   // return array so that cumulative total and day total appear on separate lines.
                   return [datasetLabel + ': ' + number_format(tooltipItem.yLabel),extratotal] ;
@@ -1025,9 +1041,13 @@ function covidChartData(dataObject, chartname, extra_data)
               }
             }
           }
-        });    
-    }    
-}    
+        };
+    }
+}
+//function chartConfig(dataObject, extra_data)
+//{
+//    return {};
+//}
     
     </script>
 @endsection
