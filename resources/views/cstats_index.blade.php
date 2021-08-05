@@ -446,6 +446,23 @@ $bodyid = "page-top";
                                 </div>
                             </div>
                         </div>
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Seven day average cases to <span id="average_weekly_cases_date_date"></span></div>
+                                            <div id="average_weekly_cases_date" class="h5 mb-0 font-weight-bold text-gray-800">Please wait ...</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                      
                     </div>
 
                     <!-- Content Row -->
@@ -453,7 +470,7 @@ $bodyid = "page-top";
                     <div class="row">
 
                         <!-- Area Chart -->
-                        <div class="col-xl-8 col-lg-7">
+                        <div class="col-xl-5 col-lg-5">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
@@ -485,7 +502,7 @@ $bodyid = "page-top";
                             </div>
                         </div>
                     <!-- Graph Cases per day Chart -->
-                        <div class="col-xl-4 col-lg-5">
+                        <div class="col-xl-4 col-lg-4">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
@@ -526,6 +543,54 @@ $bodyid = "page-top";
                                 </div>
                             </div>
                         </div>
+  
+						<!-- Graph Cases Average trend -->
+                        <div class="col-xl-3 col-lg-3">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Weekly Average Cases trend</h6>
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                            aria-labelledby="dropdownMenuLink">
+                                            <div class="dropdown-header">Dropdown Header:</div>
+                                            <a class="dropdown-item" href="#">Action</a>
+                                            <a class="dropdown-item" href="#">Another action</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">Something else here</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="chart-pie pt-4 pb-2">
+                                    <?php //    <canvas id="myPieChart"></canvas> ?>
+                                        <canvas id="weeklyaverageCasesTrendChart"></canvas>
+                                    </div>
+                                    <div class="mt-4 text-center small">
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle text-primary"></i> Direct
+                                        </span>
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle text-success"></i> Social
+                                        </span>
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle text-info"></i> Referral
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                  
+                    
+                    </div>
+                    <!-- Content Row -->
+                    <div class="row">
+                        
                        <div class="col-xl-8 col-lg-7">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
@@ -828,6 +893,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const deaths_to_date = result.data[result.data.length -1].expired;
             const deaths_today = result.data[result.data.length -1].expired_today;
             const to_date_date = " (" + result.data[result.data.length -1].date + ")";
+            const weekly_average_cases = result.data[result.data.length -1].cases_average;
             //console.log(cases_to_date);
 
             $("#total_cases_to_date").html(number_format(cases_to_date));
@@ -838,6 +904,8 @@ document.addEventListener('DOMContentLoaded', function () {
             $("#total_cases_for_date").html(number_format(cases_today));
             $("#total_deaths_for_date_date").html(to_date_date);
             $("#total_deaths_for_date").html(number_format(deaths_today));
+            $("#average_weekly_cases_date").html(number_format(weekly_average_cases));
+            $("#average_weekly_cases_date_date").html(to_date_date);
        }
        caseslabels = new Array(result.data.length);
        casessevendaydatelabels = new Array(7);
@@ -879,6 +947,7 @@ document.addEventListener('DOMContentLoaded', function () {
         dConfig = new ChartConfigSetup();
         d7Config = new ChartConfigSetup();
         
+        
         const cColor = "rgba(78, 115, 223, 1)";
         const cColor2 = "rgba(104, 135, 227, 1)";
         const dColor = "rgba(230, 138, 0)";
@@ -902,7 +971,7 @@ document.addEventListener('DOMContentLoaded', function () {
         dConfig.dataExtraConfig(d_extra_config);
 
         d7_extra_config = {label: "Deaths", labels:casessevendaydatelabels, data_array:deathssevendaydata, 
-            todaydata:totaldeathssevendaydata, backgroundColor:dBarBackground, type: "bar"};
+            todaydata:totaldeathssevendaydata, backgroundColor:dBarBackground, type: "bar", extratotal_label: "Deaths to date"};
         
         d7Config.dataExtraConfig(d7_extra_config);
         
@@ -911,11 +980,42 @@ document.addEventListener('DOMContentLoaded', function () {
         
         drawChartData(dConfig,"covidDeathsChart");
         drawChartData(d7Config,"deathsSevenDays");
+        
+         // weekly average start element accoring to week steps up to 15 days less than latest element -1
+        //const avstart = (result.data.length < 15)?result.data.length: 15;
+        //const avend =(avstart -15);
+        
+        //console.log(avstart);
+
+        const caseavglabels = calcGraphAveragesData(result.data, "date");
+        const caseavgdata = calcGraphAveragesData(result.data, "cases_average");
+        
+        console.log("caseavglabels");
+        console.log(caseavglabels);
+        
+        CasesAvgConfig = new ChartConfigSetup();
+        caseaverage_config = {label:"Cases 7 Day average", labels:caseavglabels, data_array:caseavgdata};
+        
+        CasesAvgConfig.dataExtraConfig(caseaverage_config);
+        drawChartData(CasesAvgConfig,"weeklyaverageCasesTrendChart");
+        //weeklyaverageCasesTrendChart
+
 
     }, "json");
 
 }); 
 
+function calcGraphAveragesData(array, object_name)
+{       
+        const avstart = (array.length < 15)? array.length: 15;
+        const return_array = new Array();
+        for(var n = (array.length - avstart); n < (array.length); n+=7)
+        {
+            return_array[return_array.length] =  array[n][object_name];
+        }
+        //console.log(return_array);
+        return return_array;
+}
 //const isObject = (obj) => {
 //    return Object.prototype.toString.call(obj) === '[object Object]';
 //};
@@ -941,10 +1041,10 @@ class ChartConfigSetup
     constructor(extra_data){
 
         this.extraData = extra_data;
-       
+        this.extratotal_label;
         //* Set defaults for the main chart visual look and data controls
         this.type = "line";
-        this.labels = "My labels";
+        this.labels = [];
         this.label = "my label";
         this.lineTension = 0.3;
         this.backgroundColor = "rgba(78, 115, 223, 0.05)";
@@ -1063,17 +1163,21 @@ class ChartConfigSetup
               mode: 'index',
               caretPadding: 10,
               callbacks: {
-                label: function(tooltipItem, chart) {
+                label: (tooltipItem, chart)=> {
                 //console.log(chart.datasets[tooltipItem.datasetIndex].todaydata);
                   const datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
                   //var todaytotal = "Day total: " + todaydata[tooltipItem.index] || '';
-                  const extratotal_label = this.isObject(this.extraData) && this.extraData.extratotal_label !== undefined? this.extraData.extratotal_label: "Day total";
-                  const extratotal = extratotal_label + ": " + number_format(chart.datasets[tooltipItem.datasetIndex].todaydata[tooltipItem.index]) || '';
+                  const extratotal_label = this.extratotal_label !== undefined ? this.extratotal_label + ": " : "Day total";
+                  
+                  const extra_total_value = (chart.datasets[tooltipItem.datasetIndex].todaydata[tooltipItem.index]) 
+                  ? extratotal_label + ": " +number_format(chart.datasets[tooltipItem.datasetIndex].todaydata[tooltipItem.index]) : "";
+                  
+                  const extratotal = extra_total_value || '';
                   
                   // return array so that cumulative total and day total appear on separate lines.
                   return [datasetLabel + ': ' + number_format(tooltipItem.yLabel),extratotal] ;
 
-                }.bind(this) // important so that this.isObject(obj) can be seen by the callback. 
+                }//.bind(this) // important so that this.isObject(obj) can be seen by the callback (if not using arrow function). 
               }
             }
           }
