@@ -365,7 +365,7 @@ $bodyid = "page-top";
                     <div class="row">
 
                         <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="col-xl-2 col-md-6 mb-4">
                             <div class="card border-left-primary shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -383,7 +383,7 @@ $bodyid = "page-top";
                         </div>
 
                         <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="col-xl-2 col-md-6 mb-4">
                             <div class="card border-left-success shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -401,7 +401,7 @@ $bodyid = "page-top";
                         </div>
 
                         <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="col-xl-2 col-md-6 mb-4">
                             <div class="card border-left-info shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -430,7 +430,7 @@ $bodyid = "page-top";
                         </div>
 
                         <!-- Pending Requests Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="col-xl-2 col-md-6 mb-4">
                             <div class="card border-left-warning shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -447,7 +447,7 @@ $bodyid = "page-top";
                             </div>
                         </div>
                         <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="col-xl-2 col-md-6 mb-4">
                             <div class="card border-left-primary shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -470,11 +470,10 @@ $bodyid = "page-top";
                     <div class="row">
 
                         <!-- Area Chart -->
-                        <div class="col-xl-5 col-lg-5">
+                        <div class="col-xl-6 col-lg-5">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <div id="cases-in-uk" class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">Covid Cases in the UK</h6>
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -483,8 +482,8 @@ $bodyid = "page-top";
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                             aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
+                                            <div class="dropdown-header">Page Links:</div>
+                                            <a class="dropdown-item" href="#covid-expired-uk">Covid Deaths in the UK</a>
                                             <a class="dropdown-item" href="#">Another action</a>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="#">Something else here</a>
@@ -502,7 +501,7 @@ $bodyid = "page-top";
                             </div>
                         </div>
                     <!-- Graph Cases per day Chart -->
-                        <div class="col-xl-4 col-lg-4">
+                        <div class="col-xl-3 col-lg-4">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
@@ -550,7 +549,9 @@ $bodyid = "page-top";
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Weekly Average Cases trend</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Average Weekly Cases trend</h6>
+                                    <?php
+                                    /*
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -564,16 +565,16 @@ $bodyid = "page-top";
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="#">Something else here</a>
                                         </div>
-                                    </div>
+                                    </div> */ ?>
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     <div class="chart-pie pt-4 pb-2">
                                     <?php //    <canvas id="myPieChart"></canvas> ?>
-                                        <canvas id="weeklyaverageCasesTrendChart"></canvas>
+                                        <canvas id="weeklyAverageCasesTrendChart"></canvas>
                                     </div>
-                                    <div class="mt-4 text-center small">
-                                        <span class="mr-2">
+                                 <div class="mt-4 text-center small">
+                                   <?php /*       <span class="mr-2">
                                             <i class="fas fa-circle text-primary"></i> Direct
                                         </span>
                                         <span class="mr-2">
@@ -581,7 +582,7 @@ $bodyid = "page-top";
                                         </span>
                                         <span class="mr-2">
                                             <i class="fas fa-circle text-info"></i> Referral
-                                        </span>
+                                        </span> */ ?>
                                     </div>
                                 </div>
                             </div>
@@ -591,11 +592,11 @@ $bodyid = "page-top";
                     <!-- Content Row -->
                     <div class="row">
                         
-                       <div class="col-xl-8 col-lg-7">
+                       <div class="col-xl-6 col-lg-5">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    id="covid-expired-uk" class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">Covid Deaths in the UK</h6>
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -604,8 +605,8 @@ $bodyid = "page-top";
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                             aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
+                                            <div class="dropdown-header">Page Links:</div>
+                                            <a class="dropdown-item" href="#cases-in-uk">Cases in the UK</a>
                                             <a class="dropdown-item" href="#">Another action</a>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="#">Something else here</a>
@@ -622,7 +623,7 @@ $bodyid = "page-top";
                             </div>
                         </div>
                         <!-- Bar Chart -->
-                        <div class="col-xl-4 col-lg-5">
+                        <div class="col-xl-3 col-lg-4">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
@@ -662,6 +663,49 @@ $bodyid = "page-top";
                                 </div>
                             </div>
                         </div>
+                     <div class="col-xl-3 col-lg-3">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Average Weekly Deaths trend</h6>
+                                    <?php
+                                    /*
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                            aria-labelledby="dropdownMenuLink">
+                                            <div class="dropdown-header">Dropdown Header:</div>
+                                            <a class="dropdown-item" href="#">Action</a>
+                                            <a class="dropdown-item" href="#">Another action</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">Something else here</a>
+                                        </div>
+                                    </div> */ ?>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="chart-pie pt-4 pb-2">
+                                        <canvas id="weeklyAverageExpiredTrendChart"></canvas>
+                                    </div>
+                                 <div class="mt-4 text-center small">
+                                   <?php /*       <span class="mr-2">
+                                            <i class="fas fa-circle text-primary"></i> Direct
+                                        </span>
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle text-success"></i> Social
+                                        </span>
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle text-info"></i> Referral
+                                        </span> */ ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  
+                    
                     </div>
 
                     <!-- Content Row -->
@@ -950,8 +994,8 @@ document.addEventListener('DOMContentLoaded', function () {
         
         const cColor = "rgba(78, 115, 223, 1)";
         const cColor2 = "rgba(104, 135, 227, 1)";
-        const dColor = "rgba(230, 138, 0)";
-        const dColor2 = "rgba(255, 163, 26)";
+        const dColor = "rgba(230, 138, 0, 1)";
+        const dColor2 = "rgba(255, 163, 26, 1)";
         const cBarBackground =  [cColor, cColor2, cColor, cColor2, cColor, cColor2, cColor];
         const dBarBackground =  [dColor, dColor2, dColor, dColor2, dColor, dColor2, dColor];
         
@@ -966,7 +1010,7 @@ document.addEventListener('DOMContentLoaded', function () {
         c7Config.dataExtraConfig(c7_extra_config); //  labels data_array todaydata
  
         d_extra_config = {label: "Total Deaths", labels:caseslabels, data_array:deathsdata, todaydata:deathstodaydata,
-            pointBorderColor:dColor, pointBackgroundColor:dColor};
+            borderColor:dColor, pointBorderColor:dColor, pointBackgroundColor:dColor};
         
         dConfig.dataExtraConfig(d_extra_config);
 
@@ -988,17 +1032,25 @@ document.addEventListener('DOMContentLoaded', function () {
         //console.log(avstart);
 
         const caseavglabels = calcGraphAveragesData(result.data, "date");
+        //const expiredavglabels = calcGraphAveragesData(result.data, "date");
         const caseavgdata = calcGraphAveragesData(result.data, "cases_average");
+        const expiredavgdata = calcGraphAveragesData(result.data, "expired_average");
         
         console.log("caseavglabels");
         console.log(caseavglabels);
         
-        CasesAvgConfig = new ChartConfigSetup();
-        caseaverage_config = {label:"Cases 7 Day average", labels:caseavglabels, data_array:caseavgdata};
+        casesAvgConfig = new ChartConfigSetup();
+        expiredAvgConfig = new ChartConfigSetup();
+        caseaverage_config = {label:"Average", labels:caseavglabels, data_array:caseavgdata};
+        expiredaverage_config = {label:"Average", labels:caseavglabels, data_array:expiredavgdata,
+            borderColor:dColor, pointBorderColor:dColor2, pointBackgroundColor:dColor};
         
-        CasesAvgConfig.dataExtraConfig(caseaverage_config);
-        drawChartData(CasesAvgConfig,"weeklyaverageCasesTrendChart");
-        //weeklyaverageCasesTrendChart
+        casesAvgConfig.dataExtraConfig(caseaverage_config);
+        expiredAvgConfig.dataExtraConfig(expiredaverage_config);
+        
+        drawChartData(casesAvgConfig,"weeklyAverageCasesTrendChart");
+        drawChartData(expiredAvgConfig,"weeklyAverageExpiredTrendChart");
+        //weeklyAverageCasesTrendChart
 
 
     }, "json");
@@ -1162,6 +1214,7 @@ class ChartConfigSetup
               intersect: false,
               mode: 'index',
               caretPadding: 10,
+              enabled:true,
               callbacks: {
                 label: (tooltipItem, chart)=> {
                 //console.log(chart.datasets[tooltipItem.datasetIndex].todaydata);
