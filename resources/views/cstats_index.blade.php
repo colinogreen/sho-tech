@@ -955,7 +955,7 @@ document.addEventListener('DOMContentLoaded', function () {
         c7Config.getGraphData2("cases", start_item);
         c7Config.getGraphData1("cases_today",start_item);
 
-        c7Config.dataExtraConfig({label:"Cases for day", type: "bar", 
+        c7Config.dataExtraConfig({label:"Cases for day", extratotal_label:"Total to date", type: "bar", 
             backgroundColor:[cColor, cColor2, cColor, cColor2, cColor, cColor2, cColor]}); //  labels data_array todaydata
             
         drawChartData(c7Config,"casesSevenDays");       
@@ -997,7 +997,7 @@ document.addEventListener('DOMContentLoaded', function () {
         d7Config.getGraphData2("expired", start_item);
         d7Config.getGraphData1("expired_today",start_item);
 
-        d7Config.dataExtraConfig({label:"Deaths for day", type: "bar", 
+        d7Config.dataExtraConfig({label:"Deaths for day",extratotal_label:"Total to date", type: "bar", 
             backgroundColor:[dColor, dColor2, dColor, dColor2, dColor, dColor2, dColor]}); //  labels data_array todaydata
             
         drawChartData(d7Config,"deathsSevenDays");       
@@ -1286,6 +1286,7 @@ class ChartConfigSetup
                 //console.log(chart.datasets[tooltipItem.datasetIndex].todaydata);
                   const datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
                   //var todaytotal = "Day total: " + todaydata[tooltipItem.index] || '';
+                  //console.log("extratotal_label: " + this.extratotal_label);
                   const extratotal_label = this.extratotal_label !== undefined ? this.extratotal_label + ": " : "Day total";
                   
                   const extra_total_value = (chart.datasets[tooltipItem.datasetIndex].data2[tooltipItem.index]) 
