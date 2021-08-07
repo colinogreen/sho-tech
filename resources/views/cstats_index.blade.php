@@ -470,23 +470,20 @@ $bodyid = "page-top";
                     <div class="row">
 
                         <!-- Area Chart -->
-                        <div class="col-xl-6 col-lg-5">
+                        <div id="cases-in-uk" class="in_page_link col-xl-6 col-lg-5">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
-                                <div id="cases-in-uk" class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">Covid Cases in the UK</h6>
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                         </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                        <div class="stats-dropdown-menu dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                             aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Page Links:</div>
-                                            <a class="dropdown-item" href="#covid-expired-uk">Covid Deaths in the UK</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
+                                            <div class="dropdown-header">Other Charts:</div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -501,7 +498,7 @@ $bodyid = "page-top";
                             </div>
                         </div>
                     <!-- Graph Cases per day Chart -->
-                        <div class="col-xl-3 col-lg-4">
+                        <div id="cases-last-7-days" class="in_page_link col-xl-3 col-lg-4">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
@@ -512,13 +509,10 @@ $bodyid = "page-top";
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                         </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                        <div class="stats-dropdown-menu dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                             aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
+                                            <div class="dropdown-header">Other charts:</div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -544,28 +538,25 @@ $bodyid = "page-top";
                         </div>
   
 						<!-- Graph Cases Average trend -->
-                        <div class="col-xl-3 col-lg-3">
+                        <div id="average-cases-weekly" class="in_page_link col-xl-3 col-lg-3">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">Average Weekly Cases trend</h6>
-                                    <?php
-                                    /*
+                                    
+                                   
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                         </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                        <div class="stats-dropdown-menu  dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                             aria-labelledby="dropdownMenuLink">
                                             <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
+
                                         </div>
-                                    </div> */ ?>
+                                    </div> 
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
@@ -592,24 +583,20 @@ $bodyid = "page-top";
                     <!-- Content Row -->
                     <div class="row">
                         
-                       <div class="col-xl-6 col-lg-5">
+                       <div id="covid-deaths-in-the-uk" class="in_page_link col-xl-6 col-lg-5">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
-                                <div
-                                    id="covid-expired-uk" class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <div id="" class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">Covid Deaths in the UK</h6>
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                         </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                        <div class="stats-dropdown-menu dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                             aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Page Links:</div>
-                                            <a class="dropdown-item" href="#cases-in-uk">Cases in the UK</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
+                                            <div class="dropdown-header">Charts:</div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -623,7 +610,7 @@ $bodyid = "page-top";
                             </div>
                         </div>
                         <!-- Bar Chart -->
-                        <div class="col-xl-3 col-lg-4">
+                        <div id="expired-seven-days" class="in_page_link col-xl-3 col-lg-4">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
@@ -634,7 +621,7 @@ $bodyid = "page-top";
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                         </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                        <div class="stats-dropdown-menu dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                             aria-labelledby="dropdownMenuLink">
                                             <div class="dropdown-header">Dropdown Header:</div>
                                             <a class="dropdown-item" href="#">Action</a>
@@ -663,7 +650,7 @@ $bodyid = "page-top";
                                 </div>
                             </div>
                         </div>
-                     <div class="col-xl-3 col-lg-3">
+                     <div id="expired-average-trend" class="in_page_link col-xl-3 col-lg-3">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
@@ -1036,8 +1023,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const caseavgdata = calcGraphAveragesData(result.data, "cases_average");
         const expiredavgdata = calcGraphAveragesData(result.data, "expired_average");
         
-        console.log("caseavglabels");
-        console.log(caseavglabels);
+        //console.log("caseavglabels");
+        //console.log(caseavglabels);
         
         casesAvgConfig = new ChartConfigSetup();
         expiredAvgConfig = new ChartConfigSetup();
@@ -1051,11 +1038,41 @@ document.addEventListener('DOMContentLoaded', function () {
         drawChartData(casesAvgConfig,"weeklyAverageCasesTrendChart");
         drawChartData(expiredAvgConfig,"weeklyAverageExpiredTrendChart");
         //weeklyAverageCasesTrendChart
-
+        setGraphCardLinks();
 
     }, "json");
 
 }); 
+
+function setGraphCardLinks()
+{
+    const in_page_links = document.getElementsByClassName("in_page_link");
+    var links_list = "";
+    for(var i in in_page_links)
+    {
+        
+        if(in_page_links[i].id !== undefined)
+        {
+            console.log(i);
+            //console.log(in_page_links[i].id);
+            var label = in_page_links[i].id.replace(/\-/g, " ");
+            label = label.replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())));;
+            links_list += '<a class="dropdown-item" href="#' + in_page_links[i].id +'">' + label + '</a>' + "\n";
+        }
+        
+    }
+    
+    if(document.getElementsByClassName("stats-dropdown-menu")!== null)
+    {
+        const stats_dropdown = document.getElementsByClassName("stats-dropdown-menu");
+        for (n in document.getElementsByClassName("stats-dropdown-menu") )
+        {
+            stats_dropdown[n].innerHTML = stats_dropdown[n].innerHTML + links_list;
+        }
+    }
+    
+    console.log(links_list);
+}
 
 function calcGraphAveragesData(array, object_name)
 {       
