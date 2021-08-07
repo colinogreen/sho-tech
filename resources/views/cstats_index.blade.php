@@ -498,7 +498,7 @@ $bodyid = "page-top";
                             </div>
                         </div>
                     <!-- Graph Cases per day Chart -->
-                        <div id="cases-last-7-days" class="in_page_link col-xl-3 col-lg-4">
+                        <div id="cases--last-7-days" class="in_page_link col-xl-3 col-lg-4">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
@@ -511,7 +511,7 @@ $bodyid = "page-top";
                                         </a>
                                         <div class="stats-dropdown-menu dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                             aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Other charts:</div>
+                                            <div class="dropdown-header">Other Charts:</div>
 
                                         </div>
                                     </div>
@@ -553,7 +553,7 @@ $bodyid = "page-top";
                                         </a>
                                         <div class="stats-dropdown-menu  dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                             aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
+                                            <div class="dropdown-header">Other Charts:</div>
 
                                         </div>
                                     </div> 
@@ -595,7 +595,7 @@ $bodyid = "page-top";
                                         </a>
                                         <div class="stats-dropdown-menu dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                             aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Charts:</div>
+                                            <div class="dropdown-header">Other Charts:</div>
 
                                         </div>
                                     </div>
@@ -623,11 +623,8 @@ $bodyid = "page-top";
                                         </a>
                                         <div class="stats-dropdown-menu dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                             aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
+                                            <div class="dropdown-header">Other Charts:</div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -650,28 +647,24 @@ $bodyid = "page-top";
                                 </div>
                             </div>
                         </div>
-                     <div id="expired-average-trend" class="in_page_link col-xl-3 col-lg-3">
+                     <div id="average-weekly-deaths-trend" class="in_page_link col-xl-3 col-lg-3">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">Average Weekly Deaths trend</h6>
-                                    <?php
-                                    /*
+
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                         </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                        <div class="stats-dropdown-menu dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                             aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
+                                            <div class="dropdown-header">Other Charts:</div>
+
                                         </div>
-                                    </div> */ ?>
+                                    </div> 
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
@@ -938,20 +931,72 @@ document.addEventListener('DOMContentLoaded', function () {
             $("#average_weekly_cases_date").html(number_format(weekly_average_cases));
             $("#average_weekly_cases_date_date").html(to_date_date);
        }
-       caseslabels = new Array(result.data.length);
-       casessevendaydatelabels = new Array(7);
+       //caseslabels = new Array(result.data.length);
+       
        //deathssevendaydatelabels = new Array(7);
 
-       casesdata = new Array(result.data.length);
+       //casesdata = new Array(result.data.length);
+       
+       //** Graph Covid Cases In the UK | START
+        cConfig = new ChartConfigSetup(result.data); //* Updated way of doing things
+        cConfig.getGraphLabels("date");
+        cConfig.getGraphData1("cases");
+        cConfig.getGraphData2("cases_today");
+        //c_extra_config = {label:"Total Cases", labels:caseslabels, data_array:casesdata, todaydata:casestodaydata};
+        //cConfig.label = "Total Cases";
+        cConfig.dataExtraConfig({label:"Total Cases"}); //  labels data_array todaydata
+        
+//            console.log(cConfig.labels);
+//            console.log("cConfig.graphData1");
+//            
+//            console.log(cConfig.graphData1);
+//            //console.log(casesdata);  
+//            console.log("cConfig.graphData2 - cases_today");
+//            console.log(cConfig.graphData2);
+//            //console.log(casestodaydata); 
+            
+        drawChartData(cConfig,"covidCasesChart");
+        //** Graph Covid Cases In the UK | END
+        //////////////////////////////////////
+        //** Graph: Cases Last Seven Days | START
+        const start_item = (result.data.length -7);
+        c7Config = new ChartConfigSetup(result.data); //* Updated way of doing things
+        c7Config.getGraphLabels("date", start_item);
+        c7Config.getGraphData2("cases", start_item);
+        c7Config.getGraphData1("cases_today",start_item);
+
+        c7Config.dataExtraConfig({label:"Cases for day"}); //  labels data_array todaydata
+            
+        drawChartData(c7Config,"casesSevenDays");       
+        //** Graph: Cases Last Seven Days | END
+
+        //////////////////////////////////////
+        //** Graph: Average Weekly Cases trend | START
+        const av_start_item = (result.data.length -15);
+        const loop_step = 7;
+        cAvgWeek = new ChartConfigSetup(result.data); //* Updated way of doing things
+        cAvgWeek.getGraphAveragesLabels("date", av_start_item, loop_step);
+        cAvgWeek.getGraphAveragesData("cases_average", av_start_item, loop_step);
+        //cAvgWeek.getGraphData1("cases_today",start_item);
+
+        cAvgWeek.dataExtraConfig({label:"Average"}); //  labels data_array todaydata
+            
+        drawChartData(cAvgWeek,"weeklyAverageCasesTrendChart");       
+        //** Graph: Average Weekly Cases trend | END
+       /*
+       casessevendaydatelabels = new Array(7);
        casessevendaydata = new Array(7);
        totalcasessevendaydata = new Array(7);
        deathssevendaydata = new Array(7);
        totaldeathssevendaydata = new Array(7);
        casestodaydata= new Array(result.data.length);
+       
+
 
        deathsdata = new Array(result.data.length);
        deathstodaydata = new Array(result.data.length);
        daycount = 0;
+       
        for(var i=0; i < result.data.length; i++)
        {
            casestodaydata[i] = result.data[i].cases_today;
@@ -967,13 +1012,23 @@ document.addEventListener('DOMContentLoaded', function () {
                daycount++;
            }
 
+
            //console.log("** DEBUG 7 DAY | START");console.log(casessevendaydatelabels); console.log(casessevendaydata); console.log(caseslabels); console.log("** DEBUG 7 DAY | END");
            deathstodaydata[i] = result.data[i].expired_today;
            caseslabels[i] = result.data[i].date;
            casesdata[i] = result.data[i].cases;
            deathsdata[i] = result.data[i].expired;
        }
-        cConfig = new ChartConfigSetup();
+            cConfig.getGraphData1("cases");
+            cConfig.getGraphData2("cases_today");
+            
+            console.log("cConfig.graphData1");
+            console.log(cConfig.graphData1);
+            console.log(casesdata);  
+            console.log("cConfig.graphData2 - cases_today");
+            console.log(cConfig.graphData2);
+            console.log(casestodaydata); 
+            
         c7Config = new ChartConfigSetup();
         dConfig = new ChartConfigSetup();
         d7Config = new ChartConfigSetup();
@@ -1012,32 +1067,31 @@ document.addEventListener('DOMContentLoaded', function () {
         drawChartData(dConfig,"covidDeathsChart");
         drawChartData(d7Config,"deathsSevenDays");
         
-         // weekly average start element accoring to week steps up to 15 days less than latest element -1
-        //const avstart = (result.data.length < 15)?result.data.length: 15;
-        //const avend =(avstart -15);
-        
-        //console.log(avstart);
-
+        //* Cases Average Data
         const caseavglabels = calcGraphAveragesData(result.data, "date");
         //const expiredavglabels = calcGraphAveragesData(result.data, "date");
         const caseavgdata = calcGraphAveragesData(result.data, "cases_average");
-        const expiredavgdata = calcGraphAveragesData(result.data, "expired_average");
-        
-        //console.log("caseavglabels");
-        //console.log(caseavglabels);
         
         casesAvgConfig = new ChartConfigSetup();
-        expiredAvgConfig = new ChartConfigSetup();
         caseaverage_config = {label:"Average", labels:caseavglabels, data_array:caseavgdata};
+        
+        casesAvgConfig.dataExtraConfig(caseaverage_config);
+        drawChartData(casesAvgConfig,"weeklyAverageCasesTrendChart");
+        
+        //* Expired Average Data
+        const expiredavgdata = calcGraphAveragesData(result.data, "expired_average");
+        expiredAvgConfig = new ChartConfigSetup();
+
         expiredaverage_config = {label:"Average", labels:caseavglabels, data_array:expiredavgdata,
             borderColor:dColor, pointBorderColor:dColor2, pointBackgroundColor:dColor};
         
-        casesAvgConfig.dataExtraConfig(caseaverage_config);
+        
         expiredAvgConfig.dataExtraConfig(expiredaverage_config);
         
-        drawChartData(casesAvgConfig,"weeklyAverageCasesTrendChart");
+        
         drawChartData(expiredAvgConfig,"weeklyAverageExpiredTrendChart");
         //weeklyAverageCasesTrendChart
+        */
         setGraphCardLinks();
 
     }, "json");
@@ -1053,9 +1107,9 @@ function setGraphCardLinks()
         
         if(in_page_links[i].id !== undefined)
         {
-            console.log(i);
-            //console.log(in_page_links[i].id);
+            // Replace dashes in link name to formulate link title
             var label = in_page_links[i].id.replace(/\-/g, " ");
+            // Capitalise all words in the link title (no 'php style' ucwords function in JavaScript).
             label = label.replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())));;
             links_list += '<a class="dropdown-item" href="#' + in_page_links[i].id +'">' + label + '</a>' + "\n";
         }
@@ -1071,7 +1125,7 @@ function setGraphCardLinks()
         }
     }
     
-    console.log(links_list);
+    //console.log(links_list);
 }
 
 function calcGraphAveragesData(array, object_name)
@@ -1107,9 +1161,18 @@ function drawChartData(chartConfig, chartname, extra_data)
  */
 class ChartConfigSetup
 {  
-    constructor(extra_data){
+    constructor(result_data){
 
-        this.extraData = extra_data;
+        //this.extraData = extra_data;
+        this.labels_array = [];
+        this.result_data = result_data;
+        //console.log(data_array);
+
+        
+        this.graphData1 = [];
+        this.graphData2 = [];
+        this.averages_array = [];
+        
         this.extratotal_label;
         //* Set defaults for the main chart visual look and data controls
         this.type = "line";
@@ -1126,10 +1189,71 @@ class ChartConfigSetup
         this.pointHoverBorderColor = "rgba(78, 115, 223, 1)";
         this.pointHitRadius = 10;
         this.pointBorderWidth = 2;
-        this.data_array = [];
-        this.todaydata =[];// Colin's custom entry
+        //this.data_array = [];
+        //this.todaydata =[];// Colin's custom entry
     }
     
+    getGraphAveragesLabels(object_label, start_array_item, loop_step)
+    {
+        this.labels = this.getGraphAveragesItem(object_label, start_array_item, loop_step);
+    }  
+    
+    getGraphAveragesData(object_label, start_array_item, loop_step)
+    {
+        this.graphData1 = this.getGraphAveragesItem(object_label, start_array_item, loop_step);
+    }   
+    
+    getGraphAveragesItem(object_name, start_array_item, loop_step)
+    {       
+        start_array_item = (start_array_item === undefined)? 0: start_array_item;
+        //const avstart = (this.data_array.length < start_array_item)? this.data_array.length: start_array_item;
+        //console.log("start_array_item: " + start_array_item);
+        //console.log("loop_step: " + loop_step);
+        var graphdata = new Array();
+        for(var n = start_array_item; n < this.result_data.length; n+= loop_step)
+        {
+            graphdata[graphdata.length] =  this.result_data[n][object_name];
+        }
+            //console.log(return_array);
+        return graphdata;
+    } 
+    
+    getGraphLabels(object_label, start_array_item)
+    {
+        //console.log(this.result_data);
+        this.labels = this.getGraphData(object_label,start_array_item);
+    }
+    
+    getGraphData1(object_label,start_array_item)
+    {
+        //console.log(this.result_data);
+        this.graphData1 = this.getGraphData(object_label,start_array_item);
+    }
+    
+    getGraphData2(object_label,start_array_item)
+    {
+        this.graphData2 = this.getGraphData(object_label,start_array_item);
+    }
+    getGraphData(object_label, start_array_item)
+    {
+       start_array_item = (start_array_item === undefined)? 0: start_array_item;
+       //console.log("start_array_item: " + start_array_item);
+       //var itemcount = 0;
+       var graphdata = new Array();
+       for(var i= start_array_item ; i < this.result_data.length; i++)
+       {
+           graphdata[graphdata.length] = this.result_data[i][object_label];
+//           if(i >= (this.data_array.length - 7))
+//           {
+//               graphdata[daycount] = this.data_array[i][object_label];
+//
+//               daycount++;
+//           }
+
+       } 
+       
+       return graphdata;
+    }
     isObject(obj)
     {
         return Object.prototype.toString.call(obj) === '[object Object]';
@@ -1167,8 +1291,8 @@ class ChartConfigSetup
               pointHoverBorderColor: this.pointHoverBorderColor,
               pointHitRadius: this.pointHitRadius,
               pointBorderWidth: this.pointBorderWidth,
-              data: this.data_array,
-              todaydata:this.todaydata, // Colin's custom entry
+              data: this.graphData1,
+              data2:this.graphData2, // For extra graph data
             }]
 
           },
@@ -1239,8 +1363,8 @@ class ChartConfigSetup
                   //var todaytotal = "Day total: " + todaydata[tooltipItem.index] || '';
                   const extratotal_label = this.extratotal_label !== undefined ? this.extratotal_label + ": " : "Day total";
                   
-                  const extra_total_value = (chart.datasets[tooltipItem.datasetIndex].todaydata[tooltipItem.index]) 
-                  ? extratotal_label + ": " +number_format(chart.datasets[tooltipItem.datasetIndex].todaydata[tooltipItem.index]) : "";
+                  const extra_total_value = (chart.datasets[tooltipItem.datasetIndex].data2[tooltipItem.index]) 
+                  ? extratotal_label + ": " +number_format(chart.datasets[tooltipItem.datasetIndex].data2[tooltipItem.index]) : "";
                   
                   const extratotal = extra_total_value || '';
                   
