@@ -906,9 +906,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     $.post("/cvstats", {"date_from":"2020-02-01", "date_to":formatTodaysDate() , "_token": '{{csrf_token()}}'}, function(result){
-        //console.log("== DEBUG AJAX RESULTS ==");
-        //console.log(result);
-        //console.log(result.data[0].date);
 
        if(document.getElementById("total_cases_to_date")!== null)
        {         
@@ -931,11 +928,11 @@ document.addEventListener('DOMContentLoaded', function () {
             $("#average_weekly_cases_date").html(number_format(weekly_average_cases));
             $("#average_weekly_cases_date_date").html(to_date_date);
        }
-       //caseslabels = new Array(result.data.length);
-       
-       //deathssevendaydatelabels = new Array(7);
-
-       //casesdata = new Array(result.data.length);
+        const cColor = "rgba(78, 115, 223, 1)"; // Blue-ish alternating bar chart colors
+        const cColor2 = "rgba(104, 135, 227, 1)"; // Blue-ish alternating bar chart colors
+        
+        const dColor = "rgba(230, 138, 0, 1)"; // Orangey alternating bar chart colors
+        const dColor2 = "rgba(255, 163, 26, 1)"; // Orangey alternating bar chart colors
        
        //** Graph Covid Cases In the UK | START
         cConfig = new ChartConfigSetup(result.data); //* Updated way of doing things
@@ -945,27 +942,21 @@ document.addEventListener('DOMContentLoaded', function () {
         //c_extra_config = {label:"Total Cases", labels:caseslabels, data_array:casesdata, todaydata:casestodaydata};
         //cConfig.label = "Total Cases";
         cConfig.dataExtraConfig({label:"Total Cases"}); //  labels data_array todaydata
-        
-//            console.log(cConfig.labels);
-//            console.log("cConfig.graphData1");
-//            
-//            console.log(cConfig.graphData1);
-//            //console.log(casesdata);  
-//            console.log("cConfig.graphData2 - cases_today");
-//            console.log(cConfig.graphData2);
-//            //console.log(casestodaydata); 
-            
+
         drawChartData(cConfig,"covidCasesChart");
+        
         //** Graph Covid Cases In the UK | END
         //////////////////////////////////////
         //** Graph: Cases Last Seven Days | START
+        
         const start_item = (result.data.length -7);
         c7Config = new ChartConfigSetup(result.data); //* Updated way of doing things
         c7Config.getGraphLabels("date", start_item);
         c7Config.getGraphData2("cases", start_item);
         c7Config.getGraphData1("cases_today",start_item);
 
-        c7Config.dataExtraConfig({label:"Cases for day"}); //  labels data_array todaydata
+        c7Config.dataExtraConfig({label:"Cases for day", type: "bar", 
+            backgroundColor:[cColor, cColor2, cColor, cColor2, cColor, cColor2, cColor]}); //  labels data_array todaydata
             
         drawChartData(c7Config,"casesSevenDays");       
         //** Graph: Cases Last Seven Days | END
@@ -983,116 +974,50 @@ document.addEventListener('DOMContentLoaded', function () {
             
         drawChartData(cAvgWeek,"weeklyAverageCasesTrendChart");       
         //** Graph: Average Weekly Cases trend | END
-       /*
-       casessevendaydatelabels = new Array(7);
-       casessevendaydata = new Array(7);
-       totalcasessevendaydata = new Array(7);
-       deathssevendaydata = new Array(7);
-       totaldeathssevendaydata = new Array(7);
-       casestodaydata= new Array(result.data.length);
-       
+        
+        //////////////////////////////////////
+        
+        //** Graph Covid Expired In the UK | START
+        dConfig = new ChartConfigSetup(result.data); //* Updated way of doing things
+        dConfig.getGraphLabels("date");
+        dConfig.getGraphData1("expired");
+        dConfig.getGraphData2("expired_today");
 
-
-       deathsdata = new Array(result.data.length);
-       deathstodaydata = new Array(result.data.length);
-       daycount = 0;
-       
-       for(var i=0; i < result.data.length; i++)
-       {
-           casestodaydata[i] = result.data[i].cases_today;
-           if(i >= (result.data.length - 7))
-           {
-               casessevendaydatelabels[daycount] = result.data[i].date;
-               totalcasessevendaydata[daycount] = result.data[i].cases
-
-               casessevendaydata[daycount] = result.data[i].cases_today;
-
-               deathssevendaydata[daycount] = result.data[i].expired_today;
-               totaldeathssevendaydata[daycount] = result.data[i].expired;
-               daycount++;
-           }
-
-
-           //console.log("** DEBUG 7 DAY | START");console.log(casessevendaydatelabels); console.log(casessevendaydata); console.log(caseslabels); console.log("** DEBUG 7 DAY | END");
-           deathstodaydata[i] = result.data[i].expired_today;
-           caseslabels[i] = result.data[i].date;
-           casesdata[i] = result.data[i].cases;
-           deathsdata[i] = result.data[i].expired;
-       }
-            cConfig.getGraphData1("cases");
-            cConfig.getGraphData2("cases_today");
+        dConfig.dataExtraConfig({label:"Total Deaths", borderColor:dColor, pointBorderColor:dColor, pointBackgroundColor:dColor}); //  labels data_array todaydata
             
-            console.log("cConfig.graphData1");
-            console.log(cConfig.graphData1);
-            console.log(casesdata);  
-            console.log("cConfig.graphData2 - cases_today");
-            console.log(cConfig.graphData2);
-            console.log(casestodaydata); 
-            
-        c7Config = new ChartConfigSetup();
-        dConfig = new ChartConfigSetup();
-        d7Config = new ChartConfigSetup();
-        
-        
-        const cColor = "rgba(78, 115, 223, 1)";
-        const cColor2 = "rgba(104, 135, 227, 1)";
-        const dColor = "rgba(230, 138, 0, 1)";
-        const dColor2 = "rgba(255, 163, 26, 1)";
-        const cBarBackground =  [cColor, cColor2, cColor, cColor2, cColor, cColor2, cColor];
-        const dBarBackground =  [dColor, dColor2, dColor, dColor2, dColor, dColor2, dColor];
-        
-        //cConfig.label = "Total Cases";
-        //casesDataObj(cConfig,caseslabels, casesdata, casestodaydata);
-        c_extra_config = {label:"Total Cases", labels:caseslabels, data_array:casesdata, todaydata:casestodaydata};
-        cConfig.dataExtraConfig(c_extra_config); //  labels data_array todaydata
- 
-        c7_extra_config = {label:"Cases", labels:casessevendaydatelabels, data_array:casessevendaydata, 
-            todaydata:totalcasessevendaydata, backgroundColor:cBarBackground, type: "bar"};
-
-        c7Config.dataExtraConfig(c7_extra_config); //  labels data_array todaydata
- 
-        d_extra_config = {label: "Total Deaths", labels:caseslabels, data_array:deathsdata, todaydata:deathstodaydata,
-            borderColor:dColor, pointBorderColor:dColor, pointBackgroundColor:dColor};
-        
-        dConfig.dataExtraConfig(d_extra_config);
-
-        d7_extra_config = {label: "Deaths", labels:casessevendaydatelabels, data_array:deathssevendaydata, 
-            todaydata:totaldeathssevendaydata, backgroundColor:dBarBackground, type: "bar", extratotal_label: "Deaths to date"};
-        
-        d7Config.dataExtraConfig(d7_extra_config);
-        
-        drawChartData(cConfig,"covidCasesChart");
-        drawChartData(c7Config,"casesSevenDays");
-        
         drawChartData(dConfig,"covidDeathsChart");
-        drawChartData(d7Config,"deathsSevenDays");
         
-        //* Cases Average Data
-        const caseavglabels = calcGraphAveragesData(result.data, "date");
-        //const expiredavglabels = calcGraphAveragesData(result.data, "date");
-        const caseavgdata = calcGraphAveragesData(result.data, "cases_average");
+        //** Graph Covid Expired In the UK | END
+        //////////////////////////////////////
+        //** Graph: Expired Last Seven Days | START
         
-        casesAvgConfig = new ChartConfigSetup();
-        caseaverage_config = {label:"Average", labels:caseavglabels, data_array:caseavgdata};
-        
-        casesAvgConfig.dataExtraConfig(caseaverage_config);
-        drawChartData(casesAvgConfig,"weeklyAverageCasesTrendChart");
-        
-        //* Expired Average Data
-        const expiredavgdata = calcGraphAveragesData(result.data, "expired_average");
-        expiredAvgConfig = new ChartConfigSetup();
+        //start_item = (result.data.length -7);
+        d7Config = new ChartConfigSetup(result.data); //* Updated way of doing things
+        d7Config.getGraphLabels("date", start_item);
+        d7Config.getGraphData2("expired", start_item);
+        d7Config.getGraphData1("expired_today",start_item);
 
-        expiredaverage_config = {label:"Average", labels:caseavglabels, data_array:expiredavgdata,
-            borderColor:dColor, pointBorderColor:dColor2, pointBackgroundColor:dColor};
+        d7Config.dataExtraConfig({label:"Deaths for day", type: "bar", 
+            backgroundColor:[dColor, dColor2, dColor, dColor2, dColor, dColor2, dColor]}); //  labels data_array todaydata
+            
+        drawChartData(d7Config,"deathsSevenDays");       
+        //** Graph: Expired Last Seven Days | END
         
+        ///////////////////////////////////////
+        //** Graph: Average Weekly Expired trend | START
+
+        dAvgWeek = new ChartConfigSetup(result.data); //* Updated way of doing things
+        dAvgWeek.getGraphAveragesLabels("date", av_start_item, loop_step);
+        dAvgWeek.getGraphAveragesData("expired_average", av_start_item, loop_step);
+        //cAvgWeek.getGraphData1("cases_today",start_item);
+
+        dAvgWeek.dataExtraConfig({label:"Average",borderColor:dColor, pointBorderColor:dColor2, pointBackgroundColor:dColor}); //  labels data_array todaydata
+            
+        drawChartData(dAvgWeek,"weeklyAverageExpiredTrendChart");       
+        //** Graph: Average Weekly Expired trend | END        
+        ///////////////////////////////////////
         
-        expiredAvgConfig.dataExtraConfig(expiredaverage_config);
-        
-        
-        drawChartData(expiredAvgConfig,"weeklyAverageExpiredTrendChart");
-        //weeklyAverageCasesTrendChart
-        */
-        setGraphCardLinks();
+        setGraphCardLinks(); // Create links dynamically on the Graph display card menu
 
     }, "json");
 
@@ -1127,18 +1052,18 @@ function setGraphCardLinks()
     
     //console.log(links_list);
 }
-
-function calcGraphAveragesData(array, object_name)
-{       
-        const avstart = (array.length < 15)? array.length: 15;
-        const return_array = new Array();
-        for(var n = (array.length - avstart); n < (array.length); n+=7)
-        {
-            return_array[return_array.length] =  array[n][object_name];
-        }
-        //console.log(return_array);
-        return return_array;
-}
+//
+//function calcGraphAveragesData(array, object_name)
+//{       
+//        const avstart = (array.length < 15)? array.length: 15;
+//        const return_array = new Array();
+//        for(var n = (array.length - avstart); n < (array.length); n+=7)
+//        {
+//            return_array[return_array.length] =  array[n][object_name];
+//        }
+//        //console.log(return_array);
+//        return return_array;
+//}
 //const isObject = (obj) => {
 //    return Object.prototype.toString.call(obj) === '[object Object]';
 //};
