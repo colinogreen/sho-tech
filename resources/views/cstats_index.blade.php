@@ -680,12 +680,12 @@ $bodyid = "page-top";
                     <!-- Content Row -->
                     <div class="row">
                          <!-- Bar Chart -->
-                        <div id="cases-for-six-months" class="in_page_link col-xl-3 col-lg-4">
+                        <div id="cases-per-month" class="in_page_link col-xl-3 col-lg-4">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Cases Monthly Totals For Six Months</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Total cases per month (previous six months)</h6>
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -1048,14 +1048,18 @@ document.addEventListener('DOMContentLoaded', function () {
         cSixMonths.dataExtraConfig({label:"Cases per month", type: "pie"}); //  labels data_array todaydata
         cSixMonths.setDataSettings({
             datasets: [{
-                data: cSixMonths.graphData1
+                data: cSixMonths.graphData1,
+                backgroundColor: ["rgb(230, 0, 50)","rgb(54, 162, 235)","rgb(255, 205, 86)", "rgb(179, 179, 179)", "rgb(0, 179, 0)", "rgb(255, 184, 51)"],
             }],
         
             // These labels appear in the legend and in the tooltips when hovering different arcs
-            labels: cSixMonths.labels
+            labels: cSixMonths.labels,
+            
+            //backgroundColor: {label1:"#ccc", label2:"#ffc", label3:"#2d2d2d", label4:"Red", label5:"Yellow", label6:"Grey"}
 
             }) ; 
         cSixMonths.setOptionsSettings({
+            maintainAspectRatio: false,
             responsive: true,
             plugins: {
               legend: {
