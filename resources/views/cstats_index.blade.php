@@ -1044,7 +1044,9 @@ document.addEventListener('DOMContentLoaded', function () {
         //cSixMonths.getGraphAveragesData("expired_average", av_start_item, loop_step);
         cSixMonths.getSixIndividualMonthsData("cases_today");
         //cAvgWeek.getGraphData1("cases_today",start_item);
-
+        //console.log(cSixMonths.labels);
+        //console.log(cSixMonths.graphData1);
+        
         cSixMonths.dataExtraConfig({label:"Cases per month", type: "pie"}); //  labels data_array todaydata
         cSixMonths.setDataSettings({
             datasets: [{
@@ -1181,7 +1183,8 @@ class ChartConfigSetup
     
     getSixIndividualMonthsData(object_label)
     {
-        const casesmonth = {};
+        //const casesmonth = {};
+        //console.log("this.result_data for " + object_label);
         //console.log(this.result_data);
         for(var i = 1; i < 7; i++)
         {
@@ -1200,13 +1203,13 @@ class ChartConfigSetup
                 if(dateeval === date_match)
                 {
                     //"Date match on " + this.result_data[n].date;
-                    tot += this.result_data[n][object_label];
+                    tot += parseInt(this.result_data[n][object_label]); //** SOLVE LIVE SERVER JSON ENCODING OF AJAX CALL DATA BEFORE REMOVING parseInt FUNCTION
 
                 }
 
             }
 
-            casesmonth[dt.toLocaleString('en-GB', {year:'numeric', month:'long'})] = tot;
+            //casesmonth[dt.toLocaleString('en-GB', {year:'numeric', month:'long'})] = tot;
             this.labels[this.labels.length] = dt.toLocaleString('en-GB', {year:'numeric', month:'long'});
             this.graphData1[this.graphData1.length] = tot;
         }
