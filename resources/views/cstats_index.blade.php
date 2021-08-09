@@ -518,7 +518,7 @@ $bodyid = "page-top";
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
-                                    <div class="chart-pie pt-4 pb-2">
+                                    <div class="pt-4 pb-2">
                                     <?php //    <canvas id="myPieChart"></canvas> ?>
                                         <canvas id="casesSevenDays"></canvas>
                                     </div>
@@ -633,18 +633,7 @@ $bodyid = "page-top";
                                     <div class="chart-pie pt-4 pb-2">
                                         <canvas id="deathsSevenDays"></canvas>
                                     </div>
-                                    <div class="mt-4 text-center small">
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> Direct
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> Social
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> Referral
-                                        </span>
-                                    </div>
-                                </div>
+                                   </div>
                             </div>
                         </div>
                      <div id="average-weekly-deaths-trend" class="in_page_link col-xl-3 col-lg-3">
@@ -690,7 +679,34 @@ $bodyid = "page-top";
 
                     <!-- Content Row -->
                     <div class="row">
+                         <!-- Bar Chart -->
+                        <div id="cases-for-six-months" class="in_page_link col-xl-3 col-lg-4">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Cases Monthly Totals For Six Months</h6>
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                        <div class="stats-dropdown-menu dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                            aria-labelledby="dropdownMenuLink">
+                                            <div class="dropdown-header">Other Charts:</div>
 
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="chart-pie pt-4 pb-2">
+                                        <canvas id="monthlyCasesTotalsSixMonth"></canvas>
+                                    </div>
+                                   </div>
+                            </div>
+                        </div>                       
+                     <?php /*       
                         <!-- Content Column -->
                         <div class="col-lg-6 mb-4">
 
@@ -801,7 +817,7 @@ $bodyid = "page-top";
                                 </div>
                             </div>
 
-                        </div>
+                        </div> */ ?>
 
                         <div class="col-lg-6 mb-4">
 
@@ -889,6 +905,9 @@ $bodyid = "page-top";
     </div>
     <script>
 //** Move to resources/js script file when completed for npm compilation.
+
+var global_result; //* Debugging in console. REMOVE
+var post_data; //* Debugging in console. REMOVE
 document.addEventListener('DOMContentLoaded', function () {
 
     function formatTodaysDate() {
@@ -905,8 +924,10 @@ document.addEventListener('DOMContentLoaded', function () {
         return [year, month, day].join('-');
     }
 
-    $.post("/cvstats", {"date_from":"2020-02-01", "date_to":formatTodaysDate() , "_token": '{{csrf_token()}}'}, function(result){
-
+    post_data = $.post("/cvstats", {"date_from":"2020-02-01", "date_to":formatTodaysDate() , "_token": '{{csrf_token()}}'}, function(result){
+        
+       global_result = result; //* Debugging in console. REMOVE
+       
        if(document.getElementById("total_cases_to_date")!== null)
        {         
             const cases_to_date = result.data[result.data.length -1].cases;
@@ -1016,6 +1037,39 @@ document.addEventListener('DOMContentLoaded', function () {
         drawChartData(dAvgWeek,"weeklyAverageExpiredTrendChart");       
         //** Graph: Average Weekly Expired trend | END        
         ///////////////////////////////////////
+        //** Pie chart: Monthly total cases for six months | START
+        
+        cSixMonths = new ChartConfigSetup(result.data); //* Updated way of doing things
+        //cSixMonths.getGraphAveragesLabels("date", av_start_item, loop_step);
+        //cSixMonths.getGraphAveragesData("expired_average", av_start_item, loop_step);
+        cSixMonths.getSixIndividualMonthsData("cases_today");
+        //cAvgWeek.getGraphData1("cases_today",start_item);
+
+        cSixMonths.dataExtraConfig({label:"Cases per month", type: "pie"}); //  labels data_array todaydata
+        cSixMonths.setDataSettings({
+            datasets: [{
+                data: cSixMonths.graphData1
+            }],
+        
+            // These labels appear in the legend and in the tooltips when hovering different arcs
+            labels: cSixMonths.labels
+
+            }) ; 
+        cSixMonths.setOptionsSettings({
+            responsive: true,
+            plugins: {
+              legend: {
+                position: 'top',
+              },
+              title: {
+                display: true,
+                text: 'Chart.js Pie Chart'
+              }
+            }
+          });
+        drawChartData(cSixMonths,"monthlyCasesTotalsSixMonth"); 
+        
+        //** Pie chart: Monthly total cases for six months | END
         
         setGraphCardLinks(); // Create links dynamically on the Graph display card menu
 
@@ -1075,7 +1129,7 @@ function drawChartData(chartConfig, chartname, extra_data)
     if(document.getElementById(chartname)!== null)
     {
         var ctx = document.getElementById(chartname);
-        new Chart(ctx, chartConfig.data());         
+        new Chart(ctx, chartConfig.config());         
     }    
 }  
 /**
@@ -1091,8 +1145,11 @@ class ChartConfigSetup
         //this.extraData = extra_data;
         this.labels_array = [];
         this.result_data = result_data;
-        //console.log(data_array);
-
+        
+        this.optionsSettings; // use with setConfigSettings/setConfigSettingsItem etc. methods
+        this.dataSettings; // use with setDataSettings/setDataSettingsItem etc. methods
+        //console.log("this.configOptions: " + this.configOptions);
+        //this.data = {};
         
         this.graphData1 = [];
         this.graphData2 = [];
@@ -1116,6 +1173,42 @@ class ChartConfigSetup
         this.pointBorderWidth = 2;
         //this.data_array = [];
         //this.todaydata =[];// Colin's custom entry
+    }
+    
+    getSixIndividualMonthsData(object_label)
+    {
+        const casesmonth = {};
+        //console.log(this.result_data);
+        for(var i = 1; i < 7; i++)
+        {
+            var tot = 0;
+            var dtset = new Date().setMonth(new Date().getMonth()-i);
+            var dt = new Date(dtset);
+            //console.log(dt.getFullYear() + "-" + ('0' + (dt.getMonth()+1)).slice(-2));
+            var date_match = dt.getFullYear() + "-" + ('0' + (dt.getMonth()+1)).slice(-2);
+
+            for(var n in this.result_data)
+            {
+                var cd = new Date(this.result_data[n].date);
+                //console.log(this.result_data[n].date);
+                //var dateeval = cd.getFullYear() + "-" + (cd.getMonth()+1);
+                var dateeval = cd.getFullYear() + "-" + ('0' + (cd.getMonth()+1)).slice(-2);
+                if(dateeval === date_match)
+                {
+                    //"Date match on " + this.result_data[n].date;
+                    tot += this.result_data[n][object_label];
+
+                }
+
+            }
+
+            casesmonth[dt.toLocaleString('en-GB', {year:'numeric', month:'long'})] = tot;
+            this.labels[this.labels.length] = dt.toLocaleString('en-GB', {year:'numeric', month:'long'});
+            this.graphData1[this.graphData1.length] = tot;
+        }
+        
+        //console.log("DEBUG Function: getSixIndividualMonthsData( ..) : casesmonth");
+        //console.log(casesmonth);
     }
     
     getGraphAveragesLabels(object_label, start_array_item, loop_step)
@@ -1159,6 +1252,7 @@ class ChartConfigSetup
     {
         this.graphData2 = this.getGraphData(object_label,start_array_item);
     }
+    
     getGraphData(object_label, start_array_item)
     {
        start_array_item = (start_array_item === undefined)? 0: start_array_item;
@@ -1168,12 +1262,6 @@ class ChartConfigSetup
        for(var i= start_array_item ; i < this.result_data.length; i++)
        {
            graphdata[graphdata.length] = this.result_data[i][object_label];
-//           if(i >= (this.data_array.length - 7))
-//           {
-//               graphdata[daycount] = this.data_array[i][object_label];
-//
-//               daycount++;
-//           }
 
        } 
        
@@ -1183,6 +1271,18 @@ class ChartConfigSetup
     {
         return Object.prototype.toString.call(obj) === '[object Object]';
     }
+    
+    //** Main Call when setting up chart. use setDataSettings...() and setOptionsSettings...() methods first, if necessary
+    config()
+    {
+        return {
+          type: this.type,
+          //data: this.dataObject,
+          data: this.getDataSettings(),
+          options: this.getOptionsSettings()
+          
+        };
+    };
     
     dataExtraConfig(extra_settings)
     {
@@ -1195,13 +1295,29 @@ class ChartConfigSetup
             }
         }
     }
-    
-    data()
+    setDataSettingsItem(item, settingsObject)
     {
-        return {
-          type: this.type,
-          //data: this.dataObject,
-          data: {
+        if(this.isObject(settingsObject))
+        {
+            this.dataSettings[item]= settingsObject;
+        }
+        
+    }
+    setDataSettings(object)
+    {
+        if(this.isObject(object))
+        {
+            this.dataSettings = object;
+        }
+        
+    }     
+    getDataSettings()
+    {
+        if(this.dataSettings ===  undefined)
+        {
+            //const data = {};
+            
+            return {
             labels: this.labels,
             datasets: [{
               label: this.label,
@@ -1220,8 +1336,44 @@ class ChartConfigSetup
               data2:this.graphData2, // For extra graph data
             }]
 
-          },
-          options: {
+          };
+        }
+        
+        return this.dataSettings;
+
+    }
+
+     
+    setOptionsSettingsItem(item, settingsObject)
+    {
+        if(this.isObject(settingsObject))
+        {
+            this.optionsSettings[item]= settingsObject;
+        }
+        
+    }
+    setOptionsSettings(object)
+    {
+        if(this.isObject(object))
+        {
+            this.optionsSettings = object;
+        }
+        
+    }    
+    getOptionsSettings()
+    {
+        if(this.optionsSettings === undefined)
+        {
+            return this.defaultOptionsSettings(); // Return default if the options have not been set
+        }
+        return this.optionsSettings;
+    }
+    
+    //* Default for if nothing was set before call from Chart.js class.
+    defaultOptionsSettings()
+    {
+        //this.configSettings = {
+        return {
             maintainAspectRatio: false,
             layout: {
               padding: {
@@ -1300,9 +1452,9 @@ class ChartConfigSetup
                 }//.bind(this) // important so that this.isObject(obj) can be seen by the callback (if not using arrow function). 
               }
             }
-          }
-        };
-    };
+          };
+    }
+
 }
 
     </script>
