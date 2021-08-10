@@ -34,10 +34,10 @@ $bodyid = "page-top";
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
-
+            <?php /*
             <!-- Divider -->
             <hr class="sidebar-divider">
-
+            
             <!-- Heading -->
             <div class="sidebar-heading">
                 Interface
@@ -120,7 +120,7 @@ $bodyid = "page-top";
                     <i class="fas fa-fw fa-table"></i>
                     <span>Tables</span></a>
             </li>
-
+            */ ?>
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
@@ -154,7 +154,7 @@ $bodyid = "page-top";
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
-
+                    <?php /*
                     <!-- Topbar Search -->
                     <form
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
@@ -167,7 +167,7 @@ $bodyid = "page-top";
                                 </button>
                             </div>
                         </div>
-                    </form>
+                    </form> */ ?>
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -246,7 +246,7 @@ $bodyid = "page-top";
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
                             </div>
                         </li>
-
+                        <?php /*
                         <!-- Nav Item - Messages -->
                         <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
@@ -312,7 +312,7 @@ $bodyid = "page-top";
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
                             </div>
                         </li>
-
+                        */ ?>
                         <div class="topbar-divider d-none d-sm-block"></div>
 
                         <!-- Nav Item - User Information -->
@@ -356,16 +356,16 @@ $bodyid = "page-top";
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+                        <h1 class="h3 mb-0 text-gray-800">Covid Statistics for the UK</h1>
+                       <?php /* <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> */ ?>
                     </div>
 
                     <!-- Content Row -->
                     <div class="row">
 
                         <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-2 col-md-6 mb-4">
+                        <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-primary shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -375,7 +375,7 @@ $bodyid = "page-top";
                                             <div id="total_cases_to_date" class="h5 mb-0 font-weight-bold text-gray-800">Please wait ...</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                            <i class="fas fa-briefcase-medical fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -383,7 +383,7 @@ $bodyid = "page-top";
                         </div>
 
                         <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-2 col-md-6 mb-4">
+                        <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-success shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -393,7 +393,7 @@ $bodyid = "page-top";
                                             <div id="total_deaths_to_date" class="h5 mb-0 font-weight-bold text-gray-800">Calculating ... </div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                            <i class="fas fa-ambulance fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -422,7 +422,7 @@ $bodyid = "page-top";
                                             </div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                            <i class="fas fa-briefcase-medical fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -440,7 +440,7 @@ $bodyid = "page-top";
                                             <div id="total_deaths_for_date" class="h5 mb-0 font-weight-bold text-gray-800">Updating ...</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                            <i class="fas fa-ambulance fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -457,7 +457,7 @@ $bodyid = "page-top";
                                             <div id="average_weekly_cases_date" class="h5 mb-0 font-weight-bold text-gray-800">Please wait ...</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                            <i class="fas fa-notes-medical fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -523,15 +523,7 @@ $bodyid = "page-top";
                                         <canvas id="casesSevenDays"></canvas>
                                     </div>
                                     <div class="mt-4 text-center small">
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> Direct
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> Social
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> Referral
-                                        </span>
+
                                     </div>
                                 </div>
                             </div>
@@ -817,7 +809,7 @@ $bodyid = "page-top";
                                 </div>
                             </div>
 
-                        </div> */ ?>
+                        </div>
 
                         <div class="col-lg-6 mb-4">
 
@@ -854,7 +846,7 @@ $bodyid = "page-top";
                                 </div>
                             </div>
 
-                        </div>
+                        </div>  */ ?>
                     </div>
 
                 </div>
@@ -867,7 +859,7 @@ $bodyid = "page-top";
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
+                        <span>Copyright &copy; sho.technohelp.uk <?= date("Y") ?></span>
                     </div>
                 </div>
             </footer>
@@ -1040,39 +1032,14 @@ document.addEventListener('DOMContentLoaded', function () {
         //** Pie chart: Monthly total cases for six months | START
         
         cSixMonths = new ChartConfigSetup(result.data); //* Updated way of doing things
-        //cSixMonths.getGraphAveragesLabels("date", av_start_item, loop_step);
-        //cSixMonths.getGraphAveragesData("expired_average", av_start_item, loop_step);
-        cSixMonths.getSixIndividualMonthsData("cases_today");
-        //cAvgWeek.getGraphData1("cases_today",start_item);
-        //console.log(cSixMonths.labels);
-        //console.log(cSixMonths.graphData1);
-        
-        cSixMonths.dataExtraConfig({label:"Cases per month", type: "pie"}); //  labels data_array todaydata
-        cSixMonths.setDataSettings({
-            datasets: [{
-                data: cSixMonths.graphData1,
-                backgroundColor: ["rgb(230, 0, 50)","rgb(54, 162, 235)","rgb(255, 205, 86)", "rgb(179, 179, 179)", "rgb(0, 179, 0)", "rgb(255, 184, 51)"],
-            }],
-        
-            // These labels appear in the legend and in the tooltips when hovering different arcs
-            labels: cSixMonths.labels,
-            
-            //backgroundColor: {label1:"#ccc", label2:"#ffc", label3:"#2d2d2d", label4:"Red", label5:"Yellow", label6:"Grey"}
 
-            }) ; 
-        cSixMonths.setOptionsSettings({
-            maintainAspectRatio: false,
-            responsive: true,
-            plugins: {
-              legend: {
-                position: 'top',
-              },
-              title: {
-                display: true,
-                text: 'Chart.js Pie Chart'
-              }
-            }
-          });
+        cSixMonths.getSixIndividualMonthsData("cases_today");
+       
+        cSixMonths.dataExtraConfig({label:"Cases per month", type: "pie"}); //  labels data_array todaydata
+        
+        cSixMonths.setDataSettings(casesPieChartData(cSixMonths)) ; 
+        cSixMonths.setOptionsSettings(casesPieChartOptions());
+        
         drawChartData(cSixMonths,"monthlyCasesTotalsSixMonth"); 
         
         //** Pie chart: Monthly total cases for six months | END
@@ -1082,6 +1049,58 @@ document.addEventListener('DOMContentLoaded', function () {
     }, "json");
 
 }); 
+
+function casesPieChartData(chartObj)
+{
+    return {
+        datasets: [{
+            data: chartObj.graphData1,
+            backgroundColor: ["rgb(230, 0, 50)","rgb(102, 140, 255)","rgb(217, 179, 255)", "rgb(179, 179, 179)", "rgb(0, 179, 0)", "rgb(255, 184, 51)"],
+        }],
+
+        // These labels appear in the legend and in the tooltips when hovering different arcs
+        labels: chartObj.labels,
+
+    };    
+}
+
+function casesPieChartOptions()
+{
+    return {
+            maintainAspectRatio: false,
+            responsive: true,
+            plugins: {
+              legend: {
+                position: 'top',
+              },
+              title: {
+                display: true,
+                text: 'Total cases per month'
+              }
+            },
+            tooltips: {
+                xPadding: 15,
+              yPadding: 15,
+                callbacks: {
+                    label: (tooltipItem, chart)=> {
+                        
+                    returndisplay = new Array();
+                    //console.log(chart.labels[tooltipItem.index]);
+                    const label = chart.labels[tooltipItem.index] || '';
+                    if(label !== "")
+                    {
+                        returndisplay[returndisplay.length] = label;
+                    }
+                    
+                    returndisplay[returndisplay.length] = number_format(chart.datasets[tooltipItem.datasetIndex].data[tooltipItem.index]);
+                    // Return whatever is in the array (separated by ": " if length is 2 or on separate lines) as the tooltip label.
+                    return (returndisplay.length === 2)?returndisplay.join(": "): returndisplay ; 
+
+                }
+              }
+            }
+          };
+}
 
 function setGraphCardLinks()
 {
@@ -1381,6 +1400,7 @@ class ChartConfigSetup
     {
         //this.configSettings = {
         return {
+            responsive: true,
             maintainAspectRatio: false,
             layout: {
               padding: {
