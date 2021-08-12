@@ -1876,6 +1876,12 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
  * includes React and other helpers. It's a great starting point while
  * building robust, powerful web applications using React + Laravel.
  */
+//import { Greeting, OtherGreeting } from './greeting';
+//window.Greeting = Greeting;
+//const testClass = new Greeting();
+//testClass.sayGoodbye();
+//const anotherClass = new Greeting();
+//new OtherGreeting().sayGoodbye();
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
@@ -1884,7 +1890,8 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 window.React = react__WEBPACK_IMPORTED_MODULE_0__;
-window.ReactDOM = react_dom__WEBPACK_IMPORTED_MODULE_1__;
+window.ReactDOM = react_dom__WEBPACK_IMPORTED_MODULE_1__; //window.Greeting = Greeting;
+
 /**
  * Next, we will create a fresh React component instance and attach it to
  * the page. Then, you may begin adding components to this application

@@ -4,6 +4,15 @@
  * building robust, powerful web applications using React + Laravel.
  */
 
+
+//import { Greeting, OtherGreeting } from './greeting';
+//window.Greeting = Greeting;
+//const testClass = new Greeting();
+//testClass.sayGoodbye();
+
+//const anotherClass = new Greeting();
+//new OtherGreeting().sayGoodbye();
+
 require('./bootstrap');
 
 import React from 'react'
@@ -15,6 +24,8 @@ import Babel from 'babel-standalone';
 import { render } from 'react-dom'
 window.React = React;
 window.ReactDOM = ReactDOM;
+
+//window.Greeting = Greeting;
 
 /**
  * Next, we will create a fresh React component instance and attach it to

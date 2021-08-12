@@ -898,9 +898,28 @@ $bodyid = "page-top";
     <script>
 //** Move to resources/js script file when completed for npm compilation.
 
+//* Debugging class. REMOVE | START
+
+//class Greeting{
+//    
+//    constructor()
+//    {
+//        console.log("Greeting class: Hello world!");
+//    }
+//    
+//    sayGoodbye()
+//    {
+//        console.log("Greeting.sayGoodbye() class: Goodbye world!");
+//    }
+//}
+
+
+//* Debugging class. REMOVE | END
+
 var global_result; //* Debugging in console. REMOVE
 var post_data; //* Debugging in console. REMOVE
 document.addEventListener('DOMContentLoaded', function () {
+//new Greeting().sayGoodbye();
 
     function formatTodaysDate() {
         var d = new Date(),

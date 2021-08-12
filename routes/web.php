@@ -35,7 +35,7 @@ Route::get('/weather', [Showcase::class, 'indexWeather'])->name("weatherindex");
 
 Route::get('covidstatsuk', [Showcase::class, 'covidStatsUk'])->name("covidstatsukindex");
 //Route::get('cvstats', [Showcase::class, 'cvStatsUK'])->name("cvd_stats");
-Route::post('cvstats', [Showcase::class, 'cvStatsUK'])->name("cvd_stats");
+Route::post('cvstats', [Showcase::class, 'cvStatsUK'])->name("cvd_stats"); //->middleware('auth');
 
 Route::get('/forecast_data', [Showcase::class, 'weatherDataWithoutCityParameter']); // 
 //Route::get('forecast_data', [WeatherForecast::class, 'dataWithoutCityParameter']);
