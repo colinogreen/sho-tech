@@ -1326,9 +1326,15 @@ class ChartConfigSetup
     getMonthTotalToDate(label)
     {
         const last_item_num = (this.result_data.length-1);
-        const first_item_num = (this.result_data.length-7);
         const last_item = this.result_data[last_item_num];
+        //console.log("Last item date: ")
+        //const first_item_num = (this.result_data.length-7);
+        const first_item_num = (last_item_num - (new Date(last_item['date']).getDate())+1);
+        const first_item = this.result_data[first_item_num];
         const latest_date = new Date(last_item['date']);
+        
+        console.log("Last item date: " + last_item['date']);
+        console.log("First item date: " + first_item['date']);
         //console.log("Latest:");
         //console.log("Date: " + last_item['date']);
         //console.log(latest_date);
