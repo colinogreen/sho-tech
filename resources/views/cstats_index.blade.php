@@ -202,14 +202,17 @@ $bodyid = "page-top";
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-bell fa-fw"></i>
                                 <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
+                                <?php // <span class="badge badge-danger badge-counter">3+</span> ?>
+                                <span id="alerts-center-count" class="badge badge-danger badge-counter"></span>
                             </a>
                             <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                            <div id="alerts-center-items" class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="alertsDropdown">
                                 <h6 class="dropdown-header">
                                     Alerts Center
                                 </h6>
+                                <?php
+                                /*
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="mr-3">
                                         <div class="icon-circle bg-primary">
@@ -244,6 +247,8 @@ $bodyid = "page-top";
                                     </div>
                                 </a>
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                                 * 
+                                 */ ?>
                             </div>
                         </li>
                         <?php /*
@@ -1064,10 +1069,56 @@ document.addEventListener('DOMContentLoaded', function () {
         //** Pie chart: Monthly total cases for six months | END
         
         setGraphCardLinks(); // Create links dynamically on the Graph display card menu
+        
+        //console.log(cSixMonths.getMonthTotalToDate('date'));
+        //console.log(cSixMonths.getAlertMessages());
+        alertsCenterList(cSixMonths.getAlertMessages());
 
     }, "json");
 
-}); 
+});
+
+function alertsCenterList(messages)
+{
+    // id-s alerts-center-count alerts-center-items alerts center
+    let items = document.getElementById("alerts-center-items").innerHTML;
+    //console.log(items);
+    document.getElementById("alerts-center-count").innerHTML = messages.alert_data_length;
+    if(messages.latest_cases !== undefined)
+    {
+        var message = "There have been " + number_format(messages.latest_cases[0]) + " cases so far this month.";
+        items += alertsCenterListPopulate(messages.latest_cases[1] ,message);
+    }
+    
+    if(messages.latest_deaths !== undefined)
+    {
+        var message = "There have been " + number_format(messages.latest_deaths[0]) + " deaths in the current reporting month.";
+        items += alertsCenterListPopulate(messages.latest_deaths[1] ,message, "fa-exclamation", "bg-warning");
+    }
+    if(messages.days_since_update !== undefined)
+    {
+        items += alertsCenterListPopulate(messages.days_since_update[1] ,messages.days_since_update[0], "fa-clock", "bg-danger");
+    }
+    document.getElementById("alerts-center-items").innerHTML = items;
+    //console.log(items);
+}
+
+function alertsCenterListPopulate(date,message,icon, icon_color)
+{
+    icon = (icon === undefined)? "fa-file-alt": icon;
+    icon_color = (icon_color === undefined)? "bg-primary": icon_color;
+    
+    var string = '<a class="dropdown-item d-flex align-items-center" href="#">';
+    string +='<div class="mr-3">';
+     string +='<div class="icon-circle ' + icon_color + '"><i class="fas ' + icon +' text-white"></i>';
+     string +='</div>';
+     string +='</div>';
+     string += '<div>';
+     string += '<div class="small text-gray-500">' + date + '</div>';
+     string += '<span class="">' + message + '</span>';
+     string +='</div>';
+     return string += '</a>';
+}
 
 function casesPieChartData(chartObj)
 {
@@ -1219,6 +1270,80 @@ class ChartConfigSetup
         //this.todaydata =[];// Colin's custom entry
     }
     
+    getAlertMessages()
+    {
+        const messages = {};
+        messages.latest_cases = this.getMonthTotalToDate("cases_today");
+        messages.latest_deaths = this.getMonthTotalToDate("expired_today");
+        const days_since_update = this.getDaysSinceDataUpdate();
+        //console.log("days_since_update: " + days_since_update);
+        if(Number.isInteger(days_since_update) && days_since_update > 0){
+            let day_string = (days_since_update === 1)? "day": "days";
+            messages.days_since_update = ["It has been " + days_since_update + " " + day_string + " since the last data update", new Date().toDateString()];
+        }
+        //console.log("Days since data update: " + this.getDaysSinceDataUpdate());
+        //console.log("The getAlertMessages() length is: " + Object.keys(messages).length);
+        messages.alert_data_length = Object.keys(messages).length;
+        return messages;
+    }
+    
+    getDaysSinceDataUpdate()
+    {
+        //console.log("getDataUpdateDays():" + this.getComputerDateFormat());
+        const today_date = this.getComputerDateFormat();
+        const last_update = this.getLastDataUpdate();
+        const diffInMs   = new Date(today_date) - new Date(last_update);
+        return diffInMs / (1000 * 60 * 60 * 24);
+
+    }
+    /**
+     * Get the date that the last record refers to in string form
+     * @returns {ChartConfigSetup.result_data.date}
+     */
+    getLastDataUpdate()
+    {
+        return this.result_data[this.result_data.length -1].date;
+    }
+    
+    getComputerDateFormat(dayoffset)
+    {
+        //console.log("dayoffset: " + dayoffset);
+        let t = new Date();
+        if(dayoffset !== undefined && dayoffset.isInteger())
+        {
+            t = new Date().getDate() - dayoffset;
+        }
+        
+        return t.getFullYear() + "-" + this.getFormattedMonthNumeric(t) + "-" + t.getDate();        
+    }
+    
+    getFormattedMonthNumeric(date)
+    {
+        //if(date.isNumeric())
+        return  ('0' + (date.getMonth()+1)).slice(-2);
+    }
+    
+    getMonthTotalToDate(label)
+    {
+        const last_item_num = (this.result_data.length-1);
+        const first_item_num = (this.result_data.length-7);
+        const last_item = this.result_data[last_item_num];
+        const latest_date = new Date(last_item['date']);
+        //console.log("Latest:");
+        //console.log("Date: " + last_item['date']);
+        //console.log(latest_date);
+        var total = 0;
+        for(var i = first_item_num; i<= last_item_num; i++)
+        {
+            //console.log("Adding total for '" + label + "' (" + this.result_data[i][label] + ") on day " + i + " - Date: " + this.result_data[i].date) ;
+            total += parseInt(this.result_data[i][label]);
+        }
+        
+        return [total, latest_date.toDateString()];
+        
+        
+    }
+    
     getSixIndividualMonthsData(object_label)
     {
         //const casesmonth = {};
@@ -1227,17 +1352,22 @@ class ChartConfigSetup
         for(var i = 1; i < 7; i++)
         {
             var tot = 0;
-            var dtset = new Date().setMonth(new Date().getMonth()-i);
+            //var dtset = new Date().setMonth(new Date().getMonth()-i);
+            const last_record_date = this.result_data[this.result_data.length-1].date; // Get the date of the last record to base the six months data calc on
+            var dtset = new Date(last_record_date).setMonth(new Date().getMonth()-i);
             var dt = new Date(dtset);
-            //console.log(dt.getFullYear() + "-" + ('0' + (dt.getMonth()+1)).slice(-2));
-            var date_match = dt.getFullYear() + "-" + ('0' + (dt.getMonth()+1)).slice(-2);
+            
+            //console.log("getSixIndividualMonthsData start date:");
+            //console.log(dt);
+            
+            var date_match = dt.getFullYear() + "-" + this.getFormattedMonthNumeric(dt);
 
             for(var n in this.result_data)
             {
                 var cd = new Date(this.result_data[n].date);
                 //console.log(this.result_data[n].date);
                 //var dateeval = cd.getFullYear() + "-" + (cd.getMonth()+1);
-                var dateeval = cd.getFullYear() + "-" + ('0' + (cd.getMonth()+1)).slice(-2);
+                var dateeval = cd.getFullYear() + "-" + this.getFormattedMonthNumeric(cd);
                 if(dateeval === date_match)
                 {
                     //"Date match on " + this.result_data[n].date;
