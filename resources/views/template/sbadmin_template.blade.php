@@ -1,13 +1,4 @@
-<?php
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-?>
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -17,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     <title>Covid Stats UK - Dashboard</title>
     <link href="{{ asset('css/app.css') }}?v=2.15" rel="stylesheet">
@@ -32,13 +24,16 @@
 </head>
 
 <body id="{{ isset($bodyid)? $bodyid : "" }}" class="{{ isset($bodyclass)? $bodyclass : "" }}">
-
     @yield("sbadmin2_content")
 
     <!-- Bootstrap core JavaScript-->
    <?php // <script src="vendor/jquery/jquery.min.js"></script>
     //<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> ?>
-     <script src="{{ asset('js/app.js') }}"></script>
+    @if(str_ireplace("/", "", Request::getRequestUri()) !== "cstats") 
+    <script src="{{ asset('js/app.js') }}"></script>
+    @else
+     <script src="{{ asset('js/appstats.js') }}/?=v0.1"></script>
+     @endif
 
     <!-- Core plugin JavaScript-->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
