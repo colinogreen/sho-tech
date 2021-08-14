@@ -13,6 +13,12 @@
 //const anotherClass = new Greeting();
 //new OtherGreeting().sayGoodbye();
 
+document.addEventListener('DOMContentLoaded', function () {
+    const ChartConfigSetup = require('./chartconfigsetup');
+    window.ChartConfigSetup = ChartConfigSetup; 
+});
+
+
 require('./bootstrap');
 
 import React from 'react'
