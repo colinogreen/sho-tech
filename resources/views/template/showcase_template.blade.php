@@ -45,10 +45,6 @@
      
       <script src="{{ asset('js/app.js') }}?v={{ Config::get('app.jsversion') }}"></script>
 
-    <script type="text/babel">
-
-    </script>
-
     </body>
 </html>
 <?php 
