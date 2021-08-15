@@ -367,7 +367,7 @@ $bodyid = "page-top";
                     </div>
 
                     <!-- Content Row -->
-                    <div class="row">
+                    <div class="row stats_row">
 
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
@@ -472,7 +472,7 @@ $bodyid = "page-top";
 
                     <!-- Content Row -->
 
-                    <div class="row">
+                    <div class="row stats_row">
 
                         <!-- Area Chart -->
                         <div id="cases-in-uk" class="in_page_link col-xl-6 col-lg-5">
@@ -578,7 +578,7 @@ $bodyid = "page-top";
                     
                     </div>
                     <!-- Content Row -->
-                    <div class="row">
+                    <div class="row stats_row">
                         
                        <div id="covid-deaths-in-the-uk" class="in_page_link col-xl-6 col-lg-5">
                             <div class="card shadow mb-4">
@@ -901,26 +901,9 @@ $bodyid = "page-top";
         </div>
     </div>
     <script>
-//** Move to resources/js script file when completed for npm compilation.
+//document.addEventListener('DOMContentLoaded', function () {
 
-//* Debugging class. REMOVE | START
-
-//class Greeting{
-//    
-//    constructor()
-//    {
-//        console.log("Greeting class: Hello world!");
-//    }
-//    
-//    sayGoodbye()
-//    {
-//        console.log("Greeting.sayGoodbye() class: Goodbye world!");
-//    }
-//}
-
-
-//* Debugging class. REMOVE | END
-
+ //   });
     </script>
 @endsection
 

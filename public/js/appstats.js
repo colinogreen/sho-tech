@@ -37911,7 +37911,8 @@ __webpack_require__.r(__webpack_exports__);
  */
 //const ChartConfigSetup = require('./chartconfigsetup');
 
- //window.ChartConfigSetup = ChartConfigSetup; // Allow access to ChartConfigSetup in browser window html/script tags, for now
+
+window.ChartConfigSetup = (_chartconfigsetup__WEBPACK_IMPORTED_MODULE_0___default()); // Allow access to ChartConfigSetup in browser window html/script tags, for now
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
@@ -37981,23 +37982,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     (0,_chartconfig_functions__WEBPACK_IMPORTED_MODULE_1__.drawChartData)(cConfig, "covidCasesChart"); //** Graph Covid Cases In the UK | END
     //////////////////////////////////////
-    //** Graph: Cases Last Seven Days | START
 
-    var start_item = result.data.length - 7;
-    var c7Config = new (_chartconfigsetup__WEBPACK_IMPORTED_MODULE_0___default())(result.data); //* Updated way of doing things
-
-    c7Config.getGraphLabels("date", start_item);
-    c7Config.getGraphData2("cases", start_item);
-    c7Config.getGraphData1("cases_today", start_item);
-    c7Config.dataExtraConfig({
-      label: "Cases for day",
-      extratotal_label: "Total to date",
-      type: "bar",
-      backgroundColor: [cColor, cColor2, cColor, cColor2, cColor, cColor2, cColor]
-    }); //  labels data_array todaydata
-
-    (0,_chartconfig_functions__WEBPACK_IMPORTED_MODULE_1__.drawChartData)(c7Config, "casesSevenDays"); //** Graph: Cases Last Seven Days | END
-    //////////////////////////////////////
+    var start_item = result.data.length - 7; //////////////////////////////////////
     //** Graph: Average Weekly Cases trend | START
 
     var av_start_item = result.data.length - 15;
@@ -38029,6 +38015,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
     (0,_chartconfig_functions__WEBPACK_IMPORTED_MODULE_1__.drawChartData)(dConfig, "covidDeathsChart"); //** Graph Covid Expired In the UK | END
     //////////////////////////////////////
+    //
+    //** Graph: Cases Last Seven Days | START
+
+    var c7Config = new (_chartconfigsetup__WEBPACK_IMPORTED_MODULE_0___default())(result.data); //* Updated way of doing things
+
+    c7Config.getGraphLabels("date", start_item);
+    c7Config.getGraphData2("cases", start_item);
+    c7Config.getGraphData1("cases_today", start_item);
+    c7Config.dataExtraConfig({
+      label: "Cases for day",
+      extratotal_label: "Total to date",
+      type: "bar",
+      backgroundColor: [cColor, cColor2, cColor, cColor2, cColor, cColor2, cColor]
+    }); //  labels data_array todaydata
+
+    (0,_chartconfig_functions__WEBPACK_IMPORTED_MODULE_1__.drawChartData)(c7Config, "casesSevenDays"); // Graph: Cases Last Seven Days | END
+    //////////////////////////////////////
+    //
     //** Graph: Expired Last Seven Days | START
     //start_item = (result.data.length -7);
 

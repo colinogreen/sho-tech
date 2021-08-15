@@ -14631,6 +14631,10 @@ h3 {
   word-wrap: normal;
 }
 
+.stats_row .card {
+  height: 95%;
+}
+
 .weather_data {
   font-family: Baloo, sans-serif;
   /*

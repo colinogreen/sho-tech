@@ -15,6 +15,12 @@
 	word-wrap: normal; // override bootstrap .card default of 'break-word'
 }
 
+.stats_row{
+    .card {
+        height:95%;
+    }
+}
+
 .weather_data{
     
     font-family: Baloo, sans-serif;

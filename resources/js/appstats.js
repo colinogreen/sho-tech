@@ -4,7 +4,7 @@
 //const ChartConfigSetup = require('./chartconfigsetup');
 import ChartConfigSetup from './chartconfigsetup';
 import { alertsCenterList,alertsCenterListPopulate, casesPieChartData, casesPieChartOptions, setGraphCardLinks, drawChartData } from './chartconfig_functions';
-//window.ChartConfigSetup = ChartConfigSetup; // Allow access to ChartConfigSetup in browser window html/script tags, for now
+window.ChartConfigSetup = ChartConfigSetup; // Allow access to ChartConfigSetup in browser window html/script tags, for now
 
 require('./bootstrap');
 
@@ -73,20 +73,8 @@ document.addEventListener('DOMContentLoaded', function () {
         
         //** Graph Covid Cases In the UK | END
         //////////////////////////////////////
-        //** Graph: Cases Last Seven Days | START
-        
         const start_item = (result.data.length -7);
-        const c7Config = new ChartConfigSetup(result.data); //* Updated way of doing things
-        c7Config.getGraphLabels("date", start_item);
-        c7Config.getGraphData2("cases", start_item);
-        c7Config.getGraphData1("cases_today",start_item);
-
-        c7Config.dataExtraConfig({label:"Cases for day", extratotal_label:"Total to date", type: "bar", 
-            backgroundColor:[cColor, cColor2, cColor, cColor2, cColor, cColor2, cColor]}); //  labels data_array todaydata
-            
-        drawChartData(c7Config,"casesSevenDays");       
-        //** Graph: Cases Last Seven Days | END
-
+        
         //////////////////////////////////////
         //** Graph: Average Weekly Cases trend | START
         const av_start_item = (result.data.length -15);
@@ -115,6 +103,22 @@ document.addEventListener('DOMContentLoaded', function () {
         
         //** Graph Covid Expired In the UK | END
         //////////////////////////////////////
+        //
+        //** Graph: Cases Last Seven Days | START
+        
+        const c7Config = new ChartConfigSetup(result.data); //* Updated way of doing things
+        c7Config.getGraphLabels("date", start_item);
+        c7Config.getGraphData2("cases", start_item);
+        c7Config.getGraphData1("cases_today",start_item);
+
+        c7Config.dataExtraConfig({label:"Cases for day", extratotal_label:"Total to date", type: "bar", 
+            backgroundColor:[cColor, cColor2, cColor, cColor2, cColor, cColor2, cColor]}); //  labels data_array todaydata
+            
+        drawChartData(c7Config,"casesSevenDays");     
+ 
+        // Graph: Cases Last Seven Days | END
+        //////////////////////////////////////
+        //
         //** Graph: Expired Last Seven Days | START
         
         //start_item = (result.data.length -7);
