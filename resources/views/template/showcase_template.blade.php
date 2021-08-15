@@ -8,7 +8,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-        <link href="{{ asset('css/app.css') }}?v=2.15" rel="stylesheet">
+        <link href="{{ asset('css/app.css') }}?v={{ Config::get('app.cssversion') }}" rel="stylesheet">
     </head>   
     <body>
  
@@ -43,18 +43,10 @@
   </div>
 </div>
      
-      <script src="{{ asset('js/app.js') }}?v=2.16"></script>
+      <script src="{{ asset('js/app.js') }}?v={{ Config::get('app.jsversion') }}"></script>
 
     <script type="text/babel">
-/*
-      class Hello extends React.Component {
-        render() {
-          return <h1>Hello World!</h1>;
-        }
-      };
 
-      ReactDOM.render(<Hello />, document.getElementById('mydiv'))
-*/
     </script>
 
     </body>

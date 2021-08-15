@@ -11,7 +11,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     <title>Covid Stats UK - Dashboard</title>
-    <link href="{{ asset('css/app.css') }}?v=2.15" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}?v={{ Config::get('app.cssversion') }}" rel="stylesheet">
     <!-- Custom fonts for this template-->
     <?php //<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> ?>
     <link
@@ -32,7 +32,7 @@
     @if(str_ireplace("/", "", Request::getRequestUri()) !== "cstats") 
     <script src="{{ asset('js/app.js') }}"></script>
     @else
-     <script src="{{ asset('js/appstats.js') }}/?=v0.1"></script>
+     <script src="{{ asset('js/appstats.js') }}?={{ Config::get('app.jsversion_stats') }}"></script>
      @endif
 
     <!-- Core plugin JavaScript-->
