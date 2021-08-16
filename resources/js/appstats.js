@@ -29,7 +29,8 @@ document.addEventListener('DOMContentLoaded', function () {
         return [year, month, day].join('-');
     }
 
-    post_data = $.post("/cvstats", {"date_from":"2020-02-01", "date_to":formatTodaysDate() , "_token": $('meta[name="csrf-token"]').attr('content')}, function(result){
+    //post_data = $.post("/cvstats", {"date_from":"2020-02-01", "date_to":formatTodaysDate() , "_token": $('meta[name="csrf-token"]').attr('content')}, function(result){
+    $.post("/cvstats", {"date_from":"2020-02-01", "date_to":formatTodaysDate() , "_token": $('meta[name="csrf-token"]').attr('content')}, function(result){
         
        global_result = result; //* Debugging in console. REMOVE
        

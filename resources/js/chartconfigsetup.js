@@ -50,7 +50,7 @@ class ChartConfigSetup
         //console.log("days_since_update: " + days_since_update);
         if(Number.isInteger(days_since_update) && days_since_update > 0){
             let day_string = (days_since_update === 1)? "day": "days";
-            messages.days_since_update = ["It has been " + days_since_update + " " + day_string + " since the last data update", new Date().toDateString()];
+            messages.days_since_update = ["It has been " + days_since_update + " " + day_string + " since the last data update", new Date().toDateString(), days_since_update];
         }
         //console.log("Days since data update: " + this.getDaysSinceDataUpdate());
         //console.log("The getAlertMessages() length is: " + Object.keys(messages).length);

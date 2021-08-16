@@ -1913,7 +1913,8 @@ function alertsCenterList(messages) {
   }
 
   if (messages.days_since_update !== undefined) {
-    items += alertsCenterListPopulate(messages.days_since_update[1], messages.days_since_update[0], "fa-clock", "bg-danger");
+    var bg_string = messages.days_since_update[2] !== undefined && messages.days_since_update[2] === 1 ? "bg-warning" : "bg-danger";
+    items += alertsCenterListPopulate(messages.days_since_update[1], messages.days_since_update[0], "fa-clock", bg_string);
   }
 
   document.getElementById("alerts-center-items").innerHTML = items; //console.log(items);
@@ -2084,7 +2085,7 @@ var ChartConfigSetup = /*#__PURE__*/function () {
 
       if (Number.isInteger(days_since_update) && days_since_update > 0) {
         var day_string = days_since_update === 1 ? "day" : "days";
-        messages.days_since_update = ["It has been " + days_since_update + " " + day_string + " since the last data update", new Date().toDateString()];
+        messages.days_since_update = ["It has been " + days_since_update + " " + day_string + " since the last data update", new Date().toDateString(), days_since_update];
       } //console.log("Days since data update: " + this.getDaysSinceDataUpdate());
       //console.log("The getAlertMessages() length is: " + Object.keys(messages).length);
 
@@ -37931,9 +37932,10 @@ document.addEventListener('DOMContentLoaded', function () {
     if (month.length < 2) month = '0' + month;
     if (day.length < 2) day = '0' + day;
     return [year, month, day].join('-');
-  }
+  } //post_data = $.post("/cvstats", {"date_from":"2020-02-01", "date_to":formatTodaysDate() , "_token": $('meta[name="csrf-token"]').attr('content')}, function(result){
 
-  post_data = jquery__WEBPACK_IMPORTED_MODULE_2___default().post("/cvstats", {
+
+  jquery__WEBPACK_IMPORTED_MODULE_2___default().post("/cvstats", {
     "date_from": "2020-02-01",
     "date_to": formatTodaysDate(),
     "_token": jquery__WEBPACK_IMPORTED_MODULE_2___default()('meta[name="csrf-token"]').attr('content')

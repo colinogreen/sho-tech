@@ -1,6 +1,12 @@
 (function($) {
   "use strict"; // Start of use strict
-
+    
+    // August 2021 - automatically collapse sidebar on smaller screen.
+    if ($(window).width() < 480 ){
+    $(".sidebar").addClass("toggled");
+      $("body").addClass("sidebar-toggled");
+      $('.sidebar .collapse').collapse('hide');
+    };
   // Toggle the side navigation
   $("#sidebarToggle, #sidebarToggleTop").on('click', function(e) {
     $("body").toggleClass("sidebar-toggled");

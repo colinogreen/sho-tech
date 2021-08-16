@@ -8,7 +8,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-        <link href="{{ asset('css/app.css') }}?v={{ Config::get('app.cssversion') }}" rel="stylesheet">
+        <link href="{{ asset('css/app.css') }}?v={{ config('app.cssversion') }}" rel="stylesheet">
     </head>   
     <body>
  
@@ -21,11 +21,11 @@
       <li class="nav-item">
         <a class="nav-link @yield('weather_link_active')" href="{{ route('weatherindex') }}">Weather Data</a>
       </li>
-      @if(env('APP_DEBUG'))
+
       <li class="nav-item">
         <a class="nav-link" href="{{ route('cstats_index') }}">Covid Stats UK</a>
       </li>
-      @endif
+
      <?php /*  <li class="nav-item">
         <a class="nav-link disabled" href="#">Disabled</a>
       </li> */?>
@@ -43,13 +43,7 @@
   </div>
 </div>
      
-      <script src="{{ asset('js/app.js') }}?v={{ Config::get('app.jsversion') }}"></script>
+      <script src="{{ asset('js/app.js') }}?v={{ config('app.jsversion') }}"></script>
 
     </body>
 </html>
-<?php 
-/*
- *     <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
- */
-?>
