@@ -35,7 +35,12 @@ Route::get('/weather', [Showcase::class, 'indexWeather'])->name("weatherindex");
 
 Route::get('covidstatsuk', [Showcase::class, 'covidStatsUk'])->name("covidstatsukindex");
 //Route::get('cvstats', [Showcase::class, 'cvStatsUK'])->name("cvd_stats");
+
+// * Calls the cms API endpoint for stats data, retrieving a secret Bearer token for authentication outside of this folder structure.
 Route::post('cvstats', [Showcase::class, 'cvStatsUK'])->name("cvd_stats"); //->middleware('auth');
+Route::get('cvstats', function () {
+    return redirect("/"); // Redirect to home page if endpoint post url is called in browser or from app using get request, etc.
+});
 
 Route::get('/forecast_data', [Showcase::class, 'weatherDataWithoutCityParameter']); // 
 //Route::get('forecast_data', [WeatherForecast::class, 'dataWithoutCityParameter']);

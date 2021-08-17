@@ -11,7 +11,7 @@
 
     <script>
 document.addEventListener('DOMContentLoaded', function () {
-    $("#covid_data").html("Changed by JQuery");
+    //$("#covid_data").html("Changed by JQuery");
       $.ajax({url: "/cvstats", dataType:"json", success: function(result){
          console.log(result);
          console.log(result.data[0].date);

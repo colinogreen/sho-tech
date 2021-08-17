@@ -22,7 +22,7 @@ class Showcase extends Controller
     
     public function cvStatsUK(Request $post)
     {
-        //exit(str_ireplace("api_token=", "",file_get_contents("/var/www/html/connect/api_token_test.ini")));
+        //\Log::debug(__FUNCTION__. " - " . __LINE__. " - Post: ".print_r($post->toArray(), true));
         $wwwpath = dirname(__FILE__, 5);
         //if(!stristr(url(""), ".uk"))
         if($wwwpath === "/var/www/html")

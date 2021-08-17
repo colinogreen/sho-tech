@@ -37935,11 +37935,19 @@ document.addEventListener('DOMContentLoaded', function () {
   } //post_data = $.post("/cvstats", {"date_from":"2020-02-01", "date_to":formatTodaysDate() , "_token": $('meta[name="csrf-token"]').attr('content')}, function(result){
 
 
-  jquery__WEBPACK_IMPORTED_MODULE_2___default().post("/cvstats", {
-    "date_from": "2020-02-01",
-    "date_to": formatTodaysDate(),
-    "_token": jquery__WEBPACK_IMPORTED_MODULE_2___default()('meta[name="csrf-token"]').attr('content')
-  }, function (result) {
+  jquery__WEBPACK_IMPORTED_MODULE_2___default().ajax({
+    url: "/cvstats",
+    type: "POST",
+    data: {
+      "date_from": "2020-02-01",
+      "date_to": formatTodaysDate()
+    },
+    dataType: "json",
+    headers: {
+      'X-CSRF-TOKEN': jquery__WEBPACK_IMPORTED_MODULE_2___default()('meta[name="csrf-token"]').attr('content') // Stop calls that are not from this web (sub)domain's Laravel app
+
+    }
+  }).done(function (result) {
     global_result = result; //* Debugging in console. REMOVE
 
     if (document.getElementById("total_cases_to_date") !== null) {
@@ -38087,7 +38095,11 @@ document.addEventListener('DOMContentLoaded', function () {
     //console.log(cSixMonths.getAlertMessages());
 
     (0,_chartconfig_functions__WEBPACK_IMPORTED_MODULE_1__.alertsCenterList)(cSixMonths.getAlertMessages());
-  }, "json");
+  }).fail(function (jqXHR, textStatus) {
+    console.log("Request failed: " + textStatus);
+  }); //    .headers({
+  //        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Stop calls that are not from this web (sub)domain's Laravel app
+  //    });
 }); //console.log("Hello world from resources/js/appstats.js");
 //import { Greeting, OtherGreeting } from './greeting';
 //window.Greeting = Greeting;

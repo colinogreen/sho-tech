@@ -30,7 +30,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     //post_data = $.post("/cvstats", {"date_from":"2020-02-01", "date_to":formatTodaysDate() , "_token": $('meta[name="csrf-token"]').attr('content')}, function(result){
-    $.post("/cvstats", {"date_from":"2020-02-01", "date_to":formatTodaysDate() , "_token": $('meta[name="csrf-token"]').attr('content')}, function(result){
+    $.ajax({url:"/cvstats", type: "POST", data: {"date_from":"2020-02-01", "date_to":formatTodaysDate() },
+        dataType:  "json",headers:{
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Stop calls that are not from this web (sub)domain's Laravel app
+    }})
+        .done(function(result){
         
        global_result = result; //* Debugging in console. REMOVE
        
@@ -168,7 +172,13 @@ document.addEventListener('DOMContentLoaded', function () {
         //console.log(cSixMonths.getAlertMessages());
         alertsCenterList(cSixMonths.getAlertMessages());
 
-    }, "json");
+    })
+    .fail(function( jqXHR, textStatus ) {
+        console.log( "Request failed: " + textStatus );
+    });
+//    .headers({
+//        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Stop calls that are not from this web (sub)domain's Laravel app
+//    });
 
 });
 

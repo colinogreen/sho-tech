@@ -677,7 +677,7 @@ $bodyid = "page-top";
                     <!-- Content Row -->
                     <div class="row">
                          <!-- Bar Chart -->
-                        <div id="cases-per-month" class="in_page_link col-xl-3 col-lg-4">
+                        <div id="cases-per-month" class="in_page_link col-xl-5 col-lg-6">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
