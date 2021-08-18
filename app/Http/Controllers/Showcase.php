@@ -28,14 +28,12 @@ class Showcase extends Controller
         if($wwwpath === "/var/www/html")
         {
             //echo $wwwpath;
-            $token = str_ireplace("api_token=", "",file_get_contents("$wwwpath/connect/api_token_test.ini")); $url = "http://cms.technohelp.vm2/api/statisticsdata";            
+            $token = str_ireplace("api_token=", "",file_get_contents("$wwwpath/connect/api_token_test.ini")); $url = "http://cms.technohelp.vm2/api/getcovidstatsfull";            
         }
         else
         {
-            $token = str_ireplace("api_token=", "",file_get_contents("$wwwpath/connect/api_token_live.ini")); $url = "https://cms.technohelp.uk/api/statisticsdata"; 
-        }
-        //exit($token);
-        //$token = str_ireplace("api_token=", "",file_get_contents("$wwwpath/connect/api_token_live.ini")); $url = "https://cms.technohelp.uk/api/statisticsdata";      
+            $token = str_ireplace("api_token=", "",file_get_contents("$wwwpath/connect/api_token_live.ini")); $url = "https://cms.technohelp.uk/api/getcovidstatsfull"; 
+        }   
         
         $response = Http::withHeaders([
             'Authorization' => 'Bearer '.trim($token),
