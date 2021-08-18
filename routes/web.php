@@ -45,4 +45,6 @@ Route::get('cvstats', function () {
 Route::get('/forecast_data', [Showcase::class, 'weatherDataWithoutCityParameter']); // 
 //Route::get('forecast_data', [WeatherForecast::class, 'dataWithoutCityParameter']);
 Route::get('/forecast_data/{city}', [Showcase::class, 'weatherData']);
-//Route::get('forecast_data/{city}', [WeatherForecast::class, 'data']);
+
+//** Redirect to home if URL string is not recognised instead of 404-ing **//
+Route::any('/{notrecognised?}', function(){ return redirect("/");})->where('notrecognised', '.*');
