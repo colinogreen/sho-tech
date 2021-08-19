@@ -151,7 +151,7 @@ Final class WeatherDataForCity
         return ["fas fa-moon","far fa-sun","fas fa-cloud-moon","fas fa-cloud-sun","Not used","fas fa-smog","fas fa-smog","fas fa-cloud","fas fa-cloud", //9
             "fas fa-cloud-moon-rain","fas fa-cloud-sun-rain","fas fa-cloud","fas fa-cloud-rain","fas fa-cloud-showers-heavy","fas fa-cloud-showers-heavy", //15
             "fas fa-cloud-showers-heavy","Sleet shower (night)","Sleet shower (day)","Sleet","Hail shower (night)","Hail shower (day)","Hail","far fa-snow", //23
-            "fas fa-snow","fas fa-snow","fas fa-snow","fas fa-snow","fas fa-snow","fas fa-bolt","fas fa-bolt", "fas fa-bolt"];
+            "fas fa-snow","fas fa-snow","fas fa-snow","fas fa-snow","fas fa-snow","fas fa-bolt","fas fa-bolt", "fas fa-bolt", "fas fa-exclamation"]; // 32 Items
 
     }
     
@@ -161,7 +161,7 @@ Final class WeatherDataForCity
         return ["Clear night","Sunny day","Partly cloudy (night)","Partly cloudy (day)","Not used","Mist","Fog","Cloudy","Overcast", //9
             "Light rain shower (night)","Light rain shower (day)","Drizzle","Light rain","Heavy rain shower (night)","Heavy rain shower (day)",//15
             "Heavy rain","Sleet shower (night)","Sleet shower (day)","Sleet","Hail shower (night)","Hail shower (day)","Hail","Light snow shower (night)", //23
-            "Light snow shower (day)","Light snow","Heavy snow shower (night)","Heavy snow shower (day)","Heavy snow","Thunder shower (night)","Thunder shower (day)","Thunder"]; //31
+            "Light snow shower (day)","Light snow","Heavy snow shower (night)","Heavy snow shower (day)","Heavy snow","Thunder shower (night)","Thunder shower (day)","Thunder", "unknown"]; //32 Items
     }
     public function setCachedData(string $result)
     {
@@ -208,6 +208,7 @@ Final class WeatherDataForCity
     }
     private function setDaySignificantWeatherDesc(string $code)
     {
+        //\Log::debug("Debug Attempt to set setDaySignificantWeatherDesc ". count($this->getDayWeatherLabel()));
         $this->dayWeatherDesc[] = $this->getDayWeatherLabel()[$code];
     }
     private function setDaySignificantWeatherIcon(string $icon)
@@ -287,21 +288,26 @@ Final class WeatherDataForCity
             {
                 $this->setDayOfWeek($timeseries[$i]->time);
                 $this->setDayDate($timeseries[$i]->time);
-                $this->setDaySignificantWeatherDesc($timeseries[$i]->daySignificantWeatherCode);
+                $daysignificantweathercode = isset($timeseries[$i]->daySignificantWeatherCode)? $timeseries[$i]->daySignificantWeatherCode: (count($this->getDayWeatherLabel()) - 1);
+                $this->setDaySignificantWeatherDesc($daysignificantweathercode);
                 $this->setNightSignificantWeatherDesc($timeseries[$i]->nightSignificantWeatherCode);
-                $this->setDaySignificantWeatherIcon($timeseries[$i]->daySignificantWeatherCode);
+                $this->setDaySignificantWeatherIcon($daysignificantweathercode);
                 $this->setNightSignificantWeatherIcon($timeseries[$i]->nightSignificantWeatherCode);
                 $this->setDayHighestTemp(round($timeseries[$i]->dayMaxScreenTemperature));
                 //$this->setDayHighestTemp(round($timeseries[$i]->dayUpperBoundMaxTemp));
                 $this->setDayLowestTemp(round($timeseries[$i]->nightMinScreenTemperature));
                 //$this->setDayLowestTemp(round($timeseries[$i]->nightLowerBoundMinTemp));
-                $this->setDayChanceOfRain(round($timeseries[$i]->dayProbabilityOfPrecipitation));
+                $dayProbabilityOfPrecipitation = isset($timeseries[$i]->dayProbabilityOfPrecipitation)? $timeseries[$i]->dayProbabilityOfPrecipitation: 0;
+                $this->setDayChanceOfRain(round($dayProbabilityOfPrecipitation));
                 
-                $this->setDayMaxUvIndex(round($timeseries[$i]->maxUvIndex)); // Added 2021-07-14
-                $this->setDayMaxFeelsLikeTemp(round($timeseries[$i]->dayMaxFeelsLikeTemp)); // Added 2021-07-14
+                $maxUvIndex = isset($timeseries[$i]->maxUvIndex)? $timeseries[$i]->maxUvIndex: 0;
+                $this->setDayMaxUvIndex(round($maxUvIndex)); // Added 2021-07-14
+                
+                $dayMaxFeelsLikeTemp = isset($timeseries[$i]->dayMaxFeelsLikeTemp)? $timeseries[$i]->dayMaxFeelsLikeTemp: 0;
+                $this->setDayMaxFeelsLikeTemp(round($dayMaxFeelsLikeTemp)); // Added 2021-07-14
                 $this->setNightMinFeelsLikeTemp(round($timeseries[$i]->nightMinFeelsLikeTemp)); // Added 2021-07-28
-               
-                $this->setDayWindSpeed(round($this->convertWindSpeed10msToMph($timeseries[$i]->midday10MWindSpeed)));                
+                $midday10MWindSpeed = isset($timeseries[$i]->midday10MWindSpeed)? round($this->convertWindSpeed10msToMph($timeseries[$i]->midday10MWindSpeed)): 0;                
+                $this->setDayWindSpeed($midday10MWindSpeed);                
             }
 
         }
