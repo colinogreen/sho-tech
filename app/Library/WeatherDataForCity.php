@@ -293,7 +293,8 @@ Final class WeatherDataForCity
                 $this->setNightSignificantWeatherDesc($timeseries[$i]->nightSignificantWeatherCode);
                 $this->setDaySignificantWeatherIcon($daysignificantweathercode);
                 $this->setNightSignificantWeatherIcon($timeseries[$i]->nightSignificantWeatherCode);
-                $this->setDayHighestTemp(round($timeseries[$i]->dayMaxScreenTemperature));
+                $dayMaxScreenTemperature = isset($timeseries[$i]->dayMaxScreenTemperature)? $timeseries[$i]->dayMaxScreenTemperature: 0;
+                $this->setDayHighestTemp(round($dayMaxScreenTemperature));
                 //$this->setDayHighestTemp(round($timeseries[$i]->dayUpperBoundMaxTemp));
                 $this->setDayLowestTemp(round($timeseries[$i]->nightMinScreenTemperature));
                 //$this->setDayLowestTemp(round($timeseries[$i]->nightLowerBoundMinTemp));
