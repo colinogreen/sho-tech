@@ -40,12 +40,12 @@ document.addEventListener('DOMContentLoaded', function () {
        
        if(document.getElementById("total_cases_to_date")!== null)
        {         
-            const cases_to_date = result.data[result.data.length -1].cases;
-            const cases_today = result.data[result.data.length -1].cases_today;
-            const deaths_to_date = result.data[result.data.length -1].expired;
-            const deaths_today = result.data[result.data.length -1].expired_today;
-            const to_date_date = " (" + result.data[result.data.length -1].date + ")";
-            const weekly_average_cases = result.data[result.data.length -1].cases_average;
+            const cases_to_date = result.message[result.message.length -1].cases;
+            const cases_today = result.message[result.message.length -1].cases_today;
+            const deaths_to_date = result.message[result.message.length -1].expired;
+            const deaths_today = result.message[result.message.length -1].expired_today;
+            const to_date_date = " (" + result.message[result.message.length -1].date + ")";
+            const weekly_average_cases = result.message[result.message.length -1].cases_average;
             //console.log(cases_to_date);
 
             $("#total_cases_to_date").html(number_format(cases_to_date));
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const dColor2 = "rgba(255, 163, 26, 1)"; // Orangey alternating bar chart colors
        
        //** Graph Covid Cases In the UK | START
-        const cConfig = new ChartConfigSetup(result.data); //* Updated way of doing things
+        const cConfig = new ChartConfigSetup(result.message); //* Updated way of doing things
         cConfig.getGraphLabels("date");
         cConfig.getGraphData1("cases");
         cConfig.getGraphData2("cases_today");
@@ -78,13 +78,13 @@ document.addEventListener('DOMContentLoaded', function () {
         
         //** Graph Covid Cases In the UK | END
         //////////////////////////////////////
-        const start_item = (result.data.length -7);
+        const start_item = (result.message.length -7);
         
         //////////////////////////////////////
         //** Graph: Average Weekly Cases trend | START
-        const av_start_item = (result.data.length -15);
+        const av_start_item = (result.message.length -15);
         const loop_step = 7;
-        const cAvgWeek = new ChartConfigSetup(result.data); //* Updated way of doing things
+        const cAvgWeek = new ChartConfigSetup(result.message); //* Updated way of doing things
         cAvgWeek.getGraphAveragesLabels("date", av_start_item, loop_step);
         cAvgWeek.getGraphAveragesData("cases_average", av_start_item, loop_step);
         //cAvgWeek.getGraphData1("cases_today",start_item);
@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function () {
         //////////////////////////////////////
         
         //** Graph Covid Expired In the UK | START
-        const dConfig = new ChartConfigSetup(result.data); //* Updated way of doing things
+        const dConfig = new ChartConfigSetup(result.message); //* Updated way of doing things
         dConfig.getGraphLabels("date");
         dConfig.getGraphData1("expired");
         dConfig.getGraphData2("expired_today");
@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function () {
         //
         //** Graph: Cases Last Seven Days | START
         
-        const c7Config = new ChartConfigSetup(result.data); //* Updated way of doing things
+        const c7Config = new ChartConfigSetup(result.message); //* Updated way of doing things
         c7Config.getGraphLabels("date", start_item);
         c7Config.getGraphData2("cases", start_item);
         c7Config.getGraphData1("cases_today",start_item);
@@ -126,8 +126,8 @@ document.addEventListener('DOMContentLoaded', function () {
         //
         //** Graph: Expired Last Seven Days | START
         
-        //start_item = (result.data.length -7);
-        const d7Config = new ChartConfigSetup(result.data); //* Updated way of doing things
+        //start_item = (result.message.length -7);
+        const d7Config = new ChartConfigSetup(result.message); //* Updated way of doing things
         d7Config.getGraphLabels("date", start_item);
         d7Config.getGraphData2("expired", start_item);
         d7Config.getGraphData1("expired_today",start_item);
@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function () {
         ///////////////////////////////////////
         //** Graph: Average Weekly Expired trend | START
 
-        const dAvgWeek = new ChartConfigSetup(result.data); //* Updated way of doing things
+        const dAvgWeek = new ChartConfigSetup(result.message); //* Updated way of doing things
         dAvgWeek.getGraphAveragesLabels("date", av_start_item, loop_step);
         dAvgWeek.getGraphAveragesData("expired_average", av_start_item, loop_step);
         //cAvgWeek.getGraphData1("cases_today",start_item);
@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function () {
         ///////////////////////////////////////
         //** Pie chart: Monthly total cases for six months | START
         
-        const cSixMonths = new ChartConfigSetup(result.data); //* Updated way of doing things
+        const cSixMonths = new ChartConfigSetup(result.message); //* Updated way of doing things
 
         cSixMonths.getSixIndividualMonthsData("cases_today");
        
