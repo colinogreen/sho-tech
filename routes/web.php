@@ -25,13 +25,15 @@ Route::get('/greeting', function () {
 });
 
 //** sb-admin-2 based bootstrap template view
-Route::get('/cstats', function () {
+Route::get('cstats', function () 
+{
+    Showcase::logSiteVisit();
     return view("cstats_index");
 })->name("cstats_index");
 
 //Route::get('/{city}', [WeatherFivedayForecast::class, 'myGreeting']);
-Route::get('/weather/{city}', [Showcase::class, 'indexWeatherWithCity']);
-Route::get('/weather', [Showcase::class, 'indexWeather'])->name("weatherindex");
+Route::get('weather/{city}', [Showcase::class, 'indexWeatherWithCity']);
+Route::get('weather', [Showcase::class, 'indexWeather'])->name("weatherindex");
 
 Route::get('covidstatsuk', [Showcase::class, 'covidStatsUk'])->name("covidstatsukindex");
 //Route::get('cvstats', [Showcase::class, 'cvStatsUK'])->name("cvd_stats");

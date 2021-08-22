@@ -1,4 +1,5 @@
 <?php
+//use Classes\Sessions\Session;
 
 $bodyid = "page-top";
 ?>
