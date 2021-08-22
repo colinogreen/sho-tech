@@ -14649,8 +14649,11 @@ h3 {
   font-size: 1.3em;
   color: #808080;
 }
-.weather_data .fa-sun, .weather_data .fa-bolt {
+.weather_data .fa-sun {
   color: #b3b300;
+}
+.weather_data .fa-bolt {
+  color: #80ccff;
 }
 .weather_data .fa-cloud-sun {
   color: #666600;
