@@ -15,7 +15,7 @@ class Showcase extends Controller
 
     public static function logSiteVisit()
     {
-        (new Message())->logSitePageVisit();        
+        (new Message())->logSiteVisit();        
     }
     public function index()
     {
