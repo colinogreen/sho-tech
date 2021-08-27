@@ -2,6 +2,7 @@
 //use App\Library\WeatherForecast;
 use App\Http\Controllers\Showcase;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Controller;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +28,7 @@ Route::get('/greeting', function () {
 //** sb-admin-2 based bootstrap template view
 Route::get('cstats', function () 
 {
-    Showcase::logSiteVisit();
+    Controller::logSiteVisit();
     return view("cstats_index");
 })->name("cstats_index");
 
