@@ -124,18 +124,29 @@ class ChartConfigSetup
         //const casesmonth = {};
         //console.log("this.result_data for " + object_label);
         //console.log(this.result_data);
+        
+        var prevmonth; // Helps reduce month to previous month under certain circumstances
         for(var i = 1; i < 7; i++)
         {
             var tot = 0;
             //var dtset = new Date().setMonth(new Date().getMonth()-i);
-            const last_record_date = this.result_data[this.result_data.length-1].date; // Get the date of the last record to base the six months data calc on
-            var dtset = new Date(last_record_date).setMonth(new Date().getMonth()-i);
-            var dt = new Date(dtset);
+            const last_record_date = this.result_data[this.result_data.length-1].date; // Get the date of the last record to base the six months data calc onz
+            
+            var ldate = new Date(last_record_date);
+            ldate.setMonth(ldate.getMonth()-i);
+            
+            // If reduction of months still results in the same month being shown, reduce to previous month.
+            if(ldate.getMonth() === prevmonth)
+            {
+                ldate.setDate(0);
+            }
+            prevmonth = ldate.getMonth();
+            //var dt = new Date(dtset);
             
             //console.log("getSixIndividualMonthsData start date:");
-            //console.log(dt);
+            //console.log(ldate.toLocaleString());
             
-            var date_match = dt.getFullYear() + "-" + this.getFormattedMonthNumeric(dt);
+            var date_match = ldate.getFullYear() + "-" + this.getFormattedMonthNumeric(ldate);
 
             for(var n in this.result_data)
             {
@@ -153,7 +164,7 @@ class ChartConfigSetup
             }
 
             //casesmonth[dt.toLocaleString('en-GB', {year:'numeric', month:'long'})] = tot;
-            this.labels[this.labels.length] = dt.toLocaleString('en-GB', {year:'numeric', month:'long'});
+            this.labels[this.labels.length] = ldate.toLocaleString('en-GB', {year:'numeric', month:'long'});
             this.graphData1[this.graphData1.length] = tot;
         }
         

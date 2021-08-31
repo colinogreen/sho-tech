@@ -7,6 +7,10 @@ use App\Library\WeatherDataForCity;
 use App\Console\Commands\GetWeatherData;
 use Illuminate\Support\Facades\Cache;
 
+/**
+ * @author Colin M.
+ * @package App
+ */
 class WeatherForecast{
     
     private $cityLatitudeAndLongitude = [];
@@ -19,22 +23,16 @@ class WeatherForecast{
     
     public function myGreeting(string $city)
     {
-        //return "Hello Greeting $param!";
         return view("weather_index", ["city" => $city]);
     }
 
-    /*
-     *             'latitude' => '56.46913', // Dundee latitude
-     'longitude' => '-2.97489',  // Dundee longitude
-     */
-    
     private function setCityLatitudeAndLongitude()
     {
         $this->cityLatitudeAndLongitude = self::getCityLatAndLongInfo();
     }
     /**
      * Array of Valid UK Cities and their Latitude and Longitude that can be queried by the app.
-     * Made static so that both Class instance AND Static calls can access the data.
+     * Made static so that both class instance AND static calls can access the data.
      * @return Array of Cities
      */
     private static function getCityLatAndLongInfo()
@@ -119,7 +117,7 @@ class WeatherForecast{
         return array_keys(self::getCityLatAndLongInfo());
     }
     
-    public static function isValidWeatherCity($city):bool
+    public static function isValidUKWeatherCity($city):bool
     {
         return in_array($city, self::getValidListOfUKCities());
     }
@@ -139,8 +137,6 @@ class WeatherForecast{
     private function createWeatherLinks($city, $CitySummary)
     {
         $this->city_links[]['link'] = '<a href="/weather/'. $city . '" class="card-link" >' . ucfirst($city). '</a>';
-        //$current_key = (int)(count($this->city_links)-1);
-        //$this->city_links[$current_key][] = array("test") ;
         $data = json_decode($this->data($city));
         if(isset($data->api_query->day[1]))
         {
@@ -154,6 +150,7 @@ class WeatherForecast{
         return $this->city_links;
         
     }
+    
     public function getCityLatitudeAndLongitudeArray():array
     {
         return $this->cityLatitudeAndLongitude;
@@ -168,21 +165,15 @@ class WeatherForecast{
         
         return $std;
     }
-    /**
-     * Just get json data for React.js, etc.
-     * @return WeatherDataForCity
-     */
     
     public function dataWithoutCityParameter()
     {
         return $this->data("dundee");
-        //return $this->data("liverpool");
+
     }
     public function data(string $city)
     {
         $stdClass = $this->getCityLatitudeAndLongitude(strtolower($city));
-        //\Log::debug("Trying to get city data for $city: ".print_r($stdClass, true)); exit("End");
-        //exit(__CLASS__. "::".__FUNCTION__." - DEBUG Trying to get city data for $city: ".print_r($stdClass, true));
         $getWeatherData = new GetWeatherData();
         $getWeatherData->setCityDetails($stdClass);
 
@@ -214,8 +205,6 @@ class WeatherForecast{
             // See if current day is within seven hours of the Met Office next day start time. If so, show night time weather symbol.
             if($i === 1 && strtotime("now")> $utcnextdaytimeminus7hours)
             {
-                //\Log::debug( __CLASS__. "::".__FUNCTION__." - Data: \$utcdaytime: $utcnextdaytimeminus7hours - " .$cityWeather->getDayDate($i + 1));
-                //\Log::debug( __CLASS__. "::".__FUNCTION__." - Data: \strtotime(\"now\"): " .strtotime("now") . " -" .date("Y-m-d H:i:s", strtotime("now")));
                 $data->api_query->day[$i]->day_weather_desc = $cityWeather->getNightSignificantWeatherDesc($i);
                 $data->api_query->day[$i]->day_weather_icon = $cityWeather->getNightSignificantWeatherIcon($i);
                 $data->api_query->day[$i]->day_period_temp = $cityWeather->getDayLowestTemp($i);
@@ -243,7 +232,6 @@ class WeatherForecast{
             $data->api_query->day[$i]->max_feels_like_temp = $cityWeather->getDayMaxFeelsLikeTemp($i);
             $data->api_query->day[$i]->min_feels_like_temp = $cityWeather->getNightMinFeelsLikeTemp($i);
         }
-        //exit( __CLASS__. "::".__FUNCTION__." - Data:<pre>". print_r($data, true)."</pre>");
         return json_encode($data);
     }
 }

@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
 use App\Library\WeatherForecast;
 
+/**
+ * @author Colin M.
+ * @package App
+ */
 class GetWeatherData extends Command
 {
     private $cachedDataName = "api_weather_data";
