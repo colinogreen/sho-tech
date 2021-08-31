@@ -28,7 +28,8 @@ Route::get('/greeting', function () {
 //** sb-admin-2 based bootstrap template view
 Route::get('cstats', function () 
 {
-    Controller::logSiteVisit();
+    Controller::logSiteAndPageVisit();
+
     return view("cstats_index");
 })->name("cstats_index");
 

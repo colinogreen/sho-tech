@@ -48,12 +48,18 @@ class Showcase extends Controller
     
     public function indexWeatherWithCity($city)
     {
-        //self::logSiteVisit();
+        if(!WeatherForecast::isValidWeatherCity($city))
+        {
+            return redirect("/"); // Redirect to home page if city query string is not a valid UK City for this application.
+        }
+        
+        self::logPageVisit();        
         return view("weather_city", ["city" => $city]); // Send the class and it's data to the view for processing
     }
     public function indexWeather()
     {
         //self::logSiteVisit();
+        self::logPageVisit();
         $weather_links = $this->getWeatherForecast()->getWeatherForecastCities();
         return view("showcase_index", ["weather_links"=>$weather_links]); // Send the class and it's data to the view for processing
     }

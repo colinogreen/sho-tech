@@ -30,7 +30,16 @@ class WeatherForecast{
     
     private function setCityLatitudeAndLongitude()
     {
-        $this->cityLatitudeAndLongitude = [
+        $this->cityLatitudeAndLongitude = self::getCityLatAndLongInfo();
+    }
+    /**
+     * Array of Valid UK Cities and their Latitude and Longitude that can be queried by the app.
+     * Made static so that both Class instance AND Static calls can access the data.
+     * @return Array of Cities
+     */
+    private static function getCityLatAndLongInfo()
+    {
+        return [
             
             "belfast"=>[
                 "name" => "belfast",
@@ -103,6 +112,16 @@ class WeatherForecast{
                 "longitude"=>"-1.08271"],
             
         ];
+    }
+    
+    private static function getValidListOfUKCities():array
+    {
+        return array_keys(self::getCityLatAndLongInfo());
+    }
+    
+    public static function isValidWeatherCity($city):bool
+    {
+        return in_array($city, self::getValidListOfUKCities());
     }
     
     public function getWeatherForecastCities():array

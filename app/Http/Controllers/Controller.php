@@ -18,12 +18,21 @@ class Controller extends BaseController
     
     public function __construct()
     {
-        //parent::__construct();
-        
         self::logSiteVisit();
     }
     public static function logSiteVisit()
     {
         (new LogVisitors())->siteVisit();        
     }
+    public static function logPageVisit()
+    {
+        (new LogVisitors())->pageVisit();        
+    } 
+    
+    public static function logSiteAndPageVisit()
+    {
+        $logVisitors = new LogVisitors();
+        $logVisitors->siteVisit();        
+        $logVisitors->pageVisit();        
+    } 
 }
