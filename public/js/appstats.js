@@ -2044,14 +2044,11 @@ var ChartConfigSetup = /*#__PURE__*/function () {
   function ChartConfigSetup(result_data) {
     _classCallCheck(this, ChartConfigSetup);
 
-    //this.extraData = extra_data;
     this.labels_array = [];
     this.result_data = result_data;
     this.optionsSettings; // use with setConfigSettings/setConfigSettingsItem etc. methods
 
     this.dataSettings; // use with setDataSettings/setDataSettingsItem etc. methods
-    //console.log("this.configOptions: " + this.configOptions);
-    //this.data = {};
 
     this.graphData1 = [];
     this.graphData2 = [];
@@ -2071,8 +2068,7 @@ var ChartConfigSetup = /*#__PURE__*/function () {
     this.pointHoverBackgroundColor = "rgba(78, 115, 223, 1)";
     this.pointHoverBorderColor = "rgba(78, 115, 223, 1)";
     this.pointHitRadius = 10;
-    this.pointBorderWidth = 2; //this.data_array = [];
-    //this.todaydata =[];// Colin's custom entry
+    this.pointBorderWidth = 2;
   }
 
   _createClass(ChartConfigSetup, [{
@@ -2086,9 +2082,7 @@ var ChartConfigSetup = /*#__PURE__*/function () {
       if (Number.isInteger(days_since_update) && days_since_update > 0) {
         var day_string = days_since_update === 1 ? "day" : "days";
         messages.days_since_update = ["It has been " + days_since_update + " " + day_string + " since the last data update", new Date().toDateString(), days_since_update];
-      } //console.log("Days since data update: " + this.getDaysSinceDataUpdate());
-      //console.log("The getAlertMessages() length is: " + Object.keys(messages).length);
-
+      }
 
       messages.alert_data_length = Object.keys(messages).length;
       return messages;
@@ -2096,7 +2090,6 @@ var ChartConfigSetup = /*#__PURE__*/function () {
   }, {
     key: "getDaysSinceDataUpdate",
     value: function getDaysSinceDataUpdate() {
-      //console.log("getDataUpdateDays():" + this.getComputerDateFormat());
       var today_date = this.getComputerDateFormat();
       var last_update = this.getLastDataUpdate();
       var diffInMs = new Date(today_date) - new Date(last_update);
@@ -2115,7 +2108,6 @@ var ChartConfigSetup = /*#__PURE__*/function () {
   }, {
     key: "getComputerDateFormat",
     value: function getComputerDateFormat(dayoffset) {
-      //console.log("dayoffset: " + dayoffset);
       var t = new Date();
 
       if (dayoffset !== undefined && dayoffset.isInteger()) {
@@ -2134,14 +2126,10 @@ var ChartConfigSetup = /*#__PURE__*/function () {
     key: "getMonthTotalToDate",
     value: function getMonthTotalToDate(label) {
       var last_item_num = this.result_data.length - 1;
-      var last_item = this.result_data[last_item_num]; //console.log("Last item date: ")
-      //const first_item_num = (this.result_data.length-7);
-
+      var last_item = this.result_data[last_item_num];
       var first_item_num = last_item_num - new Date(last_item['date']).getDate() + 1;
       var first_item = this.result_data[first_item_num];
-      var latest_date = new Date(last_item['date']); //console.log("Last item date: " + last_item['date']);
-      //console.log("First item date: " + first_item['date']);
-
+      var latest_date = new Date(last_item['date']);
       var total = 0;
 
       for (var i = first_item_num; i <= last_item_num; i++) {
@@ -2154,9 +2142,6 @@ var ChartConfigSetup = /*#__PURE__*/function () {
   }, {
     key: "getSixIndividualMonthsData",
     value: function getSixIndividualMonthsData(object_label) {
-      //const casesmonth = {};
-      //console.log("this.result_data for " + object_label);
-      //console.log(this.result_data);
       var prevmonth; // Helps reduce month to previous month under certain circumstances
 
       for (var i = 1; i < 7; i++) {
@@ -2171,33 +2156,24 @@ var ChartConfigSetup = /*#__PURE__*/function () {
           ldate.setDate(0);
         }
 
-        prevmonth = ldate.getMonth(); //var dt = new Date(dtset);
-        //console.log("getSixIndividualMonthsData start date:");
-        //console.log(ldate.toLocaleString());
-
+        prevmonth = ldate.getMonth();
         var date_match = ldate.getFullYear() + "-" + this.getFormattedMonthNumeric(ldate);
 
         for (var n in this.result_data) {
-          var cd = new Date(this.result_data[n].date); //console.log(this.result_data[n].date);
-          //var dateeval = cd.getFullYear() + "-" + (cd.getMonth()+1);
-
+          var cd = new Date(this.result_data[n].date);
           var dateeval = cd.getFullYear() + "-" + this.getFormattedMonthNumeric(cd);
 
           if (dateeval === date_match) {
-            //"Date match on " + this.result_data[n].date;
             tot += parseInt(this.result_data[n][object_label]); //** SOLVE LIVE SERVER JSON ENCODING OF AJAX CALL DATA BEFORE REMOVING parseInt FUNCTION
           }
-        } //casesmonth[dt.toLocaleString('en-GB', {year:'numeric', month:'long'})] = tot;
-
+        }
 
         this.labels[this.labels.length] = ldate.toLocaleString('en-GB', {
           year: 'numeric',
           month: 'long'
         });
         this.graphData1[this.graphData1.length] = tot;
-      } //console.log("DEBUG Function: getSixIndividualMonthsData( ..) : casesmonth");
-      //console.log(casesmonth);
-
+      }
     }
   }, {
     key: "getGraphAveragesLabels",
@@ -2212,23 +2188,18 @@ var ChartConfigSetup = /*#__PURE__*/function () {
   }, {
     key: "getGraphAveragesItem",
     value: function getGraphAveragesItem(object_name, start_array_item, loop_step) {
-      start_array_item = start_array_item === undefined ? 0 : start_array_item; //const avstart = (this.data_array.length < start_array_item)? this.data_array.length: start_array_item;
-      //console.log("start_array_item: " + start_array_item);
-      //console.log("loop_step: " + loop_step);
-
+      start_array_item = start_array_item === undefined ? 0 : start_array_item;
       var graphdata = new Array();
 
       for (var n = start_array_item; n < this.result_data.length; n += loop_step) {
         graphdata[graphdata.length] = this.result_data[n][object_name];
-      } //console.log(return_array);
-
+      }
 
       return graphdata;
     }
   }, {
     key: "getGraphLabels",
     value: function getGraphLabels(object_label, start_array_item) {
-      //console.log(this.result_data);
       this.labels = this.getGraphData(object_label, start_array_item);
     }
   }, {
@@ -2245,9 +2216,7 @@ var ChartConfigSetup = /*#__PURE__*/function () {
   }, {
     key: "getGraphData",
     value: function getGraphData(object_label, start_array_item) {
-      start_array_item = start_array_item === undefined ? 0 : start_array_item; //console.log("start_array_item: " + start_array_item);
-      //var itemcount = 0;
-
+      start_array_item = start_array_item === undefined ? 0 : start_array_item;
       var graphdata = new Array();
 
       for (var i = start_array_item; i < this.result_data.length; i++) {
@@ -2353,7 +2322,6 @@ var ChartConfigSetup = /*#__PURE__*/function () {
     value: function defaultOptionsSettings() {
       var _this = this;
 
-      //this.configSettings = {
       return {
         responsive: true,
         maintainAspectRatio: false,
@@ -2384,7 +2352,6 @@ var ChartConfigSetup = /*#__PURE__*/function () {
               padding: 10,
               // Include a dollar sign in the ticks
               callback: function callback(value, index, values) {
-                //return '$' + number_format(value);
                 return value;
               }
             },
@@ -2417,10 +2384,7 @@ var ChartConfigSetup = /*#__PURE__*/function () {
           enabled: true,
           callbacks: {
             label: function label(tooltipItem, chart) {
-              //console.log(chart.datasets[tooltipItem.datasetIndex].todaydata);
-              var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || ''; //var todaytotal = "Day total: " + todaydata[tooltipItem.index] || '';
-              //console.log("extratotal_label: " + this.extratotal_label);
-
+              var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
               var extratotal_label = _this.extratotal_label !== undefined ? _this.extratotal_label + ": " : "Day total";
               var extra_total_value = chart.datasets[tooltipItem.datasetIndex].data2[tooltipItem.index] ? extratotal_label + ": " + number_format(chart.datasets[tooltipItem.datasetIndex].data2[tooltipItem.index]) : "";
               var extratotal = extra_total_value || ''; // return array so that cumulative total and day total appear on separate lines.
