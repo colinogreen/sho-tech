@@ -2077,7 +2077,7 @@ var ChartConfigSetup = /*#__PURE__*/function () {
       var messages = {};
       messages.latest_cases = this.getMonthTotalToDate("cases_today");
       messages.latest_deaths = this.getMonthTotalToDate("expired_today");
-      var days_since_update = this.getDaysSinceDataUpdate(); //console.log("days_since_update: " + days_since_update);
+      var days_since_update = this.getDaysSinceDataUpdate();
 
       if (Number.isInteger(days_since_update) && days_since_update > 0) {
         var day_string = days_since_update === 1 ? "day" : "days";
