@@ -2074,6 +2074,7 @@ var ChartConfigSetup = /*#__PURE__*/function () {
   _createClass(ChartConfigSetup, [{
     key: "getAlertMessages",
     value: function getAlertMessages() {
+      //console.log('ChartConfigSetup().getAlertMessages()');
       var messages = {};
       messages.latest_cases = this.getMonthTotalToDate("cases_today");
       messages.latest_deaths = this.getMonthTotalToDate("expired_today");
@@ -2091,7 +2092,10 @@ var ChartConfigSetup = /*#__PURE__*/function () {
     key: "getDaysSinceDataUpdate",
     value: function getDaysSinceDataUpdate() {
       var today_date = this.getComputerDateFormat();
-      var last_update = this.getLastDataUpdate();
+      var last_update = this.getLastDataUpdate(); //console.log('ChartConfigSetup().getDaysSinceDataUpdate()');
+      //console.log(today_date);
+      //console.log(last_update);
+
       var diffInMs = new Date(today_date) - new Date(last_update);
       return diffInMs / (1000 * 60 * 60 * 24);
     }
@@ -2114,13 +2118,23 @@ var ChartConfigSetup = /*#__PURE__*/function () {
         t = new Date().getDate() - dayoffset;
       }
 
-      return t.getFullYear() + "-" + this.getFormattedMonthNumeric(t) + "-" + t.getDate();
+      return t.getFullYear() + "-" + this.getFormattedMonthNumeric(t) + "-" + this.getFormattedDatePortionNumeric(t.getDate());
     }
   }, {
     key: "getFormattedMonthNumeric",
     value: function getFormattedMonthNumeric(date) {
-      //if(date.isNumeric())
       return ('0' + (date.getMonth() + 1)).slice(-2);
+    }
+    /**
+     * Update: 2021-09-02 - This should make method 'getFormattedMonthNumeric' redundant in future.
+     * @param {type} value
+     * @returns {String}
+     */
+
+  }, {
+    key: "getFormattedDatePortionNumeric",
+    value: function getFormattedDatePortionNumeric(value) {
+      return ('0' + value).slice(-2);
     }
   }, {
     key: "getMonthTotalToDate",
@@ -38052,6 +38066,7 @@ document.addEventListener('DOMContentLoaded', function () {
     //** Pie chart: Monthly total cases for six months | START
 
     var cSixMonths = new (_chartconfigsetup__WEBPACK_IMPORTED_MODULE_0___default())(result.message); //* Updated way of doing things
+    //console.log('cSixMonths = new ChartConfigSetup(result.message);');
 
     cSixMonths.getSixIndividualMonthsData("cases_today");
     cSixMonths.dataExtraConfig({
@@ -38064,22 +38079,12 @@ document.addEventListener('DOMContentLoaded', function () {
     (0,_chartconfig_functions__WEBPACK_IMPORTED_MODULE_1__.drawChartData)(cSixMonths, "monthlyCasesTotalsSixMonth"); //** Pie chart: Monthly total cases for six months | END
 
     (0,_chartconfig_functions__WEBPACK_IMPORTED_MODULE_1__.setGraphCardLinks)(); // Create links dynamically on the Graph display card menu
-    //console.log(cSixMonths.getMonthTotalToDate('date'));
-    //console.log(cSixMonths.getAlertMessages());
 
     (0,_chartconfig_functions__WEBPACK_IMPORTED_MODULE_1__.alertsCenterList)(cSixMonths.getAlertMessages());
   }).fail(function (jqXHR, textStatus) {
     console.log("Request failed: " + textStatus);
-  }); //    .headers({
-  //        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Stop calls that are not from this web (sub)domain's Laravel app
-  //    });
-}); //console.log("Hello world from resources/js/appstats.js");
-//import { Greeting, OtherGreeting } from './greeting';
-//window.Greeting = Greeting;
-//const testClass = new Greeting();
-//testClass.sayGoodbye();
-//const anotherClass = new Greeting();
-//new OtherGreeting().sayGoodbye();
+  });
+});
 })();
 
 /******/ })()

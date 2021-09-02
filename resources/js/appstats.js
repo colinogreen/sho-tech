@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function () {
         //** Pie chart: Monthly total cases for six months | START
         
         const cSixMonths = new ChartConfigSetup(result.message); //* Updated way of doing things
-
+        //console.log('cSixMonths = new ChartConfigSetup(result.message);');
         cSixMonths.getSixIndividualMonthsData("cases_today");
        
         cSixMonths.dataExtraConfig({label:"Cases per month", type: "pie"}); //  labels data_array todaydata
@@ -167,30 +167,14 @@ document.addEventListener('DOMContentLoaded', function () {
         //** Pie chart: Monthly total cases for six months | END
         
         setGraphCardLinks(); // Create links dynamically on the Graph display card menu
-        
-        //console.log(cSixMonths.getMonthTotalToDate('date'));
-        //console.log(cSixMonths.getAlertMessages());
+
         alertsCenterList(cSixMonths.getAlertMessages());
 
     })
     .fail(function( jqXHR, textStatus ) {
         console.log( "Request failed: " + textStatus );
     });
-//    .headers({
-//        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Stop calls that are not from this web (sub)domain's Laravel app
-//    });
 
 });
-
-//console.log("Hello world from resources/js/appstats.js");
-
-
-//import { Greeting, OtherGreeting } from './greeting';
-//window.Greeting = Greeting;
-//const testClass = new Greeting();
-//testClass.sayGoodbye();
-
-//const anotherClass = new Greeting();
-//new OtherGreeting().sayGoodbye();
 
 

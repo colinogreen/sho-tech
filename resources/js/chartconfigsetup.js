@@ -38,6 +38,7 @@ class ChartConfigSetup
     
     getAlertMessages()
     {
+        //console.log('ChartConfigSetup().getAlertMessages()');
         const messages = {};
         messages.latest_cases = this.getMonthTotalToDate("cases_today");
         messages.latest_deaths = this.getMonthTotalToDate("expired_today");
@@ -55,6 +56,9 @@ class ChartConfigSetup
     {
         const today_date = this.getComputerDateFormat();
         const last_update = this.getLastDataUpdate();
+        //console.log('ChartConfigSetup().getDaysSinceDataUpdate()');
+        //console.log(today_date);
+        //console.log(last_update);
         const diffInMs   = new Date(today_date) - new Date(last_update);
         return diffInMs / (1000 * 60 * 60 * 24);
 
@@ -76,15 +80,22 @@ class ChartConfigSetup
             t = new Date().getDate() - dayoffset;
         }
         
-        return t.getFullYear() + "-" + this.getFormattedMonthNumeric(t) + "-" + t.getDate();        
+        return t.getFullYear() + "-" + this.getFormattedMonthNumeric(t) + "-" + this.getFormattedDatePortionNumeric(t.getDate());        
     }
     
     getFormattedMonthNumeric(date)
     {
-        //if(date.isNumeric())
         return  ('0' + (date.getMonth()+1)).slice(-2);
     }
-    
+    /**
+     * Update: 2021-09-02 - This should make method 'getFormattedMonthNumeric' redundant in future.
+     * @param {type} value
+     * @returns {String}
+     */
+    getFormattedDatePortionNumeric(value)
+    {
+        return  ('0' + value).slice(-2);
+    }    
     getMonthTotalToDate(label)
     {
         const last_item_num = (this.result_data.length-1);
