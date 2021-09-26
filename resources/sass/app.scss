@@ -11,6 +11,23 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+
+.btn-weather
+{
+    border-radius:1rem;
+    color:rgb(255,255,255);
+    border-color:rgb(50,100,0);
+    background-color:rgb(50,100,0);
+}
+
+.btn-cstats
+{
+    background-color:rgb(100,100,50);
+    border-color:rgb(100,100,50);
+    border-radius:1rem;
+    color:rgb(255,255,255);
+    
+}
 .card .div_weather_data{
 	word-wrap: normal; // override bootstrap .card default of 'break-word'
 }
