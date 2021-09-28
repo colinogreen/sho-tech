@@ -16,10 +16,10 @@
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
-        <a class="nav-link @yield('home_link_active')" href="{{ route('showcaseindex') }}">Home</a>
+        <a class="nav-link{{ isset($homelink_active)? " active": "" }}" href="{{ route('showcaseindex') }}">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link @yield('weather_link_active')" href="{{ route('weatherindex') }}">Weather Data</a>
+        <a class="nav-link{{ isset($weatherlink_active)? " active": "" }}" href="{{ route('weatherindex') }}">Weather Data</a>
       </li>
 
       <li class="nav-item">
@@ -32,13 +32,19 @@
     </ul>
   </div>
   <div class="card-body">
-       <div class="container">  
-    <h5 class="card-title">@yield('page_title', '')</h5>
+    <div class="container">  
+    @hassection('page_title')
+        @yield('page_title')
+    @endif
+    
     @if(env('APP_DEBUG'))
     
-        <p style="font-weight:bold; font-style:italic; color:orangered">Warning: App debug is on!</p>
+    <p style="font-weight:bold; font-style:italic; color:orangered">Warning: App debug is on!<br>Laravel v.{{app()->version()}}</p>
     @endif
-    @yield("page_content") 
+    @hassection('page_content')
+        @yield("page_content") 
+    
+    @endif
      </div>  
   </div>
 </div>
