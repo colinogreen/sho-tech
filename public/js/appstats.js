@@ -201,6 +201,7 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 /**
+ * NOTE: Currently based on Chart.js 2.9.4 ! https://www.chartjs.org/docs/2.9.4/
  * Create the settings for each graph that can be easily edited before the graph is drawn ...
  * ... by calling a new chart class and sending this classes data() method in the process.
  * This process makes things easier, avoiding drilling down through chart config object levels.
@@ -35870,6 +35871,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_2__);
 /*
  ** NOTE: This js file is for /cstats page code. See ./app.js for weather app, etc. code. **
+ * NOTE: Currently based on Chart.js 2.9.4 ! https://www.chartjs.org/docs/2.9.4/
  */
 //const ChartConfigSetup = require('./chartconfigsetup');
 
@@ -36028,6 +36030,13 @@ document.addEventListener('DOMContentLoaded', function () {
     dAvgWeek.getGraphAveragesLabels("date", av_start_item, loop_step);
     dAvgWeek.getGraphAveragesData("expired_average", av_start_item, loop_step); //cAvgWeek.getGraphData1("cases_today",start_item);
 
+    console.log("Average Week Deaths Debug"); //** NEW: October 2021: Restrict line graph for Avg expired per week.
+
+    var d_opt_set = dAvgWeek.getOptionsSettings(); //console.log(d_opt_set);
+
+    d_opt_set.scales.yAxes[0].ticks.suggestedMin = 50; //console.log(d_opt_set.scales.yAxes[0].ticks.suggestedMin);
+
+    dAvgWeek.setOptionsSettings(d_opt_set);
     dAvgWeek.dataExtraConfig({
       label: "Average",
       borderColor: dColor,

@@ -146,8 +146,17 @@ document.addEventListener('DOMContentLoaded', function () {
         dAvgWeek.getGraphAveragesLabels("date", av_start_item, loop_step);
         dAvgWeek.getGraphAveragesData("expired_average", av_start_item, loop_step);
         //cAvgWeek.getGraphData1("cases_today",start_item);
-
+        console.log("Average Week Deaths Debug");
+        
+        //** NEW: October 2021: Restrict line graph for Avg expired per week.
+        const d_opt_set = dAvgWeek.getOptionsSettings();
+        //console.log(d_opt_set);
+        d_opt_set.scales.yAxes[0].ticks.suggestedMin = 50;
+        //console.log(d_opt_set.scales.yAxes[0].ticks.suggestedMin);
+        dAvgWeek.setOptionsSettings(d_opt_set);
+        
         dAvgWeek.dataExtraConfig({label:"Average",borderColor:dColor, pointBorderColor:dColor2, pointBackgroundColor:dColor}); //  labels data_array todaydata
+
             
         drawChartData(dAvgWeek,"weeklyAverageExpiredTrendChart");       
         //** Graph: Average Weekly Expired trend | END        
