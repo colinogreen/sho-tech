@@ -1,5 +1,6 @@
 /*
  ** NOTE: This js file is for /cstats page code. See ./app.js for weather app, etc. code. **
+ * NOTE: Currently based on Chart.js 2.9.4 ! https://www.chartjs.org/docs/2.9.4/
  */
 //const ChartConfigSetup = require('./chartconfigsetup');
 import ChartConfigSetup from './chartconfigsetup';

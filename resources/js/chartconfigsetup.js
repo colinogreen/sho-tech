@@ -1,4 +1,5 @@
 /**
+ * NOTE: Currently based on Chart.js 2.9.4 ! https://www.chartjs.org/docs/2.9.4/
  * Create the settings for each graph that can be easily edited before the graph is drawn ...
  * ... by calling a new chart class and sending this classes data() method in the process.
  * This process makes things easier, avoiding drilling down through chart config object levels.
@@ -338,7 +339,9 @@ class ChartConfigSetup
                 }
               }],
               yAxes: [{
+                
                 ticks: {
+                  suggestedMin: 10000, // 2021-10-09: For covid cases graphs if cases higher than 10000, but change according to other graph requirements
                   maxTicksLimit: 5,
                   padding: 10,
                   // Include a dollar sign in the ticks

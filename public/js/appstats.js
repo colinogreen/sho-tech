@@ -528,6 +528,8 @@ var ChartConfigSetup = /*#__PURE__*/function () {
           }],
           yAxes: [{
             ticks: {
+              suggestedMin: 10000,
+              // 2021-10-09: For covid cases graphs if cases higher than 10000, but change according to other graph requirements
               maxTicksLimit: 5,
               padding: 10,
               // Include a dollar sign in the ticks
