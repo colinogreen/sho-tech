@@ -35,8 +35,9 @@ document.addEventListener('DOMContentLoaded', function () {
         dataType:  "json",headers:{
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Stop calls that are not from this web (sub)domain's Laravel app
     }})
-        .done(function(result){
+    .done(function(result){
         
+        //console.log("Debug Result:"); console.log(result);
        global_result = result; //* Debugging in console. REMOVE
        
        if(document.getElementById("total_cases_to_date")!== null)
@@ -146,7 +147,7 @@ document.addEventListener('DOMContentLoaded', function () {
         dAvgWeek.getGraphAveragesLabels("date", av_start_item, loop_step);
         dAvgWeek.getGraphAveragesData("expired_average", av_start_item, loop_step);
         //cAvgWeek.getGraphData1("cases_today",start_item);
-        console.log("Average Week Deaths Debug");
+        //console.log("Average Week Deaths Debug");
         
         //** NEW: October 2021: Restrict line graph for Avg expired per week.
         const d_opt_set = dAvgWeek.getOptionsSettings();

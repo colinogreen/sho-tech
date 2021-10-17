@@ -35911,6 +35911,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     }
   }).done(function (result) {
+    //console.log("Debug Result:"); console.log(result);
     global_result = result; //* Debugging in console. REMOVE
 
     if (document.getElementById("total_cases_to_date") !== null) {
@@ -36029,8 +36030,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     dAvgWeek.getGraphAveragesLabels("date", av_start_item, loop_step);
     dAvgWeek.getGraphAveragesData("expired_average", av_start_item, loop_step); //cAvgWeek.getGraphData1("cases_today",start_item);
-
-    console.log("Average Week Deaths Debug"); //** NEW: October 2021: Restrict line graph for Avg expired per week.
+    //console.log("Average Week Deaths Debug");
+    //** NEW: October 2021: Restrict line graph for Avg expired per week.
 
     var d_opt_set = dAvgWeek.getOptionsSettings(); //console.log(d_opt_set);
 
