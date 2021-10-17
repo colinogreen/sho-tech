@@ -25,19 +25,18 @@ class Showcase extends Controller
     {
         //\Log::debug(__FUNCTION__. " - " . __LINE__. " - Post: ".print_r($post->toArray(), true));
         $wwwpath = dirname(__FILE__, 5);
+        $api_token_file = "api_token_live";
         //if(!stristr(url(""), ".uk"))
         if($wwwpath === "/var/www/html")
         {
-            //echo $wwwpath;
+            $api_token_file = "api_token_test";
             $url = "http://cms.technohelp.vm2/api/getcovidstatsfull";            
         }
         else
         {
             $url = "https://cms.technohelp.uk/api/getcovidstatsfull"; 
-        }
-        
-        $token = str_ireplace("api_token=", "",file_get_contents("$wwwpath/connect/api_token_test.ini")); 
-        
+        }   
+        $token = str_ireplace("api_token=", "",file_get_contents("$wwwpath/connect/$api_token_file.ini")); 
         $response = Http::withHeaders([
             'Authorization' => 'Bearer '.trim($token),
             'Accept' => 'application/json',
