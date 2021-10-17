@@ -290,9 +290,12 @@ Final class WeatherDataForCity
                 $this->setDayDate($timeseries[$i]->time);
                 $daysignificantweathercode = isset($timeseries[$i]->daySignificantWeatherCode)? $timeseries[$i]->daySignificantWeatherCode: (count($this->getDayWeatherLabel()) - 1);
                 $this->setDaySignificantWeatherDesc($daysignificantweathercode);
-                $this->setNightSignificantWeatherDesc($timeseries[$i]->nightSignificantWeatherCode);
+                
+                $nightSignificantWeatherCode = isset($timeseries[$i]->nightSignificantWeatherCode)? $timeseries[$i]->nightSignificantWeatherCode: (count($this->getDayWeatherLabel()) - 1);
+                $this->setNightSignificantWeatherDesc($nightSignificantWeatherCode);
+                
                 $this->setDaySignificantWeatherIcon($daysignificantweathercode);
-                $this->setNightSignificantWeatherIcon($timeseries[$i]->nightSignificantWeatherCode);
+                $this->setNightSignificantWeatherIcon($nightSignificantWeatherCode);
                 $dayMaxScreenTemperature = isset($timeseries[$i]->dayMaxScreenTemperature)? $timeseries[$i]->dayMaxScreenTemperature: 0;
                 $this->setDayHighestTemp(round($dayMaxScreenTemperature));
                 //$this->setDayHighestTemp(round($timeseries[$i]->dayUpperBoundMaxTemp));
@@ -305,8 +308,9 @@ Final class WeatherDataForCity
                 $this->setDayMaxUvIndex(round($maxUvIndex)); // Added 2021-07-14
                 
                 $dayMaxFeelsLikeTemp = isset($timeseries[$i]->dayMaxFeelsLikeTemp)? $timeseries[$i]->dayMaxFeelsLikeTemp: 0;
+                $nightMinFeelsLikeTemp= isset($timeseries[$i]->nightMinFeelsLikeTemp)? $timeseries[$i]->nightMinFeelsLikeTemp: 0;
                 $this->setDayMaxFeelsLikeTemp(round($dayMaxFeelsLikeTemp)); // Added 2021-07-14
-                $this->setNightMinFeelsLikeTemp(round($timeseries[$i]->nightMinFeelsLikeTemp)); // Added 2021-07-28
+                $this->setNightMinFeelsLikeTemp(round($nightMinFeelsLikeTemp)); // Added 2021-07-28
                 $midday10MWindSpeed = isset($timeseries[$i]->midday10MWindSpeed)? round($this->convertWindSpeed10msToMph($timeseries[$i]->midday10MWindSpeed)): 0;                
                 $this->setDayWindSpeed($midday10MWindSpeed);                
             }
