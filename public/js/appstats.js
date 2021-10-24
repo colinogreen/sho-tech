@@ -35880,8 +35880,7 @@ window.ChartConfigSetup = (_chartconfigsetup__WEBPACK_IMPORTED_MODULE_0___defaul
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-
-var global_result; //* Debugging in console. REMOVE
+ //var global_result; //* Debugging in console. REMOVE when finished
 
 var post_data; //* Debugging in console. REMOVE
 
@@ -35912,14 +35911,13 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }).done(function (result) {
     //console.log("Debug Result:"); console.log(result);
-    global_result = result; //* Debugging in console. REMOVE
-
+    //testingFunction(result);
     if (document.getElementById("total_cases_to_date") !== null) {
       var cases_to_date = result.message[result.message.length - 1].cases;
       var cases_today = result.message[result.message.length - 1].cases_today;
       var deaths_to_date = result.message[result.message.length - 1].expired;
       var deaths_today = result.message[result.message.length - 1].expired_today;
-      var to_date_date = " (" + result.message[result.message.length - 1].date + ")";
+      var to_date_date = result.message[result.message.length - 1].date_format;
       var weekly_average_cases = result.message[result.message.length - 1].cases_average; //console.log(cases_to_date);
 
       jquery__WEBPACK_IMPORTED_MODULE_2___default()("#total_cases_to_date").html(number_format(cases_to_date));
