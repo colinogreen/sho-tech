@@ -48,7 +48,6 @@
      </div>  
   </div>
 </div>
-     
       <script src="{{ asset('js/app.js') }}?v={{ config('app.jsversion') }}"></script>
 
     </body>
