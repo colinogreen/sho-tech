@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
     .done(function(result){
         
         //console.log("Debug Result:"); console.log(result);
-       //testingFunction(result);
+       testingFunction(result);
        
        if(document.getElementById("total_cases_to_date")!== null)
        {         

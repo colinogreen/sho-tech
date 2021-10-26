@@ -35911,7 +35911,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }).done(function (result) {
     //console.log("Debug Result:"); console.log(result);
-    //testingFunction(result);
+    testingFunction(result);
+
     if (document.getElementById("total_cases_to_date") !== null) {
       var cases_to_date = result.message[result.message.length - 1].cases;
       var cases_today = result.message[result.message.length - 1].cases_today;
