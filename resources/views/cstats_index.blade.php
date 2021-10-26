@@ -190,7 +190,8 @@ $bodyid = "page-top";
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1" data-toggle="tooltip" data-placement="top" 
+                                                         title="Reported cases in total to the last update date.">
                                                 Total cases to date: <span id="total_cases_to_date_date"></span></div>
                                             <div id="total_cases_to_date" class="h5 mb-0 font-weight-bold text-gray-800">Please wait ...</div>
                                         </div>
@@ -208,7 +209,8 @@ $bodyid = "page-top";
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1" data-toggle="tooltip" data-placement="top" 
+                                                         title="Reported deaths in total to the last update date.">
                                                 Total Deaths to date: <span id="total_deaths_to_date_date"></span></div>
                                             <div id="total_deaths_to_date" class="h5 mb-0 font-weight-bold text-gray-800">Calculating ... </div>
                                         </div>
@@ -228,9 +230,9 @@ $bodyid = "page-top";
                                         <div class="col mr-2">
 
                                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1" data-toggle="tooltip" data-placement="top" 
-                                                         title="Cases in total up to the latest update day">
+                                                         title="Reported cases for the last update day. This does not necessarily match with total cases to date today minus total cases to date yesterday.">
                                                 Total Cases for <span id="total_cases_for_date_date"></span>
-
+                                                    
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
@@ -276,7 +278,9 @@ $bodyid = "page-top";
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1" data-toggle="tooltip" data-placement="top" 
+                                                         title="Average cases for the week is based on the reported cases totals for the last reporting day and the cases reported
+                                                         on six previous days.">
                                                 Seven day average cases to <span id="average_weekly_cases_date_date"></span></div>
                                             <div id="average_weekly_cases_date" class="h5 mb-0 font-weight-bold text-gray-800">Please wait ...</div>
                                         </div>
