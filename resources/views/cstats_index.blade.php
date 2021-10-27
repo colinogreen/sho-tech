@@ -172,7 +172,7 @@ $bodyid = "page-top";
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
+                <div class="container-fluid cstats_headline">
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -193,9 +193,13 @@ $bodyid = "page-top";
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Total cases to date: <span id="total_cases_to_date_date"></span> 
                                                 </div>
-                                            <div id="total_cases_to_date" class="h5 mb-0 font-weight-bold text-gray-800">Please wait ...</div>
-                                            <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" 
+                                            <div id="" class="h5 mb-0 font-weight-bold text-gray-800"><span id="total_cases_to_date" class="">Please wait ...</span>
+                                            <span class="info_colour">                                            
+                                                <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" 
                                                          title="Reported cases in total to the last update date."></i>
+                                            </span>
+                                            </div>
+
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-briefcase-medical fa-2x text-gray-300"></i>
@@ -214,9 +218,12 @@ $bodyid = "page-top";
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                 Total Deaths to date: <span id="total_deaths_to_date_date"></span>
                                             </div>
-                                            <div id="total_deaths_to_date" class="h5 mb-0 font-weight-bold text-gray-800">Calculating ... </div>
-                                                        <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" 
-                                                         title="Reported deaths in total to the last update date."></i>
+                                            <div id="" class="h5 mb-0 font-weight-bold text-gray-800"><span id="total_deaths_to_date">Calculating ... </span>
+                                                <span class="info_colour"><i class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" 
+                                                         title="Reported deaths in total to the last update date."></i></span>
+                                            
+                                            </div>
+                                                        
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-ambulance fa-2x text-gray-300"></i>
@@ -239,16 +246,16 @@ $bodyid = "page-top";
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
-                                                    <div id="total_cases_for_date" class="h5 mb-0 mr-3 font-weight-bold text-gray-800">Calculating... </div>
-                                                        <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" 
-                                                         title="Reported cases for the last update day. This does not necessarily match with total cases to date today minus total cases to date yesterday."></i>                                                      
+                                                    <div id="" class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                                        <span id="total_cases_for_date">Calculating... </span>
+                                                     <span class="info_colour">  
+                                                         <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="top"                                  
+                                                            title="Reported cases for the last update day. This does not necessarily match with total cases to date today minus total cases to date yesterday."></i>   </span>                                                    
+                                                    </div>
+                                                   
                                                 </div>
                                                 <div class="col">
-                                                    <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-info" role="progressbar"
-                                                            style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -286,10 +293,15 @@ $bodyid = "page-top";
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Seven day average cases to <span id="average_weekly_cases_date_date"></span></div>
-                                            <div id="average_weekly_cases_date" class="h5 mb-0 font-weight-bold text-gray-800">Please wait ...</div>
-                                                        <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" 
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <span id="average_weekly_cases_date">Please wait ...</span>
+                                                <span class="info_colour">
+                                                    <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" 
                                                          title="Average cases for the week is based on the reported cases totals for the last reporting day and the cases reported
-                                                         on six previous days."></i>                                             
+                                                    on six previous days."></i> 
+                                                </span>
+                                            </div>
+                                            
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-notes-medical fa-2x text-gray-300"></i>

@@ -14708,3 +14708,11 @@ h3 {
 .weather_data .today_tonight_temp {
   font-size: 1.6em;
 }
+
+/* Covid Stats | START */
+.cstats_headline .info_colour {
+  font-size: 0.7em;
+  color: #4e73df;
+}
+
+/* Covid Stats | END */
