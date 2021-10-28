@@ -44,7 +44,7 @@ class ChartConfigSetup
         messages.latest_cases = this.getMonthTotalToDate("cases_today");
         messages.latest_deaths = this.getMonthTotalToDate("expired_today");
         const days_since_update = this.getDaysSinceDataUpdate();
-        if(Number.isInteger(Math.floor(days_since_update)) && days_since_update > 0){
+        if(Number.isInteger(Math.floor(days_since_update)) && Math.floor(days_since_update) > 0){
             let day_string = (days_since_update === 1)? "day": "days";
             messages.days_since_update = ["It has been at least " + Math.floor(days_since_update) + " " + day_string + " since the last data update", new Date().toDateString(), Math.floor(days_since_update)];
         }
