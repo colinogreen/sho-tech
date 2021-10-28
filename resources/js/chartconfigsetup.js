@@ -44,33 +44,66 @@ class ChartConfigSetup
         messages.latest_cases = this.getMonthTotalToDate("cases_today");
         messages.latest_deaths = this.getMonthTotalToDate("expired_today");
         const days_since_update = this.getDaysSinceDataUpdate();
-        if(Number.isInteger(days_since_update) && days_since_update > 0){
+        if(Number.isInteger(Math.floor(days_since_update)) && days_since_update > 0){
             let day_string = (days_since_update === 1)? "day": "days";
-            messages.days_since_update = ["It has been " + days_since_update + " " + day_string + " since the last data update", new Date().toDateString(), days_since_update];
+            messages.days_since_update = ["It has been at least " + Math.floor(days_since_update) + " " + day_string + " since the last data update", new Date().toDateString(), Math.floor(days_since_update)];
+        }
+        else       
+        {
+
+            if(days_since_update > 0.5 && days_since_update < 1 && this.result_data.last_modified !== undefined)
+            {
+                messages.days_since_update = ["The data was last updated from the data source at " + this.result_data.last_modified, new Date().toDateString(), Math.floor(days_since_update)];
+            }
         }
 
         messages.alert_data_length = Object.keys(messages).length;
         return messages;
     }
-    
+    /**
+     * New version. See commented out below
+     * @returns {Number}
+     */
     getDaysSinceDataUpdate()
     {
-        const today_date = this.getComputerDateFormat();
-        const last_update = this.getLastDataUpdate();
+        //const today_date = this.getComputerDateFormat();
+        const today_date = new Date();
+        //console.log("JS 'ChartConfigSetup.getDaysSinceDataUpdate'\nresult_data");console.log(this.result_data.last_modified);
+        //const last_update = this.getLastDataUpdate();
+        const last_update = this.result_data.last_modified;
         //console.log('ChartConfigSetup().getDaysSinceDataUpdate()');
         //console.log(today_date);
         //console.log(last_update);
-        const diffInMs   = new Date(today_date) - new Date(last_update);
+        
+        const diffInMs = new Date(today_date) - new Date(last_update);
+        //console.log("** JS 'ChartConfigSetup.getDaysSinceDataUpdate - Days since update:" + today_date + " - " + last_update + " = " + Math.floor((diffInMs / (1000 * 60 * 60 * 24))));
+        //console.log("** JS 'ChartConfigSetup.getDaysSinceDataUpdate - Days since update:" + new Date() + " - " + new Date(this.result_data.last_modified) + " = " + (diffInMs / (1000 * 60 * 60 * 24)));
         return diffInMs / (1000 * 60 * 60 * 24);
 
     }
+//    
+//    getDaysSinceDataUpdate()
+//    {
+//        const today_date = this.getComputerDateFormat();
+//        //console.log("JS 'ChartConfigSetup.getDaysSinceDataUpdate'\nresult_data");console.log(this.result_data.last_modified);
+//        const last_update = this.getLastDataUpdate();
+//        //console.log('ChartConfigSetup().getDaysSinceDataUpdate()');
+//        //console.log(today_date);
+//        //console.log(last_update);
+//        
+//        const diffInMs = new Date(today_date) - new Date(last_update);
+//        //console.log("JS 'ChartConfigSetup.getDaysSinceDataUpdate - Days since update:" + new Date() + " - " + new Date(this.result_data.last_modified) + " = " + (diffInMs / (1000 * 60 * 60 * 24)));
+//        return diffInMs / (1000 * 60 * 60 * 24);
+//
+//    }
     /**
      * Get the date that the last record refers to in string form
      * @returns {ChartConfigSetup.result_data.date}
      */
     getLastDataUpdate()
     {
-        return this.result_data[this.result_data.length -1].date;
+        //console.log("JS 'ChartConfigSetup.getLastDataUpdate()'\nthis.result_data.message[this.result_data.message.length -1].date: ");console.log(this.result_data.message[this.result_data.message.length -1].date);
+        return this.result_data.message[this.result_data.message.length -1].date;
     }
     
     getComputerDateFormat(dayoffset)
@@ -99,17 +132,17 @@ class ChartConfigSetup
     }    
     getMonthTotalToDate(label)
     {
-        const last_item_num = (this.result_data.length-1);
-        const last_item = this.result_data[last_item_num];
+        const last_item_num = (this.result_data.message.length-1);
+        const last_item = this.result_data.message[last_item_num];
         const first_item_num = (last_item_num - (new Date(last_item['date']).getDate())+1);
-        const first_item = this.result_data[first_item_num];
+        const first_item = this.result_data.message[first_item_num];
         const latest_date = new Date(last_item['date']);
 
         var total = 0;
         for(var i = first_item_num; i<= last_item_num; i++)
         {
             //console.log("Adding total for '" + label + "' (" + this.result_data[i][label] + ") on day " + i + " - Date: " + this.result_data[i].date) ;
-            total += parseInt(this.result_data[i][label]);
+            total += parseInt(this.result_data.message[i][label]);
         }
         
         return [total, latest_date.toDateString()];
@@ -125,7 +158,7 @@ class ChartConfigSetup
         {
             var tot = 0;
             //var dtset = new Date().setMonth(new Date().getMonth()-i);
-            const last_record_date = this.result_data[this.result_data.length-1].date; // Get the date of the last record to base the six months data calc onz
+            const last_record_date = this.result_data.message[this.result_data.message.length-1].date; // Get the date of the last record to base the six months data calc onz
             
             var ldate = new Date(last_record_date);
             ldate.setMonth(ldate.getMonth()-i);
@@ -139,14 +172,14 @@ class ChartConfigSetup
 
             var date_match = ldate.getFullYear() + "-" + this.getFormattedMonthNumeric(ldate);
 
-            for(var n in this.result_data)
+            for(var n in this.result_data.message)
             {
-                var cd = new Date(this.result_data[n].date);
+                var cd = new Date(this.result_data.message[n].date);
 
                 var dateeval = cd.getFullYear() + "-" + this.getFormattedMonthNumeric(cd);
                 if(dateeval === date_match)
                 {
-                    tot += parseInt(this.result_data[n][object_label]); //** SOLVE LIVE SERVER JSON ENCODING OF AJAX CALL DATA BEFORE REMOVING parseInt FUNCTION
+                    tot += parseInt(this.result_data.message[n][object_label]); //** SOLVE LIVE SERVER JSON ENCODING OF AJAX CALL DATA BEFORE REMOVING parseInt FUNCTION
 
                 }
 
@@ -173,9 +206,9 @@ class ChartConfigSetup
         start_array_item = (start_array_item === undefined)? 0: start_array_item;
 
         var graphdata = new Array();
-        for(var n = start_array_item; n < this.result_data.length; n+= loop_step)
+        for(var n = start_array_item; n < this.result_data.message.length; n+= loop_step)
         {
-            graphdata[graphdata.length] =  this.result_data[n][object_name];
+            graphdata[graphdata.length] =  this.result_data.message[n][object_name];
         }
         return graphdata;
     } 
@@ -201,9 +234,9 @@ class ChartConfigSetup
        start_array_item = (start_array_item === undefined)? 0: start_array_item;
 
        var graphdata = new Array();
-       for(var i= start_array_item ; i < this.result_data.length; i++)
+       for(var i= start_array_item ; i < this.result_data.message.length; i++)
        {
-           graphdata[graphdata.length] = this.result_data[i][object_label];
+           graphdata[graphdata.length] = this.result_data.message[i][object_label];
 
        } 
        

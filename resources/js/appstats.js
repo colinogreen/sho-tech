@@ -38,8 +38,63 @@ document.addEventListener('DOMContentLoaded', function () {
     .done(function(result){
         
         //console.log("Debug Result:"); console.log(result);
-       testingFunction(result);
+
+       if(result === null || result === undefined)
+       {
+           console.log("== Error: Result status ===");
+           console.log(result);
+           displayNumericData();
+           alert("No data!");
+           return false;
+       }
        
+       if(result.message === undefined || result.message === null)
+       {
+           console.log("== Error: result.message status ===");
+           console.log(result);
+           displayNumericData();
+           alert("No data message!");
+           return false;
+       }
+           testingFunction(result);      
+           //console.log("== Last Modified ==="); console.log(result);
+           resultProcess(result);
+           //return true;
+    })
+    .fail(function( jqXHR, textStatus ) {
+        console.log( "Request failed: " + textStatus );
+    });
+
+});
+
+function displayNumericData(data_object, data_date)
+{
+    if(data_object === undefined || data_object === null)
+    {
+        data_object = {};
+        data_object.data  ="<i class=\"fas fa-cross\"></i>";
+    
+        if(data_date === undefined || data_date === null)
+        {
+            data_object.date = "(No data!)";
+        }
+    }
+    
+
+        $("#total_cases_to_date").html(number_format(data_object.data));
+        $("#total_cases_to_date_date").html(data_object.date);
+        $("#total_deaths_to_date").html(number_format(data_object.data));
+        $("#total_deaths_to_date_date").html(data_object.date);
+        $("#total_cases_for_date_date").html(data_object.date);
+        $("#total_cases_for_date").html(number_format(data_object.data));
+        $("#total_deaths_for_date_date").html(data_object.date);
+        $("#total_deaths_for_date").html(number_format(data_object.data));
+        $("#average_weekly_cases_date").html(number_format(data_object.data));
+        $("#average_weekly_cases_date_date").html(data_object.date);
+}
+function resultProcess(result)
+{
+
        if(document.getElementById("total_cases_to_date")!== null)
        {         
             const cases_to_date = result.message[result.message.length -1].cases;
@@ -68,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const dColor2 = "rgba(255, 163, 26, 1)"; // Orangey alternating bar chart colors
        
        //** Graph Covid Cases In the UK | START
-        const cConfig = new ChartConfigSetup(result.message); //* Updated way of doing things
+        const cConfig = new ChartConfigSetup(result); //* Updated way of doing things
         cConfig.getGraphLabels("date");
         cConfig.getGraphData1("cases");
         cConfig.getGraphData2("cases_today");
@@ -86,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function () {
         //** Graph: Average Weekly Cases trend | START
         const av_start_item = (result.message.length -15);
         const loop_step = 7;
-        const cAvgWeek = new ChartConfigSetup(result.message); //* Updated way of doing things
+        const cAvgWeek = new ChartConfigSetup(result); //* Updated way of doing things
         cAvgWeek.getGraphAveragesLabels("date", av_start_item, loop_step);
         cAvgWeek.getGraphAveragesData("cases_average", av_start_item, loop_step);
         //cAvgWeek.getGraphData1("cases_today",start_item);
@@ -99,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function () {
         //////////////////////////////////////
         
         //** Graph Covid Expired In the UK | START
-        const dConfig = new ChartConfigSetup(result.message); //* Updated way of doing things
+        const dConfig = new ChartConfigSetup(result); //* Updated way of doing things
         dConfig.getGraphLabels("date");
         dConfig.getGraphData1("expired");
         dConfig.getGraphData2("expired_today");
@@ -113,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function () {
         //
         //** Graph: Cases Last Seven Days | START
         
-        const c7Config = new ChartConfigSetup(result.message); //* Updated way of doing things
+        const c7Config = new ChartConfigSetup(result); //* Updated way of doing things
         c7Config.getGraphLabels("date", start_item);
         c7Config.getGraphData2("cases", start_item);
         c7Config.getGraphData1("cases_today",start_item);
@@ -129,7 +184,7 @@ document.addEventListener('DOMContentLoaded', function () {
         //** Graph: Expired Last Seven Days | START
         
         //start_item = (result.message.length -7);
-        const d7Config = new ChartConfigSetup(result.message); //* Updated way of doing things
+        const d7Config = new ChartConfigSetup(result); //* Updated way of doing things
         d7Config.getGraphLabels("date", start_item);
         d7Config.getGraphData2("expired", start_item);
         d7Config.getGraphData1("expired_today",start_item);
@@ -143,7 +198,7 @@ document.addEventListener('DOMContentLoaded', function () {
         ///////////////////////////////////////
         //** Graph: Average Weekly Expired trend | START
 
-        const dAvgWeek = new ChartConfigSetup(result.message); //* Updated way of doing things
+        const dAvgWeek = new ChartConfigSetup(result); //* Updated way of doing things
         dAvgWeek.getGraphAveragesLabels("date", av_start_item, loop_step);
         dAvgWeek.getGraphAveragesData("expired_average", av_start_item, loop_step);
         //cAvgWeek.getGraphData1("cases_today",start_item);
@@ -164,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function () {
         ///////////////////////////////////////
         //** Pie chart: Monthly total cases for six months | START
         
-        const cSixMonths = new ChartConfigSetup(result.message); //* Updated way of doing things
+        const cSixMonths = new ChartConfigSetup(result); //* Updated way of doing things
         //console.log('cSixMonths = new ChartConfigSetup(result.message);');
         cSixMonths.getSixIndividualMonthsData("cases_today");
        
@@ -179,13 +234,5 @@ document.addEventListener('DOMContentLoaded', function () {
         
         setGraphCardLinks(); // Create links dynamically on the Graph display card menu
 
-        alertsCenterList(cSixMonths.getAlertMessages());
-
-    })
-    .fail(function( jqXHR, textStatus ) {
-        console.log( "Request failed: " + textStatus );
-    });
-
-});
-
-
+        alertsCenterList(cSixMonths.getAlertMessages());    
+}

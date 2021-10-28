@@ -24,9 +24,9 @@ return [
     |
     */
 
-    'cssversion' => "0.61", // for app.css
-    'jsversion' => "0.61", //for app.js
-    'jsversion_stats' => "0.84", // for appstats.js
+    'cssversion' => "0.62", // for app.css
+    'jsversion' => "0.62", //for app.js
+    'jsversion_stats' => "0.85", // for appstats.js
 
     /*
     |--------------------------------------------------------------------------

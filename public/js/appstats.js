@@ -79,7 +79,7 @@ function alertsCenterList(messages) {
   }
 
   if (messages.days_since_update !== undefined) {
-    var bg_string = messages.days_since_update[2] !== undefined && messages.days_since_update[2] === 1 ? "bg-warning" : "bg-danger";
+    var bg_string = messages.days_since_update[2] !== undefined && messages.days_since_update[2] === 1 ? "bg-warning" : messages.days_since_update[2] !== undefined && messages.days_since_update[2] === 0 ? "bg-info" : "bg-danger";
     items += alertsCenterListPopulate(messages.days_since_update[1], messages.days_since_update[0], "fa-clock", bg_string);
   }
 
@@ -247,25 +247,54 @@ var ChartConfigSetup = /*#__PURE__*/function () {
       messages.latest_deaths = this.getMonthTotalToDate("expired_today");
       var days_since_update = this.getDaysSinceDataUpdate();
 
-      if (Number.isInteger(days_since_update) && days_since_update > 0) {
+      if (Number.isInteger(Math.floor(days_since_update)) && days_since_update > 0) {
         var day_string = days_since_update === 1 ? "day" : "days";
-        messages.days_since_update = ["It has been " + days_since_update + " " + day_string + " since the last data update", new Date().toDateString(), days_since_update];
+        messages.days_since_update = ["It has been at least " + Math.floor(days_since_update) + " " + day_string + " since the last data update", new Date().toDateString(), Math.floor(days_since_update)];
+      } else {
+        if (days_since_update > 0.5 && days_since_update < 1 && this.result_data.last_modified !== undefined) {
+          messages.days_since_update = ["The data was last updated from the data source at " + this.result_data.last_modified, new Date().toDateString(), Math.floor(days_since_update)];
+        }
       }
 
       messages.alert_data_length = Object.keys(messages).length;
       return messages;
     }
+    /**
+     * New version. See commented out below
+     * @returns {Number}
+     */
+
   }, {
     key: "getDaysSinceDataUpdate",
     value: function getDaysSinceDataUpdate() {
-      var today_date = this.getComputerDateFormat();
-      var last_update = this.getLastDataUpdate(); //console.log('ChartConfigSetup().getDaysSinceDataUpdate()');
+      //const today_date = this.getComputerDateFormat();
+      var today_date = new Date(); //console.log("JS 'ChartConfigSetup.getDaysSinceDataUpdate'\nresult_data");console.log(this.result_data.last_modified);
+      //const last_update = this.getLastDataUpdate();
+
+      var last_update = this.result_data.last_modified; //console.log('ChartConfigSetup().getDaysSinceDataUpdate()');
       //console.log(today_date);
       //console.log(last_update);
 
-      var diffInMs = new Date(today_date) - new Date(last_update);
+      var diffInMs = new Date(today_date) - new Date(last_update); //console.log("** JS 'ChartConfigSetup.getDaysSinceDataUpdate - Days since update:" + today_date + " - " + last_update + " = " + Math.floor((diffInMs / (1000 * 60 * 60 * 24))));
+      //console.log("** JS 'ChartConfigSetup.getDaysSinceDataUpdate - Days since update:" + new Date() + " - " + new Date(this.result_data.last_modified) + " = " + (diffInMs / (1000 * 60 * 60 * 24)));
+
       return diffInMs / (1000 * 60 * 60 * 24);
-    }
+    } //    
+    //    getDaysSinceDataUpdate()
+    //    {
+    //        const today_date = this.getComputerDateFormat();
+    //        //console.log("JS 'ChartConfigSetup.getDaysSinceDataUpdate'\nresult_data");console.log(this.result_data.last_modified);
+    //        const last_update = this.getLastDataUpdate();
+    //        //console.log('ChartConfigSetup().getDaysSinceDataUpdate()');
+    //        //console.log(today_date);
+    //        //console.log(last_update);
+    //        
+    //        const diffInMs = new Date(today_date) - new Date(last_update);
+    //        //console.log("JS 'ChartConfigSetup.getDaysSinceDataUpdate - Days since update:" + new Date() + " - " + new Date(this.result_data.last_modified) + " = " + (diffInMs / (1000 * 60 * 60 * 24)));
+    //        return diffInMs / (1000 * 60 * 60 * 24);
+    //
+    //    }
+
     /**
      * Get the date that the last record refers to in string form
      * @returns {ChartConfigSetup.result_data.date}
@@ -274,7 +303,8 @@ var ChartConfigSetup = /*#__PURE__*/function () {
   }, {
     key: "getLastDataUpdate",
     value: function getLastDataUpdate() {
-      return this.result_data[this.result_data.length - 1].date;
+      //console.log("JS 'ChartConfigSetup.getLastDataUpdate()'\nthis.result_data.message[this.result_data.message.length -1].date: ");console.log(this.result_data.message[this.result_data.message.length -1].date);
+      return this.result_data.message[this.result_data.message.length - 1].date;
     }
   }, {
     key: "getComputerDateFormat",
@@ -306,16 +336,16 @@ var ChartConfigSetup = /*#__PURE__*/function () {
   }, {
     key: "getMonthTotalToDate",
     value: function getMonthTotalToDate(label) {
-      var last_item_num = this.result_data.length - 1;
-      var last_item = this.result_data[last_item_num];
+      var last_item_num = this.result_data.message.length - 1;
+      var last_item = this.result_data.message[last_item_num];
       var first_item_num = last_item_num - new Date(last_item['date']).getDate() + 1;
-      var first_item = this.result_data[first_item_num];
+      var first_item = this.result_data.message[first_item_num];
       var latest_date = new Date(last_item['date']);
       var total = 0;
 
       for (var i = first_item_num; i <= last_item_num; i++) {
         //console.log("Adding total for '" + label + "' (" + this.result_data[i][label] + ") on day " + i + " - Date: " + this.result_data[i].date) ;
-        total += parseInt(this.result_data[i][label]);
+        total += parseInt(this.result_data.message[i][label]);
       }
 
       return [total, latest_date.toDateString()];
@@ -328,7 +358,7 @@ var ChartConfigSetup = /*#__PURE__*/function () {
       for (var i = 1; i < 7; i++) {
         var tot = 0; //var dtset = new Date().setMonth(new Date().getMonth()-i);
 
-        var last_record_date = this.result_data[this.result_data.length - 1].date; // Get the date of the last record to base the six months data calc onz
+        var last_record_date = this.result_data.message[this.result_data.message.length - 1].date; // Get the date of the last record to base the six months data calc onz
 
         var ldate = new Date(last_record_date);
         ldate.setMonth(ldate.getMonth() - i); // If reduction of months still results in the same month being shown, reduce to previous month.
@@ -340,12 +370,12 @@ var ChartConfigSetup = /*#__PURE__*/function () {
         prevmonth = ldate.getMonth();
         var date_match = ldate.getFullYear() + "-" + this.getFormattedMonthNumeric(ldate);
 
-        for (var n in this.result_data) {
-          var cd = new Date(this.result_data[n].date);
+        for (var n in this.result_data.message) {
+          var cd = new Date(this.result_data.message[n].date);
           var dateeval = cd.getFullYear() + "-" + this.getFormattedMonthNumeric(cd);
 
           if (dateeval === date_match) {
-            tot += parseInt(this.result_data[n][object_label]); //** SOLVE LIVE SERVER JSON ENCODING OF AJAX CALL DATA BEFORE REMOVING parseInt FUNCTION
+            tot += parseInt(this.result_data.message[n][object_label]); //** SOLVE LIVE SERVER JSON ENCODING OF AJAX CALL DATA BEFORE REMOVING parseInt FUNCTION
           }
         }
 
@@ -372,8 +402,8 @@ var ChartConfigSetup = /*#__PURE__*/function () {
       start_array_item = start_array_item === undefined ? 0 : start_array_item;
       var graphdata = new Array();
 
-      for (var n = start_array_item; n < this.result_data.length; n += loop_step) {
-        graphdata[graphdata.length] = this.result_data[n][object_name];
+      for (var n = start_array_item; n < this.result_data.message.length; n += loop_step) {
+        graphdata[graphdata.length] = this.result_data.message[n][object_name];
       }
 
       return graphdata;
@@ -400,8 +430,8 @@ var ChartConfigSetup = /*#__PURE__*/function () {
       start_array_item = start_array_item === undefined ? 0 : start_array_item;
       var graphdata = new Array();
 
-      for (var i = start_array_item; i < this.result_data.length; i++) {
-        graphdata[graphdata.length] = this.result_data[i][object_label];
+      for (var i = start_array_item; i < this.result_data.message.length; i++) {
+        graphdata[graphdata.length] = this.result_data.message[i][object_label];
       }
 
       return graphdata;
@@ -35911,163 +35941,205 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }).done(function (result) {
     //console.log("Debug Result:"); console.log(result);
-    testingFunction(result);
-
-    if (document.getElementById("total_cases_to_date") !== null) {
-      var cases_to_date = result.message[result.message.length - 1].cases;
-      var cases_today = result.message[result.message.length - 1].cases_today;
-      var deaths_to_date = result.message[result.message.length - 1].expired;
-      var deaths_today = result.message[result.message.length - 1].expired_today;
-      var to_date_date = result.message[result.message.length - 1].date_format;
-      var weekly_average_cases = result.message[result.message.length - 1].cases_average; //console.log(cases_to_date);
-
-      jquery__WEBPACK_IMPORTED_MODULE_2___default()("#total_cases_to_date").html(number_format(cases_to_date));
-      jquery__WEBPACK_IMPORTED_MODULE_2___default()("#total_cases_to_date_date").html(to_date_date);
-      jquery__WEBPACK_IMPORTED_MODULE_2___default()("#total_deaths_to_date").html(number_format(deaths_to_date));
-      jquery__WEBPACK_IMPORTED_MODULE_2___default()("#total_deaths_to_date_date").html(to_date_date);
-      jquery__WEBPACK_IMPORTED_MODULE_2___default()("#total_cases_for_date_date").html(to_date_date);
-      jquery__WEBPACK_IMPORTED_MODULE_2___default()("#total_cases_for_date").html(number_format(cases_today));
-      jquery__WEBPACK_IMPORTED_MODULE_2___default()("#total_deaths_for_date_date").html(to_date_date);
-      jquery__WEBPACK_IMPORTED_MODULE_2___default()("#total_deaths_for_date").html(number_format(deaths_today));
-      jquery__WEBPACK_IMPORTED_MODULE_2___default()("#average_weekly_cases_date").html(number_format(weekly_average_cases));
-      jquery__WEBPACK_IMPORTED_MODULE_2___default()("#average_weekly_cases_date_date").html(to_date_date);
+    if (result === null || result === undefined) {
+      console.log("== Error: Result status ===");
+      console.log(result);
+      displayNumericData();
+      alert("No data!");
+      return false;
     }
 
-    var cColor = "rgba(78, 115, 223, 1)"; // Blue-ish alternating bar chart colors
+    if (result.message === undefined || result.message === null) {
+      console.log("== Error: result.message status ===");
+      console.log(result);
+      displayNumericData();
+      alert("No data message!");
+      return false;
+    }
 
-    var cColor2 = "rgba(104, 135, 227, 1)"; // Blue-ish alternating bar chart colors
+    testingFunction(result); //console.log("== Last Modified ==="); console.log(result);
 
-    var dColor = "rgba(230, 138, 0, 1)"; // Orangey alternating bar chart colors
-
-    var dColor2 = "rgba(255, 163, 26, 1)"; // Orangey alternating bar chart colors
-    //** Graph Covid Cases In the UK | START
-
-    var cConfig = new (_chartconfigsetup__WEBPACK_IMPORTED_MODULE_0___default())(result.message); //* Updated way of doing things
-
-    cConfig.getGraphLabels("date");
-    cConfig.getGraphData1("cases");
-    cConfig.getGraphData2("cases_today"); //c_extra_config = {label:"Total Cases", labels:caseslabels, data_array:casesdata, todaydata:casestodaydata};
-    //cConfig.label = "Total Cases";
-
-    cConfig.dataExtraConfig({
-      label: "Total Cases"
-    }); //  labels data_array todaydata
-
-    (0,_chartconfig_functions__WEBPACK_IMPORTED_MODULE_1__.drawChartData)(cConfig, "covidCasesChart"); //** Graph Covid Cases In the UK | END
-    //////////////////////////////////////
-
-    var start_item = result.message.length - 7; //////////////////////////////////////
-    //** Graph: Average Weekly Cases trend | START
-
-    var av_start_item = result.message.length - 15;
-    var loop_step = 7;
-    var cAvgWeek = new (_chartconfigsetup__WEBPACK_IMPORTED_MODULE_0___default())(result.message); //* Updated way of doing things
-
-    cAvgWeek.getGraphAveragesLabels("date", av_start_item, loop_step);
-    cAvgWeek.getGraphAveragesData("cases_average", av_start_item, loop_step); //cAvgWeek.getGraphData1("cases_today",start_item);
-
-    cAvgWeek.dataExtraConfig({
-      label: "Average"
-    }); //  labels data_array todaydata
-
-    (0,_chartconfig_functions__WEBPACK_IMPORTED_MODULE_1__.drawChartData)(cAvgWeek, "weeklyAverageCasesTrendChart"); //** Graph: Average Weekly Cases trend | END
-    //////////////////////////////////////
-    //** Graph Covid Expired In the UK | START
-
-    var dConfig = new (_chartconfigsetup__WEBPACK_IMPORTED_MODULE_0___default())(result.message); //* Updated way of doing things
-
-    dConfig.getGraphLabels("date");
-    dConfig.getGraphData1("expired");
-    dConfig.getGraphData2("expired_today");
-    dConfig.dataExtraConfig({
-      label: "Total Deaths",
-      borderColor: dColor,
-      pointBorderColor: dColor,
-      pointBackgroundColor: dColor
-    }); //  labels data_array todaydata
-
-    (0,_chartconfig_functions__WEBPACK_IMPORTED_MODULE_1__.drawChartData)(dConfig, "covidDeathsChart"); //** Graph Covid Expired In the UK | END
-    //////////////////////////////////////
-    //
-    //** Graph: Cases Last Seven Days | START
-
-    var c7Config = new (_chartconfigsetup__WEBPACK_IMPORTED_MODULE_0___default())(result.message); //* Updated way of doing things
-
-    c7Config.getGraphLabels("date", start_item);
-    c7Config.getGraphData2("cases", start_item);
-    c7Config.getGraphData1("cases_today", start_item);
-    c7Config.dataExtraConfig({
-      label: "Cases for day",
-      extratotal_label: "Total to date",
-      type: "bar",
-      backgroundColor: [cColor, cColor2, cColor, cColor2, cColor, cColor2, cColor]
-    }); //  labels data_array todaydata
-
-    (0,_chartconfig_functions__WEBPACK_IMPORTED_MODULE_1__.drawChartData)(c7Config, "casesSevenDays"); // Graph: Cases Last Seven Days | END
-    //////////////////////////////////////
-    //
-    //** Graph: Expired Last Seven Days | START
-    //start_item = (result.message.length -7);
-
-    var d7Config = new (_chartconfigsetup__WEBPACK_IMPORTED_MODULE_0___default())(result.message); //* Updated way of doing things
-
-    d7Config.getGraphLabels("date", start_item);
-    d7Config.getGraphData2("expired", start_item);
-    d7Config.getGraphData1("expired_today", start_item);
-    d7Config.dataExtraConfig({
-      label: "Deaths for day",
-      extratotal_label: "Total to date",
-      type: "bar",
-      backgroundColor: [dColor, dColor2, dColor, dColor2, dColor, dColor2, dColor]
-    }); //  labels data_array todaydata
-
-    (0,_chartconfig_functions__WEBPACK_IMPORTED_MODULE_1__.drawChartData)(d7Config, "deathsSevenDays"); //** Graph: Expired Last Seven Days | END
-    ///////////////////////////////////////
-    //** Graph: Average Weekly Expired trend | START
-
-    var dAvgWeek = new (_chartconfigsetup__WEBPACK_IMPORTED_MODULE_0___default())(result.message); //* Updated way of doing things
-
-    dAvgWeek.getGraphAveragesLabels("date", av_start_item, loop_step);
-    dAvgWeek.getGraphAveragesData("expired_average", av_start_item, loop_step); //cAvgWeek.getGraphData1("cases_today",start_item);
-    //console.log("Average Week Deaths Debug");
-    //** NEW: October 2021: Restrict line graph for Avg expired per week.
-
-    var d_opt_set = dAvgWeek.getOptionsSettings(); //console.log(d_opt_set);
-
-    d_opt_set.scales.yAxes[0].ticks.suggestedMin = 50; //console.log(d_opt_set.scales.yAxes[0].ticks.suggestedMin);
-
-    dAvgWeek.setOptionsSettings(d_opt_set);
-    dAvgWeek.dataExtraConfig({
-      label: "Average",
-      borderColor: dColor,
-      pointBorderColor: dColor2,
-      pointBackgroundColor: dColor
-    }); //  labels data_array todaydata
-
-    (0,_chartconfig_functions__WEBPACK_IMPORTED_MODULE_1__.drawChartData)(dAvgWeek, "weeklyAverageExpiredTrendChart"); //** Graph: Average Weekly Expired trend | END        
-    ///////////////////////////////////////
-    //** Pie chart: Monthly total cases for six months | START
-
-    var cSixMonths = new (_chartconfigsetup__WEBPACK_IMPORTED_MODULE_0___default())(result.message); //* Updated way of doing things
-    //console.log('cSixMonths = new ChartConfigSetup(result.message);');
-
-    cSixMonths.getSixIndividualMonthsData("cases_today");
-    cSixMonths.dataExtraConfig({
-      label: "Cases per month",
-      type: "pie"
-    }); //  labels data_array todaydata
-
-    cSixMonths.setDataSettings((0,_chartconfig_functions__WEBPACK_IMPORTED_MODULE_1__.casesPieChartData)(cSixMonths));
-    cSixMonths.setOptionsSettings((0,_chartconfig_functions__WEBPACK_IMPORTED_MODULE_1__.casesPieChartOptions)());
-    (0,_chartconfig_functions__WEBPACK_IMPORTED_MODULE_1__.drawChartData)(cSixMonths, "monthlyCasesTotalsSixMonth"); //** Pie chart: Monthly total cases for six months | END
-
-    (0,_chartconfig_functions__WEBPACK_IMPORTED_MODULE_1__.setGraphCardLinks)(); // Create links dynamically on the Graph display card menu
-
-    (0,_chartconfig_functions__WEBPACK_IMPORTED_MODULE_1__.alertsCenterList)(cSixMonths.getAlertMessages());
+    resultProcess(result); //return true;
   }).fail(function (jqXHR, textStatus) {
     console.log("Request failed: " + textStatus);
   });
 });
+
+function displayNumericData(data_object, data_date) {
+  if (data_object === undefined || data_object === null) {
+    data_object = {};
+    data_object.data = "<i class=\"fas fa-cross\"></i>";
+
+    if (data_date === undefined || data_date === null) {
+      data_object.date = "(No data!)";
+    }
+  }
+
+  jquery__WEBPACK_IMPORTED_MODULE_2___default()("#total_cases_to_date").html(number_format(data_object.data));
+  jquery__WEBPACK_IMPORTED_MODULE_2___default()("#total_cases_to_date_date").html(data_object.date);
+  jquery__WEBPACK_IMPORTED_MODULE_2___default()("#total_deaths_to_date").html(number_format(data_object.data));
+  jquery__WEBPACK_IMPORTED_MODULE_2___default()("#total_deaths_to_date_date").html(data_object.date);
+  jquery__WEBPACK_IMPORTED_MODULE_2___default()("#total_cases_for_date_date").html(data_object.date);
+  jquery__WEBPACK_IMPORTED_MODULE_2___default()("#total_cases_for_date").html(number_format(data_object.data));
+  jquery__WEBPACK_IMPORTED_MODULE_2___default()("#total_deaths_for_date_date").html(data_object.date);
+  jquery__WEBPACK_IMPORTED_MODULE_2___default()("#total_deaths_for_date").html(number_format(data_object.data));
+  jquery__WEBPACK_IMPORTED_MODULE_2___default()("#average_weekly_cases_date").html(number_format(data_object.data));
+  jquery__WEBPACK_IMPORTED_MODULE_2___default()("#average_weekly_cases_date_date").html(data_object.date);
+}
+
+function resultProcess(result) {
+  if (document.getElementById("total_cases_to_date") !== null) {
+    var cases_to_date = result.message[result.message.length - 1].cases;
+    var cases_today = result.message[result.message.length - 1].cases_today;
+    var deaths_to_date = result.message[result.message.length - 1].expired;
+    var deaths_today = result.message[result.message.length - 1].expired_today;
+    var to_date_date = result.message[result.message.length - 1].date_format;
+    var weekly_average_cases = result.message[result.message.length - 1].cases_average; //console.log(cases_to_date);
+
+    jquery__WEBPACK_IMPORTED_MODULE_2___default()("#total_cases_to_date").html(number_format(cases_to_date));
+    jquery__WEBPACK_IMPORTED_MODULE_2___default()("#total_cases_to_date_date").html(to_date_date);
+    jquery__WEBPACK_IMPORTED_MODULE_2___default()("#total_deaths_to_date").html(number_format(deaths_to_date));
+    jquery__WEBPACK_IMPORTED_MODULE_2___default()("#total_deaths_to_date_date").html(to_date_date);
+    jquery__WEBPACK_IMPORTED_MODULE_2___default()("#total_cases_for_date_date").html(to_date_date);
+    jquery__WEBPACK_IMPORTED_MODULE_2___default()("#total_cases_for_date").html(number_format(cases_today));
+    jquery__WEBPACK_IMPORTED_MODULE_2___default()("#total_deaths_for_date_date").html(to_date_date);
+    jquery__WEBPACK_IMPORTED_MODULE_2___default()("#total_deaths_for_date").html(number_format(deaths_today));
+    jquery__WEBPACK_IMPORTED_MODULE_2___default()("#average_weekly_cases_date").html(number_format(weekly_average_cases));
+    jquery__WEBPACK_IMPORTED_MODULE_2___default()("#average_weekly_cases_date_date").html(to_date_date);
+  }
+
+  var cColor = "rgba(78, 115, 223, 1)"; // Blue-ish alternating bar chart colors
+
+  var cColor2 = "rgba(104, 135, 227, 1)"; // Blue-ish alternating bar chart colors
+
+  var dColor = "rgba(230, 138, 0, 1)"; // Orangey alternating bar chart colors
+
+  var dColor2 = "rgba(255, 163, 26, 1)"; // Orangey alternating bar chart colors
+  //** Graph Covid Cases In the UK | START
+
+  var cConfig = new (_chartconfigsetup__WEBPACK_IMPORTED_MODULE_0___default())(result); //* Updated way of doing things
+
+  cConfig.getGraphLabels("date");
+  cConfig.getGraphData1("cases");
+  cConfig.getGraphData2("cases_today"); //c_extra_config = {label:"Total Cases", labels:caseslabels, data_array:casesdata, todaydata:casestodaydata};
+  //cConfig.label = "Total Cases";
+
+  cConfig.dataExtraConfig({
+    label: "Total Cases"
+  }); //  labels data_array todaydata
+
+  (0,_chartconfig_functions__WEBPACK_IMPORTED_MODULE_1__.drawChartData)(cConfig, "covidCasesChart"); //** Graph Covid Cases In the UK | END
+  //////////////////////////////////////
+
+  var start_item = result.message.length - 7; //////////////////////////////////////
+  //** Graph: Average Weekly Cases trend | START
+
+  var av_start_item = result.message.length - 15;
+  var loop_step = 7;
+  var cAvgWeek = new (_chartconfigsetup__WEBPACK_IMPORTED_MODULE_0___default())(result); //* Updated way of doing things
+
+  cAvgWeek.getGraphAveragesLabels("date", av_start_item, loop_step);
+  cAvgWeek.getGraphAveragesData("cases_average", av_start_item, loop_step); //cAvgWeek.getGraphData1("cases_today",start_item);
+
+  cAvgWeek.dataExtraConfig({
+    label: "Average"
+  }); //  labels data_array todaydata
+
+  (0,_chartconfig_functions__WEBPACK_IMPORTED_MODULE_1__.drawChartData)(cAvgWeek, "weeklyAverageCasesTrendChart"); //** Graph: Average Weekly Cases trend | END
+  //////////////////////////////////////
+  //** Graph Covid Expired In the UK | START
+
+  var dConfig = new (_chartconfigsetup__WEBPACK_IMPORTED_MODULE_0___default())(result); //* Updated way of doing things
+
+  dConfig.getGraphLabels("date");
+  dConfig.getGraphData1("expired");
+  dConfig.getGraphData2("expired_today");
+  dConfig.dataExtraConfig({
+    label: "Total Deaths",
+    borderColor: dColor,
+    pointBorderColor: dColor,
+    pointBackgroundColor: dColor
+  }); //  labels data_array todaydata
+
+  (0,_chartconfig_functions__WEBPACK_IMPORTED_MODULE_1__.drawChartData)(dConfig, "covidDeathsChart"); //** Graph Covid Expired In the UK | END
+  //////////////////////////////////////
+  //
+  //** Graph: Cases Last Seven Days | START
+
+  var c7Config = new (_chartconfigsetup__WEBPACK_IMPORTED_MODULE_0___default())(result); //* Updated way of doing things
+
+  c7Config.getGraphLabels("date", start_item);
+  c7Config.getGraphData2("cases", start_item);
+  c7Config.getGraphData1("cases_today", start_item);
+  c7Config.dataExtraConfig({
+    label: "Cases for day",
+    extratotal_label: "Total to date",
+    type: "bar",
+    backgroundColor: [cColor, cColor2, cColor, cColor2, cColor, cColor2, cColor]
+  }); //  labels data_array todaydata
+
+  (0,_chartconfig_functions__WEBPACK_IMPORTED_MODULE_1__.drawChartData)(c7Config, "casesSevenDays"); // Graph: Cases Last Seven Days | END
+  //////////////////////////////////////
+  //
+  //** Graph: Expired Last Seven Days | START
+  //start_item = (result.message.length -7);
+
+  var d7Config = new (_chartconfigsetup__WEBPACK_IMPORTED_MODULE_0___default())(result); //* Updated way of doing things
+
+  d7Config.getGraphLabels("date", start_item);
+  d7Config.getGraphData2("expired", start_item);
+  d7Config.getGraphData1("expired_today", start_item);
+  d7Config.dataExtraConfig({
+    label: "Deaths for day",
+    extratotal_label: "Total to date",
+    type: "bar",
+    backgroundColor: [dColor, dColor2, dColor, dColor2, dColor, dColor2, dColor]
+  }); //  labels data_array todaydata
+
+  (0,_chartconfig_functions__WEBPACK_IMPORTED_MODULE_1__.drawChartData)(d7Config, "deathsSevenDays"); //** Graph: Expired Last Seven Days | END
+  ///////////////////////////////////////
+  //** Graph: Average Weekly Expired trend | START
+
+  var dAvgWeek = new (_chartconfigsetup__WEBPACK_IMPORTED_MODULE_0___default())(result); //* Updated way of doing things
+
+  dAvgWeek.getGraphAveragesLabels("date", av_start_item, loop_step);
+  dAvgWeek.getGraphAveragesData("expired_average", av_start_item, loop_step); //cAvgWeek.getGraphData1("cases_today",start_item);
+  //console.log("Average Week Deaths Debug");
+  //** NEW: October 2021: Restrict line graph for Avg expired per week.
+
+  var d_opt_set = dAvgWeek.getOptionsSettings(); //console.log(d_opt_set);
+
+  d_opt_set.scales.yAxes[0].ticks.suggestedMin = 50; //console.log(d_opt_set.scales.yAxes[0].ticks.suggestedMin);
+
+  dAvgWeek.setOptionsSettings(d_opt_set);
+  dAvgWeek.dataExtraConfig({
+    label: "Average",
+    borderColor: dColor,
+    pointBorderColor: dColor2,
+    pointBackgroundColor: dColor
+  }); //  labels data_array todaydata
+
+  (0,_chartconfig_functions__WEBPACK_IMPORTED_MODULE_1__.drawChartData)(dAvgWeek, "weeklyAverageExpiredTrendChart"); //** Graph: Average Weekly Expired trend | END        
+  ///////////////////////////////////////
+  //** Pie chart: Monthly total cases for six months | START
+
+  var cSixMonths = new (_chartconfigsetup__WEBPACK_IMPORTED_MODULE_0___default())(result); //* Updated way of doing things
+  //console.log('cSixMonths = new ChartConfigSetup(result.message);');
+
+  cSixMonths.getSixIndividualMonthsData("cases_today");
+  cSixMonths.dataExtraConfig({
+    label: "Cases per month",
+    type: "pie"
+  }); //  labels data_array todaydata
+
+  cSixMonths.setDataSettings((0,_chartconfig_functions__WEBPACK_IMPORTED_MODULE_1__.casesPieChartData)(cSixMonths));
+  cSixMonths.setOptionsSettings((0,_chartconfig_functions__WEBPACK_IMPORTED_MODULE_1__.casesPieChartOptions)());
+  (0,_chartconfig_functions__WEBPACK_IMPORTED_MODULE_1__.drawChartData)(cSixMonths, "monthlyCasesTotalsSixMonth"); //** Pie chart: Monthly total cases for six months | END
+
+  (0,_chartconfig_functions__WEBPACK_IMPORTED_MODULE_1__.setGraphCardLinks)(); // Create links dynamically on the Graph display card menu
+
+  (0,_chartconfig_functions__WEBPACK_IMPORTED_MODULE_1__.alertsCenterList)(cSixMonths.getAlertMessages());
+}
 })();
 
 /******/ })()

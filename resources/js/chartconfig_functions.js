@@ -18,7 +18,8 @@ function alertsCenterList(messages)
     }
     if(messages.days_since_update !== undefined)
     {
-        const bg_string = (messages.days_since_update[2] !== undefined && messages.days_since_update[2] === 1)? "bg-warning" : "bg-danger";
+        const bg_string = (messages.days_since_update[2] !== undefined && messages.days_since_update[2] === 1)? "bg-warning" 
+        :(messages.days_since_update[2] !== undefined && messages.days_since_update[2] === 0)?"bg-info": "bg-danger";
         items += alertsCenterListPopulate(messages.days_since_update[1] ,messages.days_since_update[0], "fa-clock", bg_string);
     }
     document.getElementById("alerts-center-items").innerHTML = items;
