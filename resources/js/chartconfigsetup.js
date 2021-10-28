@@ -75,8 +75,8 @@ class ChartConfigSetup
         //console.log(today_date);
         //console.log(last_update);
         
-        const diffInMs = new Date(today_date) - new Date(last_update);
-        //console.log("** JS 'ChartConfigSetup.getDaysSinceDataUpdate - Days since update:" + today_date + " - " + last_update + " = " + Math.floor((diffInMs / (1000 * 60 * 60 * 24))));
+        const diffInMs = new Date() - new Date(last_update);
+        console.log("** JS 'ChartConfigSetup.getDaysSinceDataUpdate - Days since update:" + today_date + " - " + last_update + " = " + (diffInMs / (1000 * 60 * 60 * 24)));
         //console.log("** JS 'ChartConfigSetup.getDaysSinceDataUpdate - Days since update:" + new Date() + " - " + new Date(this.result_data.last_modified) + " = " + (diffInMs / (1000 * 60 * 60 * 24)));
         return diffInMs / (1000 * 60 * 60 * 24);
 
