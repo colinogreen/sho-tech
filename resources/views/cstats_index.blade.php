@@ -177,6 +177,7 @@ $bodyid = "page-top";
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Covid Statistics for the UK</h1>
+                        <p style="font-style:italic">Information provided by <a href="https://coronavirus.data.gov.uk" target="_blank">https://coronavirus.data.gov.uk/</a></p>
                        <?php /* <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> */ ?>
                     </div>
@@ -610,13 +611,10 @@ $bodyid = "page-top";
         inline_msg = "+'Inline script'+: ";
         if(result.message !== undefined && result.message !== null)
         {
-             //console.log("Hello world!");
-             //const d = new Date(result.message[629].date); console.log(d.getDate()+ "-" + d.getMonth() + "-" + d.getFullYear());
              console.log(inline_msg +"Data Last Modified: "); console.log(result.last_modified);
 
              console.log(inline_msg +"Date Difference Calc:\n");  today_date = "2021-10-28 15:00:00"; const diffInMs = new Date(today_date) - new Date(result.last_modified);  console.log("Days diff between '"+ today_date + "' and '"+ result.last_modified +"' = " + diffInMs / (1000 * 60 * 60 * 24));
-             //console.log("result: "); console.log(result);
-             //console.log("Individual result: ");  //console.log(result.message[629].date);           
+             //console.log("result: "); console.log(result);          
          }        
     }
 
