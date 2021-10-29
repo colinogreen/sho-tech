@@ -604,16 +604,22 @@ $bodyid = "page-top";
   // * Debugging function activated inside ajax result .done processing.
  function testingFunction(result)
  {
-    if(result.message !== undefined && result.message !== null)
+    //console.log(window.location.href);
+    if( window.location.href === "http://sho.technohelp.vm2/cstats")
     {
-         //console.log("Hello world!");
-         //const d = new Date(result.message[629].date); console.log(d.getDate()+ "-" + d.getMonth() + "-" + d.getFullYear());
-         console.log("Data Last Modified: "); console.log(result.last_modified);
-         
-         console.log("Date Difference Calc:\n");  today_date = "2021-10-28 15:00:00"; const diffInMs = new Date(today_date) - new Date(result.last_modified);  console.log("Days diff between '"+ today_date + "' and '"+ result.last_modified +"' = " + diffInMs / (1000 * 60 * 60 * 24));
-         //console.log("result: "); console.log(result);
-         //console.log("Individual result: ");  //console.log(result.message[629].date);           
-     }
+        inline_msg = "+'Inline script'+: ";
+        if(result.message !== undefined && result.message !== null)
+        {
+             //console.log("Hello world!");
+             //const d = new Date(result.message[629].date); console.log(d.getDate()+ "-" + d.getMonth() + "-" + d.getFullYear());
+             console.log(inline_msg +"Data Last Modified: "); console.log(result.last_modified);
+
+             console.log(inline_msg +"Date Difference Calc:\n");  today_date = "2021-10-28 15:00:00"; const diffInMs = new Date(today_date) - new Date(result.last_modified);  console.log("Days diff between '"+ today_date + "' and '"+ result.last_modified +"' = " + diffInMs / (1000 * 60 * 60 * 24));
+             //console.log("result: "); console.log(result);
+             //console.log("Individual result: ");  //console.log(result.message[629].date);           
+         }        
+    }
+
 
  }
 </script>

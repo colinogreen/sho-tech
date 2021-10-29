@@ -25,17 +25,17 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        // If on live environment
         if(!env('APP_DEBUG'))
         {
             // Every x hours on live installation.
-            $schedule->command('command:getweatherdata')->cron('* 2 0,3,6,9,12,15,18,21 * * *');
-            //$schedule->command('command:getweatherdata')->everyTwoHours();           
-            //$schedule->command('command:getweatherdata')->hourly();
+            $schedule->command('command:getweatherdata')->cron('2 0,3,6,9,12,15,18,21 * * *');
         }
         else
+        // On test environment
         {
             //* 2 minutes past day time hours every two hours for test version that has computer often in standby mode.
-            $schedule->command('command:getweatherdata')->cron('* 2 10,12,14,16,18,20,22,0 * * *'); 
+            $schedule->command('command:getweatherdata')->cron('2,3 10,12,14,16,18,20,22,0 * * *'); 
           
         }
 
