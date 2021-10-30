@@ -177,7 +177,7 @@ $bodyid = "page-top";
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Covid Statistics for the UK</h1>
-                        <p style="font-style:italic">Information provided by <a href="https://coronavirus.data.gov.uk" target="_blank">https://coronavirus.data.gov.uk/</a></p>
+                        <p style="font-style:italic">Information provided by <a href="https://coronavirus.data.gov.uk" target="_blank">https://coronavirus.data.gov.uk</a></p>
                        <?php /* <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> */ ?>
                     </div>
