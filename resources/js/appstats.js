@@ -217,7 +217,7 @@ function resultProcess(result)
         drawChartData(dAvgWeek,"weeklyAverageExpiredTrendChart");       
         //** Graph: Average Weekly Expired trend | END        
         ///////////////////////////////////////
-        //** Pie chart: Monthly total cases for six months | START
+        //** Pie chart: Total cases per month (previous six months) | START
         
         const cSixMonths = new ChartConfigSetup(result); //* Updated way of doing things
         //console.log('cSixMonths = new ChartConfigSetup(result.message);');

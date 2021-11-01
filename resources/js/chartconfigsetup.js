@@ -78,26 +78,12 @@ class ChartConfigSetup
         //console.log(last_update);
         
         const diffInMs = new Date() - new Date(last_update);
-        console.log("** JS 'ChartConfigSetup.getDaysSinceDataUpdate - Days since update:" + today_date + " - " + last_update + " = " + (diffInMs / (1000 * 60 * 60 * 24)));
+        //console.log("** JS 'ChartConfigSetup.getDaysSinceDataUpdate - Days since update:" + today_date + " - " + last_update + " = " + (diffInMs / (1000 * 60 * 60 * 24)));
         //console.log("** JS 'ChartConfigSetup.getDaysSinceDataUpdate - Days since update:" + new Date() + " - " + new Date(this.result_data.last_modified) + " = " + (diffInMs / (1000 * 60 * 60 * 24)));
         return diffInMs / (1000 * 60 * 60 * 24);
 
     }
-//    
-//    getDaysSinceDataUpdate()
-//    {
-//        const today_date = this.getComputerDateFormat();
-//        //console.log("JS 'ChartConfigSetup.getDaysSinceDataUpdate'\nresult_data");console.log(this.result_data.last_modified);
-//        const last_update = this.getLastDataUpdate();
-//        //console.log('ChartConfigSetup().getDaysSinceDataUpdate()');
-//        //console.log(today_date);
-//        //console.log(last_update);
-//        
-//        const diffInMs = new Date(today_date) - new Date(last_update);
-//        //console.log("JS 'ChartConfigSetup.getDaysSinceDataUpdate - Days since update:" + new Date() + " - " + new Date(this.result_data.last_modified) + " = " + (diffInMs / (1000 * 60 * 60 * 24)));
-//        return diffInMs / (1000 * 60 * 60 * 24);
-//
-//    }
+
     /**
      * Get the date that the last record refers to in string form
      * @returns {ChartConfigSetup.result_data.date}
@@ -163,7 +149,10 @@ class ChartConfigSetup
             const last_record_date = this.result_data.message[this.result_data.message.length-1].date; // Get the date of the last record to base the six months data calc onz
             
             var ldate = new Date(last_record_date);
-            ldate.setMonth(ldate.getMonth()-i);
+            
+            //** Important! In addition to setting the month, set the day to 1st of the month to ...
+            // ... reduce problems subtracting a month with 30 days or less in it.
+            ldate.setMonth(ldate.getMonth()-i,1);
             
             // If reduction of months still results in the same month being shown, reduce to previous month.
             if(ldate.getMonth() === prevmonth)

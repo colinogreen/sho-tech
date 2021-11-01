@@ -611,15 +611,79 @@ $bodyid = "page-top";
         inline_msg = "+'Inline script'+: ";
         if(result.message !== undefined && result.message !== null)
         {
-             console.log(inline_msg +"Data Last Modified: "); console.log(result.last_modified);
+             //console.log(inline_msg +"Data Last Modified: "); console.log(result.last_modified);
 
-             console.log(inline_msg +"Date Difference Calc:\n");  today_date = "2021-10-28 15:00:00"; const diffInMs = new Date(today_date) - new Date(result.last_modified);  console.log("Days diff between '"+ today_date + "' and '"+ result.last_modified +"' = " + diffInMs / (1000 * 60 * 60 * 24));
-             //console.log("result: "); console.log(result);          
-         }        
+             //console.log(inline_msg +"Date Difference Calc:\n");  today_date = "2021-10-28 15:00:00"; const diffInMs = new Date(today_date) - new Date(result.last_modified);  console.log("Days diff between '"+ today_date + "' and '"+ result.last_modified +"' = " + diffInMs / (1000 * 60 * 60 * 24));
+             console.log("result: "); console.log(result);          
+         } 
+         // **Fix function in ChartConfigSetup class (chartconfigsetup.js)
+         getSixIndividualMonthsData_test(result);
     }
 
 
  }
+    // **Fix function in ChartConfigSetup class (chartconfigsetup.js)
+    function getSixIndividualMonthsData_test(result)
+    {
+        console.log("== START - getSixIndividualMonthsData_test(result) INLINE JS ChartConfigSetup.getSixIndividualMonthsData_test DEBUG ==");
+        console.log("== START - getSixIndividualMonthsData_test(result) INLINE JS ChartConfigSetup.getSixIndividualMonthsData_test DEBUG ==");
+        object_label = "cases_today";
+        var debuglabels = new Array();
+        var debuggraphData1 = new Array();
+        
+        var prevmonth; // Helps reduce month to previous month under certain circumstances
+        for(var i = 1; i < 7; i++)
+        {
+            var tot = 0;
+            //var dtset = new Date().setMonth(new Date().getMonth()-i);
+            const last_record_date = result.message[result.message.length-1].date; // Get the date of the last record to base the six months data calc onz
+            
+            var ldate = new Date(last_record_date);
+            //var ldate = new Date("2021-04-01");
+            //console.log("-- Last record date: " + ldate + " - Current month = "+ (ldate.getMonth()) + " - Month - 1 = " + (ldate.getMonth()-i) +" --\n");
+            ldate.setMonth(ldate.getMonth()-i, 1);
+            console.log("-- New record date: " + ldate  +" --\n");
+            
+            
+            // If reduction of months still results in the same month being shown, reduce to previous month.
+            if(ldate.getMonth() === prevmonth)
+            {
+                ldate.setDate(0);
+                console.log("-- ldate.getMonth() === prevmonth: " + ldate.getMonth() + "\n");
+            }
+            //console.log("-- ldate.setMonth(ldate.getMonth()-i): " + ldate + "\n");
+            
+            prevmonth = ldate.getMonth();
+
+            var date_match = ldate.getFullYear() + "-" + getFormattedMonthNumeric_test(ldate);
+
+            for(var n in result.message)
+            {
+                var cd = new Date(result.message[n].date);
+
+                var dateeval = cd.getFullYear() + "-" + getFormattedMonthNumeric_test(cd);
+                if(dateeval === date_match)
+                {
+                    tot += parseInt(result.message[n][object_label]); //** SOLVE LIVE SERVER JSON ENCODING OF AJAX CALL DATA BEFORE REMOVING parseInt FUNCTION
+
+                }
+
+            }
+
+            debuglabels[debuglabels.length] = ldate.toLocaleString('en-GB', {year:'numeric', month:'long'});
+            debuggraphData1[debuggraphData1.length] = tot;
+        }
+        console.log(debuglabels);
+        console.log(debuggraphData1);
+        console.log("== END - getSixIndividualMonthsData_test(result)  ==");
+
+
+    }
+    
+    function getFormattedMonthNumeric_test(date)
+    {
+        return  ('0' + (date.getMonth()+1)).slice(-2);
+    }
 </script>
 @endsection
 
