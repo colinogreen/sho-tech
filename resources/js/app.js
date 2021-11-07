@@ -110,8 +110,9 @@ class MultiWeatherRowTop extends React.Component {
 		//console.log("dw status: " + dw);
 		//console.log("dwc1 includes: " + this.props.dwc1.toString().includes("fas"));
     return (<div className="row weather_row_top">
-       <div className="col-2"><h4>{this.props.dow1}</h4><span>{dwi1}</span><br />{dwc1}</div>  <div className="col-2">
-           <h4>{this.props.dow2}</h4><span>{dwi2}</span><br />{dwc2}</div> 
+       <div className="col-1 d-block d-sm-none">&#160;</div>  
+       <div className="col-2"><h4>{this.props.dow1}</h4><span>{dwi1}</span><br />{dwc1}</div>  
+       <div className="col-2"> <h4>{this.props.dow2}</h4><span>{dwi2}</span><br />{dwc2}</div> 
            <div className="col-2"><h4>{this.props.dow3}</h4><span>{dwi3}</span><br />{dwc3}</div> 
            <div className="col-2"><h4>{this.props.dow4}</h4><span>{dwi4}</span><br />{dwc4}</div> 
            <div className="col-2"><h4>{this.props.dow5}</h4>
@@ -131,6 +132,7 @@ class MultiWeatherRowGeneral extends React.Component {
 		{/* dow= day of week | dwc = day weather code */}
     return (    
 	<div className={"row " + this.props.rowclass}>
+           <div className="col-1 d-block d-sm-none"><i className={this.props.itemclass_mobile}></i> </div>  
            <div className="col-2"><i className={this.props.itemclass}></i> &#160;<span>{this.props.day1_item}{this.props.item_desc}</span></div>  
 	<div className="col-2">
 	<i className={this.props.itemclass}></i> &#160;<span>{this.props.day2_item}{this.props.item_desc}</span>
@@ -193,10 +195,17 @@ class WeatherData extends React.Component {
 		);
 	}
 	// ... * Or continue to create weather data display
-    const precip = "fas fa-tint";
-    const temph = "fas fa-temperature-high";
-    const templ = "fas fa-temperature-low";
-    const wind = "fas fa-wind";
+    const precip_mobile = "fas fa-tint";
+    const precip = precip_mobile + " d-none d-sm-inline";
+    
+    const temph_mobile = "fas fa-temperature-high";
+    const temph = temph_mobile + " d-none d-sm-inline";
+    
+    const templ_mobile = "fas fa-temperature-low";
+    const templ = templ_mobile + " d-none d-sm-inline";
+    
+    const wind_mobile = "fas fa-wind";
+    const wind = wind_mobile + " d-none d-sm-inline";
     
     const location = this.state.data.api_query.location;
     const day1 = this.state.data.api_query.day[1];
@@ -256,16 +265,16 @@ class WeatherData extends React.Component {
 	  dwc1={day1.day_weather_desc} dwc2={day2.day_weather_desc} dwc3={day3.day_weather_desc} dwc4={day4.day_weather_desc} dwc5={day5.day_weather_desc} 
 	dwi1={day1.day_weather_icon} dwi2={day2.day_weather_icon} dwi3={day3.day_weather_icon} dwi4={day4.day_weather_icon} dwi5={day5.day_weather_icon}/>
 	
-	<MultiWeatherRowGeneral rowclass="temp_high" itemclass={temph} item_desc="&deg;" day1_item={day1.day_highest_temp} day2_item={day2.day_highest_temp} 
+	<MultiWeatherRowGeneral rowclass="temp_high" itemclass_mobile={temph_mobile} itemclass={temph} item_desc="&deg;" day1_item={day1.day_highest_temp} day2_item={day2.day_highest_temp} 
 	day3_item={day3.day_highest_temp} day4_item={day4.day_highest_temp} day5_item={day5.day_highest_temp} />
 
-	<MultiWeatherRowGeneral rowclass="temp_low" itemclass={templ} item_desc="&deg;" day1_item={day1.day_lowest_temp} day2_item={day2.day_lowest_temp} 
+	<MultiWeatherRowGeneral rowclass="temp_low" itemclass_mobile={templ_mobile} itemclass={templ} item_desc="&deg;" day1_item={day1.day_lowest_temp} day2_item={day2.day_lowest_temp} 
 	day3_item={day3.day_lowest_temp} day4_item={day4.day_lowest_temp} day5_item={day5.day_lowest_temp} />
 
-	<MultiWeatherRowGeneral rowclass="" itemclass={precip} item_desc="%" day1_item={day1.day_chance_rain} day2_item={day2.day_chance_rain} 
+	<MultiWeatherRowGeneral rowclass="" itemclass_mobile={precip_mobile} itemclass={precip} item_desc="%" day1_item={day1.day_chance_rain} day2_item={day2.day_chance_rain} 
 	day3_item={day3.day_chance_rain} day4_item={day4.day_chance_rain} day5_item={day5.day_chance_rain} />
 	
-	<MultiWeatherRowGeneral itemclass={wind} item_desc="mph" day1_item={day1.day_wind_mph} day2_item={day2.day_wind_mph} 
+	<MultiWeatherRowGeneral itemclass_mobile={wind_mobile} itemclass={wind} item_desc="mph" day1_item={day1.day_wind_mph} day2_item={day2.day_wind_mph} 
 	day3_item={day3.day_wind_mph} day4_item={day4.day_wind_mph} day5_item={day5.day_wind_mph} />
  
 

@@ -176,16 +176,19 @@ var MultiWeatherRowTop = /*#__PURE__*/function (_React$Component2) {
 
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
         className: "row weather_row_top",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          className: "col-1 d-block d-sm-none",
+          children: "\xA0"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
           className: "col-2",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h4", {
             children: this.props.dow1
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
             children: dwi1
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("br", {}), dwc1]
-        }), "  ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
           className: "col-2",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h4", {
+          children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h4", {
             children: this.props.dow2
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
             children: dwi2
@@ -239,6 +242,11 @@ var MultiWeatherRowGeneral = /*#__PURE__*/function (_React$Component3) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
         className: "row " + this.props.rowclass,
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "col-1 d-block d-sm-none",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
+            className: this.props.itemclass_mobile
+          }), " "]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
           className: "col-2",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
             className: this.props.itemclass
@@ -334,10 +342,14 @@ var WeatherData = /*#__PURE__*/function (_React$Component4) {
       } // ... * Or continue to create weather data display
 
 
-      var precip = "fas fa-tint";
-      var temph = "fas fa-temperature-high";
-      var templ = "fas fa-temperature-low";
-      var wind = "fas fa-wind";
+      var precip_mobile = "fas fa-tint";
+      var precip = precip_mobile + " d-none d-sm-inline";
+      var temph_mobile = "fas fa-temperature-high";
+      var temph = temph_mobile + " d-none d-sm-inline";
+      var templ_mobile = "fas fa-temperature-low";
+      var templ = templ_mobile + " d-none d-sm-inline";
+      var wind_mobile = "fas fa-wind";
+      var wind = wind_mobile + " d-none d-sm-inline";
       var location = this.state.data.api_query.location;
       var day1 = this.state.data.api_query.day[1];
       var day2 = this.state.data.api_query.day[2];
@@ -412,6 +424,7 @@ var WeatherData = /*#__PURE__*/function (_React$Component4) {
             dwi5: day5.day_weather_icon
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(MultiWeatherRowGeneral, {
             rowclass: "temp_high",
+            itemclass_mobile: temph_mobile,
             itemclass: temph,
             item_desc: "\xB0",
             day1_item: day1.day_highest_temp,
@@ -421,6 +434,7 @@ var WeatherData = /*#__PURE__*/function (_React$Component4) {
             day5_item: day5.day_highest_temp
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(MultiWeatherRowGeneral, {
             rowclass: "temp_low",
+            itemclass_mobile: templ_mobile,
             itemclass: templ,
             item_desc: "\xB0",
             day1_item: day1.day_lowest_temp,
@@ -430,6 +444,7 @@ var WeatherData = /*#__PURE__*/function (_React$Component4) {
             day5_item: day5.day_lowest_temp
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(MultiWeatherRowGeneral, {
             rowclass: "",
+            itemclass_mobile: precip_mobile,
             itemclass: precip,
             item_desc: "%",
             day1_item: day1.day_chance_rain,
@@ -438,6 +453,7 @@ var WeatherData = /*#__PURE__*/function (_React$Component4) {
             day4_item: day4.day_chance_rain,
             day5_item: day5.day_chance_rain
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(MultiWeatherRowGeneral, {
+            itemclass_mobile: wind_mobile,
             itemclass: wind,
             item_desc: "mph",
             day1_item: day1.day_wind_mph,
