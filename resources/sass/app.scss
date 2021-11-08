@@ -115,7 +115,11 @@
     .today_tonight_temp{
         font-size:1.6em
     }
-    
+    .weather_location_desc{
+        h5 {
+            color:rgb(0, 77, 0) /* very dark green */
+        }
+    }
     .weather_row {
 /*        span {
            font-weight:600; 

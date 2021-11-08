@@ -14708,6 +14708,9 @@ h3 {
 .weather_data .today_tonight_temp {
   font-size: 1.6em;
 }
+.weather_data .weather_location_desc h5 {
+  color: #004d00;
+}
 .weather_data .weather_row {
   /*        span {
              font-weight:600; 

@@ -248,7 +248,7 @@ class WeatherData extends React.Component {
         <div className="col-12 weather_location_desc order-first">
           
         <h5>
-        Weather forecast for {location}
+        {location}
         </h5>
          </div>
          <div className="col-12 order-last order-sm-first">
