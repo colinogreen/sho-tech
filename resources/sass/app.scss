@@ -82,13 +82,13 @@
     }	
 
     .weather_data_today{
-    padding: 10px 0;	
-    /*border-top: 2px solid #ccc; */
-    border-bottom: 1px solid #3490dc;
-    margin:10px 0 10px;
-    .main_icon > i {
-            font-size: 7em
-    }
+        padding: 10px 0;	
+        /*border-top: 2px solid #ccc; */
+        border-bottom: 1px solid #3490dc;
+        margin:10px 0 10px;
+        .main_icon > i {
+                font-size: 7em
+        }
      }
 /*
     span, i {
@@ -115,7 +115,25 @@
     .today_tonight_temp{
         font-size:1.6em
     }
-   
+    
+    .weather_row {
+/*        span {
+           font-weight:600; 
+        }*/
+    }
+    .temp_high_row{
+        span{
+            color:darkred;
+        }
+        
+    }
+    
+    .temp_low_row{
+        span{
+            color:darkblue;
+        }
+        
+    }
 }
 
 /* Covid Stats | START */

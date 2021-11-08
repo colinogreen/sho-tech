@@ -245,11 +245,11 @@ class WeatherData extends React.Component {
 
 
      <div className="row weather_data_today align-items-center justify-content-sm-start justify-content-center">
-        <div className="col-12 weather_location_desc order-last order-sm-first">
+        <div className="col-12 weather_location_desc order-first">
           
-        <h6>
+        <h5>
         Weather forecast for {location}
-        </h6>
+        </h5>
          </div>
          <div className="col-12 order-last order-sm-first">
              <p style={{}}><i className="fas fa-clock"></i> <span className="text-muted" style={{fontStyle:'italic'}}>Met Office update: {this.state.data.api_query.last_forecast_update}</span></p>
@@ -265,16 +265,16 @@ class WeatherData extends React.Component {
 	  dwc1={day1.day_weather_desc} dwc2={day2.day_weather_desc} dwc3={day3.day_weather_desc} dwc4={day4.day_weather_desc} dwc5={day5.day_weather_desc} 
 	dwi1={day1.day_weather_icon} dwi2={day2.day_weather_icon} dwi3={day3.day_weather_icon} dwi4={day4.day_weather_icon} dwi5={day5.day_weather_icon}/>
 	
-	<MultiWeatherRowGeneral rowclass="temp_high" itemclass_mobile={temph_mobile} itemclass={temph} item_desc="&deg;" day1_item={day1.day_highest_temp} day2_item={day2.day_highest_temp} 
+	<MultiWeatherRowGeneral rowclass="weather_row temp_high_row" itemclass_mobile={temph_mobile} itemclass={temph} item_desc="&deg;" day1_item={day1.day_highest_temp} day2_item={day2.day_highest_temp} 
 	day3_item={day3.day_highest_temp} day4_item={day4.day_highest_temp} day5_item={day5.day_highest_temp} />
 
-	<MultiWeatherRowGeneral rowclass="temp_low" itemclass_mobile={templ_mobile} itemclass={templ} item_desc="&deg;" day1_item={day1.day_lowest_temp} day2_item={day2.day_lowest_temp} 
+	<MultiWeatherRowGeneral rowclass="weather_row temp_low_row" itemclass_mobile={templ_mobile} itemclass={templ} item_desc="&deg;" day1_item={day1.day_lowest_temp} day2_item={day2.day_lowest_temp} 
 	day3_item={day3.day_lowest_temp} day4_item={day4.day_lowest_temp} day5_item={day5.day_lowest_temp} />
 
-	<MultiWeatherRowGeneral rowclass="" itemclass_mobile={precip_mobile} itemclass={precip} item_desc="%" day1_item={day1.day_chance_rain} day2_item={day2.day_chance_rain} 
+	<MultiWeatherRowGeneral rowclass="weather_row precip_row" itemclass_mobile={precip_mobile} itemclass={precip} item_desc="%" day1_item={day1.day_chance_rain} day2_item={day2.day_chance_rain} 
 	day3_item={day3.day_chance_rain} day4_item={day4.day_chance_rain} day5_item={day5.day_chance_rain} />
 	
-	<MultiWeatherRowGeneral itemclass_mobile={wind_mobile} itemclass={wind} item_desc="mph" day1_item={day1.day_wind_mph} day2_item={day2.day_wind_mph} 
+	<MultiWeatherRowGeneral rowclass="weather_row wind_row" itemclass_mobile={wind_mobile} itemclass={wind} item_desc="mph" day1_item={day1.day_wind_mph} day2_item={day2.day_wind_mph} 
 	day3_item={day3.day_wind_mph} day4_item={day4.day_wind_mph} day5_item={day5.day_wind_mph} />
  
 

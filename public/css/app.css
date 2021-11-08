@@ -14708,6 +14708,17 @@ h3 {
 .weather_data .today_tonight_temp {
   font-size: 1.6em;
 }
+.weather_data .weather_row {
+  /*        span {
+             font-weight:600; 
+          }*/
+}
+.weather_data .temp_high_row span {
+  color: darkred;
+}
+.weather_data .temp_low_row span {
+  color: darkblue;
+}
 
 /* Covid Stats | START */
 .cstats_headline .info_colour {
