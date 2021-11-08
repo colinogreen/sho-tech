@@ -31,7 +31,7 @@
       </li> */?>
     </ul>
   </div>
-  <div class="card-body">
+  <div class="card-body card-body-showcase">
     <div class="container">  
     @hassection('page_title')
         @yield('page_title')
@@ -39,7 +39,7 @@
     
     @if(env('APP_DEBUG'))
     
-    <p style="font-weight:bold; font-style:italic; color:orangered">Warning: App debug is on!<br>Laravel v.{{app()->version()}}</p>
+    <p style="font-weight:bold; font-style:italic; color:orangered"><br>Laravel v.{{app()->version()}}</p>
     @endif
     @hassection('page_content')
         @yield("page_content") 

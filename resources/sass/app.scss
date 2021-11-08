@@ -32,6 +32,9 @@
 	word-wrap: normal; // override bootstrap .card default of 'break-word'
 }
 
+.card-body-showcase {
+    padding: 0 1.25rem
+}
 .stats_row{
     .card {
         height:95%; // Equalise column heights on charts display rows for now, subject to better resolution.
@@ -48,8 +51,8 @@
 
 
     i{
-            font-size: 1.3em;
-            color: #808080;		
+        font-size: 1.3em;
+        color: #808080;		
     }
     .fa-sun,{
         color:#b3b300
@@ -65,20 +68,24 @@
     }		
     .weather_row_top{
 
-            i{
-                    font-size: 2em;
+        i{
+                font-size: 2em;
+        }
+       @include media-breakpoint-down(sm) { 
+            .col-2
+            {
+                font-size:0.8em
             }
+       }
 
     }    
-    
-		
+    		
     .fa-temperature-high {
-            color:red !important;
+        color:red !important;
 
     }
     .fa-temperature-low{
-            color:darkblue !important;
-
+        color:darkblue !important;
     }	
 
     .weather_data_today{
@@ -108,7 +115,7 @@
     }
     
     .weather_location_desc{
-        @include media-breakpoint-down(sm) { margin-top:10px }
+        @include media-breakpoint-down(sm) { margin-bottom:10px }
         /*margin-top:10px */
     }
     

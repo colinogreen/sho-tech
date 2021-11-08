@@ -14642,6 +14642,10 @@ h3 {
   word-wrap: normal;
 }
 
+.card-body-showcase {
+  padding: 0 1.25rem;
+}
+
 .stats_row .card {
   height: 95%;
 }
@@ -14671,6 +14675,11 @@ h3 {
 }
 .weather_data .weather_row_top i {
   font-size: 2em;
+}
+@media (max-width: 767.98px) {
+  .weather_data .weather_row_top .col-2 {
+    font-size: 0.8em;
+  }
 }
 .weather_data .fa-temperature-high {
   color: red !important;
@@ -14702,7 +14711,7 @@ h3 {
 }
 @media (max-width: 767.98px) {
   .weather_data .weather_location_desc {
-    margin-top: 10px;
+    margin-bottom: 10px;
   }
 }
 .weather_data .today_tonight_temp {
