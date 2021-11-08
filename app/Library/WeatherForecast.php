@@ -171,6 +171,11 @@ class WeatherForecast{
         return $this->data("dundee");
 
     }
+    /**
+     * Populate Data that is sent back to the API call
+     * @param string $city
+     * @return json_encoded data
+     */
     public function data(string $city)
     {
         $stdClass = $this->getCityLatitudeAndLongitude(strtolower($city));
@@ -181,11 +186,13 @@ class WeatherForecast{
 
         $data = new \stdClass;
         $data->api_query = new \stdClass;
+        //$data->api_query->city_label = trim(ucfirst($city));
+        $city_label = trim(ucfirst($city));
         $data->api_query->last_api_update = $cityWeather->getLastApiUpdate();
         $data->api_query->last_forecast_update = $cityWeather->getDailyForecastLastUpdate();
-        $data->api_query->location = $cityWeather->getLocation();
+        $data->api_query->location = stristr($cityWeather->getLocation(), $city) ? $cityWeather->getLocation(): $cityWeather->getLocation() . " ($city_label)";
         $data->api_query->message = $cityWeather->getErrorMessage();
-        //$data->api_query->location = "Feeblesticks";
+
         $data->api_query->day = [];
         
         if(!empty($data->api_query->message))

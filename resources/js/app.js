@@ -174,16 +174,13 @@ class WeatherData extends React.Component {
 
   }
   render() {
-
+      
 	if(this.state.data.api_query.message !== undefined && this.state.data.api_query.message !== null && this.state.data.api_query.message !== "")
 	{
-		// * Return the error and display nothing else...
-		//console.log("this.state.data.api_query.message contains:");
-		//console.log(this.state.data.api_query.message);
-		//console.log(this.state.data.api_query.message.length);
-		  const innerHtml = { __html: this.state.data.api_query.message }
 
-		return (
+            const innerHtml = { __html: this.state.data.api_query.message }
+
+            return (
 		     <div className="row">
          <div className="col-12 offset-md-2 col-md-8">
 			<h3>Error retrieving data</h3>
@@ -215,7 +212,7 @@ class WeatherData extends React.Component {
     const day5 = this.state.data.api_query.day[5];
 
 	//var extra_data_name = "placehold"; var extra_data;
-	var count = 0;
+	//var count = 0;
 	setInterval(function(){
 		var sec = new Date().getSeconds();
 
@@ -237,7 +234,6 @@ class WeatherData extends React.Component {
 		
 	}, 1000);    
 
-	// Removed style from top div | border:'2px solid #ccc', borderRadius: '8px'
     return (
              
       <div>
@@ -292,6 +288,7 @@ class WeatherData extends React.Component {
     );
 
   }
+  
   componentDidMount()
   {
 	this.fetch();// Get the data on the first load of the page.

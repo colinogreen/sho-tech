@@ -228,13 +228,14 @@ class GetWeatherData extends Command
             //exit("<pre>". print_r($response_data, true)."</pre>");
            
             $response_data['api_query_details'] = [];
+            //$response_data['api_query']['city_label'] = $this->getCachedDataName();
             $response_data['api_query']['last_update'] = date("Y-m-d H:i:s");
             //exit ("<p>".__CLASS__. "::".__FUNCTION__." Enter into cache (".$this->getCachedDataName().") - Debug \$response_data</p><pre>".print_r($response_data, true)."</pre>");
             $api_data = json_encode($response_data);
 
             
             Cache::put($this->getCachedDataName(), $api_data, self::getCacheLengthSeconds()); //3600 = 1 hour | 21600 = 6 hours
-            $msg = ($cache_empty)? "Note: Data was retrieved from the API as the data cache was empty at this time.": "Data was retrieved following a successful API query!";
+            //$msg = ($cache_empty)? "Note: Data was retrieved from the API as the data cache was empty at this time.": "Data was retrieved following a successful API query!";
             //\Log::debug(__CLASS__. "::".__FUNCTION__.$msg);
 
             return true;
