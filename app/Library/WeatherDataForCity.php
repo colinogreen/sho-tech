@@ -274,14 +274,16 @@ Final class WeatherDataForCity
     
     private function setDailyForecastParameters(array $timeseries):void
     {
+        $ofs = date("I"); //* Added Nov 2021: Set hour offset for if Daylight saving time on (1) or off (0)
         for($i = 0; $i < 8; $i++)
         {
 
-            if(isset($timeseries[$i]) && strtotime($timeseries[$i]->time) < strtotime("now -2 days 1 hour 1 second"))
+            if(isset($timeseries[$i]) && strtotime($timeseries[$i]->time) < strtotime("now -2 days $ofs hour 1 second"))
             {
                 // It takes a while, seemingly for Met office data to update after midnight due to UTC time;...
                 // ... so if the first day forecast in the array (usually previous day) becomes two days old at midnight, ...
-                // ... discard that entry, so that the next/current day forecast shows up at midnight, as expected.
+                // ... discard that entry, so that the next/current day forecast shows up at midnight (or early morning), as expected.
+                // Note: Current strtotime calc based on $ofs (offset) variable
                 continue;
             }
             else if(isset($timeseries[$i]))
