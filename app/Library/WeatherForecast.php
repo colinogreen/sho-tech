@@ -207,11 +207,14 @@ class WeatherForecast{
         {
             $data->api_query->day[$i] = new \stdClass;
             
-            $utcnextdaytimeminus7hours = !is_null($cityWeather->getDayDate(($i +1)))?strtotime($cityWeather->getDayDate($i +1)."- 7 hours"): "";
-            
-            // See if current day is within seven hours of the Met Office next day start time. If so, show night time weather symbol.
-            if($i === 1 && strtotime("now")> $utcnextdaytimeminus7hours)
+            //$utcnextdaytimeminus7hours = !is_null($cityWeather->getDayDate(($i +1)))?strtotime($cityWeather->getDayDate($i +1)."- 7 hours"): "";
+
+            // See if current day has reached what is a designated evening time (depending on Daylight savings, etc.). If so, show night time weather symbol.
+            //$debug_date = "Y-m-d 23:44:00"; if($i === 1 && $this->isEveningTime($debug_date))
+            if($i === 1 && $this->isEveningTime(date("Y-m-d H:i:s")))
             {
+//                \Log::debug("** strtotime(date(\$debug_date)) time:". date("Y-m-d H:i:s", strtotime(date($debug_date))) ." - \$utcnextdaytimeminus7hours time:". date("Y-m-d H:i:s", $utcnextdaytimeminus7hours) 
+//                . " - strtotime(\$cityWeather->getDayDate(\$i +1)): ".date("Y-m-d H:i:s", strtotime($cityWeather->getDayDate($i +1))). " for getDayDate: ". $cityWeather->getDayDate($i +1) );
                 $data->api_query->day[$i]->day_weather_desc = $cityWeather->getNightSignificantWeatherDesc($i);
                 $data->api_query->day[$i]->day_weather_icon = $cityWeather->getNightSignificantWeatherIcon($i);
                 $data->api_query->day[$i]->day_period_temp = $cityWeather->getDayLowestTemp($i);
@@ -222,6 +225,7 @@ class WeatherForecast{
             }
             else 
             {
+;
                 $data->api_query->day[$i]->day_weather_desc = $cityWeather->getDaySignificantWeatherDesc($i);
                 $data->api_query->day[$i]->day_weather_icon = $cityWeather->getDaySignificantWeatherIcon($i);
                 $data->api_query->day[$i]->day_period_temp = $cityWeather->getDayHighestTemp($i);
@@ -240,5 +244,17 @@ class WeatherForecast{
             $data->api_query->day[$i]->min_feels_like_temp = $cityWeather->getNightMinFeelsLikeTemp($i);
         }
         return json_encode($data);
+    }
+    /**
+     * Check if evening time symbols should be shown
+     * Between 17:00 and 01:00 (18:00 and 01:00 during Daylight saving)
+     * @param type $date_time
+     * @return bool
+     */
+    private function isEveningTime($date_time):bool
+    {
+        $hour_plus_offset = (17 + date("I")); // 17:00 hrs + Any daylight saving time in operation (date("I") = 1 or 0). Counting 17:00 as evening time in darker months 
+        return date("H",strtotime(date($date_time)))>= $hour_plus_offset ? true: false;       
+        //return date("H",strtotime(date($date_time)))>= $hour_plus_offset ||date("H",strtotime(date($date_time))) === "00" ? true: false;       
     }
 }
