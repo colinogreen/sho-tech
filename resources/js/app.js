@@ -52,7 +52,7 @@ class TodayWeatherRows extends React.Component {
         <div className="col-auto">
             <div className="row" >      
 		<div className="col-12 col-sm-auto order-sm-first main_icon">
-		<h3 className="d-block d-sm-none">Today</h3>
+		<h3 className="d-block d-sm-none">{this.props.day_period}</h3>
 		<i className={this.props.weather_icon}></i>
 		<p className="text-sm-center">{this.props.weather_desc}</p>
 		</div>  
