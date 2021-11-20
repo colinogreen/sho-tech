@@ -22,25 +22,20 @@ Final class WeatherDataForCity
     private $location = "unknown location";
     private $lastApiUpdate;
     
-    //private $dailyForecastDisplay = [];
-    
     private $lastUpdate = "N/A";
     
     private $errorMessage;
     
-    //private $data_name = "api_weather_data";
-    
     public function __construct($data)
     {
         $this->setData($data);
-    }
-    
+    }    
     
     private function setData($api_data):void
     {
-        //$api_data = $this->getCachedData();
+
         $data = json_decode($api_data);
-        //exit(__CLASS__. "::".__FUNCTION__. " - Error: ". print_r($data->_embedded->errors, true));
+
         $errors = [];
         // Display error message(s) if the _embedded errors json value was set in the json data retrieved from the api
         if(isset($data->_embedded->errors) && count($data->_embedded->errors)>0)
@@ -50,14 +45,12 @@ Final class WeatherDataForCity
             {
                 $errors[] = $err->message;
             }
-            
-            //$this->setErrorMessage(implode("<br />", $errors));
+
         }
 
         // if no errors, the features json branch will be set hopefully with correct data.
         else if(isset($data->features))
         {
-            //$feature_errors = 0;
             if(isset($data->features[0]) && isset($data->features[0]->properties->timeSeries))
             {
                 $this->setDailyForecastParameters($data->features[0]->properties->timeSeries);
@@ -91,7 +84,6 @@ Final class WeatherDataForCity
         {            
             $this->setErrorMessage(implode("<br />", $errors));
         }
-
     }
     
     
@@ -130,7 +122,6 @@ Final class WeatherDataForCity
         {
             $this->lastApiUpdate = $data->api_query->last_update;
         }
-
     }
     /**
      * 
@@ -163,10 +154,12 @@ Final class WeatherDataForCity
             "Heavy rain","Sleet shower (night)","Sleet shower (day)","Sleet","Hail shower (night)","Hail shower (day)","Hail","Light snow shower (night)", //23
             "Light snow shower (day)","Light snow","Heavy snow shower (night)","Heavy snow shower (day)","Heavy snow","Thunder shower (night)","Thunder shower (day)","Thunder", "unknown"]; //32 Items
     }
+    
     public function setCachedData(string $result)
     {
         return file_put_contents($this->dataFilePath(), $result);
     }
+    
     public function getCachedData()
     {
         if(file_exists($this->dataFilePath()))
@@ -201,20 +194,21 @@ Final class WeatherDataForCity
         if(isset($this->dayDate[$date]))
         {
             return $this->dayDate[$date];
-        }
-        
-        return null;
-        
+        }       
+        return null;       
     }
+    
     private function setDaySignificantWeatherDesc(string $code)
     {
         //\Log::debug("Debug Attempt to set setDaySignificantWeatherDesc ". count($this->getDayWeatherLabel()));
         $this->dayWeatherDesc[] = $this->getDayWeatherLabel()[$code];
     }
+    
     private function setDaySignificantWeatherIcon(string $icon)
     {
         $this->dayWeatherIcon[] = $this->getDayWeatherIcon()[$icon];
     }
+    
     public function getDaySignificantWeatherDesc($code)
     {
         return $this->dayWeatherDesc[$code];
@@ -229,10 +223,12 @@ Final class WeatherDataForCity
     {
         $this->nightWeatherDesc[] = $this->getDayWeatherLabel()[$code];
     }
+    
     private function setNightSignificantWeatherIcon(string $icon)
     {
         $this->nightWeatherIcon[] = $this->getDayWeatherIcon()[$icon];
     }
+    
     public function getNightSignificantWeatherDesc($code)
     {
         return $this->nightWeatherDesc[$code];
@@ -242,6 +238,7 @@ Final class WeatherDataForCity
     {
         return $this->nightWeatherIcon[$code];
     }
+    
     private function setDayMaxUvIndex(string $maxUvIndex)
     {
         $this->maxUvIndex[] = $maxUvIndex;
@@ -277,7 +274,6 @@ Final class WeatherDataForCity
         $ofs = date("I"); //* Added Nov 2021: Set hour offset for if Daylight saving time on (1) or off (0)
         for($i = 0; $i < 8; $i++)
         {
-
             if(isset($timeseries[$i]) && strtotime($timeseries[$i]->time) < strtotime("now -2 days $ofs hour 1 second"))
             {
                 // It takes a while, seemingly for Met office data to update after midnight due to UTC time;...
@@ -300,9 +296,9 @@ Final class WeatherDataForCity
                 $this->setNightSignificantWeatherIcon($nightSignificantWeatherCode);
                 $dayMaxScreenTemperature = isset($timeseries[$i]->dayMaxScreenTemperature)? $timeseries[$i]->dayMaxScreenTemperature: 0;
                 $this->setDayHighestTemp(round($dayMaxScreenTemperature));
-                //$this->setDayHighestTemp(round($timeseries[$i]->dayUpperBoundMaxTemp));
+
                 $this->setDayLowestTemp(round($timeseries[$i]->nightMinScreenTemperature));
-                //$this->setDayLowestTemp(round($timeseries[$i]->nightLowerBoundMinTemp));
+
                 $dayProbabilityOfPrecipitation = isset($timeseries[$i]->dayProbabilityOfPrecipitation)? $timeseries[$i]->dayProbabilityOfPrecipitation: 0;
                 $this->setDayChanceOfRain(round($dayProbabilityOfPrecipitation));
                 
@@ -316,7 +312,6 @@ Final class WeatherDataForCity
                 $midday10MWindSpeed = isset($timeseries[$i]->midday10MWindSpeed)? round($this->convertWindSpeed10msToMph($timeseries[$i]->midday10MWindSpeed)): 0;                
                 $this->setDayWindSpeed($midday10MWindSpeed);                
             }
-
         }
     }
 
@@ -333,8 +328,7 @@ Final class WeatherDataForCity
 
         return ($windspeed / $met_per_sec_in_mph);
     }
-
-    
+   
     private function setDayOfWeek(string $date):void
     {
         $this->dayOfWeek[] = date("D", strtotime($date));
@@ -343,7 +337,8 @@ Final class WeatherDataForCity
     public function getDayOfWeek($day):?string
     {
         return $this->dayOfWeek[$day];
-    }    
+    }
+    
     private function setDayHighestTemp(string $data):void
     {
         $this->dayHighestTemp[] = $data;
@@ -363,6 +358,7 @@ Final class WeatherDataForCity
     {
         return $this->dayLowestTemp[$day];
     }
+    
     private function setDayChanceOfRain(string $data):void
     {
         $this->dayChanceRain[] = $data;
@@ -371,7 +367,8 @@ Final class WeatherDataForCity
     public function getDayChanceOfRain($day):?string
     {
         return $this->dayChanceRain[$day];
-    }    
+    }
+    
     private function setDayWindSpeed(string $data):void
     {
         $this->dayWindSpeed[] = $data;
