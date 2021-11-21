@@ -318,7 +318,7 @@ $bodyid = "page-top";
                     <div class="row stats_row">
 
                         <!-- Area Chart -->
-                        <div id="cases-in-uk" class="in_page_link col-xl-6 col-lg-5">
+                        <div id="covid-cases-in-uk" class="in_page_link col-xl-6 col-lg-5">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -346,12 +346,12 @@ $bodyid = "page-top";
                             </div>
                         </div>
                     <!-- Graph Cases per day Chart -->
-                        <div id="cases--last-7-days" class="in_page_link col-xl-3 col-lg-4">
+                        <div id="covid-cases-in-last-seven-days" class="in_page_link col-xl-3 col-lg-4">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Cases - Last 7 days</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Covid Cases - Last Seven Days</h6>
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -378,12 +378,12 @@ $bodyid = "page-top";
                         </div>
   
 						<!-- Graph Cases Average trend -->
-                        <div id="average-cases-weekly" class="in_page_link col-xl-3 col-lg-3">
+                        <div id="average-weekly-cases-trend" class="in_page_link col-xl-3 col-lg-3">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Average Weekly Cases trend</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Average Weekly Cases Trend</h6>
                                     
                                    
                                     <div class="dropdown no-arrow">
@@ -450,12 +450,12 @@ $bodyid = "page-top";
                             </div>
                         </div>
                         <!-- Bar Chart -->
-                        <div id="expired-seven-days" class="in_page_link col-xl-3 col-lg-4">
+                        <div id="covid-deaths-in-last-seven-days" class="in_page_link col-xl-3 col-lg-4">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Covid Deaths - Last seven days</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Covid Deaths - Last Seven Days</h6>
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -481,7 +481,7 @@ $bodyid = "page-top";
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Average Weekly Deaths trend</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Average Weekly Deaths Trend</h6>
 
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -520,12 +520,12 @@ $bodyid = "page-top";
                     <!-- Content Row -->
                     <div class="row">
                          <!-- Bar Chart -->
-                        <div id="cases-per-month" class="in_page_link col-xl-5 col-lg-6">
+                        <div id="total-cases-per-month" class="in_page_link col-xl-5 col-lg-6">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Total cases per month (previous six months)</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Total Cases Per Month (last six)</h6>
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
