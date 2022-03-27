@@ -75,7 +75,7 @@
         <h1 class="fw-light">Technohelp</h1>
         <p class="lead text-muted">Useful applications for the 21st Century.</p>
         <p>
-          <a href="/" class="btn btn-primary my-2">Original Menu</a>
+          <a href="{{ route('showcaseindex') }}" class="btn btn-primary my-2">Original Menu</a>
           <a href="#" class="btn btn-secondary my-2">Secondary action</a>
         </p>
       </div>
@@ -94,7 +94,7 @@
               <p class="card-text">Weather forecasts for various cities in the UK</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-outline-secondary"><a href="/weather">View</a></button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary"><a href="{{ route('weatherindex') }}">View</a></button>
                   <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
                 </div>
                 <small class="text-muted">9 mins</small>
@@ -110,7 +110,7 @@
               <p class="card-text">UK Covid infection rates and mortality rates updated on a schedule during weekdays.</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary"><a href="/cstats">View</a></button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary"><a href="{{ route("cstats_index") }}">View</a></button>
                   <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
                 </div>
                 <small class="text-muted">9 mins</small>
