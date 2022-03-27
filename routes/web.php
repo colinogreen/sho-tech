@@ -33,6 +33,9 @@ Route::get('cstats', function ()
     return view("cstats_index");
 })->name("cstats_index");
 
+route::get('index-new', function(){
+    return view('album.index');
+})->name('index_new');
 //Route::get('/{city}', [WeatherFivedayForecast::class, 'myGreeting']);
 Route::get('weather/{city}', [Showcase::class, 'indexWeatherWithCity']);
 Route::get('weather', [Showcase::class, 'indexWeather'])->name("weatherindex");
