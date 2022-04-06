@@ -100,8 +100,12 @@ if(!isset($apps)){
 
         <div class="col">
           <div class="card shadow-sm">
-
+             @if(isset($app->image) && !empty($app->image))
             <img src="/img/{{ $app->image }}" />
+            @else
+             <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+             <title>Coming Soon</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Other Content to appear here</text></svg> 
+            @endif
             <div class="card-body">
               <p class="card-text">{{ $app->description }}</p>
               <div class="d-flex justify-content-between align-items-center">
