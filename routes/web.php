@@ -33,15 +33,17 @@ Route::get('cstats', function ()
     return view("cstats_index");
 })->name("cstats_index");
 
-route::get('index-new', function(){
-    return view('album.index');
-})->name('index_new');
-//Route::get('/{city}', [WeatherFivedayForecast::class, 'myGreeting']);
+
+Route::get('index-new', [Showcase::class, 'indexNew']);
+//route::get('index-new', function(){
+//    return view('album.index');
+//})->name('index_new');
+
 Route::get('weather/{city}', [Showcase::class, 'indexWeatherWithCity']);
+
 Route::get('weather', [Showcase::class, 'indexWeather'])->name("weatherindex");
 
 Route::get('covidstatsuk', [Showcase::class, 'covidStatsUk'])->name("covidstatsukindex");
-//Route::get('cvstats', [Showcase::class, 'cvStatsUK'])->name("cvd_stats");
 
 // * Calls the cms API endpoint for stats data, retrieving a secret Bearer token for authentication outside of this folder structure.
 Route::post('cvstats', [Showcase::class, 'cvStatsUK'])->name("cvd_stats"); //->middleware('auth');

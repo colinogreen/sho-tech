@@ -1,3 +1,5 @@
+/resources/views/album/*.jpg
+/public/img/covid_1.jpg
 /app/Data
 /node_modules
 /public/hot
