@@ -7,6 +7,8 @@ if(!isset($apps)){
     $std->description = "Testing \stdClass supply";
      $apps[] = $std;
 }
+$offset_md = 2;
+$cols_md = isset($cols_md)? " col-md-". $cols_md ." ": " col-md-5 ";
 @endphp
 <!doctype html>
 <html lang="en">
@@ -67,8 +69,9 @@ if(!isset($apps)){
   <div class="navbar navbar-dark bg-dark shadow-sm">
     <div class="container">
       <a href="{{ route("showcaseindex") }}" class="navbar-brand d-flex align-items-center">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+    <img src="/img/technohelp1.svg" width="20" height="20" /> 
         &#160;<strong>Technohelp</strong>
+
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -98,7 +101,7 @@ if(!isset($apps)){
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
     @foreach($apps as $app)
 
-        <div class="col">
+        <div class="col{{$app->col_class}}">
           <div class="card shadow-sm">
              @if(isset($app->image) && !empty($app->image))
             <img src="/img/{{ $app->image }}" />
