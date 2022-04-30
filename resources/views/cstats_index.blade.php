@@ -25,7 +25,7 @@ $bodyid = "page-top";
             <hr class="sidebar-divider my-0">
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="{{ route("showcaseindex") }}">
+                <a class="nav-link" href="{{ route("site_index") }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Home</span></a>
             </li>

@@ -19,7 +19,8 @@ use App\Http\Controllers\Controller;
 //    return view('welcome');
 //});
 
-Route::get('/', [Showcase::class, 'index'])->name("showcaseindex");
+Route::get('/index-old', [Showcase::class, 'indexOld'])->name("site_index_old");
+Route::get('/', [Showcase::class, 'index'])->name("site_index");
 
 Route::get('/greeting', function () {
     return 'Hello World';
@@ -34,7 +35,7 @@ Route::get('cstats', function ()
 })->name("cstats_index");
 
 
-Route::get('index-new', [Showcase::class, 'indexNew']);
+
 //route::get('index-new', function(){
 //    return view('album.index');
 //})->name('index_new');

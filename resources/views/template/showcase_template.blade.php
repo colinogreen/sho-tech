@@ -16,7 +16,7 @@
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
-        <a class="nav-link{{ isset($homelink_active)? " active": "" }}" href="{{ route('showcaseindex') }}">Home</a>
+        <a class="nav-link{{ isset($homelink_active)? " active": "" }}" href="{{ route('site_index') }}">Home</a>
       </li>
       <li class="nav-item">
         <a class="nav-link{{ isset($weatherlink_active)? " active": "" }}" href="{{ route('weatherindex') }}">Weather Data</a>

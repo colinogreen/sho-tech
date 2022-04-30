@@ -68,7 +68,7 @@ $cols_md = isset($cols_md)? " col-md-". $cols_md ." ": " col-md-5 ";
   </div>
   <div class="navbar navbar-dark bg-dark shadow-sm">
     <div class="container">
-      <a href="{{ route("showcaseindex") }}" class="navbar-brand d-flex align-items-center">
+      <a href="{{ route("site_index") }}" class="navbar-brand d-flex align-items-center">
     <img src="/img/technohelp1.svg" width="20" height="20" /> 
         &#160;<strong>Technohelp</strong>
 
@@ -88,8 +88,8 @@ $cols_md = isset($cols_md)? " col-md-". $cols_md ." ": " col-md-5 ";
         <h1 class="fw-light">Technohelp</h1>
         <p class="lead text-muted">Useful applications for the 21st Century.</p>
         <p>
-          <a href="{{ route('showcaseindex') }}" class="btn btn-primary my-2">Original Menu</a>
-          <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+          <a href="{{ route('site_index_old') }}" class="btn btn-primary my-2">Original Menu</a>
+          <?php //<a href="#" class="btn btn-secondary my-2">Secondary action</a> ?>
         </p>
       </div>
     </div>

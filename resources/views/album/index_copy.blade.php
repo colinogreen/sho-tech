@@ -75,7 +75,7 @@
         <h1 class="fw-light">Technohelp</h1>
         <p class="lead text-muted">Useful applications for the 21st Century.</p>
         <p>
-          <a href="{{ route('showcaseindex') }}" class="btn btn-primary my-2">Original Menu</a>
+          <a href="{{ route('site_index') }}" class="btn btn-primary my-2">Original Menu</a>
           <a href="#" class="btn btn-secondary my-2">Secondary action</a>
         </p>
       </div>

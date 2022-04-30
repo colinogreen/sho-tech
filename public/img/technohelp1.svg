@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -57,7 +56,7 @@
     </marker>
     <linearGradient
        id="linearGradient2817"
-       osb:paint="solid">
+       inkscape:swatch="solid">
       <stop
          style="stop-color:#b3b3b3;stop-opacity:1;"
          offset="0"
@@ -65,12 +64,24 @@
     </linearGradient>
     <linearGradient
        id="linearGradient871"
-       osb:paint="solid">
+       inkscape:swatch="solid">
       <stop
          style="stop-color:#b3b3b3;stop-opacity:1;"
          offset="0"
          id="stop869" />
     </linearGradient>
+    <font
+       horiz-adv-x="1024"
+       id="font866"
+       inkscape:label="font 0">
+      <font-face
+         units-per-em="1024"
+         id="font-face868"
+         font-family="SVGFont 0" />
+      <missing-glyph
+         d="M0,0h1000v1024h-1000z"
+         id="missing-glyph870" />
+    </font>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -80,17 +91,19 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.35"
-     inkscape:cx="-427.14286"
+     inkscape:cx="-1218.5714"
      inkscape:cy="558.57143"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
      showgrid="false"
-     inkscape:window-width="2097"
-     inkscape:window-height="994"
+     inkscape:window-width="2560"
+     inkscape:window-height="1002"
      inkscape:window-x="0"
      inkscape:window-y="27"
-     inkscape:window-maximized="0" />
+     inkscape:window-maximized="1"
+     inkscape:pagecheckerboard="0"
+     showguides="false" />
   <metadata
      id="metadata5">
     <rdf:RDF>
@@ -99,7 +112,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -119,24 +132,24 @@
          y="112.55695"
          style="stroke-width:0.264583" /></text>
     <ellipse
-       style="opacity:1;fill:#b3ffcc;fill-opacity:0;stroke:#b3ffcc;stroke-width:16;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="opacity:1;fill:#b3ffcc;fill-opacity:0;stroke:#ffffff;stroke-width:16.463;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="path44"
-       ry="91.311592"
-       rx="91.529617"
-       cy="106.03987"
-       cx="108.29123" />
+       ry="94.029716"
+       rx="94.106346"
+       cy="105.43562"
+       cx="105.48283" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:80.0367px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;inline-size:111.987;fill:#ccffdd;fill-opacity:1;stroke:none;stroke-width:0.264872;stroke-miterlimit:4;stroke-dasharray:none;"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:80.0367px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;inline-size:111.987;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.26458534;stroke-miterlimit:4;stroke-dasharray:none;"
        x="83.268631"
        y="134.31172"
        id="text3203"
-       transform="matrix(1.6699471,0,0,1.682636,-104.96391,-75.482768)"
-       inkscape:transform-center-x="8.7837938"
-       inkscape:transform-center-y="-5.1739644"><tspan
+       transform="matrix(1.836678,0,0,1.5749271,-117.14392,-65.217923)"
+       inkscape:transform-center-x="9.6607822"
+       inkscape:transform-center-y="-4.842768"><tspan
          x="83.268631"
          y="134.31172"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:80.0367px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ccffdd;fill-opacity:1">te</tspan></tspan></text>
+           style="fill:#ffffff;fill-opacity:1;stroke-width:0.264585;stroke-miterlimit:4;stroke-dasharray:none">te</tspan></tspan></text>
     <text
        xml:space="preserve"
        id="text3211"

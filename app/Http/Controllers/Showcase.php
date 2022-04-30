@@ -13,9 +13,9 @@ class Showcase extends Controller
     
     /**
      * Brand new Showcase and Technohelp method.
-     * This should replace index() method when completed
+     * This should replace indexOld() method when completed
      */
-    public function indexNew()
+    public function index()
     {
         // Add menu items for index page. [ ->indexItem(string $image, string $route, string $description)]
         $apps = [];
@@ -25,7 +25,7 @@ class Showcase extends Controller
 
         return view("album.index", ["apps"=> $apps]);
     }
-    public function index()
+    public function indexOld()
     {
         //self::logSiteVisit();
         return view("showcase_index", ["indexcontent"=>"general"]); // Send the class and it's data to the view for processing
