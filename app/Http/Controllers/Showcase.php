@@ -19,7 +19,7 @@ class Showcase extends Controller
     {
         // Add menu items for index page. [ ->indexItem(string $image, string $route, string $description)]
         $apps = [];
-        $apps[] = $this->indexItem("covid_1_225h.jpg", "cstats_index","UK Covid infection rates and mortality rates updated on a schedule during weekdays", " offset-md-2 col-md-5");
+        $apps[] = $this->indexItem("covid_2_225h.jpg", "cstats_index","UK Covid infection rates and mortality rates updated on a schedule during weekdays", " offset-md-2 col-md-5");
         $apps[] = $this->indexItem("weather_1_225h.jpg", "weatherindex","Weather forecasts for various cities in the UK", " col-md-5");
         //$apps[] = $this->indexItem("", "weatherindex","Content coming soon");
 
