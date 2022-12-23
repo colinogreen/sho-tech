@@ -109,7 +109,7 @@
             <img src="/img/covid_1_225h.jpg" />
             <div class="card-body">
                 
-              <p class="card-text">UK Covid infection rates and mortality rates updated on a schedule during weekdays.</p>
+              <p class="card-text">Covid infection and mortality rates for England; currently updated once a week from official data.</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   <button type="button" class="btn btn-sm btn-outline-secondary"><a href="{{ route("cstats_index") }}">View</a></button>
