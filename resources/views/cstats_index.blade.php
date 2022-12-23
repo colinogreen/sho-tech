@@ -18,22 +18,28 @@ $bodyid = "page-top";
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">UK Covid Stats</div>
+                <div class="sidebar-brand-text mx-3">Covid Stats - England</div>
             </a>
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
-            <!-- Nav Item - Dashboard -->
+            <!-- Nav Item - Homr -->
             <li class="nav-item">
                 <a class="nav-link" href="{{ route("site_index") }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Home</span></a>
             </li>
+            <!-- Nav Item - UK Weather index -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route("weatherindex") }}">
+                    <i class="fas fa-fw fa-cloud-sun-rain"></i>
+                    <span>UK Weather</span></a>
+            </li>
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
                 <a class="nav-link" href="{{ route("cstats_index") }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
+                    <span>Dashboard Home</span></a>
             </li>
             <?php /*
             <!-- Divider -->
@@ -176,7 +182,7 @@ $bodyid = "page-top";
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Covid Statistics for the UK</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Covid Statistics for the England</h1>
                         <p style="font-style:italic">Information provided by <a href="https://coronavirus.data.gov.uk" target="_blank">https://coronavirus.data.gov.uk</a></p>
                        <?php /* <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> */ ?>
