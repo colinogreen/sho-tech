@@ -208,18 +208,31 @@ class GetWeatherData extends Command
     private function getDataFromApi(bool $cache_empty)
     {
         
-        $api_cred = $this->getAPICredentials();
+         $api_cred = $this->getAPICredentials();
+         
+        // $response = Http::acceptJson()->withHeaders([
+        // 'X-IBM-Client-Id' => $api_cred['X-IBM-Client-Id'],
+        // 'X-IBM-Client-Secret' => $api_cred['X-IBM-Client-Secret']
+        // ])->get("https://api-metoffice.apiconnect.ibmcloud.com/metoffice/production/v0/forecasts/point/daily", [
+        //     'includeLocationName' => 'true',
+        //     'excludeParameterMetadata' => 'true', 
+
+        //     'latitude' => $this->getLatitude(),
+        //     'longitude' => $this->getLongitude(), 
+        // ]);
+
+        // 2024-04 NEW API: https://data.hub.api.metoffice.gov.uk/sitespecific/v0/point/daily
+
         $response = Http::acceptJson()->withHeaders([
-        'X-IBM-Client-Id' => $api_cred['X-IBM-Client-Id'],
-        'X-IBM-Client-Secret' => $api_cred['X-IBM-Client-Secret']
-        ])->get("https://api-metoffice.apiconnect.ibmcloud.com/metoffice/production/v0/forecasts/point/daily", [
+            'apikey' => $api_cred['apikey'],
+            // 'X-IBM-Client-Secret' => $api_cred['X-IBM-Client-Secret']
+        ])->get("https://data.hub.api.metoffice.gov.uk/sitespecific/v0/point/daily", [
             'includeLocationName' => 'true',
             'excludeParameterMetadata' => 'true', 
 
             'latitude' => $this->getLatitude(),
             'longitude' => $this->getLongitude(), 
         ]);
-
         // https://latitudelongitude.org
 
         if(!empty($response->json()))
