@@ -35,7 +35,7 @@
     
     <div class="row" style="">
       <div class="col-12 col-sm-offset-2 col-sm-8">
-        <h5 class="card-title">UK Five Day Weather</h5>
+        <h5 class="card-title">UK Five Day Weather Forecast</h5>
         <h6 class="card-subtitle mb-2 text-muted">View weather data for the following areas</h6>
 
              @foreach($weather_links as $wl)
