@@ -26,6 +26,13 @@ Route::get('/greeting', function () {
     return 'Hello World';
 });
 
+// May 2024 - Get Software version
+Route::get('ccm-soft-ver', 
+function()
+{ 
+    return view("ccm-software-version");
+});
+
 //** sb-admin-2 based bootstrap template view
 Route::get('cstats', function () 
 {
