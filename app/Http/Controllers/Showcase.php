@@ -73,11 +73,11 @@ class Showcase extends Controller
         if($wwwpath === "/var/www/html")
         {
             $api_token_file = "api_token_test";
-            $url = "http://cms.technohelp.vm2/api/getcovidstatsfull";            
+            $url = "http://cms-2018.technohelp.vm2/api/getcovidstatsfull";            
         }
         else
         {
-            $url = "https://cms.technohelp.uk/api/getcovidstatsfull"; 
+            $url = "https://cms-2018.technohelp.uk/api/getcovidstatsfull"; 
         }   
         $token = str_ireplace("api_token=", "",file_get_contents("$wwwpath/connect/$api_token_file.ini")); 
         $response = Http::withHeaders([
